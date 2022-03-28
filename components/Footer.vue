@@ -127,6 +127,125 @@
         </b-row>
       </b-container>
     </b-navbar>
+
+    <b-container
+      fluid="lg"
+      style="
+        margin-top: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 30px;
+        padding-bottom: 20px;
+      "
+    >
+      <b-row>
+        <b-col
+          cols="4"
+          style="
+            display: flex;
+            justify-content: left;
+            flex-direction: column;
+            align-items: flex-start;
+          "
+        >
+          <b-img
+            src="~/assets/Logo.png"
+            alt="Image"
+            style="margin: 5px"
+          ></b-img>
+          <div style="display: flex; justify-content: left; padding-top: 20px">
+            Many say exploration is part of our dest but it’s actually our duty
+            to future and their.
+          </div>
+          <div style="display: flex; justify-content: left; padding-top: 10px">
+            Address: 868 Fake Street, New York
+          </div>
+          <div style="display: flex; justify-content: left; padding-top: 10px">
+            Phone: (08) 08 4752 1499
+          </div>
+          <div style="display: flex; justify-content: left; padding-top: 10px">
+            Email: info@supermart.com
+          </div>
+        </b-col>
+        <b-col
+          cols="2"
+          style="
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: flex-start;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: left;
+              font-weight: 500;
+              min-height: 70px;
+              align-items: center;
+            "
+          >
+            COMPANY
+          </div>
+          <div style="">Discount Vouches</div>
+          <div style="">Spring Collection</div>
+          <div style="">Trending</div>
+          <div style="">Best Sellers</div>
+          <div style="">Special Deals</div>
+        </b-col>
+        <b-col
+          cols="2"
+          style="
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: flex-start;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: left;
+              font-weight: 500;
+
+              min-height: 70px;
+              align-items: center;
+            "
+          >
+            POLICY INFO
+          </div>
+          <div style="">Orders & Returns</div>
+          <div style="">Help & FAQs</div>
+          <div style="">Store Locations</div>
+        </b-col>
+        <b-col
+          cols="2"
+          style="
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: flex-start;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: flex-start;
+              font-weight: 500;
+
+              min-height: 70px;
+              align-items: center;
+            "
+          >
+            MY ACCOUNT
+          </div>
+          <div style="">About Us</div>
+          <div style="">Delivery Information</div>
+          <div style="">Privacy Policy</div>
+          <div style="">Terms & Conditions</div>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 

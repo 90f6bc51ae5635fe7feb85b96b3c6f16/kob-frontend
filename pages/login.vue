@@ -59,7 +59,7 @@ export default {
       console.log('payload', payload)
       try {
         await this.$auth.loginWith('local', payload)
-        this.$router.push('/')
+        this.$router.push('/home')
       } catch (error) {
         this.error = error
       }

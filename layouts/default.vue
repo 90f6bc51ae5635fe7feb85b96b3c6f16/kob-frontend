@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <b-container fluid="lg">
+    <b-container fluid="lg" class="no-gutters" style="margin:auto;">
       <Nuxt />
     </b-container>
     <Footer />
