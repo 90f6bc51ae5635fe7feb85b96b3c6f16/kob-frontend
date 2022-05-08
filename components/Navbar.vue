@@ -73,7 +73,7 @@
               </a>
             </b-nav-item>
             <b-nav-item style="color: #fff" href="/home">หน้าหลัก</b-nav-item>
-            <b-nav-item style="color: #fff" href="/home"
+            <b-nav-item style="color: #fff" href="/product"
               >รายการสินค้า</b-nav-item
             >
             <b-nav-item style="color: #fff" href="/home"

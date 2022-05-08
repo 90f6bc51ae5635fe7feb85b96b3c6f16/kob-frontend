@@ -160,131 +160,28 @@
         </ul>
       </b-col>
       <b-col cols="" style="display: flex; flex-wrap: wrap">
-        <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-        <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-        <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-        <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-        <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
-        </b-col>
-                <b-col class="card-product" cols="3">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <div class="product-name">Cillcips Air Purifier A215</div>
-          <div class="product-price">$124.00</div>
+        <b-col class="card-product" cols="3" v-for="i in 20" :key="i">
+          <nuxt-link :to="{ path: `/product/detail` }">
+            <b-card-img
+              :src="`https://placeimg.com/480/480/any?${i}`"
+              alt="Image"
+              class="rounded-0"
+            ></b-card-img>
+            <div class="product-name">Cillcips Air Purifier A215</div>
+            <div class="product-price">$124.00</div>
+            <div class="left">
+              <div class="text">
+                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+              </div>
+            </div>
+            <div class="right">
+              <div class="text">
+                <font-awesome-icon
+                  :icon="['fa', 'cart-plus']"
+                  style="color: #000"
+                />
+              </div></div
+          ></nuxt-link>
         </b-col>
       </b-col>
     </b-row>
@@ -316,6 +213,51 @@ export default {
 };
 </script>
 <style scoped>
+.left {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 67.5%;
+  right: 50%;
+  /* transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%); */
+  text-align: center;
+}
+.right {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 67.5%;
+  left: 50%;
+  /* transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%); */
+  text-align: center;
+}
+.left:hover .text {
+  background-color: green;
+}
+.right:hover .text {
+  background-color: green;
+}
+.card-product:hover .image {
+  opacity: 0.3;
+}
+
+.card-product:hover .left {
+  opacity: 1;
+  background-color: green;
+}
+.card-product:hover .right {
+  opacity: 1;
+  background-color: green;
+}
+
+.text {
+  background-color: white;
+  color: white;
+  font-size: 16px;
+  padding: 5px 42px;
+}
 div {
   font-family: "Kanit";
 }
