@@ -20,7 +20,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       , {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css?family=Kanit:400,300&subset=thai,latin",
+        href: "/favicon.ico",
       },
     ],
   },
@@ -32,10 +32,10 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{
-    src: '~/plugins/slick', mode: 'client'
-  },
-  { src: './plugins/vue-agile.js', mode: 'client' } 
+  plugins: [
+    { src: '~/plugins/slick', mode: 'client'},
+    { src: './plugins/vue-agile.js', mode: 'client' },
+    { src: '~/plugins/rating.js', mode: 'client' },
 ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -45,7 +45,7 @@ export default {
   buildModules: [
     '@nuxtjs/google-fonts',
     '@nuxtjs/fontawesome',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -66,6 +66,7 @@ export default {
       brands: true
     }
   },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     analyze: true,
@@ -82,5 +83,7 @@ export default {
       ],
       plugins: ['@babel/transform-runtime']
     }
-  }
+  },
+
+
 }
