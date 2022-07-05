@@ -12,7 +12,7 @@
                 <b-form-input style="height: 100%;"></b-form-input>
 
                 <template #append>
-                    <b-dropdown  text="หมวดหมู่สินค้า" variant="outline-secondary">
+                    <b-dropdown text="หมวดหมู่สินค้า" variant="outline-secondary">
                         <b-dropdown-item>Action C</b-dropdown-item>
                         <b-dropdown-item>Action D</b-dropdown-item>
                     </b-dropdown>
@@ -24,9 +24,17 @@
                         /
                         <b-link href="#foo" style="color: #8d8d8d;">สมัครสมาชิค</b-link>
                     </div>
-                    <b-input-group-text style="background-color: #fff">
-                        <font-awesome-icon :icon="['fas', 'lock']" />
-                    </b-input-group-text>
+                    <div style="margin: -10px 0 -10px 0;">
+                        <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none" style="margin: 9.59px 0 0 0;height: 40px; width: ; border:1px solid #ccc; border-radius: 3px;" no-caret>
+                            <template #button-content style="height: 20px; width: 20px; ">
+                                <font-awesome-icon :icon="['fas', 'lock']" style="height: 15px; width: 15px; margin: -1px 0 9px 0;" />
+                            </template>
+                            <b-dropdown-item href="#">Action</b-dropdown-item>
+                            <b-dropdown-item href="#">Another action</b-dropdown-item>
+                            <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+                            <p style="text-align:center;">Hello</p>
+                        </b-dropdown>
+                    </div>
                 </template>
             </b-input-group>
         </b-row>
@@ -91,6 +99,7 @@ export default {
 </script>
 
 import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap');
+
 <style scoped>
 .navbar-dark {
     color: #fff;
@@ -105,7 +114,7 @@ a {
 }
 
 .login-user {
-    margin-top: 5px;
+    margin-top: 7px;
     margin-bottom: px;
     margin-right: 10px;
     margin-left: 20px;
@@ -117,7 +126,8 @@ a {
     /* padding-left: 2em;
     padding-top: 0.3em; */
 }
-.font-navbar{
-  font-family: 'Kanit', sans-serif;
+
+.font-navbar {
+    font-family: 'Kanit', sans-serif;
 }
 </style>

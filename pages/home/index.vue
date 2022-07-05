@@ -669,7 +669,7 @@ ul {
 }
 
 #example-collapse {
-    padding-right: 2px;
+    padding-right: 1.5px;
 }
 
 li a {
