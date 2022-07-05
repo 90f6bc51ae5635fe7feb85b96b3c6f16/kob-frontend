@@ -50,7 +50,8 @@
                 </button>
                 <button @click="$refs.carousel.goToNext()" class="btn" style="border:1px solid #C0C0C0;">
                     <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #000" />
-                </button></div>
+                </button>
+            </div>
         </b-col>
     </b-row>
     <b-row>

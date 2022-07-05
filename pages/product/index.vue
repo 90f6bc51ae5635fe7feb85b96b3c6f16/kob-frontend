@@ -236,7 +236,8 @@ export default {
 }
 
 .card-product:hover {
-    border: 1.5px solid #669999;
+    box-shadow: 0 0 20px rgba(33, 33, 33, .5);
+    border: 1px solid #ccc;
     border-style: outset;
 }
 
@@ -248,14 +249,14 @@ style .card-product:hover .image {
     opacity: 1;
     background-color: green;
     width: 50%;
-    border:1px solid #EAECEE;
+    border: 1px solid #EAECEE;
 }
 
 .card-product:hover .right {
     opacity: 1;
     background-color: green;
     width: 50%;
-    border:1px solid #EAECEE;
+    border: 1px solid #EAECEE;
 }
 
 .text {
