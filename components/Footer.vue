@@ -1,29 +1,29 @@
 <template>
-<div>
-    <b-container fluid="lg" style="
-        margin-top: 80px;
+<div style="background-color: #f5f5f5;">
+    <div style=" border-top: 1px solid #e5e7eb;margin-top: 80px;">
+        <b-container fluid="lg" style="
         padding-left: 0;
         padding-right: 0;
-        padding-top: 30px;
         padding-bottom: 20px;
-        border-top: 1px solid #e5e7eb;
+        padding-top: 1em;
       ">
-        <b-row>
-            <b-col style="
+
+            <b-row style="">
+                <b-col style="
             display: flex;
             justify-content: center;
             flex-direction: column;
             align-items: center;
           ">
-                <b-img src="~/assets/free_shipping.png" alt="Image" style="margin: 5px; width: 50px"></b-img>
-                <div style="display: flex; justify-content: center; font-weight: 500">
-                    FREE SHIPPING
-                </div>
-                <div style="text-align: center">
-                    Free Shipping on World wide Order Over $99.
-                </div>
-            </b-col>
-            <b-col style="
+                    <b-img src="~/assets/free_shipping.png" alt="Image" style="margin: 10px; width: 50px"></b-img>
+                    <div style="display: flex; justify-content: center; font-weight: 500">
+                        FREE SHIPPING
+                    </div>
+                    <div style="text-align: center" class="font-color">
+                        Free Shipping on World wide Order Over $99.
+                    </div>
+                </b-col>
+                <b-col style="
             display: flex;
             justify-content: center;
             flex-direction: column;
@@ -31,45 +31,46 @@
             border-left:1px solid #c0c0c0;
             border-right:1px solid #c0c0c0;
           ">
-                <b-img src="~/assets/trust_pay.png" alt="Image" style="margin: 5px; width: 40px; height: 48px"></b-img>
-                <div style="display: flex; justify-content: center; font-weight: 500">
-                    FREE SHIPPING
-                </div>
-                <div style="text-align: center">
-                    Free Shipping on World wide Order Over $99.
-                </div>
-            </b-col>
-            <b-col style="
+                    <b-img src="~/assets/trust_pay.png" alt="Image" style="margin: 10px; width: 40px; height: 48px"></b-img>
+                    <div style="display: flex; justify-content: center; font-weight: 500">
+                        FREE SHIPPING
+                    </div>
+                    <div style="text-align: center" class="font-color">
+                        Free Shipping on World wide Order Over $99.
+                    </div>
+                </b-col>
+                <b-col style="
             display: flex;
             justify-content: center;
             flex-direction: column;
             align-items: center;
             border-right:1px solid #c0c0c0;
           ">
-                <b-img src="~/assets/secured_payment.png" alt="Image" style="margin: 5px"></b-img>
-                <div style="display: flex; justify-content: center; font-weight: 500">
-                    FREE SHIPPING
-                </div>
-                <div style="text-align: center">
-                    Free Shipping on World wide Order Over $99.
-                </div>
-            </b-col>
-            <b-col style="
+                    <b-img src="~/assets/secured_payment.png" alt="Image" style="margin: 15px"></b-img>
+                    <div style="display: flex; justify-content: center; font-weight: 500">
+                        FREE SHIPPING
+                    </div>
+                    <div style="text-align: center" class="font-color">
+                        Free Shipping on World wide Order Over $99.
+                    </div>
+                </b-col>
+                <b-col style="
             display: flex;
             justify-content: center;
             flex-direction: column;
             align-items: center;
           ">
-                <b-img src="~/assets/shop_on_app.png" alt="Image" style="margin: 5px"></b-img>
-                <div style="display: flex; justify-content: center; font-weight: 500">
-                    FREE SHIPPING
-                </div>
-                <div style="text-align: center">
-                    Free Shipping on World wide Order Over $99.
-                </div>
-            </b-col>
-        </b-row>
-    </b-container>
+                    <b-img src="~/assets/shop_on_app.png" alt="Image" style="margin: 10px"></b-img>
+                    <div style="display: flex; justify-content: center; font-weight: 500">
+                        FREE SHIPPING
+                    </div>
+                    <div style="text-align: center" class="font-color">
+                        Free Shipping on World wide Order Over $99.
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
+    </div>
 
     <b-navbar toggleable="lg" type="dark" variant="info">
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -93,7 +94,7 @@
         padding-bottom: 20px;
       ">
         <b-row>
-            <b-col cols="4" style="
+            <b-col class="font-color" cols="4" style="
             display: flex;
             justify-content: left;
             flex-direction: column;
@@ -129,11 +130,11 @@
             ">
                     COMPANY
                 </div>
-                <div style="">Discount Vouches</div>
-                <div style="">Spring Collection</div>
-                <div style="">Trending</div>
-                <div style="">Best Sellers</div>
-                <div style="">Special Deals</div>
+                <div class="font-color" style="">Discount Vouches</div>
+                <div class="font-color" style="">Spring Collection</div>
+                <div class="font-color" style="">Trending</div>
+                <div class="font-color" style="">Best Sellers</div>
+                <div class="font-color" style="">Special Deals</div>
             </b-col>
             <b-col cols="2" style="
             display: flex;
@@ -145,15 +146,14 @@
               display: flex;
               justify-content: left;
               font-weight: 500;
-
               min-height: 70px;
               align-items: center;
             ">
                     POLICY INFO
                 </div>
-                <div style="">Orders & Returns</div>
-                <div style="">Help & FAQs</div>
-                <div style="">Store Locations</div>
+                <div class="font-color" style="">Orders & Returns</div>
+                <div class="font-color" style="">Help & FAQs</div>
+                <div class="font-color" style="">Store Locations</div>
             </b-col>
             <b-col cols="2" style="
             display: flex;
@@ -165,19 +165,23 @@
               display: flex;
               justify-content: flex-start;
               font-weight: 500;
-
               min-height: 70px;
               align-items: center;
             ">
                     MY ACCOUNT
                 </div>
-                <div style="">About Us</div>
-                <div style="">Delivery Information</div>
-                <div style="">Privacy Policy</div>
-                <div style="">Terms & Conditions</div>
+                <div class="font-color" style="">About Us</div>
+                <div class="font-color" style="">Delivery Information</div>
+                <div class="font-color" style="">Privacy Policy</div>
+                <div class="font-color" style="">Terms & Conditions</div>
             </b-col>
         </b-row>
     </b-container>
+    <b-navbar style="background-color: #fff; color: #808080;">
+        <b-container style="justify-content: left; font-weight: 500; padding: 1em 0 1em 0; font-size: 12pt;">
+            © COPYRIGHT - KOB GIFTSHOP TEMPLATE BY REVELSOFT
+        </b-container>
+    </b-navbar>
 </div>
 </template>
 
@@ -214,5 +218,9 @@ a {
 
 .bg-info {
     background-color: #39b54a !important;
+}
+
+.font-color {
+    color: #808080;
 }
 </style>

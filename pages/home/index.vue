@@ -12,7 +12,7 @@
             </b-collapse>
         </b-col>
         <b-col>
-            <b-carousel id="carousel-no-animation" style="text-shadow: 0px 0px 2px #000; margin: 20px -0.9em 0 -15px;" no-animation indicators img-width="1024" img-height="480">
+            <b-carousel id="carousel-no-animation" style="text-shadow: 0px 0px 2px #000; margin: 20px -2em 0 -15px;" no-animation indicators img-width="1024" img-height="480">
                 <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10"></b-carousel-slide>
                 <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12"></b-carousel-slide>
                 <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22"></b-carousel-slide>
@@ -31,11 +31,11 @@
       </client-only>
     </div> -->
 
-    <div class="carousel-wrapper">
+    <div class="carousel-wrapper" style="margin: 0 -2em 0 -1.5em;">
         <client-only>
             <agile :options="options" ref="carousel">
                 <div v-for="i in 5" :key="i" class="img-wrapper">
-                    <img :src="`https://placeimg.com/350/250/any?${i}`" style="margin: 0.6rem;" />
+                    <img :src="`https://placeimg.com/380/200/any?${i}`" style="margin: 0.6rem;" />
                 </div>
             </agile>
         </client-only>
@@ -44,7 +44,7 @@
     <b-row style="margin-top: -10px;">
         <b-col class="title-product" style="text-align: left; margin: 0 0 0 -0.7em;">สินค้าใหม่ล่าสุด</b-col>
         <b-col class="title-product">
-            <div style="text-align: right; margin: 0 -0.7em 0 0;">
+            <div style="text-align: right; margin: 0 -1.4em 0 0;">
                 <button @click="$refs.carousel.goToPrev()" class="btn" style="border:1px solid #C0C0C0;">
                     <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #000" />
                 </button>
@@ -62,28 +62,38 @@
     <b-row class="row-product">
         <b-col class="card-product">
             <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-            <div class="product-name">Cillcips Air Purifier A215</div>
-            <div class="product-price">$124.00</div>
+            <div class="card-product-shop">
+                <div class="product-name">Cillcips Air Purifier A215</div>
+                <div class="product-price">$124.00</div>
+            </div>
         </b-col>
         <b-col class="card-product">
             <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-            <div class="product-name">Cillcips Air Purifier A215</div>
-            <div class="product-price">$124.00</div>
+            <div class="card-product-shop">
+                <div class="product-name">Cillcips Air Purifier A215</div>
+                <div class="product-price">$124.00</div>
+            </div>
         </b-col>
         <b-col class="card-product">
             <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-            <div class="product-name">Cillcips Air Purifier A215</div>
-            <div class="product-price">$124.00</div>
+            <div class="card-product-shop">
+                <div class="product-name">Cillcips Air Purifier A215</div>
+                <div class="product-price">$124.00</div>
+            </div>
         </b-col>
         <b-col class="card-product">
             <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-            <div class="product-name">Cillcips Air Purifier A215</div>
-            <div class="product-price">$124.00</div>
+            <div class="card-product-shop">
+                <div class="product-name">Cillcips Air Purifier A215</div>
+                <div class="product-price">$124.00</div>
+            </div>
         </b-col>
         <b-col class="card-product">
             <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-            <div class="product-name">Cillcips Air Purifier A215</div>
-            <div class="product-price">$124.00</div>
+            <div class="card-product-shop">
+                <div class="product-name">Cillcips Air Purifier A215</div>
+                <div class="product-price">$124.00</div>
+            </div>
         </b-col>
     </b-row>
     <b-row class="row-product">
@@ -546,7 +556,7 @@
         </b-col>
     </b-row>
 
-    <b-row class="no-gutters" style="padding-top: 2em">
+    <b-row class="no-gutters" style="padding-top: 2em; margin: 0 -1.1em 0 0;">
         <b-col class="no-gutters" style="margin-right: 0.5em; margin-left: -1em; ">
             <div style="position: absolute; top: 50px; left: 100px">
                 <div style="font-size: 1.5em; font-weight: 500; color: #fff">
@@ -633,6 +643,7 @@ div {
 
 .row-product {
     padding-top: 30px;
+    margin: 0 -2.1em 0 -1em;
 }
 
 .product-name {
@@ -654,9 +665,13 @@ div {
 }
 
 .card-product {
-    border: 1px solid #C0C0C0;
+    border: 1px solid #c0c0c0;
     padding-left: 0;
     padding-right: 0;
+}
+
+.card-product-shop {
+    padding: 1em 0 2em 0;
 }
 
 ul {
