@@ -1,26 +1,29 @@
 <template>
 <div>
-    <b-row class="no-gutters">
-        <b-col cols="3">
-            <b-collapse id="example-collapse" style="margin: 0 2.1em 0 -15px;">
-                <ul>
-                    <li><a class="active" href="#home">Home</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#about">About</a></li>
-                </ul>
-            </b-collapse>
-        </b-col>
-        <b-col>
-            <b-carousel id="carousel-no-animation" style="text-shadow: 0px 0px 2px #000; margin: 20px -2em 0 -15px;" no-animation indicators img-width="1024" img-height="480">
-                <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10"></b-carousel-slide>
-                <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12"></b-carousel-slide>
-                <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22"></b-carousel-slide>
-                <b-carousel-slide caption="Fourth Slide" img-src="https://picsum.photos/1024/480/?image=23"></b-carousel-slide>
-            </b-carousel>
-        </b-col>
-    </b-row>
-
+    <div>
+        <b-row class="no-gutters">
+            <div class="">
+                <b-col cols="">
+                    <b-collapse class="" id="example-collapse" style="width: 260px;margin: 0 2.1em 0 -1.85em;">
+                        <ul>
+                            <li><a class="active" href="#home">Home</a></li>
+                            <li><a :class="{'navber-open':openNav}" href="#news">News</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#about">About</a></li>
+                        </ul>
+                    </b-collapse>
+                </b-col>
+            </div>
+            <b-col cols="">
+                <b-carousel id="carousel-no-animation" style="text-shadow: 0px 0px 2px #000; margin: 20px -2em 0 -2.8em;" no-animation indicators img-width="1024" img-height="480">
+                    <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10"></b-carousel-slide>
+                    <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12"></b-carousel-slide>
+                    <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22"></b-carousel-slide>
+                    <b-carousel-slide caption="Fourth Slide" img-src="https://picsum.photos/1024/480/?image=23"></b-carousel-slide>
+                </b-carousel>
+            </b-col>
+        </b-row>
+    </div>
     <!-- <div class="carousel-wrapper">
       <client-only>
         <slick :options="slickOptions" ref="refs">
@@ -734,5 +737,9 @@ a.nuxt-link-exact-active {
 
 .vue-star-rating {
     justify-content: center;
+}
+
+img.navber-show {
+    width: 1000px;
 }
 </style>
