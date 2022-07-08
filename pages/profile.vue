@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-row>
+    <b-row style="margin: 0 -2em 0 -1em;">
       <b-col class="title-product">ข้อมูลผู้ใช้</b-col>
     </b-row>
-    <b-row style="padding-top: 30px">
+    <b-row style="padding-top: 30px; margin: 0 -3em 0 -2.2em;">
       <b-col cols="3">
         <ul class="w3-ul" style="">
           <li
@@ -49,13 +49,13 @@
                 id="input-group-1"
                 label="First Name:"
                 label-for="input-1"
-                description="We'll never share your email with anyone else."
+                description=""
               >
                 <b-form-input
                   id="input-1"
                   v-model="form.email"
                   type="email"
-                  placeholder="Enter email"
+                  placeholder="ชื่อ"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -69,7 +69,7 @@
                 <b-form-input
                   id="input-2"
                   v-model="form.name"
-                  placeholder="Enter name"
+                  placeholder="นาสกุล"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -86,6 +86,7 @@
                   id="example-datepicker"
                   v-model="value"
                   class="mb-2"
+                  placeholder="วันเกิด"
                 ></b-form-datepicker>
               </b-form-group>
             </b-col>
@@ -100,7 +101,7 @@
                   id="input-1"
                   v-model="form.email"
                   type="email"
-                  placeholder="Enter email"
+                  placeholder="อีเมล"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -117,7 +118,7 @@
                   id="input-1"
                   v-model="form.email"
                   type="email"
-                  placeholder="Enter email"
+                  placeholder="เบอร์โทรศัพท์"
                   required
                 ></b-form-input>
               </b-form-group>

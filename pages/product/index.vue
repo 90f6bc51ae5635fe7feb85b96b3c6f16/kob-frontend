@@ -1,9 +1,29 @@
 <template>
 <div>
-    <b-row class="title-product" style="margin: auto -2em auto -1em;">
+    <!-- เมนูออกข้างซ้าย -->
+    <!-- <b-sidebar title="Sidebar" shadow class="" id="example-collapse" >
+        <ul>
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a :class="{'navber-open':openNav}" href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </b-sidebar> -->
+
+    <!-- Dropdown ทับ Manu -->
+    <div class="product-manu-hover" style="" id="">
+        <b-dropdown size="lg" right menu-class="w-100" variant="link" toggle-class="text-decoration-none" style="margin: -4.7em 0 0 -1.064em; height: 3em; width: 16.2em; border:1px solid red; border-radius: 3px;" no-caret>
+            <b-dropdown-item href="#home">Home</b-dropdown-item>
+            <b-dropdown-item href="#news">News</b-dropdown-item>
+            <b-dropdown-item href="#contact">Contact</b-dropdown-item>
+            <b-dropdown-item href="#about">About</b-dropdown-item>
+        </b-dropdown>
+    </div>
+
+    <b-row class="title-product" style="margin: -1.5em -2em auto -1em;">
+
         <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em;">
             รายการสินค้า
-
         </b-col>
         <b-col class="" style="text-align: right; font-size: 12pt; margin: auto -1em auto 0;">
             HOME / SHOP /
@@ -11,7 +31,6 @@
                 SHOP SIDEBAR LEFT
             </span>
         </b-col>
-
     </b-row>
 
     <b-row style="padding-top: 30px">
@@ -347,5 +366,10 @@ li a:hover:not(.active) {
 
 .vue-star-rating {
     justify-content: center;
+}
+
+b-dropdown-item.product-manu-hover:hover {
+    color: #fff;
+    background-color: #39b54a !important;
 }
 </style>

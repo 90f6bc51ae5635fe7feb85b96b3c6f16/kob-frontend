@@ -168,10 +168,11 @@
 
                 <button @click="$refs.carousel.goToNext()" class="btn" style="border: 1px solid #e4e4e4">
                     <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #000" />
-                </button></div>
+                </button>
+            </div>
         </b-col>
     </b-row>
-    <div class="carousel-wrapper">
+    <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
         <client-only>
             <agile :options="options" ref="carousel">
                 <div v-for="i in 5" :key="i" class="img-wrapper">
@@ -359,6 +360,7 @@ export default {
 .right:hover .text {
     background-color: #39b54a;
 }
+
 .card-product:hover {
     box-shadow: 0 0 20px rgba(33, 33, 33, .5);
     border: 1px solid #ccc;
