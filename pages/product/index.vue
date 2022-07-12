@@ -1,40 +1,33 @@
 <template>
 <div>
-    <!-- เมนูออกข้างซ้าย -->
-    <!-- <b-sidebar title="Sidebar" shadow class="" id="example-collapse" >
-        <ul>
-            <li><a class="active" href="#home">Home</a></li>
-            <li><a :class="{'navber-open':openNav}" href="#news">News</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
-    </b-sidebar> -->
+    <div class="" style="margin: 0 -2em 0 -1em;">
+        <b-collapse id="example-collapse" style="
+              width: 100%;
+              margin: 0 0 0 0;
+              max-height: 250px;
+              overflow: auto;
 
-    <!-- Dropdown ทับ Manu -->
-    <div class="product-manu-hover" style="" id="">
-        <b-dropdown size="lg" right menu-class="w-100" variant="link" toggle-class="text-decoration-none" style="margin: -4.7em 0 0 -1.064em; height: 3em; width: 16.2em; border:1px solid red; border-radius: 3px;" no-caret>
-            <b-dropdown-item href="#home">Home</b-dropdown-item>
-            <b-dropdown-item href="#news">News</b-dropdown-item>
-            <b-dropdown-item href="#contact">Contact</b-dropdown-item>
-            <b-dropdown-item href="#about">About</b-dropdown-item>
-        </b-dropdown>
+            ">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </b-collapse>
     </div>
-
-    <b-row class="title-product" style="margin: -1.5em -2em auto -1em;">
-
-        <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em;">
+    <b-row class="title-product" style="margin: -1em -2em auto -1em">
+        <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em">
             รายการสินค้า
         </b-col>
-        <b-col class="" style="text-align: right; font-size: 12pt; margin: auto -1em auto 0;">
+        <b-col class="" style="text-align: right; font-size: 12pt; margin: auto -1em auto 0">
             HOME / SHOP /
-            <span style="color: #669999;">
-                SHOP SIDEBAR LEFT
-            </span>
+            <span style="color: #669999"> SHOP SIDEBAR LEFT </span>
         </b-col>
     </b-row>
 
     <b-row style="padding-top: 30px">
-        <b-col cols="3" style="margin: 0 0 0 -1em;">
+        <b-col cols="3" style="margin: 0 0 0 -1em">
             <ul class="w3-ul" style="border: 0.2px solid #e5e5e5">
                 <li style="
               font-weight: 500;
@@ -99,7 +92,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style=" margin:0 5px 0 10px;">
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
                     Jill
                 </li>
                 <li style="
@@ -109,7 +102,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style=" margin:0 5px 0 10px;">
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
                     Eve
                 </li>
                 <li style="
@@ -119,7 +112,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style=" margin:0 5px 0 10px;">
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
                     Adam
                 </li>
                 <li style="
@@ -143,7 +136,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style=" margin:0 5px 0 10px;">
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
                     Jill
                 </li>
                 <li style="
@@ -153,7 +146,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style=" margin:0 5px 0 10px;">
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
                     Eve
                 </li>
                 <li style="
@@ -163,12 +156,12 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style=" margin:0 5px 0 10px;">
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
                     Adam
                 </li>
             </ul>
         </b-col>
-        <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0;">
+        <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
             <b-col class="card-product" cols="3" v-for="i in 20" :key="i">
                 <nuxt-link :to="{ path: `/product/detail` }">
                     <b-card-img :src="`https://placeimg.com/480/480/any?${i}`" alt="Image" class="rounded-0"></b-card-img>
@@ -185,7 +178,7 @@
                         </div>
                     </div>
                     <div class="product-star-ating">
-                        <p style="text-align:center;">
+                        <p style="text-align: center">
                             <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="20" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
                             </star-rating>
                         </p>
@@ -255,7 +248,7 @@ export default {
 }
 
 .card-product:hover {
-    box-shadow: 0 0 20px rgba(33, 33, 33, .5);
+    box-shadow: 0 0 20px rgba(33, 33, 33, 0.5);
     border: 1px solid #ccc;
     border-style: outset;
 }
@@ -268,14 +261,14 @@ style .card-product:hover .image {
     opacity: 1;
     background-color: green;
     width: 50%;
-    border: 1px solid #EAECEE;
+    border: 1px solid #eaecee;
 }
 
 .card-product:hover .right {
     opacity: 1;
     background-color: green;
     width: 50%;
-    border: 1px solid #EAECEE;
+    border: 1px solid #eaecee;
 }
 
 .text {
@@ -307,12 +300,26 @@ div {
 }
 
 .title-product {
-    padding-top: 1em;
+    padding-top: 2em;
     font-family: "Kanit";
     font-size: 1em;
     font-weight: auto;
     border-bottom: 1px solid #e4e4e4;
     padding-bottom: 20px;
+}
+
+.carousel-wrapper {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.img-wrapper img {
+    margin: auto;
+    background-image: linear-gradient(gray 100%, transparent 0);
+}
+
+.vue-star-rating {
+    justify-content: center;
 }
 
 ul {
@@ -322,10 +329,6 @@ ul {
     width: 100%;
     background-color: transparent;
     border: 1px solid #adadad;
-}
-
-#example-collapse {
-    padding-right: 2px;
 }
 
 li a {
@@ -354,22 +357,17 @@ li a:hover:not(.active) {
     color: white;
 }
 
-.carousel-wrapper {
-    padding-top: 40px;
-    padding-bottom: 40px;
+#example-collapse {
+    padding-right: 0;
 }
 
-.img-wrapper img {
-    margin: auto;
-    background-image: linear-gradient(gray 100%, transparent 0);
+#example-collapse a {
+    text-align: center;
 }
 
-.vue-star-rating {
-    justify-content: center;
-}
-
-b-dropdown-item.product-manu-hover:hover {
+#example-collapse a:hover {
     color: #fff;
     background-color: #39b54a !important;
 }
+
 </style>

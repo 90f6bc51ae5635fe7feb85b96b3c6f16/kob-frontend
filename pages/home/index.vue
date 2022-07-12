@@ -4,10 +4,31 @@
         <b-row class="no-gutters">
             <div class="">
                 <b-col cols="">
-                    <b-collapse id="example-collapse" style="width: 260px;margin: 0 2.1em 0 -1.85em;">
+                    <b-collapse id="example-collapse" style="width: 260px;margin: 0 2.1em 0 -1.85em; max-height: 440px; overflow: auto;">
                         <ul>
-                            <li><a style="color:;" href="#home">Home</a></li>
-                            <li><a :class="{'navber-open':openNav}" href="#news">News</a></li>
+                            <li><a style="" href="#home">Home</a></li>
+                            <li><a href="#news">News</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#about">About</a></li>
+                            <!--  -->
+                            <li><a style="" href="#home">Home</a></li>
+                            <li><a href="#news">News</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a style="" href="#home">Home</a></li>
+                            <li><a href="#news">News</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a style="" href="#home">Home</a></li>
+                            <li><a href="#news">News</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a style="" href="#home">Home</a></li>
+                            <li><a href="#news">News</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a style="" href="#home">Home</a></li>
+                            <li><a href="#news">News</a></li>
                             <li><a href="#contact">Contact</a></li>
                             <li><a href="#about">About</a></li>
                         </ul>
@@ -734,6 +755,10 @@ ul {
 
 #example-collapse {
     padding-right: 1.5px;
+}
+
+#example-collapse a {
+    text-align: left;
 }
 
 #example-collapse a:hover {

@@ -29,6 +29,7 @@
     "vue": "^2.6.14",
     "vue-agile": "^2.0.0",
     "vue-awesome-swiper": "^5.0.1",
+    "vue-custom-scrollbar": "^1.4.4",
     "vue-owl-carousel": "^2.0.3",
     "vue-rate-it": "^2.1.0",
     "vue-server-renderer": "^2.6.14",
@@ -36,6 +37,7 @@
     "vue-slick-carousel": "^1.0.6",
     "vue-star-rating": "^1.6.1",
     "vue-template-compiler": "^2.6.14",
+    "vue2-perfect-scrollbar": "^1.5.5",
     "vue3-star-ratings": "^1.1.0",
     "webpack": "^4.46.0"
   },

@@ -1,9 +1,25 @@
 <template>
 <div>
+    <div class="" style="margin: 0 -2em 0 -1em;">
+        <b-collapse id="example-collapse" style="
+              width: 100%;
+              margin: 0 0 0 0;
+              max-height: 250px;
+              overflow: auto;
+
+            ">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </b-collapse>
+    </div>
     <b-row style="margin: 0 -2em 0 -1em;">
-        <b-col class="title-product">ข้อมูลที่จัดส่ง</b-col>
+        <b-col class="title-product" style="font-size: 16pt;">ข้อมูลที่จัดส่ง</b-col>
     </b-row>
-    <b-row style="padding-top: 30px; margin: 0 -2em 0 -2.2em;">
+    <b-row style="padding-top: 30px; margin: 0 -2em 0 -1.9em;">
         <b-col cols="3">
             <ul class="w3-ul" style="">
                 <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
@@ -214,13 +230,42 @@ export default {
 </script>
 
 <style scoped>
+div {
+    font-family: 'Kanit', sans-serif;
+}
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 100%;
     background-color: transparent;
-    /* border: 1px solid #adadad; */
+    border: 1px solid #adadad;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li {
+    text-align: center;
+    border-bottom: 1px solid #adadad;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li a.active {
+    background-color: #04aa6d;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #adadad;
+    color: white;
 }
 
 #example-collapse {
@@ -260,4 +305,5 @@ li a:hover:not(.active) {
     border-bottom: 1px solid #e4e4e4;
     padding-bottom: 20px;
 }
+
 </style>
