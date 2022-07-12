@@ -20,7 +20,6 @@
         <form class="form" @submit="onSubmit" style="width: 30%;">
             <h3 class="title">Log In</h3>
             <div class="field">
-
                 <b-form-group id="" label="Email :" label-for="input-1" description="" style="text-align: left;">
                     <b-form-input v-model="email" class="input" type="email" placeholder="อีเมล"></b-form-input>
                 </b-form-group>
@@ -35,11 +34,11 @@
                 <b-button type="submit" variant="primary" size="md" style="width: 100%;">Login</b-button>
             </div>
             <div class="field" style="margin-top: 0.5em; text-align: left;">
-                <input type="checkbox" checked="checked" name="remember"> Remember me
+                <input type="checkbox" checked="checked" name="remember"> Remember Me
             </div>
             <div class="field">
                 <div style="float:left;">
-                    <a href="#" variant="primary" size="md" style="">Subscribe</a>
+                    <a href="/register" variant="primary" size="md" style="">Register</a>
                 </div>
                 <div style="float: right;">
                     <span class="" style="text-align: right;">Forgot <a href="#">password ?</a></span>

@@ -20,9 +20,9 @@
                         <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
                     </b-input-group-text>
                     <div class="login-user">
-                        <b-link href="#foo" style="color: #8d8d8d;">ล็อคอิน</b-link>
+                        <b-link href="/login" style="color: #8d8d8d;">ล็อคอิน</b-link>
                         /
-                        <b-link href="#foo" style="color: #8d8d8d;">สมัครสมาชิค</b-link>
+                        <b-link href="/register" style="color: #8d8d8d;">สมัครสมาชิค</b-link>
                     </div>
                     <div style="margin: -10px 0 -10px 0;">
                         <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none" style="margin: 9.59px 0 0 0;height: 40px; width: ; border:1px solid #ccc; border-radius: 3px;" no-caret>
