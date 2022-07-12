@@ -91,7 +91,35 @@
 </template>
 
 <script>
-export default {}
+export default {
+    data() {
+        return {
+            email: '',
+            password: '',
+            error: null,
+        }
+    },
+    methods: {
+        async onSubmit(e) {
+            e.preventDefault()
+
+            const payload = {
+                data: {
+                    email: this.email,
+                    password: this.password,
+                },
+            }
+            console.log('payload', payload)
+            try {
+                await this.$auth.loginWith('local', payload)
+                this.$router.push('/home')
+            } catch (error) {
+                this.error = error
+            }
+        },
+    },
+
+}
 </script>
 
 <style scoped>

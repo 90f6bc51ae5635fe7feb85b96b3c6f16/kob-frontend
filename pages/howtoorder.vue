@@ -1,0 +1,102 @@
+<template lang="">
+<div>
+    <div class="" style="margin: 0 -2em 0 -1em;">
+        <b-collapse id="example-collapse" style=" width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto; ">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </b-collapse>
+    </div>
+    <b-row style=" margin: 0 -2em 0 -1em;">
+        <b-col class="title-product" style="font-size: 16pt;">วิธีการสั่งซื้อ</b-col>
+    </b-row>
+    <b-row style=" margin: 0 -2em 0 -1em;">
+        <b-col cols="12" style="margin-top: 1em;">
+            <b-row>
+                <b-col cols="2"> </b-col>
+                <b-col cols="8">
+                    <h5>ขั้นตอนที่ 1 : <span style="font-size: 14pt;">1</span></h5>
+                    <h5>ขั้นตอนที่ 2 : <span style="font-size: 14pt;">2</span></h5>
+                    <h5>ขั้นตอนที่ 3 : <span style="font-size: 14pt;">3</span></h5>
+                    <h5>ขั้นตอนที่ 4 : <span style="font-size: 14pt;">4</span></h5>
+                    <h5>ขั้นตอนที่ 5 : <span style="font-size: 14pt;">5</span></h5>
+                    <h5>ขั้นตอนที่ 6 : <span style="font-size: 14pt;">6</span></h5>
+                </b-col>
+                <b-col cols="2">
+                </b-col>
+            </b-row>
+        </b-col>
+    </b-row>
+    <no-ssr />
+</div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped>
+div {
+    font-family: "Kanit", sans-serif;
+}
+
+.title-product {
+    padding-top: 1em;
+    font-family: "Kanit";
+    font-size: 1em;
+    font-weight: 500;
+    border-bottom: 1px solid #e4e4e4;
+    padding-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #adadad;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li {
+    text-align: center;
+    border-bottom: 1px solid #adadad;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li a.active {
+    background-color: #04aa6d;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #adadad;
+    color: white;
+}
+
+#example-collapse {
+    padding-right: 0;
+}
+
+#example-collapse a {
+    text-align: center;
+}
+
+#example-collapse a:hover {
+    color: #fff;
+    background-color: #39b54a !important;
+}
+</style>

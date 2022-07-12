@@ -735,7 +735,7 @@ div {
 }
 
 .card-product {
-    border: 1px solid #c0c0c0;
+    border: 1px solid rgb(0 0 0 / 14%);
     padding-left: 0;
     padding-right: 0;
 }
@@ -750,7 +750,7 @@ ul {
     padding: 0;
     width: 100%;
     background-color: transparent;
-    border: 1px solid #adadad;
+    border: 1px solid rgb(0 0 0 / 14%);
 }
 
 #example-collapse {
@@ -763,7 +763,9 @@ ul {
 
 #example-collapse a:hover {
     color: #fff;
-    background-color: #39b54a !important;
+    /* background-color: #39b54a !important; */
+    box-sizing: border-box;
+    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 14%) !important;
 }
 
 li a {
@@ -775,7 +777,7 @@ li a {
 
 li {
     text-align: center;
-    border-bottom: 1px solid #adadad;
+    border: 1px solid rgb(0 0 0 / 14%);
 }
 
 li:last-child {

@@ -41,7 +41,7 @@
                     <a href="/register" variant="primary" size="md" style="">Register</a>
                 </div>
                 <div style="float: right;">
-                    <span class="" style="text-align: right;">Forgot <a href="#">password ?</a></span>
+                    <span class="" style="text-align: right;">Forgot <a href="/resetpassword">password ?</a></span>
                 </div>
             </div>
             <div class="field">
