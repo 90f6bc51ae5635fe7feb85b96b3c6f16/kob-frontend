@@ -20,18 +20,23 @@
         <form class="form" @submit="onSubmit" style="width: 30%;">
             <h3 class="title">Log In</h3>
             <div class="field">
-                <b-form-group id="" label="Email :" label-for="input-1" description="" style="text-align: left;">
-                    <b-form-input v-model="email" class="input" type="email" placeholder="อีเมล"></b-form-input>
+                <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
+                    <template v-slot="label">
+                        Email
+                        <b-form-input v-model="email" class="input" type="email" placeholder="อีเมล"></b-form-input>
+                    </template>
                 </b-form-group>
             </div>
             <div class="field">
-                <b-form-group id="" label="Password :" label-for="input-1" description="" style="text-align: left;">
-                    <b-form-input v-model="password" class="input" type="password" placeholder="รหัสผ่าน"></b-form-input>
+                <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
+                    <template v-slot="label">
+                        Password
+                        <b-form-input v-model="password" class="input" type="password" placeholder="รหัสผ่าน"></b-form-input>
+                    </template>
                 </b-form-group>
             </div>
-
             <div class="field">
-                <b-button type="submit" variant="primary" size="md" style="width: 100%;">Login</b-button>
+                <b-button type="submit" variant="success" size="md" style="width: 100%;">Login</b-button>
             </div>
             <div class="field" style="margin-top: 0.5em; text-align: left;">
                 <input type="checkbox" checked="checked" name="remember"> Remember Me

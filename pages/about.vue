@@ -20,13 +20,16 @@
                 <b-col cols="2"> </b-col>
                 <b-col cols="4">
                     <h5>ที่อยู่ : <span>sadasdadas</span></h5>
-                    <h5>เบอร์ :
-                        <span>12344123</span></h5>
+                    <h5>เบอร์โทรศัพท์ : <span>099-9999999</span></h5>
+                    <h5>เบอร์แฟกซ์ : <span>044-444444</span></h5>
                     <h5>ไอดีไลน์ : <span>sadasdadas</span></h5>
+                    <h5>อีเมล : <span>asd@asd.com</span></h5>
                 </b-col>
                 <b-col cols="4">
                     <h5>ไลน์ : </h5>
-                    <div style="margin: -3em 0 0 4em;"><img style="width:150px;height:150px;" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="" /></div>
+                    <div style="margin: -3em 0 0 4em;">
+                      <img style="width:150px;height:150px;" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="" />
+                    </div>
                 </b-col>
                 <b-col cols="2">
                 </b-col>

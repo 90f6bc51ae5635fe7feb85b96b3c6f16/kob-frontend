@@ -25,49 +25,73 @@
             <form action="" @submit="onSubmit">
                 <b-row>
                     <b-col cols="6">
-                        <b-form-group id="" label="Name *" label-for="" description="" style="text-align: left;">
-                            <b-form-input v-model="text" type="text" class="" placeholder="ชื่อ"></b-form-input>
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
+                                ชื่อ <span style="color: red;">*</span>
+                                <b-form-input v-model="text" type="text" class="" placeholder="ชื่อ"></b-form-input>
+                            </template>
                         </b-form-group>
                     </b-col>
                     <b-col cols="6">
-                        <b-form-group id="" label="Last Name *" label-for="" description="" style="text-align: left;">
-                            <b-form-input v-model="text" type="text" class="" placeholder="นามสกุล"></b-form-input>
-                        </b-form-group>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col cols="6">
-                        <b-form-group id="" label="Email *" label-for="" description="" style="text-align: left;">
-                            <b-form-input v-model="email" class="" type="email" placeholder="อีเมล"></b-form-input>
-                        </b-form-group>
-                    </b-col>
-                    <b-col cols="6">
-                        <b-form-group id="" label="Password *" label-for="" description="" style="text-align: left;">
-                            <b-form-input v-model="password" class="" type="password" placeholder="รหัสผ่าน"></b-form-input>
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
+                                นามสกุล <span style="color: red;">*</span>
+                                <b-form-input v-model="text" type="text" class="" placeholder="นามสกุล"></b-form-input>
+                            </template>
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col cols="6">
-                        <b-form-group id="" label="Confirm Password *" label-for="" description="" style="text-align: left;">
-                            <b-form-input v-model="password" class="" type="password" placeholder="ยืนยันรหัสผ่าน"></b-form-input>
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
+                                Email <span style="color: red;">*</span>
+                                <b-form-input v-model="email" class="" type="email" placeholder="อีเมล"></b-form-input>
+                            </template>
                         </b-form-group>
                     </b-col>
                     <b-col cols="6">
-                        <b-form-group id="" label="Phone Number *" label-for="" description="" style="text-align: left;">
-                            <b-form-input v-model="number" type="number" class="" placeholder="หมายเลขโทรศัพท์"></b-form-input>
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
+                                Password <span style="color: red;">*</span>
+                                <b-form-input v-model="password" class="" type="password" placeholder="รหัสผ่าน"></b-form-input>
+                            </template>
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col cols="6">
-                        <b-form-group id="" label="Address *" label-for="" description="" style="text-align: left;">
-                            <b-form-input v-model="text" type="text" class="" placeholder="ที่อยู่"></b-form-input>
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
+                                Confirm Password <span style="color: red;">*</span>
+                                <b-form-input v-model="password" class="" type="password" placeholder="ยืนยันรหัสผ่าน"></b-form-input>
+                            </template>
                         </b-form-group>
                     </b-col>
                     <b-col cols="6">
-                        <b-form-group id="" label="Birthday *" label-for="" description="" style="text-align: left;">
-                            <b-form-datepicker id="" v-model="date" type="date" class="" placeholder="วันเกิด"></b-form-datepicker>
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
+                                หมายเลขโทรศัพท์ <span style="color: red;">*</span>
+                                <b-form-input v-model="number" type="number" class="" placeholder="หมายเลขโทรศัพท์"></b-form-input>
+                            </template>
+                        </b-form-group>
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col cols="6">
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
+                                ที่อยู่ <span style="color: red;">*</span>
+                                <b-form-input v-model="text" type="text" class="" placeholder="ที่อยู่"></b-form-input>
+                            </template>
+                        </b-form-group>
+                    </b-col>
+                    <b-col cols="6">
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
+                                วันเกิด <span style="color: red;">*</span>
+                                <b-form-datepicker id="" v-model="date" type="date" class="" placeholder="วันเกิด"></b-form-datepicker>
+                            </template>
                         </b-form-group>
                     </b-col>
                 </b-row>
@@ -75,7 +99,7 @@
                     <b-col cols="4">
                     </b-col>
                     <b-col cols="2">
-                        <b-button type="submit" variant="primary" size="md" style="width: 100%;">Save</b-button>
+                        <b-button type="submit" variant="success" size="md" style="width: 100%;">Save</b-button>
                     </b-col>
                     <b-col cols="2">
                         <b-button type="reset" variant="warning" size="md" style="width: 100%;">Reset</b-button>
