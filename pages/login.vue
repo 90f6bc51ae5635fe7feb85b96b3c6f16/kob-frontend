@@ -18,6 +18,10 @@
     </div>
     <div class="container">
         <form class="form" @submit="onSubmit" style="width: 30%;">
+            <div style="margin: 0 0 1em 0;">
+                <b-img src="~/assets/Logo.png" alt="Image" class="rounded" style="width:100%; height: auto; margin: 0 0 0 0;"></b-img>
+            </div>
+
             <h3 class="title">Log In</h3>
             <div class="field">
                 <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
@@ -96,11 +100,12 @@ div {
 }
 
 .container {
-    margin: 0 auto;
-    min-height: 100vh;
+
+    margin: 10em 0 13em 0;
+    /* min-height: 100vh; */
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     text-align: center;
 }
 

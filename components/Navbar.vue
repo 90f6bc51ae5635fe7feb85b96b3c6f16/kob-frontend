@@ -38,8 +38,8 @@
                                         <img style="width:100px; height:100px;" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="">
                                     </div>
                                     <div style="text-align: left; padding-top: 1em;">
-                                        <p>Halogen Room Handwear</p>
-                                        <p style="margin-top: -1em;">$125.00<span> X2</span></p>
+                                        <div class="text-overflow">Halogen Room Handwear</div>
+                                        <div class="text-overflow">$125.00<span> X2</span></div>
                                     </div>
                                 </div>
                             </b-dropdown-text>
@@ -52,8 +52,8 @@
                                         <img style="width:100px; height:100px;" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="">
                                     </div>
                                     <div style="text-align: left; padding-top: 1em;">
-                                        <p>Shaving Cream, 100 gm</p>
-                                        <p style="margin-top: -1em;">$75.00<span> X1</span></p>
+                                        <div class="text-overflow">Shaving Cream, 100 gm</div>
+                                        <div class="text-overflow">$75.00<span> X1</span></div>
                                     </div>
                                 </div>
                             </b-dropdown-text>
@@ -237,5 +237,11 @@ a {
 
 .close::after {
     transform: translate(-50%, -50%) rotate(-45deg);
+}
+.text-overflow{
+  white-space: nowrap;
+  width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

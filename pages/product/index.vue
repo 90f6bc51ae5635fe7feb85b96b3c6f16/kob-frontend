@@ -22,7 +22,7 @@
         </b-col>
         <b-col class="" style="text-align: right; font-size: 12pt; margin: auto -1em auto 0">
             HOME / SHOP /
-            <span style="color: #669999"> SHOP SIDEBAR LEFT </span>
+            <span style="color: #888888"> SHOP SIDEBAR LEFT </span>
         </b-col>
     </b-row>
 
@@ -163,9 +163,13 @@
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
             <b-col class="card-product" cols="3" v-for="i in 20" :key="i">
-                <nuxt-link :to="{ path: `/product/detail` }">
+                <nuxt-link :to="{ path: `/product/detail` }" style="text-decoration: none !important;">
                     <b-card-img :src="`https://placeimg.com/480/480/any?${i}`" alt="Image" class="rounded-0"></b-card-img>
-                    <div class="product-name">Cillcips Air Purifier A215</div>
+                    <div class="product-name">
+                        <div class="text-overflow">
+                            Cillcips Air Purifier A215
+                        </div>
+                    </div>
                     <div class="product-price">$124.00</div>
                     <div class="left">
                         <div class="text">
@@ -179,7 +183,7 @@
                     </div>
                     <div class="product-star-ating">
                         <p style="text-align: center">
-                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="20" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
                             </star-rating>
                         </p>
                     </div>
@@ -221,7 +225,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 67.5%;
+    top: 58%;
     right: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -232,7 +236,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 67.5%;
+    top: 58%;
     left: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -250,7 +254,6 @@ export default {
 .card-product:hover {
     box-shadow: 0 0 20px rgba(33, 33, 33, 0.5);
     border: 1px solid #ccc;
-    border-style: outset;
 }
 
 style .card-product:hover .image {
@@ -283,6 +286,7 @@ div {
 }
 
 .card-product {
+
     padding-left: 0;
     padding-right: 0;
     flex: 1 0 21%;
@@ -292,11 +296,26 @@ div {
 
 .product-name {
     text-align: center;
+    color: #444444;
+    font-size: 14pt;
+    /* font-family: "Myriad"; */
+    text-decoration: none !important;
 }
 
 .product-price {
     font-weight: 500;
     text-align: center;
+    color: #222222;
+    font-size: 14pt;
+    /* font-family: "Myriad Pro"; */
+}
+
+.text-overflow {
+    padding: 0 1em 0 1em;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .title-product {
@@ -335,7 +354,7 @@ li a {
     display: block;
     color: #000;
     padding: 8px 16px;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 li {
@@ -369,5 +388,4 @@ li a:hover:not(.active) {
     color: #fff;
     background-color: #39b54a !important;
 }
-
 </style>
