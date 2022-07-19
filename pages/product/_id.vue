@@ -36,7 +36,7 @@
         <carousel :starting-image="3" :images="images"></carousel>
         <div>
             <div style="text-align: left">
-                <h3>Audio Pro White XL</h3>
+                <h3>TTTTT</h3>
             </div>
             <div class="product-star-ating">
                 <div style="float:left; margin: -2px 5px 0 0;">
@@ -231,6 +231,22 @@ export default {
     // }
     components: {
         Carousel,
+    },
+    async asyncData({
+        $axios,
+        params
+    }) {
+        const codes = await $axios.$get(
+            `http://127.0.0.1:3001/api/product/${params.id}`
+            // headers: {
+            //     'Accept': 'application/json',
+            //     'Content-Type': 'application/json',
+            // }
+        );
+        console.log("code", codes);
+        return {
+            codes
+        };
     },
 
     data() {
@@ -486,5 +502,4 @@ li a:hover:not(.active) {
     background-color: #adadad;
     color: white;
 }
-
 </style>

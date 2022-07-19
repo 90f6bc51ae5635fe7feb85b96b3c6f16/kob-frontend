@@ -162,12 +162,12 @@
             </ul>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="i in 20" :key="i">
-                <nuxt-link :to="{ path: `/product/detail` }" style="text-decoration: none !important;">
+            <b-col class="card-product" cols="3" v-for="database in databases" :key="database.product_code">
+                <nuxt-link :to="{ path: `/product/${database.product_code}` }" style="text-decoration: none !important;">
                     <b-card-img :src="`https://placeimg.com/480/480/any?${i}`" alt="Image" class="rounded-0"></b-card-img>
                     <div class="product-name">
                         <div class="text-overflow">
-                            Cillcips Air Purifier A215
+                            {{database.product_name}}
                         </div>
                     </div>
                     <div class="product-price">$124.00</div>
@@ -198,6 +198,15 @@
 import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
+    async asyncData({
+        $axios
+    }) {
+        const databases = await $axios.$get('http://127.0.0.1:3001/api/product');
+        // console.log("DB", databases);
+        return {
+            databases
+        };
+    },
     data() {
         return {
             slickOptions: {
@@ -225,7 +234,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 58%;
+    top: 59%;
     right: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -236,7 +245,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 58%;
+    top: 59%;
     left: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -295,9 +304,10 @@ div {
 }
 
 .product-name {
+    margin-top: 0.3em;
     text-align: center;
     color: #444444;
-    font-size: 14pt;
+    font-size: 12pt;
     /* font-family: "Myriad"; */
     text-decoration: none !important;
 }
@@ -306,7 +316,7 @@ div {
     font-weight: 500;
     text-align: center;
     color: #222222;
-    font-size: 14pt;
+    font-size: 12pt;
     /* font-family: "Myriad Pro"; */
 }
 

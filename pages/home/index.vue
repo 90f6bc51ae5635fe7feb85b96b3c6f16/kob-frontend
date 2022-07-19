@@ -811,7 +811,7 @@ div {
 .product-name {
     text-align: center;
     color: #444444;
-    font-size: 14pt;
+    font-size: 12pt;
     /* font-family: "Myriad"; */
     text-decoration: none !important;
 }
@@ -820,7 +820,7 @@ div {
     font-weight: 500;
     text-align: center;
     color: #222222;
-    font-size: 14pt;
+    font-size: 12pt;
     /* font-family: "Myriad Pro"; */
 }
 
