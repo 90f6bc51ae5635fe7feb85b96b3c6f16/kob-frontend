@@ -167,7 +167,7 @@
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
             <b-col class="card-product" cols="3" v-for="database in databases" :key="database.product_code">
                 <nuxt-link :to="{ path: `/product/${database.product_code}` }" style="text-decoration: none !important;">
-                    <b-card-img :src="`https://placeimg.com/480/480/any?${i}`" alt="Image" class="rounded-0"></b-card-img>
+                    <b-card-img :src="`https://placeimg.com/480/480/any?1`" alt="Image" class="rounded-0"></b-card-img>
                     <div class="product-name">
                         <div class="text-overflow">
                             {{database.product_name}}
