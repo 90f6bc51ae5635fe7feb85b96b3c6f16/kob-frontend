@@ -5,33 +5,15 @@
             <div class="">
                 <b-col cols="">
                     <b-collapse id="example-collapse" style="width: 260px;margin: 0 2.1em 0 -1.85em; max-height: 440px; overflow: auto;">
-                        <ul>
-                            <li><a style="" href="#home">Home</a></li>
-                            <li><a href="#news">News</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#about">About</a></li>
-                            <!--  -->
-                            <li><a style="" href="#home">Home</a></li>
-                            <li><a href="#news">News</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a style="" href="#home">Home</a></li>
-                            <li><a href="#news">News</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a style="" href="#home">Home</a></li>
-                            <li><a href="#news">News</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a style="" href="#home">Home</a></li>
-                            <li><a href="#news">News</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a style="" href="#home">Home</a></li>
-                            <li><a href="#news">News</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#about">About</a></li>
-                        </ul>
+                        <div v-for="category in categorys" :key="category.product_category_code">
+                            <ul>
+                                <li>
+                                    <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                                        {{category.product_category_name}}
+                                    </nuxt-link>
+                                </li>
+                            </ul>
+                        </div>
                     </b-collapse>
                 </b-col>
             </div>
@@ -780,6 +762,15 @@ export default {
                 dots: false,
             },
             rating: 4.5,
+        };
+    },
+    async asyncData({
+        $axios,
+        params
+    }) {
+        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        return {
+            categorys
         };
     },
 };

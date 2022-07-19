@@ -1,5 +1,24 @@
 <template>
 <div>
+    <div class="" style="margin: 0 -2em 0 -1em;">
+        <b-collapse id="example-collapse" style="
+              width: 100%;
+              margin: 0 0 0 0;
+              max-height: 250px;
+              overflow: auto;
+
+            ">
+            <div v-for="category in categorys" :key="category.product_category_code">
+                <ul>
+                    <li>
+                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                            {{category.product_category_name}}
+                        </nuxt-link>
+                    </li>
+                </ul>
+            </div>
+        </b-collapse>
+    </div>
     <b-row>
         <b-col class="title-product">
             <h4><b>YOUR CART</b></h4>
@@ -212,6 +231,15 @@ export default {
             ],
         };
     },
+    async asyncData({
+        $axios,
+        params
+    }) {
+        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        return {
+            categorys
+        };
+    },
 };
 </script>
 
@@ -243,9 +271,58 @@ table.table {
     border: 2px solid #ccc;
     border-style: outset;
 }
+
 .update-totals-button:hover {
     box-shadow: 0 0 10px rgba(33, 33, 33, .5);
     border: 2px solid #ccc;
     border-style: outset;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #adadad;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li {
+    text-align: center;
+    border-bottom: 1px solid #adadad;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li a.active {
+    background-color: #04aa6d;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #adadad;
+    color: white;
+}
+
+#example-collapse {
+    padding-right: 0;
+}
+
+#example-collapse a {
+    text-align: center;
+}
+
+#example-collapse a:hover {
+    color: #fff;
+    background-color: #39b54a !important;
 }
 </style>

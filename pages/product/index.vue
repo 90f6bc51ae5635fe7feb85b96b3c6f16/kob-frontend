@@ -8,12 +8,15 @@
               overflow: auto;
 
             ">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#news">News</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
+            <div v-for="category in categorys" :key="category.product_category_code">
+                <ul>
+                    <li>
+                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                        {{category.product_category_name}}
+                        </nuxt-link>
+                    </li>
+                </ul>
+            </div>
         </b-collapse>
     </div>
     <b-row class="title-product" style="margin: -1em -2em auto -1em">
@@ -202,9 +205,11 @@ export default {
         $axios
     }) {
         const databases = await $axios.$get('http://127.0.0.1:3001/api/product');
-        // console.log("DB", databases);
+        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        // console.log("categorys", categorys);
         return {
-            databases
+            databases,
+            categorys
         };
     },
     data() {

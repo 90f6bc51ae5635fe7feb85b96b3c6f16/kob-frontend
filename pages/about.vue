@@ -2,12 +2,15 @@
 <div>
     <div class="" style="margin: 0 -2em 0 -1em;">
         <b-collapse id="example-collapse" style=" width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto; ">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#news">News</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
+            <div v-for="category in categorys" :key="category.product_category_code">
+                <ul>
+                    <li>
+                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                            {{category.product_category_name}}
+                        </nuxt-link>
+                    </li>
+                </ul>
+            </div>
         </b-collapse>
     </div>
     <b-row style=" margin: 0 -2em 0 -1em;">
@@ -28,7 +31,7 @@
                 <b-col cols="4">
                     <h5>ไลน์ : </h5>
                     <div style="margin: -3em 0 0 4em;">
-                      <img style="width:150px;height:150px;" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="" />
+                        <img style="width:150px;height:150px;" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="" />
                     </div>
                 </b-col>
                 <b-col cols="2">
@@ -54,7 +57,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+    async asyncData({
+        $axios,
+        params
+    }) {
+        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        return {
+            categorys
+        };
+    },
+};
 </script>
 
 <style scoped>

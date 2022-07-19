@@ -2,12 +2,15 @@
 <div>
     <div class="" style="margin: 0 -2em 0 -1em;">
         <b-collapse id="example-collapse" style=" width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto; ">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#news">News</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
+            <div v-for="category in categorys" :key="category.product_category_code">
+                <ul>
+                    <li>
+                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                            {{category.product_category_name}}
+                        </nuxt-link>
+                    </li>
+                </ul>
+            </div>
         </b-collapse>
     </div>
     <b-row style=" margin: 0 -2em 0 -1em;">
@@ -35,7 +38,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+    async asyncData({
+        $axios,
+        params
+    }) {
+        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        return {
+            categorys
+        };
+    },
+};
 </script>
 
 <style scoped>
