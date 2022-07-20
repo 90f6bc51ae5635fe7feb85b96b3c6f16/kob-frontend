@@ -12,7 +12,7 @@
                 <ul>
                     <li>
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                        {{category.product_category_name}}
+                            {{category.product_category_name}}
                         </nuxt-link>
                     </li>
                 </ul>
@@ -165,15 +165,15 @@
             </ul>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="database in databases" :key="database.product_code">
-                <nuxt-link :to="{ path: `/product/${database.product_code}` }" style="text-decoration: none !important;">
+            <b-col class="card-product" cols="3" v-for="code in codes" :key="code.product_code">
+                <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important;">
                     <b-card-img :src="`https://placeimg.com/480/480/any?1`" alt="Image" class="rounded-0"></b-card-img>
                     <div class="product-name">
                         <div class="text-overflow">
-                            {{database.product_name}}
+                            {{code.product_name}}
                         </div>
                     </div>
-                    <div class="product-price">$124.00</div>
+                    <div class="product-price">${{code.product_price}}</div>
                     <div class="left">
                         <div class="text">
                             <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
@@ -204,11 +204,11 @@ export default {
     async asyncData({
         $axios
     }) {
-        const databases = await $axios.$get('http://127.0.0.1:3001/api/product');
+        const codes = await $axios.$get('http://127.0.0.1:3001/api/product');
         const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
-        // console.log("categorys", categorys);
+        console.log("codes", codes);
         return {
-            databases,
+            codes,
             categorys
         };
     },

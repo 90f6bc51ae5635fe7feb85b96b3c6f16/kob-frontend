@@ -12,7 +12,7 @@
                 <ul>
                     <li>
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                        {{category.product_category_name}}
+                            {{category.product_category_name}}
                         </nuxt-link>
                     </li>
                 </ul>
@@ -37,9 +37,9 @@
     </div>
     <div class="photos" style="margin: 2em 0 0 -1em;">
         <carousel :starting-image="3" :images="images"></carousel>
-        <div>
+        <div v-for="code in codes" :key="code.product_code">
             <div style="text-align: left">
-                <h3>TTTTT</h3>
+                <h3>{{code.product_name}}</h3>
             </div>
             <div class="product-star-ating">
                 <div style="float:left; margin: -2px 5px 0 0;">
@@ -60,17 +60,11 @@
             ">
                     $200.00
                 </h5>
-                <h5 style="">$185.00</h5>
+                <h5 style="">${{code.product_price}}</h5>
             </div>
             <div style="text-align: left; display: flex; padding-bottom: 10px">
                 <h7 style="color: #adadad">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                    blandit ut nisi vel pellentesque. Nunc ex lacus, bibendum in
-                    lobortis sed, porta viverra turpis. Donec malesuada viverra nulla,
-                    et gravida nulla vulputate vel. Integer ac tellus mollis, lobortis
-                    leo sed, tempus nunc. Aliquam pulvinar sed mi at viverra. Nulla
-                    commodo maximus vestibulum. Morbi fringilla lectus tortor, tristique
-                    interdum eros pellentesque in
+                    {{code.product_detail}}
                 </h7>
             </div>
             <div style="
@@ -139,8 +133,10 @@
             margin: 0 -2em 0 0;
           ">
                 <h7 class=""> SKU : 017 </h7>
-                <h7 class=""> Category : OuterWears,hoodies </h7>
-                <h7 class=""> Tags : Mens,Clothing </h7>
+                <div v-for="category in categorys" :key="category.product_category_code">
+                    <h7 class="" v-if="code.product_category_code == category.product_category_code"> Category : {{category.product_category_name}}</h7>
+                </div>
+                <h7 class=""> Tags : {{code.product_tag}}</h7>
             </div>
         </div>
     </div>
@@ -148,7 +144,9 @@
         <b-card no-body>
             <b-tabs pills card vertical nav-wrapper-class="w-25">
                 <b-tab title="DESCRIPTION" active>
-                    <b-card-text>DESCRIPTION</b-card-text>
+                    <div v-for="code in codes" :key="code.product_code">
+                        <b-card-text>{{code.product_description}}</b-card-text>
+                    </div>
                 </b-tab>
                 <b-tab title="ADDITIONAL INFORMATION">
                     <b-card-text>
@@ -159,14 +157,18 @@
                   padding-top: 20px;
                   padding-bottom: 10px;
                 ">
-                            <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                <h7 class=""> SKU : 017 </h7>
-                            </div>
-                            <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                <h7 class=""> Category : OuterWears,hoodies </h7>
-                            </div>
-                            <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                <h7 class=""> Tags : Mens,Clothing </h7>
+                            <div v-for="code in codes" :key="code.product_code">
+                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                    <h7 class=""> SKU : 017 </h7>
+                                </div>
+                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                    <div v-for="category in categorys" :key="category.product_category_code">
+                                        <h7 class="" v-if="code.product_category_code == category.product_category_code"> Category : {{category.product_category_name}}</h7>
+                                    </div>
+                                </div>
+                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                    <h7 class=""> Tags : {{code.product_tag}}</h7>
+                                </div>
                             </div>
                         </div>
                     </b-card-text>
@@ -191,31 +193,43 @@
             </div>
         </b-col>
     </b-row>
+
     <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
         <client-only>
             <agile :options="options" ref="carousel">
-                <div v-for="i in 5" :key="i" class="img-wrapper">
-                    <b-col class="card-product">
-                        <nuxt-link :to="{ path: `/product/detail` }">
-                            <b-card-img :src="`https://placeimg.com/480/500/any?${i}`" alt="Image" class="rounded-0"></b-card-img>
-                            <div class="product-name">Cillcips Air Purifier A215</div>
-                            <div class="product-price">$124.00</div>
-                            <div class="product-star-ating" style="padding: 0 0 1em 0;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="20" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
+                <div v-for="datadb in datadbs" :key="datadb.product_code">
+                    <div v-for="code in codes" :key="code.product_code">
+                        <div v-if="code.product_category_code == datadb.product_category_code">
+                            <div class="img-wrapper">
+                                <b-col class="card-product">
+                                    <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
+                                        <b-card-img :src="`https://placeimg.com/480/480/any?${datadb}`" alt="Image" class="rounded-0"></b-card-img>
+                                        <div class="product-name">
+                                            {{datadb.product_name}}
+                                        </div>
+                                        <div class="product-price">
+                                            {{datadb.product_price}}
+                                        </div>
+                                        <div class="product-star-ating" style="padding: 0 0 1em 0;">
+                                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                                            </star-rating>
+                                        </div>
+                                        <div class="left">
+                                            <div class="text">
+                                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                                            </div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="text">
+                                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                                            </div>
+                                        </div>
+                                    </nuxt-link>
+                                </b-col>
                             </div>
-                            <div class="left">
-                                <div class="text">
-                                    <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="text">
-                                    <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                                </div>
-                            </div>
-                        </nuxt-link>
-                    </b-col>
+                        </div>
+                        <div v-else></div>
+                    </div>
                 </div>
             </agile>
         </client-only>
@@ -240,11 +254,14 @@ export default {
         params
     }) {
         const codes = await $axios.$get(`http://127.0.0.1:3001/api/product/${params.id}`);
+        const datadbs = await $axios.$get(`http://127.0.0.1:3001/api/product`);
         const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
-        console.log("code", codes);
+        console.log("codes", codes);
+        console.log("datadbs", datadbs);
         return {
             codes,
-            categorys
+            categorys,
+            datadbs,
         };
     },
 
@@ -363,9 +380,8 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 69.5%;
+    top: 60%;
     right: 50%;
-    width: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
     text-align: center;
@@ -375,10 +391,8 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 69.5%;
+    top: 60%;
     left: 50%;
-    width: 50%;
-
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
     text-align: center;
@@ -393,23 +407,26 @@ export default {
 }
 
 .card-product:hover {
-    box-shadow: 0 0 20px rgba(33, 33, 33, .5);
+    box-shadow: 0 0 20px rgba(33, 33, 33, 0.5);
     border: 1px solid #ccc;
-    border-style: outset;
 }
 
-.card-product:hover .image {
+style .card-product:hover .image {
     opacity: 0.3;
 }
 
 .card-product:hover .left {
     opacity: 1;
     background-color: green;
+    width: 50%;
+    border: 1px solid #eaecee;
 }
 
 .card-product:hover .right {
     opacity: 1;
     background-color: green;
+    width: 50%;
+    border: 1px solid #eaecee;
 }
 
 .text {
@@ -432,12 +449,20 @@ div {
 }
 
 .product-name {
+    margin-top: 0.3em;
     text-align: center;
+    color: #444444;
+    font-size: 12pt;
+    /* font-family: "Myriad"; */
+    text-decoration: none !important;
 }
 
 .product-price {
     font-weight: 500;
     text-align: center;
+    color: #222222;
+    font-size: 12pt;
+    /* font-family: "Myriad Pro"; */
 }
 
 .title-product {

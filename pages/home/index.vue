@@ -66,70 +66,18 @@
         </b-col>
     </b-row>
     <b-row class="row-product">
-        <b-col class="card-product">
-            <div class="home-hover-show">
+        <b-col class="card-product" v-for="code in codes.slice(0,5)" :key="code.product_code">
+            <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important;">
                 <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
                 <div class="card-product-shop">
                     <div class="product-name">
                         <div class="text-overflow">
-                            Cillcips Air Purifier A215 asdasdasasdasasasd
+                            {{code.product_name}}
                         </div>
                     </div>
-                    <div class="product-price">$124.00</div>
+                    <div class="product-price">${{code.product_price}}</div>
                 </div>
-            </div>
-        </b-col>
-        <b-col class="card-product">
-            <div class="home-hover-show">
-                <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                <div class="card-product-shop">
-                    <div class="product-name">
-                        <div class="text-overflow">
-                            Cillcips Air Purifier A215
-                        </div>
-                    </div>
-                    <div class="product-price">$124.00</div>
-                </div>
-            </div>
-        </b-col>
-        <b-col class="card-product">
-            <div class="home-hover-show">
-                <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                <div class="card-product-shop">
-                    <div class="product-name">
-                        <div class="text-overflow">
-                            Cillcips Air Purifier A215
-                        </div>
-                    </div>
-                    <div class="product-price">$124.00</div>
-                </div>
-            </div>
-        </b-col>
-        <b-col class="card-product">
-            <div class="home-hover-show">
-                <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                <div class="card-product-shop">
-                    <div class="product-name">
-                        <div class="text-overflow">
-                            Cillcips Air Purifier A215
-                        </div>
-                    </div>
-                    <div class="product-price">$124.00</div>
-                </div>
-            </div>
-        </b-col>
-        <b-col class="card-product">
-            <div class="home-hover-show">
-                <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                <div class="card-product-shop">
-                    <div class="product-name">
-                        <div class="text-overflow">
-                            Cillcips Air Purifier A215
-                        </div>
-                    </div>
-                    <div class="product-price">$124.00</div>
-                </div>
-            </div>
+            </nuxt-link>
         </b-col>
     </b-row>
     <b-row class="row-product">
@@ -199,110 +147,35 @@
                 MP3 Players
             </div>
         </b-col>
-        <b-col class="card-product" cols="7" style="border-top: 4px solid #39b54a">
+        <b-col class="card-product-blog" cols="7" style="border-top: 4px solid #39b54a">
             <b-row class="no-gutters">
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasdasdasdasa
+                <b-col class="card-product" v-for="i in 6" :key="i">
+                    <div class="">
+                        <nuxt-link to="#" style="text-decoration: none !important;">
+                            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+                            <div class="product-name">
+                                <div class="text-overflow">
+                                    Cillcips Air Purifier A215 asdasdasdasdasdasa
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasdasdasdasa
+                            <div class="product-price">$124.00</div>
+                            <div class="left">
+                                <div class="text">
+                                    <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasdasdasdasa
+                            <div class="right">
+                                <div class="text">
+                                    <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-            </b-row>
-            <b-row class="no-gutters">
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasdasdasdasa
+                            <div class="product-star-ating">
+                                <p style="text-align:center;">
+                                    <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                                    </star-rating>
+                                </p>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
-                            </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
-                            </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
+                        </nuxt-link>
                     </div>
                 </b-col>
             </b-row>
@@ -391,110 +264,35 @@
                 MP3 Players
             </div>
         </b-col>
-        <b-col class="card-product" cols="7" style="border-top: 4px solid #ff6289;">
+        <b-col class="card-product-blog" cols="7" style="border-top: 4px solid #39b54a">
             <b-row class="no-gutters">
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
+                <b-col class="card-product" v-for="i in 6" :key="i">
+                    <div class="">
+                        <nuxt-link to="#" style="text-decoration: none !important;">
+                            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+                            <div class="product-name">
+                                <div class="text-overflow">
+                                    Cillcips Air Purifier A215 asdasdasdasdasdasa
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
+                            <div class="product-price">$124.00</div>
+                            <div class="left">
+                                <div class="text">
+                                    <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
+                            <div class="right">
+                                <div class="text">
+                                    <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-            </b-row>
-            <b-row class="no-gutters">
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
+                            <div class="product-star-ating">
+                                <p style="text-align:center;">
+                                    <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                                    </star-rating>
+                                </p>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
-                            </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
-                            </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
+                        </nuxt-link>
                     </div>
                 </b-col>
             </b-row>
@@ -583,110 +381,35 @@
                 MP3 Players
             </div>
         </b-col>
-        <b-col class="card-product" cols="7" style="border-top: 4px solid #ecb856;">
+        <b-col class="card-product-blog" cols="7" style="border-top: 4px solid #39b54a">
             <b-row class="no-gutters">
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
+                <b-col class="card-product" v-for="i in 6" :key="i">
+                    <div class="">
+                        <nuxt-link to="#" style="text-decoration: none !important;">
+                            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+                            <div class="product-name">
+                                <div class="text-overflow">
+                                    Cillcips Air Purifier A215 asdasdasdasdasdasa
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
+                            <div class="product-price">$124.00</div>
+                            <div class="left">
+                                <div class="text">
+                                    <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
+                            <div class="right">
+                                <div class="text">
+                                    <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-            </b-row>
-            <b-row class="no-gutters">
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
+                            <div class="product-star-ating">
+                                <p style="text-align:center;">
+                                    <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                                    </star-rating>
+                                </p>
                             </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
-                            </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
-                    </div>
-                </b-col>
-                <b-col class="card-product">
-                    <div class="home-hover-show">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-                        <div class="product-name">
-                            <div class="text-overflow">
-                                Cillcips Air Purifier A215 asdasdasasdasasasd
-                            </div>
-                        </div>
-                        <div class="product-price">$124.00</div>
-                        <div class="product-star-ating">
-                            <p style="text-align:center;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </p>
-                        </div>
+                        </nuxt-link>
                     </div>
                 </b-col>
             </b-row>
@@ -765,11 +488,13 @@ export default {
         };
     },
     async asyncData({
-        $axios,
-        params
+        $axios
     }) {
+        const codes = await $axios.$get('http://127.0.0.1:3001/api/product');
         const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        // console.log("codes", codes);
         return {
+            codes,
             categorys
         };
     },
@@ -777,6 +502,66 @@ export default {
 </script>
 
 <style scoped>
+.left {
+    transition: 0.5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 60%;
+    right: 50%;
+    /* transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%); */
+    text-align: center;
+}
+
+.right {
+    transition: 0.5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    /* transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%); */
+    text-align: center;
+}
+
+.left:hover .text {
+    background-color: #39b54a;
+}
+
+.right:hover .text {
+    background-color: #39b54a;
+}
+
+.card-product:hover {
+    box-shadow: 0 0 20px rgba(33, 33, 33, 0.5);
+    border: 1px solid #ccc;
+}
+
+style .card-product:hover .image {
+    opacity: 0.3;
+}
+
+.card-product:hover .left {
+    opacity: 1;
+    background-color: green;
+    width: 50%;
+    border: 1px solid #eaecee;
+}
+
+.card-product:hover .right {
+    opacity: 1;
+    background-color: green;
+    width: 50%;
+    border: 1px solid #eaecee;
+}
+
+.text {
+    background-color: white;
+    color: white;
+    font-size: 16px;
+    padding: 5px 42px;
+}
+
 div {
     font-family: 'Kanit', sans-serif;
 }
@@ -825,6 +610,12 @@ div {
 }
 
 .card-product {
+    border: 1px solid rgb(0 0 0 / 14%);
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.card-product-blog {
     border: 1px solid rgb(0 0 0 / 14%);
     padding-left: 0;
     padding-right: 0;
@@ -910,10 +701,10 @@ img.navber-show {
     width: 1000px;
 }
 
-.home-hover-show:hover {
+/* .home-hover-show:hover {
     box-shadow: 0 0 20px rgba(33, 33, 33, .5);
     border: 1px solid #ccc;
-}
+} */
 
 .text-overflow {
     padding: 0 1em 0 1em;
