@@ -24,7 +24,7 @@
     </b-row>
     <b-row style="padding-top: 30px; margin: 0 -2em 0 -1.9em;">
         <b-col cols="3">
-            <ul class="w3-ul" style="">
+            <ul class="my" style="">
                 <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
                     <nuxt-link :to="{ path: `/profile` }">
                         <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
@@ -246,7 +246,7 @@ div {
     font-family: 'Kanit', sans-serif;
 }
 
-ul {
+.my{
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -281,9 +281,36 @@ li a:hover:not(.active) {
     color: white;
 }
 
-#example-collapse {
-    padding-right: 2px;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: transparent;
+    border-bottom: 1px solid rgb(0 0 0 / 14%);
+    border-left: 1px solid rgb(0 0 0 / 14%);
+    border-right: 1px solid rgb(0 0 0 / 14%);
 }
+
+#example-collapse {
+    padding-right: 1.5px;
+}
+
+#example-collapse a {
+    font-size: 12pt;
+    text-align: center;
+    color: #666666;
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+#example-collapse a:hover {
+    color: #fff;
+    background-color: #39b44f !important;
+    box-sizing: border-box;
+}
+
 
 li a {
     display: block;

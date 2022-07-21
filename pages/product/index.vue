@@ -31,20 +31,24 @@
 
     <b-row style="padding-top: 30px">
         <b-col cols="3" style="margin: 0 0 0 -1em">
-            <ul class="w3-ul" style="border: 0.2px solid #e5e5e5">
+            <ul class="w3-ul" style="border: 0.2px solid #e5e5e5l;">
                 <li style="
               font-weight: 500;
               padding: 5px;
-              padding-left: 10px;
+              padding-left: 20px;
               text-align: left;
               background-color: #f8f8f8;
               border: 0.2px solid #e5e5e5;
+              font-size: 12pt;
+              color: #222222;
             ">
                     CATEGORIES
                 </li>
                 <li style="
               padding: 5px;
+              font-size: 12pt;
               color: #777777;
+              padding-left: 20px;
               text-align: left;
               padding: 5px;
               border: 0.2px solid #e5e5e5;
@@ -53,7 +57,9 @@
                 </li>
                 <li style="
               padding: 5px;
+              font-size: 12pt;
               color: #777777;
+              padding-left: 20px;
               text-align: left;
               padding: 5px;
               border: 0.2px solid #e5e5e5;
@@ -62,7 +68,9 @@
                 </li>
                 <li style="
               padding: 5px;
+              font-size: 12pt;
               color: #777777;
+              padding-left: 20px;
               text-align: left;
               padding: 5px;
               border: 0.2px solid #e5e5e5;
@@ -71,16 +79,18 @@
                 </li>
             </ul>
             <b-row>
-                <b-col style="font-weight: 500; padding: 15px">FLITER BY</b-col>
+                <b-col style="font-weight: 500; padding: 15px;font-size: 13pt;">FLITER BY</b-col>
             </b-row>
             <ul class="w3-ul" style="border: 0.2px solid #e5e5e5">
                 <li style="
               font-weight: 500;
               padding: 5px;
-              padding-left: 10px;
+              padding-left: 20px;
               text-align: left;
               background-color: #f8f8f8;
               border: 0.2px solid #e5e5e5;
+              font-size: 12pt;
+              color: #222222;
             ">
                     BRANDS
                     <b-button variant="outline" size="sm" style="float: right">
@@ -90,7 +100,9 @@
 
                 <li style="
               padding: 5px;
+              font-size: 12pt;
               color: #777777;
+              padding-left: 10px;
               text-align: left;
               padding: 5px;
               border: 0.2px solid #e5e5e5;
@@ -100,7 +112,9 @@
                 </li>
                 <li style="
               padding: 5px;
+              font-size: 12pt;
               color: #777777;
+              padding-left: 10px;
               text-align: left;
               padding: 5px;
               border: 0.2px solid #e5e5e5;
@@ -110,7 +124,9 @@
                 </li>
                 <li style="
               padding: 5px;
+              font-size: 12pt;
               color: #777777;
+              padding-left: 10px;
               text-align: left;
               padding: 5px;
               border: 0.2px solid #e5e5e5;
@@ -120,11 +136,12 @@
                 </li>
                 <li style="
               font-weight: 500;
-              padding: 5px;
-              padding-left: 10px;
+              padding-left: 20px;
               text-align: left;
               background-color: #f8f8f8;
               border: 0.2px solid #e5e5e5;
+              font-size: 12pt;
+              color: #222222;
             ">
                     PRICE
 
@@ -133,7 +150,8 @@
                     </b-button>
                 </li>
                 <li style="
-              padding: 5px;
+              padding-left: 10px;
+              font-size: 12pt;
               color: #777777;
               text-align: left;
               padding: 5px;
@@ -143,7 +161,8 @@
                     Jill
                 </li>
                 <li style="
-              padding: 5px;
+              padding-left: 10px;
+              font-size: 12pt;
               color: #777777;
               text-align: left;
               padding: 5px;
@@ -153,7 +172,8 @@
                     Eve
                 </li>
                 <li style="
-              padding: 5px;
+              padding-left: 10px;
+              font-size: 12pt;
               color: #777777;
               text-align: left;
               padding: 5px;
@@ -206,7 +226,8 @@ export default {
     }) {
         const codes = await $axios.$get('http://127.0.0.1:3001/api/product');
         const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
-        console.log("codes", codes);
+        // console.log("codes", codes);
+        // console.log("categorys", categorys);
         return {
             codes,
             categorys
@@ -258,11 +279,11 @@ export default {
 }
 
 .left:hover .text {
-    background-color: #39b54a;
+    background-color: #39b44f;
 }
 
 .right:hover .text {
-    background-color: #39b54a;
+    background-color: #39b44f;
 }
 
 .card-product:hover {
@@ -362,45 +383,28 @@ ul {
     padding: 0;
     width: 100%;
     background-color: transparent;
-    border: 1px solid #adadad;
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none !important;
-}
-
-li {
-    text-align: center;
-    border-bottom: 1px solid #adadad;
-}
-
-li:last-child {
-    border-bottom: none;
-}
-
-li a.active {
-    background-color: #04aa6d;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #adadad;
-    color: white;
+    border-bottom: 1px solid rgb(0 0 0 / 14%);
+    border-left: 1px solid rgb(0 0 0 / 14%);
+    border-right: 1px solid rgb(0 0 0 / 14%);
 }
 
 #example-collapse {
-    padding-right: 0;
+    padding-right: 1.5px;
 }
 
 #example-collapse a {
+    font-size: 12pt;
     text-align: center;
+    color: #666666;
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
 }
 
 #example-collapse a:hover {
     color: #fff;
-    background-color: #39b54a !important;
+    background-color: #39b44f !important;
+    box-sizing: border-box;
 }
+
 </style>

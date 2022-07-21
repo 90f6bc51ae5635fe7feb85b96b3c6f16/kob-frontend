@@ -21,51 +21,55 @@
     </div>
     <div class="title-product">
         <div style="float:left; margin: 0 0 0 0;">
-            <button @click="" class="btn" style="border:1px solid #C0C0C0;">
-                <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #000;" class="fa-2xs" />
+            <button @click="" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt;" />
             </button>
-            <button @click="" class="btn" style="border:1px solid #C0C0C0;">
-                <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #000;" class="fa-2xs" />
+            <button @click="" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt;" />
             </button>
         </div>
         <div div style="text-align: right; margin: 5px 0 0 0;">
-            <p style="text-align: right;">HOME / SHOP /
-                <span style="color: #669999;">
+            <div style="text-align: right; color: #444444; font-size: 12pt;">HOME / SHOP /
+                <span style="color: #888888; font-size: 12pt;">
                     SIMPLE PRODUCT
-                </span></p>
+                </span>
+            </div>
         </div>
     </div>
     <div class="photos" style="margin: 2em 0 0 -1em;">
         <carousel :starting-image="3" :images="images"></carousel>
         <div v-for="code in codes" :key="code.product_code">
             <div style="text-align: left">
-                <h3>{{code.product_name}}</h3>
+                <div style="color: #232323; font-size: 28pt;">{{code.product_name}}</div>
             </div>
             <div class="product-star-ating">
                 <div style="float:left; margin: -2px 5px 0 0;">
-                    <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="15" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                    <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
                     </star-rating>
                 </div>
                 <div style="text-align:right; margin: 0 0 0 0;">
-                    <p style="text-align:center; float:left; margin: 0 0 0 0; color: #669999;">
+                    <p style="text-align:center; float:left; margin: 0 0 0 0; color: #777777; font-size: 12pt;">
                         (5 Customers reviews)
                     </p>
                 </div>
             </div><br />
             <div style="text-align: left; display: flex">
-                <h5 style="
+                <div style="
               text-decoration: line-through;
               padding-right: 10px;
-              color: #adadad;
+              color: #999999;
+              font-size: 18pt;
             ">
                     $200.00
-                </h5>
-                <h5 style="">${{code.product_price}}</h5>
+                </div>
+                <div style="color: #222222; font-size: 18pt;">
+                    ${{code.product_price}}
+                </div>
             </div>
             <div style="text-align: left; display: flex; padding-bottom: 10px">
-                <h7 style="color: #adadad">
+                <div style="color: #777777; font-size: 12pt;">
                     {{code.product_detail}}
-                </h7>
+                </div>
             </div>
             <div style="
             text-align: left;
@@ -75,15 +79,15 @@
             border: 1px solid #e4e4e4;
             background-color: #f5fffa;
           ">
-                <h7 class="dotted">
-                    vestibulum. Morbi fringilla lectus tortor, tristique interdum eros
-                </h7>
-                <h7 class="dotted">
-                    vestibulum. Morbi fringilla lectus tortor, tristique interdum eros
-                </h7>
-                <h7 class="dotted">
-                    vestibulum. Morbi fringilla lectus tortor, tristique interdum eros
-                </h7>
+                <div class="dotted" style="color: #777777; font-size: 12pt;">
+                    Free Shipping On order <span style="color: #222222;">over $99</span>
+                </div>
+                <div class="dotted" style="color: #8aa47b; font-size: 12pt;">
+                    Instock
+                </div>
+                <div class="dotted" style="color: #777777; font-size: 12pt;">
+                    Gift-wrap available
+                </div>
             </div>
             <div style="
             text-align: left;
@@ -132,11 +136,26 @@
             border-bottom: 1px solid #e4e4e4;
             margin: 0 -2em 0 0;
           ">
-                <h7 class=""> SKU : 017 </h7>
-                <div v-for="category in categorys" :key="category.product_category_code">
-                    <h7 class="" v-if="code.product_category_code == category.product_category_code"> Category : {{category.product_category_name}}</h7>
+                <div style="color: #222222; font-size: 12pt;" class="">
+                    SKU :
+                    <span style="color: #777777; font-size: 12pt;">
+                        017
+                    </span>
                 </div>
-                <h7 class=""> Tags : {{code.product_tag}}</h7>
+                <div v-for="category in categorys" :key="category.product_category_code">
+                    <div style="color: #222222; font-size: 12pt;" class="" v-if="code.product_category_code == category.product_category_code">
+                        Category :
+                        <span style="color: #777777; font-size: 12pt;">
+                            {{category.product_category_name}}
+                        </span>
+                    </div>
+                </div>
+                <div style="color: #222222; font-size: 12pt;" class="">
+                    Tags :
+                    <span style="color: #777777; font-size: 12pt;">
+                        {{code.product_tag}}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -159,15 +178,24 @@
                 ">
                             <div v-for="code in codes" :key="code.product_code">
                                 <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                    <h7 class=""> SKU : 017 </h7>
+                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Weight : </div>
+                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">1.5 kg</div>
                                 </div>
                                 <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                    <div v-for="category in categorys" :key="category.product_category_code">
-                                        <h7 class="" v-if="code.product_category_code == category.product_category_code"> Category : {{category.product_category_name}}</h7>
-                                    </div>
+                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Dimensions : </div>
+                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">90 x 60 x 90 cm</div>
                                 </div>
                                 <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                    <h7 class=""> Tags : {{code.product_tag}}</h7>
+                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Composition : </div>
+                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">100% Cotton</div>
+                                </div>
+                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Colour : </div>
+                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">Blue, Gray, Red</div>
+                                </div>
+                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Size : </div>
+                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">Extra Smail, Large, Medium, Small</div>
                                 </div>
                             </div>
                         </div>
@@ -178,23 +206,24 @@
     </div>
 
     <b-row>
-        <b-col class="title-product">
-            <h4>RELATED PRODUCTS</h4>
+        <b-col class="related-product">
+            <div style="font-size: 18pt; color: #222222;">
+                RELATED PRODUCTS
+            </div>
         </b-col>
-        <b-col class="title-product">
-            <div style="text-align: right">
-                <button @click="$refs.carousel.goToPrev()" class="btn" style="border: 1px solid #e4e4e4">
-                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #000" />
+        <b-col class="related-product">
+            <div style="text-align: right" class="awesome-product">
+                <button @click="$refs.carousel.goToPrev()" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt;" />
                 </button>
-
-                <button @click="$refs.carousel.goToNext()" class="btn" style="border: 1px solid #e4e4e4">
-                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #000" />
+                <button @click="$refs.carousel.goToNext()" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt;" />
                 </button>
             </div>
         </b-col>
     </b-row>
-
-    <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
+    <!-- เฉพาะสิ้นค้าประเภทเดียวกัน -->
+    <!-- <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
         <client-only>
             <agile :options="options" ref="carousel">
                 <div v-for="datadb in datadbs" :key="datadb.product_code">
@@ -233,6 +262,75 @@
                 </div>
             </agile>
         </client-only>
+    </div> -->
+    <!-- สิ้นค้าประเภทเดียวกัน และ สุ่มเพิ่ม -->
+    <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
+        <client-only>
+            <agile :options="options" ref="carousel">
+                <div v-for="datadb in datadbs" :key="datadb.product_code">
+                    <div v-for="code in codes" :key="code.product_code">
+                        <div v-if="code.product_category_code == datadb.product_category_code">
+                            <div class="img-wrapper">
+                                <b-col class="card-product">
+                                    <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
+                                        <b-card-img :src="`https://placeimg.com/480/480/any?${datadb}`" alt="Image" class="rounded-0"></b-card-img>
+                                        <div class="product-name">
+                                            {{datadb.product_name}}
+                                        </div>
+                                        <div class="product-price">
+                                            {{datadb.product_price}}
+                                        </div>
+                                        <div class="product-star-ating" style="padding: 0 0 1em 0;">
+                                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                                            </star-rating>
+                                        </div>
+                                        <div class="left">
+                                            <div class="text">
+                                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                                            </div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="text">
+                                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                                            </div>
+                                        </div>
+                                    </nuxt-link>
+                                </b-col>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="img-wrapper">
+                                <b-col class="card-product">
+                                    <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
+                                        <b-card-img :src="`https://placeimg.com/480/480/any?${datadb}`" alt="Image" class="rounded-0"></b-card-img>
+                                        <div class="product-name">
+                                            {{datadb.product_name}}
+                                        </div>
+                                        <div class="product-price">
+                                            {{datadb.product_price}}
+                                        </div>
+                                        <div class="product-star-ating" style="padding: 0 0 1em 0;">
+                                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                                            </star-rating>
+                                        </div>
+                                        <div class="left">
+                                            <div class="text">
+                                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                                            </div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="text">
+                                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                                            </div>
+                                        </div>
+                                    </nuxt-link>
+                                </b-col>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </agile>
+        </client-only>
     </div>
 </div>
 </template>
@@ -256,8 +354,8 @@ export default {
         const codes = await $axios.$get(`http://127.0.0.1:3001/api/product/${params.id}`);
         const datadbs = await $axios.$get(`http://127.0.0.1:3001/api/product`);
         const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
-        console.log("codes", codes);
-        console.log("datadbs", datadbs);
+        // console.log("codes", codes);
+        // console.log("datadbs", datadbs);
         return {
             codes,
             categorys,
@@ -399,11 +497,11 @@ export default {
 }
 
 .left:hover .text {
-    background-color: #39b54a;
+    background-color: #39b44f;
 }
 
 .right:hover .text {
-    background-color: #39b54a;
+    background-color: #39b44f;
 }
 
 .card-product:hover {
@@ -471,25 +569,21 @@ div {
     font-size: 1em;
     font-weight: 500;
     border-bottom: 1px solid #e4e4e4;
-    padding-bottom: 5px;
+    padding-bottom: 1em;
     margin: auto -2em auto -1em;
 }
 
+.related-product {
+    padding-top: 1em;
+    font-weight: 600;
+    padding-bottom: .5em;
+    margin: auto -2em auto -1em;
+}
+
+.awesome-product {}
+
 .vue-star-rating {
     justify-content: center;
-}
-
-#example-collapse {
-    padding-right: 0;
-}
-
-#example-collapse a {
-    text-align: center;
-}
-
-#example-collapse a:hover {
-    color: #fff;
-    background-color: #39b54a !important;
 }
 
 ul {
@@ -498,32 +592,28 @@ ul {
     padding: 0;
     width: 100%;
     background-color: transparent;
-    border: 1px solid #adadad;
+    border-bottom: 1px solid rgb(0 0 0 / 14%);
+    border-left: 1px solid rgb(0 0 0 / 14%);
+    border-right: 1px solid rgb(0 0 0 / 14%);
 }
 
-li a {
+#example-collapse {
+    padding-right: 1.5px;
+}
+
+#example-collapse a {
+    font-size: 12pt;
+    text-align: center;
+    color: #666666;
     display: block;
-    color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
 
-li {
-    text-align: center;
-    border-bottom: 1px solid #adadad;
+#example-collapse a:hover {
+    color: #fff;
+    background-color: #39b44f !important;
+    box-sizing: border-box;
 }
 
-li:last-child {
-    border-bottom: none;
-}
-
-li a.active {
-    background-color: #04aa6d;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #adadad;
-    color: white;
-}
 </style>

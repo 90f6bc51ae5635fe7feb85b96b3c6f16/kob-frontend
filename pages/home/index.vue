@@ -48,21 +48,23 @@
     </div>
 
     <b-row style="margin-top: -10px;">
-        <b-col class="title-product" style="text-align: left; margin: 0 0 0 -0.7em;">สินค้าใหม่ล่าสุด</b-col>
+        <b-col class="title-product" style="text-align: left; margin: 0 0 0 -0.7em;">
+            สินค้าใหม่ล่าสุด
+        </b-col>
         <b-col class="title-product">
             <div style="text-align: right; margin: 0 -1.4em 0 0;">
-                <button @click="$refs.carousel.goToPrev()" class="btn" style="border:1px solid #C0C0C0;">
-                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #000" />
+                <button @click="$refs.carousel.goToPrev()" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt;" />
                 </button>
-                <button @click="$refs.carousel.goToNext()" class="btn" style="border:1px solid #C0C0C0;">
-                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #000" />
+                <button @click="$refs.carousel.goToNext()" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt;" />
                 </button>
             </div>
         </b-col>
     </b-row>
     <b-row>
-        <b-col class="title-product-sub" style="margin: -8px 0 0 -1em;">ขายง่าย ขายดี กำไรงาม
-
+        <b-col class="title-product-sub" style="margin: -8px 0 0 -1em;">
+            ขายง่าย ขายดี กำไรงาม
         </b-col>
     </b-row>
     <b-row class="row-product">
@@ -76,6 +78,16 @@
                         </div>
                     </div>
                     <div class="product-price">${{code.product_price}}</div>
+                    <div class="left">
+                        <div class="text">
+                            <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="text">
+                            <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                        </div>
+                    </div>
                 </div>
             </nuxt-link>
         </b-col>
@@ -86,63 +98,63 @@
             <div style="
             padding-top: 20px;
             margin-bottom: 20px;
-            font-size: 1.2em;
+            font-size: 15pt;
             color: #fff;
           ">
                 ELECTRONICS
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-top: 1px solid #fff;
-            border-bottom: 1px solid #fff;
+            border-top: 1px solid #61c46e;
+            border-bottom: 1px solid #61c46e;
           ">
                 Mobile Accessories
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #61c46e;
           ">
                 Hitech
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #61c46e;
           ">
                 Unboxed Mobiles
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #61c46e;
           ">
                 Bluetooth Devices
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #61c46e;
           ">
                 Screen Guards
             </div>
             <div style="
-            padding: 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #61c46e;
           ">
                 MP3 Players
             </div>
@@ -191,80 +203,80 @@
 
     <b-row class="row-product">
         <b-col class="" style="
-          background-color: #ff6289 !important;
+          background-color: #ff678d !important;
           text-align: center;
           padding-top: 2em;
           padding-left: 0;
           padding-right: 0;
           padding-bottom: 20px;
-          border-top: 4px solid #ff6289;
+          border-top: 4px solid #ff678d;
         ">
             <b-img src="~/assets/heath.png" alt="Image" class="rounded" width="56" height="56" style="margin-top: 2"></b-img>
             <div style="
             padding-top: 20px;
             margin-bottom: 20px;
-            font-size: 1.2em;
+            font-size: 15pt;
             color: #fff;
           ">
                 Health & Beauty
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-top: 1px solid #fff;
-            border-bottom: 1px solid #fff;
+            border-top: 1px solid #ff81a1;
+            border-bottom: 1px solid #ff81a1;
           ">
                 Mobile Accessories
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #ff81a1;
           ">
                 Hitech
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #ff81a1;
           ">
                 Unboxed Mobiles
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #ff81a1;
           ">
                 Bluetooth Devices
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #ff81a1;
           ">
                 Screen Guards
             </div>
             <div style="
-            padding: 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #ff81a1;
           ">
                 MP3 Players
             </div>
         </b-col>
-        <b-col class="card-product-blog" cols="7" style="border-top: 4px solid #39b54a">
+        <b-col class="card-product-blog" cols="7" style="border-top: 4px solid #ff678d">
             <b-row class="no-gutters">
                 <b-col class="card-product" v-for="i in 6" :key="i">
                     <div class="">
@@ -320,68 +332,68 @@
             <div style="
             padding-top: 20px;
             margin-bottom: 20px;
-            font-size: 1.2em;
+            font-size: 15pt;
             color: #fff;
           ">
                 Home & Living
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-top: 1px solid #fff;
-            border-bottom: 1px solid #fff;
+            border-top: 1px solid #efc574;
+            border-bottom: 1px solid #efc574;
           ">
                 Mobile Accessories
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #efc574;
           ">
                 Hitech
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #efc574;
           ">
                 Unboxed Mobiles
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #efc574;
           ">
                 Bluetooth Devices
             </div>
             <div style="
-            padding: 10px 0px 10px 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #efc574;
           ">
                 Screen Guards
             </div>
             <div style="
-            padding: 10px;
-            font-size: 1em;
+            padding: 10px 0px 10px 30px;
+            font-size: 13pt;
             color: #fff;
             text-align: left;
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #efc574;
           ">
                 MP3 Players
             </div>
         </b-col>
-        <b-col class="card-product-blog" cols="7" style="border-top: 4px solid #39b54a">
+        <b-col class="card-product-blog" cols="7" style="border-top: 4px solid #ecb856">
             <b-row class="no-gutters">
                 <b-col class="card-product" v-for="i in 6" :key="i">
                     <div class="">
@@ -525,11 +537,11 @@ export default {
 }
 
 .left:hover .text {
-    background-color: #39b54a;
+    background-color: #39b44f;
 }
 
 .right:hover .text {
-    background-color: #39b54a;
+    background-color: #39b44f;
 }
 
 .card-product:hover {
@@ -568,15 +580,16 @@ div {
 
 .title-product {
     font-family: 'Kanit', sans-serif;
-    font-size: 1.5em;
+    font-size: 20pt;
     font-weight: 500;
+    color: #222222;
 }
 
 .title-product-sub {
     font-family: 'Kanit', sans-serif;
-    font-size: 1em;
+    font-size: 12pt;
     font-weight: 500;
-    color: hsl(0, 0%, 66%);
+    color: #999999;
 }
 
 .row-product {
@@ -601,7 +614,7 @@ div {
 }
 
 .row-product-type {
-    background-color: #39b54a !important;
+    background-color: #39b44f !important;
     text-align: center;
     padding-top: 2em;
     padding-left: 0;
@@ -631,7 +644,9 @@ ul {
     padding: 0;
     width: 100%;
     background-color: transparent;
-    border: 1px solid rgb(0 0 0 / 14%);
+    border-bottom: 1px solid rgb(0 0 0 / 14%);
+    border-left: 1px solid rgb(0 0 0 / 14%);
+    border-right: 1px solid rgb(0 0 0 / 14%);
 }
 
 #example-collapse {
@@ -639,39 +654,18 @@ ul {
 }
 
 #example-collapse a {
+    font-size: 12pt;
     text-align: left;
-}
-
-#example-collapse a:hover {
-    color: #fff;
-    background-color: #39b54a !important;
-    box-sizing: border-box;
-}
-
-li a {
+    color: #666666;
     display: block;
-    color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
 
-li {
-    text-align: center;
-    border: 1px solid rgb(0 0 0 / 14%);
-}
-
-li:last-child {
-    border-bottom: none;
-}
-
-li a.active {
-    background-color: #04aa6d;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #adadad;
-    color: white;
+#example-collapse a:hover {
+    color: #fff;
+    background-color: #39b44f !important;
+    box-sizing: border-box;
 }
 
 .carousel-wrapper {
