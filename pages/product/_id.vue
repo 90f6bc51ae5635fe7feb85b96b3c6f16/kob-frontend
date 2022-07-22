@@ -36,9 +36,27 @@
             </div>
         </div>
     </div>
-    <div class="photos" style="margin: 2em 0 0 -1em;">
-        <carousel :starting-image="3" :images="images"></carousel>
-        <div v-for="code in codes" :key="code.product_code">
+    <div class="photos" style="margin: 2em 0 0 -1em;" v-for="code in codes" :key="code.product_code">
+        <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
+        <div v-if="code.product_image" style="border: 1px solid #e4e4e4;">
+            <b-card-img :src="`http://54.254.134.236:6201/${code.product_image}`" alt="Image" class="rounded-0">
+            </b-card-img>
+        </div>
+        <div v-else style="border: 1px solid #e4e4e4;">
+            <svg class="" width="100%" height="550" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title></title>
+                <rect width="100%" height="100%" fill="#55595c"></rect>
+                <text x="30%" y="50%" fill="#eceeef" dy=".3em" style="font-size: 30pt;">Kob Giftshop</text>
+            </svg>
+        </div>
+
+        <!-- <carousel style="border: 1px solid #e4e4e4;" :starting-image="3" :images="[
+          {big: `http://54.254.134.236:6201/${code.product_image}`},
+          {big: `http://54.254.134.236:6201/${code.product_image}`},
+          {big: `http://54.254.134.236:6201/${code.product_image}`},
+        ]">
+        </carousel> -->
+        <div>
             <div style="text-align: left">
                 <div style="color: #232323; font-size: 28pt;">{{code.product_name}}</div>
             </div>
@@ -83,7 +101,7 @@
                     Free Shipping On order <span style="color: #222222;">over $99</span>
                 </div>
                 <div class="dotted" style="color: #8aa47b; font-size: 12pt;">
-                    Instock
+                    {{code.product_delivery_time}}
                 </div>
                 <div class="dotted" style="color: #777777; font-size: 12pt;">
                     Gift-wrap available
@@ -139,7 +157,7 @@
                 <div style="color: #222222; font-size: 12pt;" class="">
                     SKU :
                     <span style="color: #777777; font-size: 12pt;">
-                        017
+                        {{code.product_code}}
                     </span>
                 </div>
                 <div v-for="category in categorys" :key="category.product_category_code">
@@ -273,7 +291,15 @@
                             <div class="img-wrapper">
                                 <b-col class="card-product">
                                     <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
-                                        <b-card-img :src="`https://placeimg.com/480/480/any?${datadb}`" alt="Image" class="rounded-0"></b-card-img>
+                                        <div v-if="datadb.product_image">
+                                            <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" class="rounded-0"></b-card-img>
+                                        </div>
+                                        <div v-else>
+                                            <svg class="" width="100%" height="230" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                                <title></title>
+                                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                                            </svg>
+                                        </div>
                                         <div class="product-name">
                                             {{datadb.product_name}}
                                         </div>
@@ -302,7 +328,15 @@
                             <div class="img-wrapper">
                                 <b-col class="card-product">
                                     <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
-                                        <b-card-img :src="`https://placeimg.com/480/480/any?${datadb}`" alt="Image" class="rounded-0"></b-card-img>
+                                        <div v-if="datadb.product_image">
+                                            <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" class="rounded-0"></b-card-img>
+                                        </div>
+                                        <div v-else>
+                                            <svg class="" width="100%" height="230" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                                <title></title>
+                                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                                            </svg>
+                                        </div>
                                         <div class="product-name">
                                             {{datadb.product_name}}
                                         </div>
@@ -376,7 +410,7 @@ export default {
 
             images: [{
                     id: "1",
-                    big: "https://picsum.photos/400/400/?image=1",
+                    big: "http://54.254.134.236:6201/${code.product_image}",
                     thumb: "https://picsum.photos/400/400/?image=1",
                 },
                 {
@@ -615,5 +649,4 @@ ul {
     background-color: #39b44f !important;
     box-sizing: border-box;
 }
-
 </style>

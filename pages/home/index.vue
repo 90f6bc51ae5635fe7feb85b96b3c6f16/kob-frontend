@@ -70,7 +70,15 @@
     <b-row class="row-product">
         <b-col class="card-product" v-for="code in codes.slice(0,5)" :key="code.product_code">
             <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important;">
-                <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+                <div v-if="code.product_image">
+                    <b-card-img :src="`http://54.254.134.236:6201/${code.product_image}`" alt="Image" class="rounded-0"></b-card-img>
+                </div>
+                <div v-else>
+                    <svg class="" width="100%" height="230"  role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title></title>
+                        <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                    </svg>
+                </div>
                 <div class="card-product-shop">
                     <div class="product-name">
                         <div class="text-overflow">
