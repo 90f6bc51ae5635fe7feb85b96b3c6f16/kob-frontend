@@ -7,7 +7,7 @@
                 <b-form-input style="height: 100%"></b-form-input>
 
                 <template #append>
-                    <b-dropdown text="หมวดหมู่สินค้า" variant="outline-secondary">
+                    <b-dropdown text="หมวดหมู่สินค้า" variant="outline-secondary" disabled>
                         <b-dropdown-item>Action C</b-dropdown-item>
                         <b-dropdown-item>Action D</b-dropdown-item>
                     </b-dropdown>
@@ -15,9 +15,9 @@
                         <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
                     </b-input-group-text>
                     <div class="login-user">
-                        <b-link href="/login" style="color: #8d8d8d">ล็อคอิน</b-link>
+                        <b-link href="/login" style="color: #8d8d8d" disabled>ล็อคอิน</b-link>
                         /
-                        <b-link href="/register" style="color: #8d8d8d">สมัครสมาชิค</b-link>
+                        <b-link href="/register" style="color: #8d8d8d" disabled>สมัครสมาชิค</b-link>
                     </div>
                     <div style="margin: -10px 0 -10px 0">
                         <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none" style="
@@ -26,7 +26,7 @@
                   width: ;
                   border: 1px solid #ccc;
                   border-radius: 3px;
-                " no-caret>
+                " no-caret disabled>
                             <template #button-content style="height: 20px; width: 20px">
                                 <font-awesome-icon :icon="['fas', 'lock']" style="height: 15px; width: 15px; margin: -1px 0 9px 0" />
                             </template>

@@ -39,8 +39,25 @@
     <div class="photos" style="margin: 2em 0 0 -1em;" v-for="code in codes" :key="code.product_code">
         <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
         <div v-if="code.product_image" style="border: 1px solid #e4e4e4;">
-            <b-card-img :src="`http://54.254.134.236:6201/${code.product_image}`" alt="Image" class="rounded-0">
-            </b-card-img>
+            <carousel style="border: 1px solid #e4e4e4;" :starting-image="0" :images="[
+                    {
+                        big: `http://54.254.134.236:6201/${code.product_image}`,
+                        thumb: `http://54.254.134.236:6201/${code.product_image}`,
+                    },
+                    {
+                        big: `http://54.254.134.236:6201/${code.product_image}`,
+                        thumb: `http://54.254.134.236:6201/${code.product_image}`,
+                    },
+                    {
+                        big: `http://54.254.134.236:6201/${code.product_image}`,
+                        thumb: `http://54.254.134.236:6201/${code.product_image}`,
+                    },
+                    {
+                        big: `http://54.254.134.236:6201/${code.product_image}`,
+                        thumb: `http://54.254.134.236:6201/${code.product_image}`,
+                    },
+                    ]">
+            </carousel>
         </div>
         <div v-else style="border: 1px solid #e4e4e4;">
             <svg class="" width="100%" height="550" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -50,12 +67,6 @@
             </svg>
         </div>
 
-        <!-- <carousel style="border: 1px solid #e4e4e4;" :starting-image="3" :images="[
-          {big: `http://54.254.134.236:6201/${code.product_image}`},
-          {big: `http://54.254.134.236:6201/${code.product_image}`},
-          {big: `http://54.254.134.236:6201/${code.product_image}`},
-        ]">
-        </carousel> -->
         <div>
             <div style="text-align: left">
                 <div style="color: #232323; font-size: 28pt;">{{code.product_name}}</div>
@@ -101,7 +112,7 @@
                     Free Shipping On order <span style="color: #222222;">over $99</span>
                 </div>
                 <div class="dotted" style="color: #8aa47b; font-size: 12pt;">
-                    {{code.product_delivery_time}}
+                    {{code.product_delivery_time}} วัน
                 </div>
                 <div class="dotted" style="color: #777777; font-size: 12pt;">
                     Gift-wrap available
@@ -138,7 +149,7 @@
             margin: 0 -2em 0 0;
           ">
                 <div style="width: 35%">
-                    <b-button variant="dark" class="mb-2">
+                    <b-button variant="dark" class="mb-2" disabled>
                         ADD TO CART
                         <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #fff" />
                     </b-button>
@@ -241,48 +252,51 @@
         </b-col>
     </b-row>
     <!-- เฉพาะสิ้นค้าประเภทเดียวกัน -->
-    <!-- <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
+    <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
         <client-only>
             <agile :options="options" ref="carousel">
                 <div v-for="datadb in datadbs" :key="datadb.product_code">
-                    <div v-for="code in codes" :key="code.product_code">
-                        <div v-if="code.product_category_code == datadb.product_category_code">
-                            <div class="img-wrapper">
-                                <b-col class="card-product">
-                                    <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
-                                        <b-card-img :src="`https://placeimg.com/480/480/any?${datadb}`" alt="Image" class="rounded-0"></b-card-img>
-                                        <div class="product-name">
-                                            {{datadb.product_name}}
-                                        </div>
-                                        <div class="product-price">
-                                            {{datadb.product_price}}
-                                        </div>
-                                        <div class="product-star-ating" style="padding: 0 0 1em 0;">
-                                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                            </star-rating>
-                                        </div>
-                                        <div class="left">
-                                            <div class="text">
-                                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                                            </div>
-                                        </div>
-                                        <div class="right">
-                                            <div class="text">
-                                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                                            </div>
-                                        </div>
-                                    </nuxt-link>
-                                </b-col>
+                    <b-col class="card-product">
+                        <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
+                            <div v-if="datadb.product_image">
+                                <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
                             </div>
-                        </div>
-                        <div v-else></div>
-                    </div>
+                            <div v-else>
+                                <svg class="" width="100%" height="230px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <title></title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                                </svg>
+                            </div>
+                            <div class="product-name">
+                                <div class="text-overflow">
+                                    {{datadb.product_name}}
+                                </div>
+                            </div>
+                            <div class="product-price">
+                                ${{datadb.product_price}}
+                            </div>
+                            <div class="product-star-ating" style="padding: 0 0 1em 0;">
+                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                                </star-rating>
+                            </div>
+                            <div class="left">
+                                <div class="text">
+                                    <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="text">
+                                    <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                                </div>
+                            </div>
+                        </nuxt-link>
+                    </b-col>
                 </div>
             </agile>
         </client-only>
-    </div> -->
+    </div>
     <!-- สิ้นค้าประเภทเดียวกัน และ สุ่มเพิ่ม -->
-    <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
+    <!-- <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
         <client-only>
             <agile :options="options" ref="carousel">
                 <div v-for="datadb in datadbs" :key="datadb.product_code">
@@ -365,7 +379,7 @@
                 </div>
             </agile>
         </client-only>
-    </div>
+    </div> -->
 </div>
 </template>
 
@@ -386,31 +400,30 @@ export default {
         params
     }) {
         const codes = await $axios.$get(`http://127.0.0.1:3001/api/product/${params.id}`);
-        const datadbs = await $axios.$get(`http://127.0.0.1:3001/api/product`);
-        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        const datadbs = await $axios.$get('http://127.0.0.1:3001/api/product');
+        const categorys = await $axios.$get('http://127.0.0.1:3001/api/category');
         // console.log("codes", codes);
         // console.log("datadbs", datadbs);
         return {
             codes,
             categorys,
             datadbs,
+            rating: 4.4,
         };
     },
 
     data() {
         return {
             quantity: 1,
-
             options: {
                 infinite: true,
                 slidesToShow: 5,
                 navButtons: false,
                 dots: false,
             },
-
             images: [{
                     id: "1",
-                    big: "http://54.254.134.236:6201/${code.product_image}",
+                    big: "https://picsum.photos/400/400/?image=1",
                     thumb: "https://picsum.photos/400/400/?image=1",
                 },
                 {
@@ -449,7 +462,6 @@ export default {
                 //   thumb: "https://picsum.photos/400/400/?image=8",
                 // },
             ],
-            rating: 4.4,
         };
     },
     methods: {
@@ -464,7 +476,6 @@ export default {
             }
         },
     },
-
 };
 </script>
 
@@ -512,7 +523,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 60%;
+    top: 60.5%;
     right: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -523,7 +534,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 60%;
+    top: 60.5%;
     left: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -648,5 +659,17 @@ ul {
     color: #fff;
     background-color: #39b44f !important;
     box-sizing: border-box;
+}
+
+.divCheckbox {
+    display: none !important;
+}
+
+.text-overflow {
+    padding: 0 1em 0 1em;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>

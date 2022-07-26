@@ -1,18 +1,12 @@
 <template>
 <div>
-    <div class="" style="margin: 0 -2em 0 -1em;">
-        <b-collapse id="example-collapse" style="
-              width: 100%;
-              margin: 0 0 0 0;
-              max-height: 250px;
-              overflow: auto;
-
-            ">
+    <div class="" style="margin: 0 -2em 0 -1em">
+        <b-collapse id="example-collapse" style="width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto">
             <div v-for="category in categorys" :key="category.product_category_code">
                 <ul>
                     <li>
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                            {{category.product_category_name}}
+                            {{ category.product_category_name }}
                         </nuxt-link>
                     </li>
                 </ul>
@@ -31,7 +25,7 @@
 
     <b-row style="padding-top: 30px">
         <b-col cols="3" style="margin: 0 0 0 -1em">
-            <ul class="w3-ul" style="border: 0.2px solid #e5e5e5l;">
+            <ul class="w3-ul" style="border: 0.2px solid #e5e5e5l">
                 <li style="
               font-weight: 500;
               padding: 5px;
@@ -79,7 +73,7 @@
                 </li>
             </ul>
             <b-row>
-                <b-col style="font-weight: 500; padding: 15px;font-size: 13pt;">FLITER BY</b-col>
+                <b-col style="font-weight: 500; padding: 15px; font-size: 13pt">FLITER BY</b-col>
             </b-row>
             <ul class="w3-ul" style="border: 0.2px solid #e5e5e5">
                 <li style="
@@ -93,7 +87,7 @@
               color: #222222;
             ">
                     BRANDS
-                    <b-button variant="outline" size="sm" style="float: right">
+                    <b-button variant="outline" size="sm" style="float: right" disabled>
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
@@ -107,7 +101,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
                     Jill
                 </li>
                 <li style="
@@ -119,7 +113,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
                     Eve
                 </li>
                 <li style="
@@ -131,7 +125,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
                     Adam
                 </li>
                 <li style="
@@ -145,7 +139,7 @@
             ">
                     PRICE
 
-                    <b-button variant="outline" size="sm" style="float: right">
+                    <b-button variant="outline" size="sm" style="float: right" disabled>
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
@@ -157,7 +151,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
                     Jill
                 </li>
                 <li style="
@@ -168,7 +162,7 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
                     Eve
                 </li>
                 <li style="
@@ -179,29 +173,30 @@
               padding: 5px;
               border: 0.2px solid #e5e5e5;
             ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" />
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
                     Adam
                 </li>
             </ul>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="code in codes" :key="code.product_code">
-                <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important;">
+            <b-col class="card-product" cols="3" v-for="code in codes" :key="code.product_code" v-if="code.product_code">
+                <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important">
                     <div v-if="code.product_image">
                         <b-card-img :src="`http://54.254.134.236:6201/${code.product_image}`" alt="Image" class="rounded-0"></b-card-img>
                     </div>
                     <div v-else>
                         <svg class="" width="100%" height="215" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
                             <title></title>
-                            <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
                         </svg>
                     </div>
                     <div class="product-name">
                         <div class="text-overflow">
-                            {{code.product_name}}
+                            {{ code.product_name }}
                         </div>
                     </div>
-                    <div class="product-price">${{code.product_price}}</div>
+                    <div class="product-price">${{ code.product_price }}</div>
                     <div class="left">
                         <div class="text">
                             <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
@@ -220,6 +215,9 @@
                     </div>
                 </nuxt-link>
             </b-col>
+            <div v-else>
+                ไม่พิสินค้า
+            </div>
         </b-col>
     </b-row>
 </div>
@@ -232,13 +230,13 @@ export default {
     async asyncData({
         $axios
     }) {
-        const codes = await $axios.$get('http://127.0.0.1:3001/api/product');
-        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        const codes = await $axios.$get("http://127.0.0.1:3001/api/product");
+        const categorys = await $axios.$get("http://127.0.0.1:3001/api/category");
         // console.log("codes", codes);
         // console.log("categorys", categorys);
         return {
             codes,
-            categorys
+            categorys,
         };
     },
     data() {
@@ -329,7 +327,6 @@ div {
 }
 
 .card-product {
-
     padding-left: 0;
     padding-right: 0;
     flex: 1 0 21%;

@@ -235,7 +235,7 @@ export default {
         $axios,
         params
     }) {
-        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
+        const categorys = await $axios.$get('http://127.0.0.1:3001/api/category');
         return {
             categorys
         };

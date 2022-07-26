@@ -71,9 +71,7 @@
             </b-row>
         </b-container>
     </div>
-
     <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-container fluid="lg" style="margin: auto; justify-content: center; font-weight: 500">
             <b-row>
                 <p style="font-size: 14px; margin: auto 1em auto auto;">KEEP IN TOUCH</p>

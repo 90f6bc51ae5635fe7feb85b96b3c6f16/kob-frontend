@@ -1,17 +1,18 @@
 <template>
-  <div>
+<div>
     <Navbar />
     <b-container fluid="lg" class="no-gutters" style="margin:auto;">
-      <Nuxt />
+        <Nuxt />
     </b-container>
     <Footer />
-  </div>
+</div>
 </template>
 
 <style>
 html {
-  font-family: "Kanit";
+    font-family: "Kanit";
 }
+
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
@@ -33,4 +34,5 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: #F5B041;
 }
+
 </style>

@@ -511,8 +511,8 @@ export default {
         $axios
     }) {
         const codes = await $axios.$get('http://127.0.0.1:3001/api/product');
-        const categorys = await $axios.$get('http://127.0.0.1:3001/api/product-category');
-        // console.log("codes", codes);
+        const categorys = await $axios.$get('http://127.0.0.1:3001/api/category');
+    //     // console.log("codes", codes);
         return {
             codes,
             categorys
