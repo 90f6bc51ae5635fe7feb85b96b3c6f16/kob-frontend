@@ -87,12 +87,12 @@
               color: #222222;
             ">
                     BRANDS
-                    <b-button variant="outline" size="sm" style="float: right" disabled>
+                    <b-button v-b-toggle.collapse1 variant="outline" size="sm" style="float: right; margin-top:-0.2em;">
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
-
-                <li style="
+                <b-collapse id="collapse1" style="margin: 0 0 0 0; background-color: #fff;">
+                    <li style="
               padding: 5px;
               font-size: 12pt;
               color: #777777;
@@ -100,36 +100,14 @@
               text-align: left;
               padding: 5px;
               border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    Jill
-                </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 10px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    Eve
-                </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 10px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    Adam
-                </li>
+            " v-for="brand in brands" :key="brand.product_brand_code">
+                        <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
+                        {{brand.product_brand_name}}
+                    </li>
+                </b-collapse>
                 <li style="
               font-weight: 500;
+              padding: 5px;
               padding-left: 20px;
               text-align: left;
               background-color: #f8f8f8;
@@ -138,13 +116,12 @@
               color: #222222;
             ">
                     PRICE
-
-                    <b-button variant="outline" size="sm" style="float: right" disabled>
-                        <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
+                    <b-button v-b-toggle.collapse2 variant="outline" size="sm" style="float: right;margin-top:-0.2em;">
+                        <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000;" />
                     </b-button>
-                </li>
+                    <b-collapse id="collapse2" style="margin: .45em -0.4em -0.4em -1.3em; background-color: #fff;">
                 <li style="
-              padding-left: 10px;
+              padding-left: 11px;
               font-size: 12pt;
               color: #777777;
               text-align: left;
@@ -152,10 +129,11 @@
               border: 0.2px solid #e5e5e5;
             ">
                     <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    Jill
+                    Under $50
+
                 </li>
                 <li style="
-              padding-left: 10px;
+              padding-left: 11px;
               font-size: 12pt;
               color: #777777;
               text-align: left;
@@ -163,10 +141,10 @@
               border: 0.2px solid #e5e5e5;
             ">
                     <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    Eve
+                    $50 - $100
                 </li>
                 <li style="
-              padding-left: 10px;
+              padding-left: 11px;
               font-size: 12pt;
               color: #777777;
               text-align: left;
@@ -174,18 +152,43 @@
               border: 0.2px solid #e5e5e5;
             ">
                     <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    Adam
+                    $100 - $200
                 </li>
+                <li style="
+              padding-left: 11px;
+              font-size: 12pt;
+              color: #777777;
+              text-align: left;
+              padding: 5px;
+              border: 0.2px solid #e5e5e5;
+            ">
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
+                    $200 - $500
+                </li>
+                <li style="
+              padding-left: 11px;
+              font-size: 12pt;
+              color: #777777;
+              text-align: left;
+              padding: 5px;
+              border: 0.2px solid #e5e5e5;
+            ">
+                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
+                    Above $500
+                </li>
+                </b-collapse>
+                </li>
+
             </ul>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="code in codes" :key="code.product_code" v-if="code.product_code">
+            <b-col class="card-product" cols="3" v-for="code in codes" :key="code.product_code" v-if="code.product_code != ''">
                 <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important">
                     <div v-if="code.product_image">
-                        <b-card-img :src="`http://54.254.134.236:6201/${code.product_image}`" alt="Image" class="rounded-0"></b-card-img>
+                        <b-card-img :src="`http://54.254.134.236:6201/${code.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
                     </div>
                     <div v-else>
-                        <svg class="" width="100%" height="215" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
                             <title></title>
                             <rect width="100%" height="100%" fill="#55595c"></rect>
                             <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
@@ -232,11 +235,13 @@ export default {
     }) {
         const codes = await $axios.$get("http://127.0.0.1:3001/api/product");
         const categorys = await $axios.$get("http://127.0.0.1:3001/api/category");
+        const brands = await $axios.$get("http://127.0.0.1:3001/api/product-brand")
         // console.log("codes", codes);
         // console.log("categorys", categorys);
         return {
             codes,
             categorys,
+            brands,
         };
     },
     data() {
@@ -245,10 +250,6 @@ export default {
                 slidesToShow: 3,
                 arrows: false,
             },
-        };
-    },
-    data() {
-        return {
             options: {
                 infinite: true,
                 slidesToShow: 3,
@@ -410,5 +411,8 @@ ul {
     color: #fff;
     background-color: #39b44f !important;
     box-sizing: border-box;
+}
+.divCheckbox {
+    display: none !important;
 }
 </style>

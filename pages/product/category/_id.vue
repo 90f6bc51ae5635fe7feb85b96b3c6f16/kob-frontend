@@ -192,7 +192,7 @@
                             <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
                         </div>
                         <div v-else>
-                            <svg class="" width="100%" height="215" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
                                 <title></title>
                                 <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
                             </svg>
@@ -280,7 +280,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 59%;
+    top: 60%;
     right: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -291,7 +291,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 59%;
+    top: 60%;
     left: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
