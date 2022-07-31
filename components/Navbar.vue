@@ -101,11 +101,11 @@
                             </b-form>
                         </a>
                     </b-nav-item>
-                    <a class="navbar-manu" style="" href="/home">หน้าหลัก</a>
+                    <a class="navbar-manu" style="" href="/">หน้าหลัก</a>
                     <a class="navbar-manu" style="" href="/product">รายการสินค้า</a>
-                    <a class="navbar-manu" style="" href="/home">เกี่ยวกับเรา</a>
+                    <a class="navbar-manu" style="" href="/">เกี่ยวกับเรา</a>
                     <a class="navbar-manu" style="" href="/howtoorder">วิธีการสั่งซื้อ</a>
-                    <a class="navbar-manu" style="" href="/about">ติดต่อเรา</a>
+                    <a class="navbar-manu" style="" href="/contact">ติดต่อเรา</a>
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
@@ -118,7 +118,7 @@
                 margin: 0 0 0 0.5em;
                 text-align: center;
               ">
-                        <div style="margin: 0 2.5px 0 2.5px; font-size: 12pt">098-777-7899</div>
+                        <div style="margin: 0 2.5px 0 2.5px; font-size: 12pt">099 461 9241</div>
                     </span>
                 </b-navbar-nav>
             </b-collapse>

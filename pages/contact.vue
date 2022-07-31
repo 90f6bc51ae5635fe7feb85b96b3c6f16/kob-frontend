@@ -20,28 +20,28 @@
   -1em;">
         <b-col cols="12" style="margin-top: 1em;">
             <b-row>
-                <b-col cols="2"> </b-col>
-                <b-col cols="4">
-                    <h5>ที่อยู่ : <span>sadasdadas</span></h5>
-                    <h5>เบอร์โทรศัพท์ : <span>099-9999999</span></h5>
-                    <h5>เบอร์แฟกซ์ : <span>044-444444</span></h5>
-                    <h5>ไอดีไลน์ : <span>sadasdadas</span></h5>
-                    <h5>อีเมล : <span>asd@asd.com</span></h5>
+                <b-col cols="1"> </b-col>
+                <b-col cols="6">
+                    <div><b>ที่อยู่ : </b><span>121 ถนนจันทร์ ตำบลในเมือง อำเภอเมืองนครราชสีมา จังหวัดนครราชสีมา 30000</span></div>
+                    <div><b>เบอร์โทรศัพท์ : </b><span>099 461 9241</span></div>
+                    <div><b>เบอร์แฟกซ์ : </b><span>044-444444</span></div>
+                    <div><b>ไอดีไลน์ : </b><span>@kob0994619241</span> หรือ @modnganbeauty</div>
+                    <div><b>อีเมล : </b><span>katai_ee@hotmail.com</span></div>
                 </b-col>
                 <b-col cols="4">
-                    <h5>ไลน์ : </h5>
+                    <div>ไลน์ : </div>
                     <div style="margin: -3em 0 0 4em;">
                         <img style="width:150px;height:150px;" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="" />
                     </div>
                 </b-col>
-                <b-col cols="2">
+                <b-col cols="1">
                 </b-col>
             </b-row>
             <b-row>
                 <b-col cols="12" style="margin-top: 3em;">
                     <div class="mapouter" style="margin: 0 0 0 0;">
                         <div class="gmap_canvas">
-                            <iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=REVELSOFT&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                            <iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15417.038183033315!2d102.087612!3d14.9782908!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3b5d3e95ddf93832!2z4LiB4Lia4LiB4Li04LmK4Lif4LiK4LmH4Lit4Lib4LmB4Lil4Liw4Lih4LiU4LiH4Liy4LiZ4Lia4Li04Lin4LiV4Li14LmJ4Lie4Lil4Liy4LiL4LmI4Liy!5e0!3m2!1sen!2sth!4v1659264800153!5m2!1sen!2sth">
                             </iframe>
                             <a href="https://www.kokagames.com/fnf-friday-night-funkin-mods/">
                                 FNF

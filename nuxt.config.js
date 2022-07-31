@@ -1,3 +1,8 @@
+
+import i18n from './configs/i18n'
+
+const isProd = process.env.NODE_ENV === 'production'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: "static",
@@ -5,24 +10,42 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "kob-frontend",
+    title: 'กบกิ๊ฟช็อปและมดงานบิวตี้ @ตรอกจันทร์(ตึกเขียวส้ม)',
     htmlAttrs: {
-      lang: "en",
+      lang: 'th',
     },
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
-      { name: "format-detection", content: "telephone=no" },
-    ],
-    link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        rel: "stylesheet",
-        href: "/favicon.ico",
+        hid: 'og:site_name',
+        name: 'og:site_name',
+        content: 'กบกิ๊ฟช็อปและมดงานบิวตี้ @ตรอกจันทร์(ตึกเขียวส้ม)',
+      },
+      {
+        hid: 'og:image',
+        name: 'og:image',
+        content: '/images/logo/ais_logo.webp',
+      },
+      { hid: 'og:url', name: 'og:url', content: process.env.APP_URL },
+      { hid: 'og:type', name: 'og:type', content: 'website' },
+      {
+        hid: 'apple-mobile-web-app-title',
+        name: 'apple-mobile-web-app-title',
+        content: 'กบกิ๊ฟช็อปและมดงานบิวตี้ @ตรอกจันทร์(ตึกเขียวส้ม)',
+      },
+      { hid: 'description', name: 'description', content: '' },
+      { name: 'format-detection', content: 'telephone=no' },
+    ],
+
+    // <meta http-equiv="Content-Security-Policy" content="default-src https://cdn.example.net; child-src 'none'; object-src 'none'">
+    link: [{ rel: 'icon', type: 'image/x-icon', href: './ic_favicon.png' }],
+    script: [
+      { 
       },
     ],
   },
+
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -45,6 +68,37 @@ export default {
     "@nuxtjs/google-fonts",
     "@nuxtjs/fontawesome",
     "@nuxtjs/pwa",
+    [
+      '@nuxtjs/i18n',
+      {
+        // vueI18nLoader: true,
+        defaultLocale: 'th',
+        locales: [
+          {
+            code: 'en',
+            name: 'En',
+          },
+          {
+            code: 'th',
+            name: 'ไทย',
+          },
+        ],
+        vueI18n: i18n,
+        vuex: {
+          // Module namespace
+          moduleName: 'i18n',
+
+          // If enabled, current app's locale is synced with nuxt-i18n store module
+          syncLocale: true,
+
+          // If enabled, current translation messages are synced with nuxt-i18n store module
+          syncMessages: true,
+
+          // Mutation to commit to set route parameters translations
+          syncRouteParams: true,
+        },
+      },
+    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -54,17 +108,27 @@ export default {
     "@nuxtjs/axios",
 
   ],
+  router: {
+    base: process.env.ROUTER_PATH || '/',
+  },
+  publicRuntimeConfig: {
+    APP_URL: process.env.APP_URL,
+    BASE_ENDPOINT: process.env.BASE_ENDPOINT,
+  },
   axios: {
     headers: {
       common: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
-  },
+    },
     credentials: false,
-},
-
+  },
+  i18n: {
+    // ... your other options
+    skipSettingLocaleOnNavigate: true,
+  },
   googleFonts: {
     families: {
       Roboto: true,
@@ -78,10 +142,12 @@ export default {
     },
   },
 
+
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     analyze: true,
-    extend(config, ctx) {},
+    extend(config, ctx) { },
     babel: {
       presets: [
         [
@@ -95,5 +161,7 @@ export default {
       plugins: ["@babel/transform-runtime"],
     },
   },
+
+
 
 };
