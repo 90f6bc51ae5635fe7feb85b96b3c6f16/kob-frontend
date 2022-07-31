@@ -103,7 +103,7 @@
                 <table class="table table-bordered" style="border: 1px solid #ccc !important;">
                     <tr style="">
                         <td width="50%">SUB TOTAL</td>
-                        <td>$87.00</td>
+                        <td>฿87.00</td>
                     </tr>
                     <tr>
                         <td>SHIPPING</td>
@@ -135,7 +135,7 @@
                     </tr>
                     <tr>
                         <td>TOTAL</td>
-                        <td>$87.00</td>
+                        <td>฿87.00</td>
                     </tr>
                 </table>
                 <b-button variant="success" size="lg" class="mb-2" style="border-radius: 3px; width: 100%;margin: 1em 0 0 0.55em;">

@@ -199,7 +199,7 @@
                             {{ code.product_name }}
                         </div>
                     </div>
-                    <div class="product-price">${{ code.product_price }}</div>
+                    <div class="product-price">฿{{ code.product_price }}</div>
                     <div class="left">
                         <div class="text">
                             <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
