@@ -4,6 +4,7 @@ import i18n from './configs/i18n'
 const isProd = process.env.NODE_ENV === 'production'
 
 export default {
+
   // Target: https://go.nuxtjs.dev/config-target
   target: "static",
   mode: "universal",
@@ -41,7 +42,7 @@ export default {
     // <meta http-equiv="Content-Security-Policy" content="default-src https://cdn.example.net; child-src 'none'; object-src 'none'">
     link: [{ rel: 'icon', type: 'image/x-icon', href: './ic_favicon.png' }],
     script: [
-      { 
+      {
       },
     ],
   },
@@ -55,6 +56,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/axios',
+    '~/plugins/router',
     { src: "~/plugins/slick", mode: "client" },
     { src: "./plugins/vue-agile.js", mode: "client" },
     { src: "~/plugins/rating.js", mode: "client" },
@@ -108,13 +111,25 @@ export default {
     "@nuxtjs/axios",
 
   ],
+
+  env: {
+    baseServiceURL: process.env.BASE_ENDPOINT
+  },
+
   router: {
     base: process.env.ROUTER_PATH || '/',
   },
+
   publicRuntimeConfig: {
     APP_URL: process.env.APP_URL,
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
   },
+
+  privateRuntimeConfig: {
+    APP_URL: process.env.APP_URL,
+    BASE_ENDPOINT: process.env.BASE_ENDPOINT,
+  },
+
   axios: {
     headers: {
       common: {
@@ -125,16 +140,19 @@ export default {
     },
     credentials: false,
   },
+
   i18n: {
     // ... your other options
     skipSettingLocaleOnNavigate: true,
   },
+
   googleFonts: {
     families: {
       Roboto: true,
       Kanit: true,
     },
   },
+
   fontawesome: {
     icons: {
       solid: true,
@@ -142,7 +160,9 @@ export default {
     },
   },
 
-
+  moment: {
+    defaultTimezone: 'Asia/Bangkok',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -160,6 +180,17 @@ export default {
       ],
       plugins: ["@babel/transform-runtime"],
     },
+  },
+
+  helmet: {
+    // helmet options
+    frameguard: { action: 'deny' }, // Sets "X-Frame-Options: DENY"
+  },
+  
+  server: {
+    port: 3000, // default: 3000
+    host: 'localhost', // default: localhost,
+    timing: false,
   },
 
 
