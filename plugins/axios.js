@@ -1,18 +1,23 @@
 import productService from '~/services/product-service'
+import userService from '~/services/user-service'
 
 const services = [
-    productService, 
+  productService,
+  userService,
 ]
 //this retrive from publicRuntimeConfig
 const getBaseURL = (ctx, service) => {
   let url
   switch (service.name) {
-    case 'admdAuthService':
+    case 'productService':
       url = ctx.baseServiceURL || service.url
-      break 
+      break
+    case 'userService':
+      url = ctx.baseServiceURL || service.url
+      break
     default:
       url = service.url
-  } 
+  }
   return url
 }
 
@@ -29,7 +34,7 @@ export default function ({ $config, $axios, store, error: nuxtError }, inject) {
     })
 
     service.axios.onRequest((config) => {
-      
+
     })
 
     service.axios.onError((error) => {

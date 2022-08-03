@@ -538,9 +538,9 @@ export default {
     async asyncData({
         $productService
     }) { 
+        console.log($productService)
         const products = await $productService.product.getProductBy();
         const categorys = await $productService.product.getProductCategoryBy(); 
-        console.log(products.data);
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : []
