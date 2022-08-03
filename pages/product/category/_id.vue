@@ -31,7 +31,7 @@
 
     <b-row style="padding-top: 30px">
         <b-col cols="3" style="margin: 0 0 0 -1em">
-            <ul class="w3-ul" style="border: 0.2px solid #e5e5e5l;">
+            <ul class="w3-ul" style="border: 0.2px solid #e5e5e5l">
                 <li style="
               font-weight: 500;
               padding: 5px;
@@ -43,40 +43,25 @@
               color: #222222;
             ">
                     CATEGORIES
+                    <b-button v-b-toggle.collapse variant="outline" size="sm" style="float: right; margin-top: -0.2em">
+                        <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
+                    </b-button>
                 </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 20px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    Jill
-                </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 20px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    Eve
-                </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 20px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    Adam
-                </li>
+                <b-collapse id="collapse" style="margin: 0 0 0 0; background-color: #fff; max-height: 250px; overflow: auto;">
+                    <li style="
+                padding: 5px;
+                font-size: 12pt;
+                color: #777777;
+                padding-left: 10px;
+                text-align: left;
+                padding: 5px;
+                border: 0.2px solid #e5e5e5;
+              " v-for="category in categorys" :key="category.product_category_code">
+                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }" style="text-decoration: none !important; margin: 0 5px 0 10px; color: #000;">
+                            {{ category.product_category_name }}
+                        </nuxt-link>
+                    </li>
+                </b-collapse>
             </ul>
             <b-row>
                 <b-col style="font-weight: 500; padding: 15px;font-size: 13pt;">FLITER BY</b-col>
@@ -93,49 +78,40 @@
               color: #222222;
             ">
                     BRANDS
-                    <b-button variant="outline" size="sm" style="float: right" disabled>
+                    <b-button v-b-toggle.collapse1 variant="outline" size="sm" style="float: right; margin-top: -0.2em">
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
+                <b-collapse id="collapse1" style="margin: 0 0 0 0; background-color: #fff; max-height: 250px; overflow: auto;">
+                    <li style="
+                padding: 5px;
+                font-size: 12pt;
+                color: #777777;
+                padding-left: 10px;
+                text-align: left;
+                padding: 5px;
+                border: 0.2px solid #e5e5e5;
+              ">
+                        <input type="radio" id="id1" checked="checked" name="" value="" style="margin: 0 5px 0 10px" v-model="checkedNames" />
+                        ไม่เลือก
+                    </li>
 
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 10px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled/>
-                    Jill
-                </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 10px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled/>
-                    Eve
-                </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 10px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled/>
-                    Adam
-                </li>
+                    <li style="
+                padding: 5px;
+                font-size: 12pt;
+                color: #777777;
+                padding-left: 10px;
+                text-align: left;
+                padding: 5px;
+                border: 0.2px solid #e5e5e5;
+              " v-for="brand in brands" :key="brand.product_brand_code">
+                        <input type="radio" id="id1" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" style="margin: 0 5px 0 10px" v-model="checkedNames" />
+                        {{ brand.product_brand_name }}
+                    </li>
+                </b-collapse>
                 <li style="
               font-weight: 500;
+              padding: 5px;
               padding-left: 20px;
               text-align: left;
               background-color: #f8f8f8;
@@ -144,49 +120,100 @@
               color: #222222;
             ">
                     PRICE
-
-                    <b-button variant="outline" size="sm" style="float: right" disabled>
+                    <b-button v-b-toggle.collapse2 variant="outline" size="sm" style="float: right; margin-top: -0.2em">
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
+                    <b-collapse id="collapse2" style="margin: 0.45em -0.4em -0.4em -1.3em; background-color: #fff">
+                <li style="
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox1" v-model="checkbox1" name="checkbox1" style="margin: 0 5px 0 10px" />
+                    Under ฿50
                 </li>
                 <li style="
-              padding-left: 10px;
-              font-size: 12pt;
-              color: #777777;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled/>
-                    Jill
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox2" v-model="checkbox2" name="checkbox2" style="margin: 0 5px 0 10px" />
+                    ฿50 - ฿100
                 </li>
                 <li style="
-              padding-left: 10px;
-              font-size: 12pt;
-              color: #777777;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled/>
-                    Eve
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox3" v-model="checkbox3" name="checkbox3" style="margin: 0 5px 0 10px" />
+                    ฿100 - ฿200
                 </li>
                 <li style="
-              padding-left: 10px;
-              font-size: 12pt;
-              color: #777777;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled/>
-                    Adam
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox4" v-model="checkbox4" name="checkbox4" style="margin: 0 5px 0 10px" />
+                    ฿200 - ฿500
+                </li>
+                <li style="
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox5" v-model="checkbox5" name="checkbox5" style="margin: 0 5px 0 10px" />
+                    Above ฿500
+                </li>
+                </b-collapse>
                 </li>
             </ul>
         </b-col>
+        <!-- datadb.product_category_code==cate.product_category_code -->
         <b-col v-for="cate in cates" :key="cate.product_category_code" style="display: flex; flex-wrap: wrap; margin: 0 -3em 0 -1em">
             <b-col cols="" style="display: flex; flex-wrap: wrap;">
-                <b-col v-for="datadb in datadbs" :key="datadb.product_code" v-if="datadb.product_category_code==cate.product_category_code" class="card-product" cols="3">
+                <b-col v-for="datadb in datadbs" :key="datadb.product_code" class="card-product" cols="3" v-if="
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price < 50 && checkbox1.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price < 50 && checkbox1.toString() == 'true' && checkedNames == '') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 50 && datadb.product_price <= 100 && checkbox2.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 50 && datadb.product_price <= 100 && checkbox2.toString() == 'true' && checkedNames == '') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 100 && datadb.product_price <= 200 && checkbox3.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 100 && datadb.product_price <= 200 && checkbox3.toString() == 'true' && checkedNames == '') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 200 && datadb.product_price <= 500 && checkbox4.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 200 && datadb.product_price <= 500 && checkbox4.toString() == 'true' && checkedNames == '') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price > 500 && checkbox5.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_price > 500 && checkbox5.toString() == 'true' && checkedNames == '') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' &&
+                        checkbox2.toString() == 'false' &&
+                        checkbox3.toString() == 'false' &&
+                        checkbox4.toString() == 'false' &&
+                        checkbox5.toString() == 'false') ||
+                      (datadb.product_category_code==cate.product_category_code && datadb.product_code != '' &&
+                        checkbox1.toString() == 'false' &&
+                        checkbox2.toString() == 'false' &&
+                        checkbox3.toString() == 'false' &&
+                        checkbox4.toString() == 'false' &&
+                        checkbox5.toString() == 'false' &&
+                        checkedNames.toString() == '')
+                    ">
                     <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
                         <div v-if="datadb.product_image">
                             <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
@@ -203,7 +230,7 @@
                             </div>
                         </div>
                         <div class="product-price">
-                            ${{datadb.product_price}}
+                            ฿{{datadb.product_price}}
                         </div>
                         <div class="left">
                             <div class="text">
@@ -223,7 +250,9 @@
                         </div>
                     </nuxt-link>
                 </b-col>
-                <div v-else class="divCheckbox"></div>
+                <div class="divCheckbox" v-else-if="datadb.product_code
+                "></div>
+                <div v-else>ไม่มีสินค้า</div>
             </b-col>
         </b-col>
     </b-row>
@@ -242,6 +271,7 @@ export default {
         const cates = await $axios.$get(`http://127.0.0.1:3001/api/category/${params.id}`);
         const datadbs = await $axios.$get('http://127.0.0.1:3001/api/product');
         const categorys = await $axios.$get('http://127.0.0.1:3001/api/category');
+        const brands = await $axios.$get("http://127.0.0.1:3001/api/product-brand");
         // const test = cates[product_category_code];
         // console.log("test",test);
         // console.log("cates", cates);
@@ -251,18 +281,11 @@ export default {
             categorys,
             datadbs,
             rating: 4.4,
-        };
-    },
-    data() {
-        return {
+            brands,
             slickOptions: {
                 slidesToShow: 3,
                 arrows: false,
             },
-        };
-    },
-    data() {
-        return {
             options: {
                 infinite: true,
                 slidesToShow: 3,
@@ -270,6 +293,12 @@ export default {
                 dots: false,
             },
             rating: 4.3,
+            checkbox1: false,
+            checkbox2: false,
+            checkbox3: false,
+            checkbox4: false,
+            checkbox5: false,
+            checkedNames: [],
         };
     },
 };

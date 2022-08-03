@@ -118,7 +118,7 @@
                 margin: 0 0 0 0.5em;
                 text-align: center;
               ">
-                        <div style="margin: 0 2.5px 0 2.5px; font-size: 12pt">099 461 9241</div>
+                        <div style="margin: 0 2.5px 0 2.5px; font-size: 12pt">099-461-9241</div>
                     </span>
                 </b-navbar-nav>
             </b-collapse>

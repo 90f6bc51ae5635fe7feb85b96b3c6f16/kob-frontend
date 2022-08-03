@@ -37,40 +37,25 @@
               color: #222222;
             ">
                     CATEGORIES
+                    <b-button v-b-toggle.collapse variant="outline" size="sm" style="float: right; margin-top: -0.2em">
+                        <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
+                    </b-button>
                 </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 20px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    Jill
-                </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 20px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    Eve
-                </li>
-                <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 20px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    Adam
-                </li>
+                <b-collapse id="collapse" style="margin: 0 0 0 0; background-color: #fff; max-height: 250px; overflow: auto;">
+                    <li style="
+                padding: 5px;
+                font-size: 12pt;
+                color: #777777;
+                padding-left: 10px;
+                text-align: left;
+                padding: 5px;
+                border: 0.2px solid #e5e5e5;
+              " v-for="category in categorys" :key="category.product_category_code">
+                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }" style="text-decoration: none !important; margin: 0 5px 0 10px; color: #000;">
+                            {{ category.product_category_name }}
+                        </nuxt-link>
+                    </li>
+                </b-collapse>
             </ul>
             <b-row>
                 <b-col style="font-weight: 500; padding: 15px; font-size: 13pt">FLITER BY</b-col>
@@ -87,22 +72,35 @@
               color: #222222;
             ">
                     BRANDS
-                    <b-button v-b-toggle.collapse1 variant="outline" size="sm" style="float: right; margin-top:-0.2em;">
+                    <b-button v-b-toggle.collapse1 variant="outline" size="sm" style="float: right; margin-top: -0.2em">
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
-                <b-collapse id="collapse1" style="margin: 0 0 0 0; background-color: #fff;">
+                <b-collapse id="collapse1" style="margin: 0 0 0 0; background-color: #fff; max-height: 250px; overflow: auto;">
                     <li style="
-              padding: 5px;
-              font-size: 12pt;
-              color: #777777;
-              padding-left: 10px;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            " v-for="brand in brands" :key="brand.product_brand_code">
-                        <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                        {{brand.product_brand_name}}
+                padding: 5px;
+                font-size: 12pt;
+                color: #777777;
+                padding-left: 10px;
+                text-align: left;
+                padding: 5px;
+                border: 0.2px solid #e5e5e5;
+              ">
+                        <input type="radio" id="id1" checked="checked" name="" value="" style="margin: 0 5px 0 10px" v-model="checkedNames" />
+                        ไม่เลือก
+                    </li>
+
+                    <li style="
+                padding: 5px;
+                font-size: 12pt;
+                color: #777777;
+                padding-left: 10px;
+                text-align: left;
+                padding: 5px;
+                border: 0.2px solid #e5e5e5;
+              " v-for="brand in brands" :key="brand.product_brand_code">
+                        <input type="radio" id="id1" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" style="margin: 0 5px 0 10px" v-model="checkedNames" />
+                        {{ brand.product_brand_name }}
                     </li>
                 </b-collapse>
                 <li style="
@@ -116,73 +114,145 @@
               color: #222222;
             ">
                     PRICE
-                    <b-button v-b-toggle.collapse2 variant="outline" size="sm" style="float: right;margin-top:-0.2em;">
-                        <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000;" />
+                    <b-button v-b-toggle.collapse2 variant="outline" size="sm" style="float: right; margin-top: -0.2em">
+                        <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
-                    <b-collapse id="collapse2" style="margin: .45em -0.4em -0.4em -1.3em; background-color: #fff;">
+                    <b-collapse id="collapse2" style="margin: 0.45em -0.4em -0.4em -1.3em; background-color: #fff">
                 <li style="
-              padding-left: 11px;
-              font-size: 12pt;
-              color: #777777;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    Under $50
-
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox1" v-model="checkbox1" name="checkbox1" style="margin: 0 5px 0 10px" />
+                    Under ฿50
                 </li>
                 <li style="
-              padding-left: 11px;
-              font-size: 12pt;
-              color: #777777;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    $50 - $100
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox2" v-model="checkbox2" name="checkbox2" style="margin: 0 5px 0 10px" />
+                    ฿50 - ฿100
                 </li>
                 <li style="
-              padding-left: 11px;
-              font-size: 12pt;
-              color: #777777;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    $100 - $200
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox3" v-model="checkbox3" name="checkbox3" style="margin: 0 5px 0 10px" />
+                    ฿100 - ฿200
                 </li>
                 <li style="
-              padding-left: 11px;
-              font-size: 12pt;
-              color: #777777;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    $200 - $500
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox4" v-model="checkbox4" name="checkbox4" style="margin: 0 5px 0 10px" />
+                    ฿200 - ฿500
                 </li>
                 <li style="
-              padding-left: 11px;
-              font-size: 12pt;
-              color: #777777;
-              text-align: left;
-              padding: 5px;
-              border: 0.2px solid #e5e5e5;
-            ">
-                    <input type="checkbox" id="#" name="#" style="margin: 0 5px 0 10px" disabled />
-                    Above $500
+                  padding-left: 11px;
+                  font-size: 12pt;
+                  color: #777777;
+                  text-align: left;
+                  padding: 5px;
+                  border: 0.2px solid #e5e5e5;
+                ">
+                    <input type="checkbox" id="checkbox5" v-model="checkbox5" name="checkbox5" style="margin: 0 5px 0 10px" />
+                    Above ฿500
                 </li>
                 </b-collapse>
                 </li>
-
             </ul>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="code in codes" :key="code.product_code" v-if="code.product_code != ''">
+            <b-col class="card-product" cols="3" v-for="code in codes" :key="code.product_code" v-if="
+            (code.product_price < 50 &&
+              checkbox1.toString() == 'true' &&
+              code.product_brand_code == checkedNames) ||
+            (code.product_price < 50 &&
+              checkbox1.toString() == 'true' &&
+              checkedNames == '') ||
+            (code.product_brand_code == checkedNames &&
+              checkbox1.toString() == 'false' &&
+              checkbox2.toString() == 'false' &&
+              checkbox3.toString() == 'false' &&
+              checkbox4.toString() == 'false' &&
+              checkbox5.toString() == 'false') ||
+            (code.product_price >= 50 &&
+              code.product_price <= 100 &&
+              checkbox2.toString() == 'true' &&
+              code.product_brand_code == checkedNames) ||
+            (code.product_price >= 50 &&
+              code.product_price <= 100 &&
+              checkbox2.toString() == 'true' &&
+              checkedNames == '') ||
+            (code.product_brand_code == checkedNames &&
+              checkbox1.toString() == 'false' &&
+              checkbox2.toString() == 'false' &&
+              checkbox3.toString() == 'false' &&
+              checkbox4.toString() == 'false' &&
+              checkbox5.toString() == 'false') ||
+            (code.product_price >= 100 &&
+              code.product_price <= 200 &&
+              checkbox3.toString() == 'true' &&
+              code.product_brand_code == checkedNames) ||
+            (code.product_price >= 100 &&
+              code.product_price <= 200 &&
+              checkbox3.toString() == 'true' &&
+              checkedNames == '') ||
+            (code.product_brand_code == checkedNames &&
+              checkbox1.toString() == 'false' &&
+              checkbox2.toString() == 'false' &&
+              checkbox3.toString() == 'false' &&
+              checkbox4.toString() == 'false' &&
+              checkbox5.toString() == 'false') ||
+            (code.product_price >= 200 &&
+              code.product_price <= 500 &&
+              checkbox4.toString() == 'true' &&
+              code.product_brand_code == checkedNames) ||
+            (code.product_price >= 200 &&
+              code.product_price <= 500 &&
+              checkbox4.toString() == 'true' &&
+              checkedNames == '') ||
+            (code.product_brand_code == checkedNames &&
+              checkbox1.toString() == 'false' &&
+              checkbox2.toString() == 'false' &&
+              checkbox3.toString() == 'false' &&
+              checkbox4.toString() == 'false' &&
+              checkbox5.toString() == 'false') ||
+            (code.product_price > 500 &&
+              checkbox5.toString() == 'true' &&
+              code.product_brand_code == checkedNames) ||
+            (code.product_price > 500 &&
+              checkbox5.toString() == 'true' &&
+              checkedNames == '') ||
+            (code.product_brand_code == checkedNames &&
+              checkbox1.toString() == 'false' &&
+              checkbox2.toString() == 'false' &&
+              checkbox3.toString() == 'false' &&
+              checkbox4.toString() == 'false' &&
+              checkbox5.toString() == 'false') ||
+            (code.product_code != '' &&
+              checkbox1.toString() == 'false' &&
+              checkbox2.toString() == 'false' &&
+              checkbox3.toString() == 'false' &&
+              checkbox4.toString() == 'false' &&
+              checkbox5.toString() == 'false' &&
+              checkedNames.toString() == '')
+          ">
                 <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important">
                     <div v-if="code.product_image">
                         <b-card-img :src="`http://54.254.134.236:6201/${code.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
@@ -218,9 +288,8 @@
                     </div>
                 </nuxt-link>
             </b-col>
-            <div v-else>
-                ไม่พิสินค้า
-            </div>
+            <div v-else-if="code.product_code" class="divCheckbox"></div>
+            <div v-else>ไม่พิสินค้า</div>
         </b-col>
     </b-row>
 </div>
@@ -235,7 +304,7 @@ export default {
     }) {
         const codes = await $axios.$get("http://127.0.0.1:3001/api/product");
         const categorys = await $axios.$get("http://127.0.0.1:3001/api/category");
-        const brands = await $axios.$get("http://127.0.0.1:3001/api/product-brand")
+        const brands = await $axios.$get("http://127.0.0.1:3001/api/product-brand");
         // console.log("codes", codes);
         // console.log("categorys", categorys);
         return {
@@ -257,6 +326,12 @@ export default {
                 dots: false,
             },
             rating: 4.3,
+            checkbox1: false,
+            checkbox2: false,
+            checkbox3: false,
+            checkbox4: false,
+            checkbox5: false,
+            checkedNames: [],
         };
     },
 };
@@ -412,6 +487,7 @@ ul {
     background-color: #39b44f !important;
     box-sizing: border-box;
 }
+
 .divCheckbox {
     display: none !important;
 }
