@@ -20,8 +20,8 @@
         </b-collapse>
     </div>
     <b-row class="title-product" style="margin: -1em -2em auto -1em">
-        <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em" v-for="cate in cates" :key="cate.product_category_code">
-            {{cate.product_category_name}}
+        <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em" v-for="categorysCode in categorysCodes" :key="categorysCode.product_category_code">
+            {{categorysCode.product_category_name}}
         </b-col>
         <b-col class="" style="text-align: right; font-size: 12pt; margin: auto -1em auto 0">
             HOME / SHOP /
@@ -184,29 +184,29 @@
             </ul>
         </b-col>
         <!-- datadb.product_category_code==cate.product_category_code -->
-        <b-col v-for="cate in cates" :key="cate.product_category_code" style="display: flex; flex-wrap: wrap; margin: 0 -3em 0 -1em">
+        <b-col v-for="categorysCode in categorysCodes" :key="categorysCode.product_category_code" style="display: flex; flex-wrap: wrap; margin: 0 -3em 0 -1em">
             <b-col cols="" style="display: flex; flex-wrap: wrap;">
-                <b-col v-for="datadb in datadbs" :key="datadb.product_code" class="card-product" cols="3" v-if="
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price < 50 && checkbox1.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price < 50 && checkbox1.toString() == 'true' && checkedNames == '') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 50 && datadb.product_price <= 100 && checkbox2.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 50 && datadb.product_price <= 100 && checkbox2.toString() == 'true' && checkedNames == '') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 100 && datadb.product_price <= 200 && checkbox3.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 100 && datadb.product_price <= 200 && checkbox3.toString() == 'true' && checkedNames == '') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 200 && datadb.product_price <= 500 && checkbox4.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price >= 200 && datadb.product_price <= 500 && checkbox4.toString() == 'true' && checkedNames == '') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price > 500 && checkbox5.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_price > 500 && checkbox5.toString() == 'true' && checkedNames == '') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_brand_code == checkedNames && checkbox1.toString() == 'false' &&
+                <b-col v-for="product in products" :key="product.product_code" class="card-product" cols="3" v-if="
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price < 50 && checkbox1.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price < 50 && checkbox1.toString() == 'true' && checkedNames == '') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price >= 50 && product.product_price <= 100 && checkbox2.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price >= 50 && product.product_price <= 100 && checkbox2.toString() == 'true' && checkedNames == '') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price >= 100 && product.product_price <= 200 && checkbox3.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price >= 100 && product.product_price <= 200 && checkbox3.toString() == 'true' && checkedNames == '') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price >= 200 && product.product_price <= 500 && checkbox4.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price >= 200 && product.product_price <= 500 && checkbox4.toString() == 'true' && checkedNames == '') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price > 500 && checkbox5.toString() == 'true' && product.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_price > 500 && checkbox5.toString() == 'true' && checkedNames == '') ||
+                      (product.product_category_code==categorysCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' &&
                         checkbox2.toString() == 'false' &&
                         checkbox3.toString() == 'false' &&
                         checkbox4.toString() == 'false' &&
                         checkbox5.toString() == 'false') ||
-                      (datadb.product_category_code==cate.product_category_code && datadb.product_code != '' &&
+                      (product.product_category_code==categorysCode.product_category_code && product.product_code != '' &&
                         checkbox1.toString() == 'false' &&
                         checkbox2.toString() == 'false' &&
                         checkbox3.toString() == 'false' &&
@@ -214,9 +214,9 @@
                         checkbox5.toString() == 'false' &&
                         checkedNames.toString() == '')
                     ">
-                    <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
-                        <div v-if="datadb.product_image">
-                            <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
+                    <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important;">
+                        <div v-if="product.product_image">
+                            <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
                         </div>
                         <div v-else>
                             <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -226,11 +226,11 @@
                         </div>
                         <div class="product-name">
                             <div class="text-overflow">
-                                {{datadb.product_name}}
+                                {{product.product_name}}
                             </div>
                         </div>
                         <div class="product-price">
-                            ฿{{datadb.product_price}}
+                            ฿{{product.product_price}}
                         </div>
                         <div class="left">
                             <div class="text">
@@ -250,7 +250,7 @@
                         </div>
                     </nuxt-link>
                 </b-col>
-                <div class="divCheckbox" v-else-if="datadb.product_code
+                <div class="divCheckbox" v-else-if="product.product_code
                 "></div>
                 <div v-else>ไม่มีสินค้า</div>
             </b-col>
@@ -264,24 +264,25 @@ import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
     async asyncData({
-        $axios,
+        $productService,
         params,
-        $content
     }) {
-        const cates = await $axios.$get(`http://127.0.0.1:3001/api/category/${params.id}`);
-        const datadbs = await $axios.$get('http://127.0.0.1:3001/api/product');
-        const categorys = await $axios.$get('http://127.0.0.1:3001/api/category');
-        const brands = await $axios.$get("http://127.0.0.1:3001/api/product-brand");
-        // const test = cates[product_category_code];
-        // console.log("test",test);
-        // console.log("cates", cates);
-        // console.log("categorys", categorys);
+        const products = await $productService.product.getProductBy();
+        const categorys = await $productService.product.getProductCategoryBy();
+        const categorysCodes = await $productService.product.getProductCategoryByCode(`${params.id}`);
+        const brands = await $productService.product.getProductBandBy();
+        console.log("Code", productsCode);
         return {
-            cates,
-            categorys,
-            datadbs,
+            products: products.data ? products.data : [],
+            categorys: categorys.data ? categorys.data : [],
+            categorysCodes: categorysCodes.data ? categorysCodes.data : [],
+            brands: brands.data ? brands.data : [],
+        };
+    },
+    
+    data() {
+        return {
             rating: 4.4,
-            brands,
             slickOptions: {
                 slidesToShow: 3,
                 arrows: false,
@@ -299,8 +300,9 @@ export default {
             checkbox4: false,
             checkbox5: false,
             checkedNames: [],
-        };
+        }
     },
+
 };
 </script>
 

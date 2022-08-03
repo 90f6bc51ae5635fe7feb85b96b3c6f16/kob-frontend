@@ -36,25 +36,25 @@
             </div>
         </div>
     </div>
-    <div class="photos" style="margin: 2em 0 0 -1em;" v-for="code in codes" :key="code.product_code">
+    <div class="photos" style="margin: 2em 0 0 -1em;" v-for="productCode in productCodes" :key="productCode.product_code">
         <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
-        <div v-if="code.product_image" style="border: 1px solid #e4e4e4;">
+        <div v-if="productCode.product_image" style="border: 1px solid #e4e4e4;">
             <carousel style="border: 1px solid #e4e4e4;" :starting-image="0" :images="[
                     {
-                        big: `http://54.254.134.236:6201/${code.product_image}`,
-                        thumb: `http://54.254.134.236:6201/${code.product_image}`,
+                        big: `http://54.254.134.236:6201/${productCode.product_image}`,
+                        thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
                     },
                     {
-                        big: `http://54.254.134.236:6201/${code.product_image}`,
-                        thumb: `http://54.254.134.236:6201/${code.product_image}`,
+                        big: `http://54.254.134.236:6201/${productCode.product_image}`,
+                        thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
                     },
                     {
-                        big: `http://54.254.134.236:6201/${code.product_image}`,
-                        thumb: `http://54.254.134.236:6201/${code.product_image}`,
+                        big: `http://54.254.134.236:6201/${productCode.product_image}`,
+                        thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
                     },
                     {
-                        big: `http://54.254.134.236:6201/${code.product_image}`,
-                        thumb: `http://54.254.134.236:6201/${code.product_image}`,
+                        big: `http://54.254.134.236:6201/${productCode.product_image}`,
+                        thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
                     },
                     ]">
             </carousel>
@@ -69,7 +69,7 @@
 
         <div>
             <div style="text-align: left">
-                <div style="color: #232323; font-size: 28pt;">{{code.product_name}}</div>
+                <div style="color: #232323; font-size: 28pt;">{{productCode.product_name}}</div>
             </div>
             <div class="product-star-ating">
                 <div style="float:left; margin: -2px 5px 0 0;">
@@ -92,12 +92,12 @@
                     $200.00
                 </div>
                 <div style="color: #222222; font-size: 18pt;">
-                    ${{code.product_price}}
+                    ${{productCode.product_price}}
                 </div>
             </div>
             <div style="text-align: left; display: flex; padding-bottom: 10px">
                 <div style="color: #777777; font-size: 12pt;">
-                    {{code.product_detail}}
+                    {{productCode.product_detail}}
                 </div>
             </div>
             <div style="
@@ -112,7 +112,7 @@
                     Free Shipping On order <span style="color: #222222;">over $99</span>
                 </div>
                 <div class="dotted" style="color: #8aa47b; font-size: 12pt;">
-                    {{code.product_delivery_time}} วัน
+                    {{productCode.product_delivery_time}} วัน
                 </div>
                 <div class="dotted" style="color: #777777; font-size: 12pt;">
                     Gift-wrap available
@@ -168,11 +168,11 @@
                 <div style="color: #222222; font-size: 12pt;" class="">
                     SKU :
                     <span style="color: #777777; font-size: 12pt;">
-                        {{code.product_code}}
+                        {{productCode.product_code}}
                     </span>
                 </div>
                 <div v-for="category in categorys" :key="category.product_category_code">
-                    <div style="color: #222222; font-size: 12pt;" class="" v-if="code.product_category_code == category.product_category_code">
+                    <div style="color: #222222; font-size: 12pt;" class="" v-if="productCode.product_category_code == category.product_category_code">
                         Category :
                         <span style="color: #777777; font-size: 12pt;">
                             {{category.product_category_name}}
@@ -182,7 +182,7 @@
                 <div style="color: #222222; font-size: 12pt;" class="">
                     Tags :
                     <span style="color: #777777; font-size: 12pt;">
-                        {{code.product_tag}}
+                        {{productCode.product_tag}}
                     </span>
                 </div>
             </div>
@@ -192,8 +192,8 @@
         <b-card no-body>
             <b-tabs pills card vertical nav-wrapper-class="w-25">
                 <b-tab title="DESCRIPTION" active>
-                    <div v-for="code in codes" :key="code.product_code">
-                        <b-card-text>{{code.product_description}}</b-card-text>
+                    <div v-for="productCode in productCodes" :key="productCode.product_code">
+                        <b-card-text>{{productCode.product_description}}</b-card-text>
                     </div>
                 </b-tab>
                 <b-tab title="ADDITIONAL INFORMATION">
@@ -205,7 +205,7 @@
                   padding-top: 20px;
                   padding-bottom: 10px;
                 ">
-                            <div v-for="code in codes" :key="code.product_code">
+                            <div v-for="productCode in productCodes" :key="productCode.product_code">
                                 <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
                                     <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Weight : </div>
                                     <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">1.5 kg</div>
@@ -255,11 +255,11 @@
     <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
         <client-only>
             <agile :options="options" ref="carousel">
-                <div v-for="datadb in datadbs" :key="datadb.product_code">
+                <div v-for="product in products" :key="product.product_code">
                     <b-col class="card-product">
-                        <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
-                            <div v-if="datadb.product_image">
-                                <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
+                        <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important;">
+                            <div v-if="product.product_image">
+                                <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
                             </div>
                             <div v-else>
                                 <svg class="" width="100%" height="230px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -269,11 +269,11 @@
                             </div>
                             <div class="product-name">
                                 <div class="text-overflow">
-                                    {{datadb.product_name}}
+                                    {{product.product_name}}
                                 </div>
                             </div>
                             <div class="product-price">
-                                ${{datadb.product_price}}
+                                ${{product.product_price}}
                             </div>
                             <div class="product-star-ating" style="padding: 0 0 1em 0;">
                                 <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
@@ -380,6 +380,9 @@
             </agile>
         </client-only>
     </div> -->
+    <div>
+      {{$params.id}}
+    </div>
 </div>
 </template>
 
@@ -396,19 +399,17 @@ export default {
         Carousel,
     },
     async asyncData({
-        $axios,
-        params
+        $productService,
+        params,
     }) {
-        const codes = await $axios.$get(`http://127.0.0.1:3001/api/product/${params.id}`);
-        const datadbs = await $axios.$get('http://127.0.0.1:3001/api/product');
-        const categorys = await $axios.$get('http://127.0.0.1:3001/api/category');
-        // console.log("codes", codes);
-        // console.log("datadbs", datadbs);
+        const products = await $productService.product.getProductBy();
+        const categorys = await $productService.product.getProductCategoryBy();
+        const productsCodes = await $productService.product.getProductByCode(`${params.id}`);
+        console.log("Code",productsCodes);
         return {
-            codes,
-            categorys,
-            datadbs,
-            rating: 4.4,
+            products: products.data ? products.data : [],
+            categorys: categorys.data ? categorys.data : [],
+            productsCodes: productsCodes.data ? productsCodes.data : [],
         };
     },
 
@@ -421,6 +422,7 @@ export default {
                 navButtons: false,
                 dots: false,
             },
+            rating: 4.4,
             images: [{
                     id: "1",
                     big: "https://picsum.photos/400/400/?image=1",

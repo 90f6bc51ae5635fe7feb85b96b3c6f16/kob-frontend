@@ -95,6 +95,8 @@
                       border-color: transparent;
                       padding-left: 8em;
                       color: #333;
+                      margin-right: 0.8em;
+                      margin-left: -1em;
                     " v-b-toggle.sidebar-1>
                                     <font-awesome-icon :icon="['fas', 'bars']" style="color: #000" />
                                 </b-input-group-text>

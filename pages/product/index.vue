@@ -13,6 +13,26 @@
             </div>
         </b-collapse>
     </div>
+    <div style="float: right;">
+        <div class="manu-sidebar">
+            <a href="https://www.facebook.com/kobgiftshop" target="_blank" class="" style="text-decoration: none !important;">
+                <div class="manu-sidebar-a">
+                    <img src="~/assets/Fbb.png" style="width: 50px; height: 50px;" alt="facebook">
+                </div>
+            </a>
+            <a href="tel:0994619241" class="" style="text-decoration: none !important;">
+                <div class="manu-sidebar-a">
+                    <img src="~/assets/tel.png" style="width: 45px; height: 45px;" alt="facebook">
+                </div>
+            </a>
+            <a href="https://www.google.com/maps/dir//%E0%B8%81%E0%B8%9A%E0%B8%81%E0%B8%B4%E0%B9%8A%E0%B8%9F%E0%B8%8A%E0%B9%87%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A1%E0%B8%94%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9A%E0%B8%B4%E0%B8%A7%E0%B8%95%E0%B8%B5%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B2%E0%B8%8B%E0%B9%88%E0%B8%B2+121+Jant+Rd+Tambon+Nai+Mueang,+Mueang+Nakhon+Ratchasima+District+Nakhon+Ratchasima+30000/@14.9782908,102.087612,14z/data=!4m5!4m4!1m0!1m2!1m1!1s0x31194ca4b81e8aad:0x3b5d3e95ddf93832" target="_blank" class="" style="text-decoration: none !important;">
+                <div class="manu-sidebar-a">
+                    <img src="~/assets/map.png" style="width: 50px; height: 50px;" alt="facebook">
+                </div>
+            </a>
+        </div>
+    </div>
+
     <b-row class="title-product" style="margin: -1em -2em auto -1em">
         <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em">
             รายการสินค้า
@@ -178,74 +198,74 @@
             </ul>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="code in codes" :key="code.product_code" v-if="
-            (code.product_price < 50 &&
+            <b-col class="card-product" cols="3" v-for="product in products" :key="product.product_code" v-if="
+            (product.product_price < 50 &&
               checkbox1.toString() == 'true' &&
-              code.product_brand_code == checkedNames) ||
-            (code.product_price < 50 &&
+              product.product_brand_code == checkedNames) ||
+            (product.product_price < 50 &&
               checkbox1.toString() == 'true' &&
               checkedNames == '') ||
-            (code.product_brand_code == checkedNames &&
+            (product.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (code.product_price >= 50 &&
-              code.product_price <= 100 &&
+            (product.product_price >= 50 &&
+              product.product_price <= 100 &&
               checkbox2.toString() == 'true' &&
-              code.product_brand_code == checkedNames) ||
-            (code.product_price >= 50 &&
-              code.product_price <= 100 &&
+              product.product_brand_code == checkedNames) ||
+            (product.product_price >= 50 &&
+              product.product_price <= 100 &&
               checkbox2.toString() == 'true' &&
               checkedNames == '') ||
-            (code.product_brand_code == checkedNames &&
+            (product.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (code.product_price >= 100 &&
-              code.product_price <= 200 &&
+            (product.product_price >= 100 &&
+              product.product_price <= 200 &&
               checkbox3.toString() == 'true' &&
-              code.product_brand_code == checkedNames) ||
-            (code.product_price >= 100 &&
-              code.product_price <= 200 &&
+              product.product_brand_code == checkedNames) ||
+            (product.product_price >= 100 &&
+              product.product_price <= 200 &&
               checkbox3.toString() == 'true' &&
               checkedNames == '') ||
-            (code.product_brand_code == checkedNames &&
+            (product.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (code.product_price >= 200 &&
-              code.product_price <= 500 &&
+            (product.product_price >= 200 &&
+              product.product_price <= 500 &&
               checkbox4.toString() == 'true' &&
-              code.product_brand_code == checkedNames) ||
-            (code.product_price >= 200 &&
-              code.product_price <= 500 &&
+              product.product_brand_code == checkedNames) ||
+            (product.product_price >= 200 &&
+              product.product_price <= 500 &&
               checkbox4.toString() == 'true' &&
               checkedNames == '') ||
-            (code.product_brand_code == checkedNames &&
+            (product.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (code.product_price > 500 &&
+            (product.product_price > 500 &&
               checkbox5.toString() == 'true' &&
-              code.product_brand_code == checkedNames) ||
-            (code.product_price > 500 &&
+              product.product_brand_code == checkedNames) ||
+            (product.product_price > 500 &&
               checkbox5.toString() == 'true' &&
               checkedNames == '') ||
-            (code.product_brand_code == checkedNames &&
+            (product.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (code.product_code != '' &&
+            (product.product_code != '' &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
@@ -253,9 +273,9 @@
               checkbox5.toString() == 'false' &&
               checkedNames.toString() == '')
           ">
-                <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important">
-                    <div v-if="code.product_image">
-                        <b-card-img :src="`http://54.254.134.236:6201/${code.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
+                <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
+                    <div v-if="product.product_image">
+                        <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
                     </div>
                     <div v-else>
                         <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -266,10 +286,10 @@
                     </div>
                     <div class="product-name">
                         <div class="text-overflow">
-                            {{ code.product_name }}
+                            {{ product.product_name }}
                         </div>
                     </div>
-                    <div class="product-price">฿{{ code.product_price }}</div>
+                    <div class="product-price">฿{{ product.product_price }}</div>
                     <div class="left">
                         <div class="text">
                             <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
@@ -288,7 +308,7 @@
                     </div>
                 </nuxt-link>
             </b-col>
-            <div v-else-if="code.product_code" class="divCheckbox"></div>
+            <div v-else-if="product.product_code" class="divCheckbox"></div>
             <div v-else>ไม่พิสินค้า</div>
         </b-col>
     </b-row>
@@ -300,17 +320,16 @@ import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
     async asyncData({
-        $axios
+        $productService
     }) {
-        const codes = await $axios.$get("http://127.0.0.1:3001/api/product");
-        const categorys = await $axios.$get("http://127.0.0.1:3001/api/category");
-        const brands = await $axios.$get("http://127.0.0.1:3001/api/product-brand");
-        // console.log("codes", codes);
-        // console.log("categorys", categorys);
+        const products = await $productService.product.getProductBy();
+        const categorys = await $productService.product.getProductCategoryBy();
+        const brands = await $productService.product.getProductBandBy();
+
         return {
-            codes,
-            categorys,
-            brands,
+            products: products.data ? products.data : [],
+            categorys: categorys.data ? categorys.data : [],
+            brands: brands.data ? brands.data : [],
         };
     },
     data() {
@@ -490,5 +509,23 @@ ul {
 
 .divCheckbox {
     display: none !important;
+}
+
+.manu-sidebar {
+
+    position: fixed !important;
+    font-size: 24px !important;
+    width: 50px;
+    margin-top: 12%;
+    margin-left: 4em;
+    float: right;
+    display: block;
+    text-align: center;
+}
+
+.manu-sidebar-a {
+    /* border: 0.2px solid #e5e5e5; */
+    margin-top: 5px;
+    /* background-color: #fff; */
 }
 </style>

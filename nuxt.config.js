@@ -23,11 +23,7 @@ export default {
         name: 'og:site_name',
         content: 'กบกิ๊ฟช็อปและมดงานบิวตี้ @ตรอกจันทร์(ตึกเขียวส้ม)',
       },
-      {
-        hid: 'og:image',
-        name: 'og:image',
-        content: '/images/logo/ais_logo.webp',
-      },
+      // {hid: 'og:image', name: 'og:image', content: '~/assets/map.png', },
       { hid: 'og:url', name: 'og:url', content: process.env.APP_URL },
       { hid: 'og:type', name: 'og:type', content: 'website' },
       {
@@ -40,7 +36,7 @@ export default {
     ],
 
     // <meta http-equiv="Content-Security-Policy" content="default-src https://cdn.example.net; child-src 'none'; object-src 'none'">
-    link: [{ rel: 'icon', type: 'image/x-icon', href: './ic_favicon.png' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: 'logo/Logo.jpg' }],
     script: [
       {
       },
@@ -186,13 +182,13 @@ export default {
     // helmet options
     frameguard: { action: 'deny' }, // Sets "X-Frame-Options: DENY"
   },
-  
+
   server: {
     port: 3000, // default: 3000
     host: 'localhost', // default: localhost,
     timing: false,
   },
 
-
+  pwa: { icon: { source: '~/assets/Logo.png' }, },
 
 };

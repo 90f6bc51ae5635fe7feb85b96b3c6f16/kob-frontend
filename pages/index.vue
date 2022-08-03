@@ -509,6 +509,7 @@
                 <img :src="`https://placeimg.com/480/200/any?2`" style="width: 100%" />
             </b-col>
         </b-row>
+
     </div>
 </template>
 
@@ -537,10 +538,9 @@ export default {
     },
     async asyncData({
         $productService
-    }) { 
-        console.log($productService)
+    }) {
         const products = await $productService.product.getProductBy();
-        const categorys = await $productService.product.getProductCategoryBy(); 
+        const categorys = await $productService.product.getProductCategoryBy();
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : []
