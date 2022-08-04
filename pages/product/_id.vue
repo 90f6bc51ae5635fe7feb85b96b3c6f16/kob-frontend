@@ -380,9 +380,6 @@
             </agile>
         </client-only>
     </div> -->
-    <div>
-      {{$params.id}}
-    </div>
 </div>
 </template>
 
@@ -404,12 +401,12 @@ export default {
     }) {
         const products = await $productService.product.getProductBy();
         const categorys = await $productService.product.getProductCategoryBy();
-        const productsCodes = await $productService.product.getProductByCode(`${params.id}`);
-        console.log("Code",productsCodes);
+        const productCodes = await $productService.product.getProductByCode({product_code : params.id});
+        // console.log("productsCodes",productsCodes);
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],
-            productsCodes: productsCodes.data ? productsCodes.data : [],
+            productCodes: productCodes.data ? productCodes.data : [],
         };
     },
 

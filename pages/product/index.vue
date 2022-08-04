@@ -325,7 +325,6 @@ export default {
         const products = await $productService.product.getProductBy();
         const categorys = await $productService.product.getProductCategoryBy();
         const brands = await $productService.product.getProductBandBy();
-
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],
@@ -517,7 +516,7 @@ ul {
     font-size: 24px !important;
     width: 50px;
     margin-top: 12%;
-    margin-left: 4em;
+    margin-left: 2em;
     float: right;
     display: block;
     text-align: center;

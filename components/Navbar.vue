@@ -7,13 +7,14 @@
                 <b-form-input style="height: 100%"></b-form-input>
 
                 <template #append>
-                    <b-dropdown text="หมวดหมู่สินค้า" variant="outline-secondary" disabled>
-                        <b-dropdown-item>Action C</b-dropdown-item>
-                        <b-dropdown-item>Action D</b-dropdown-item>
+                    <b-dropdown text="หมวดหมู่สินค้า" variant="outline-secondary">
+                        <b-dropdown-item >Action C</b-dropdown-item>
+                        <b-dropdown-item >Action D</b-dropdown-item>
                     </b-dropdown>
-                    <b-input-group-text style="background-color: #ffd000; margin-right: 30px">
+                    <b-input-group-text type="button" style="background-color: #ffd000; margin-right: 30px">
                         <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
                     </b-input-group-text>
+
                     <div class="login-user">
                         <b-link href="/login" style="color: #8d8d8d" disabled>ล็อคอิน</b-link>
                         /
@@ -137,6 +138,7 @@ export default {
     data() {
         return {
             showNav: false,
+
         };
     },
     methods: {

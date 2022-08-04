@@ -57,7 +57,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios',
-    '~/plugins/router',
+    // '~/plugins/router',
     { src: "~/plugins/slick", mode: "client" },
     { src: "./plugins/vue-agile.js", mode: "client" },
     { src: "~/plugins/rating.js", mode: "client" },
