@@ -5,4 +5,5 @@ export default (axios) => ({
     getProductCategoryBy: (data) => axios.get('/api/category'),
     getProductCategoryByCode: (data) => axios.get(`/api/category/${data.product_category_code}`),
     getProductBandBy: (data) => axios.get(`/api/product-brand`),
+    getProductSearchByCode: (data) => axios.post(`/api/product-search/`,data),
   })

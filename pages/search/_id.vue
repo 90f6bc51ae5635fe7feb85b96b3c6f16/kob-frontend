@@ -1,12 +1,18 @@
 <template>
 <div>
-    <div class="" style="margin: 0 -2em 0 -1em">
-        <b-collapse id="example-collapse" style="width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto">
+    <div class="" style="margin: 0 -2em 0 -1em;">
+        <b-collapse id="example-collapse" style="
+              width: 100%;
+              margin: 0 0 0 0;
+              max-height: 250px;
+              overflow: auto;
+
+            ">
             <div v-for="category in categorys" :key="category.product_category_code">
                 <ul>
                     <li>
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                            {{ category.product_category_name }}
+                            {{category.product_category_name}}
                         </nuxt-link>
                     </li>
                 </ul>
@@ -19,7 +25,7 @@
                 <div class="manu-sidebar-a" @mouseenter="facebook = true" @mouseleave="facebook = false">
                     <img src="~/assets/Fbb.png" style="width: 50px; height: 50px;" alt="facebook">
                 </div>
-                <div v-if="facebook" style="float: left; width: 150px; margin: -1.65em 0 0 2.2em; text-align: left;">
+                <div v-if="facebook" style=" float: left; width: 150px; margin: -1.65em 0 0 2.2em; text-align: left;">
                     <span style="margin-right: .2em;">
                         เฟสบุ๊ค
                     </span>
@@ -57,10 +63,9 @@
             </a>
         </div>
     </div>
-
     <b-row class="title-product" style="margin: -1em -2em auto -1em">
         <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em">
-            รายการสินค้า
+            ค้นหา : {{showKeyword}}
         </b-col>
         <b-col class="" style="text-align: right; font-size: 12pt; margin: auto -1em auto 0">
             HOME / SHOP /
@@ -103,7 +108,7 @@
                 </b-collapse>
             </ul>
             <b-row>
-                <b-col style="font-weight: 500; padding: 15px; font-size: 13pt">FLITER BY</b-col>
+                <b-col style="font-weight: 500; padding: 15px;font-size: 13pt;">FLITER BY</b-col>
             </b-row>
             <ul class="w3-ul" style="border: 0.2px solid #e5e5e5">
                 <li style="
@@ -222,75 +227,78 @@
                 </li>
             </ul>
         </b-col>
-        <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="product in products" :key="product.product_code" v-if="
-            (product.product_price < 50 &&
+        <!-- datadb.product_category_code==cate.product_category_code -->
+        <!-- v-for="product in products" :key="product.product_name" -->
+        <b-col style="display: flex; flex-wrap: wrap; margin: 0 -3em 0 -1em">
+            <b-col cols="" style="display: flex; flex-wrap: wrap;">
+                <b-col class="card-product" cols="3" v-for="searchCode in searchCodes" :key="searchCode.product_code" v-if="
+            (searchCode.product_price < 50 &&
               checkbox1.toString() == 'true' &&
-              product.product_brand_code == checkedNames) ||
-            (product.product_price < 50 &&
+              searchCode.product_brand_code == checkedNames) ||
+            (searchCode.product_price < 50 &&
               checkbox1.toString() == 'true' &&
               checkedNames == '') ||
-            (product.product_brand_code == checkedNames &&
+            (searchCode.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (product.product_price >= 50 &&
-              product.product_price <= 100 &&
+            (searchCode.product_price >= 50 &&
+              searchCode.product_price <= 100 &&
               checkbox2.toString() == 'true' &&
-              product.product_brand_code == checkedNames) ||
-            (product.product_price >= 50 &&
-              product.product_price <= 100 &&
+              searchCode.product_brand_code == checkedNames) ||
+            (searchCode.product_price >= 50 &&
+              searchCode.product_price <= 100 &&
               checkbox2.toString() == 'true' &&
               checkedNames == '') ||
-            (product.product_brand_code == checkedNames &&
+            (searchCode.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (product.product_price >= 100 &&
-              product.product_price <= 200 &&
+            (searchCode.product_price >= 100 &&
+              searchCode.product_price <= 200 &&
               checkbox3.toString() == 'true' &&
-              product.product_brand_code == checkedNames) ||
-            (product.product_price >= 100 &&
-              product.product_price <= 200 &&
+              searchCode.product_brand_code == checkedNames) ||
+            (searchCode.product_price >= 100 &&
+              searchCode.product_price <= 200 &&
               checkbox3.toString() == 'true' &&
               checkedNames == '') ||
-            (product.product_brand_code == checkedNames &&
+            (searchCode.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (product.product_price >= 200 &&
-              product.product_price <= 500 &&
+            (searchCode.product_price >= 200 &&
+              searchCode.product_price <= 500 &&
               checkbox4.toString() == 'true' &&
-              product.product_brand_code == checkedNames) ||
-            (product.product_price >= 200 &&
-              product.product_price <= 500 &&
+              searchCode.product_brand_code == checkedNames) ||
+            (searchCode.product_price >= 200 &&
+              searchCode.product_price <= 500 &&
               checkbox4.toString() == 'true' &&
               checkedNames == '') ||
-            (product.product_brand_code == checkedNames &&
+            (searchCode.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (product.product_price > 500 &&
+            (searchCode.product_price > 500 &&
               checkbox5.toString() == 'true' &&
-              product.product_brand_code == checkedNames) ||
-            (product.product_price > 500 &&
+              searchCode.product_brand_code == checkedNames) ||
+            (searchCode.product_price > 500 &&
               checkbox5.toString() == 'true' &&
               checkedNames == '') ||
-            (product.product_brand_code == checkedNames &&
+            (searchCode.product_brand_code == checkedNames &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
               checkbox4.toString() == 'false' &&
               checkbox5.toString() == 'false') ||
-            (product.product_code != '' &&
+            (searchCode.product_code != '' &&
               checkbox1.toString() == 'false' &&
               checkbox2.toString() == 'false' &&
               checkbox3.toString() == 'false' &&
@@ -298,43 +306,46 @@
               checkbox5.toString() == 'false' &&
               checkedNames.toString() == '')
           ">
-                <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
-                    <div v-if="product.product_image">
-                        <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
-                    </div>
-                    <div v-else>
-                        <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title></title>
-                            <rect width="100%" height="100%" fill="#55595c"></rect>
-                            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                        </svg>
-                    </div>
-                    <div class="product-name">
-                        <div class="text-overflow">
-                            {{ product.product_name }}
+                    <nuxt-link :to="{ path: `/product/${searchCode.product_code}` }" style="text-decoration: none !important;">
+                        <div v-if="searchCode.product_image">
+                            <b-card-img :src="`http://54.254.134.236:6201/${searchCode.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
                         </div>
-                    </div>
-                    <div class="product-price">฿{{ product.product_price }}</div>
-                    <div class="left">
-                        <div class="text">
-                            <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                        <div v-else>
+                            <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title></title>
+                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                            </svg>
                         </div>
-                    </div>
-                    <div class="right">
-                        <div class="text">
-                            <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                        <div class="product-name">
+                            <div class="text-overflow">
+                                {{searchCode.product_name}}
+                            </div>
                         </div>
-                    </div>
-                    <div class="product-star-ating">
-                        <p style="text-align: center">
-                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                            </star-rating>
-                        </p>
-                    </div>
-                </nuxt-link>
+                        <div class="product-price">
+                            ฿{{searchCode.product_price}}
+                        </div>
+                        <div class="left">
+                            <div class="text">
+                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="text">
+                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                            </div>
+                        </div>
+                        <div class="product-star-ating">
+                            <p style="text-align: center">
+                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                                </star-rating>
+                            </p>
+                        </div>
+                    </nuxt-link>
+                </b-col>
+                <div class="divCheckbox" v-else-if="searchCode.product_code
+                "></div>
+                <div v-else>ไม่มีสินค้า</div>
             </b-col>
-            <div v-else-if="product.product_code" class="divCheckbox"></div>
-            <div v-else>ไม่พิสินค้า</div>
         </b-col>
     </b-row>
 </div>
@@ -345,19 +356,31 @@ import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
     async asyncData({
-        $productService
+        $productService,
+        params,
+
     }) {
-        const products = await $productService.product.getProductBy();
+        const showKeyword = await params.id;
+        // const products = await $productService.product.getProductBy();
         const categorys = await $productService.product.getProductCategoryBy();
+        const searchCodes = await $productService.product.getProductSearchByCode({
+            keyword: params.id
+        });
         const brands = await $productService.product.getProductBandBy();
+        // console.log("showKeyword", showKeyword);
+        // console.log("searchCodes", searchCodes.data);
         return {
-            products: products.data ? products.data : [],
+            // products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],
+            searchCodes: searchCodes.data ? searchCodes.data : [],
             brands: brands.data ? brands.data : [],
+            showKeyword,
         };
     },
+
     data() {
         return {
+            rating: 4.4,
             slickOptions: {
                 slidesToShow: 3,
                 arrows: false,
@@ -379,8 +402,9 @@ export default {
             tel: false,
             facebook: false,
             map: false,
-        };
+        }
     },
+
 };
 </script>
 
@@ -389,7 +413,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 59%;
+    top: 60%;
     right: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -400,7 +424,7 @@ export default {
     transition: 0.5s ease;
     opacity: 0;
     position: absolute;
-    top: 59%;
+    top: 60%;
     left: 50%;
     /* transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); */
@@ -450,6 +474,7 @@ div {
 }
 
 .card-product {
+
     padding-left: 0;
     padding-right: 0;
     flex: 1 0 21%;

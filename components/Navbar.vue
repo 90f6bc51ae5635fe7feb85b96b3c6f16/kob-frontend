@@ -3,18 +3,25 @@
     <b-container fluid="lg" style="padding-left: 0; padding-right: 0; padding-top: 20px; padding-bottom: 20px">
         <b-row style="margin: 0 0 0 0">
             <b-input-group>
-
-                <b-img src="~/assets/Logo.png" alt="Image" class="rounded" style="margin-top: 2; margin-right: 30px"></b-img>
-                <b-form-input style="height: 100%"></b-form-input>
-
+                <b-img src="~/assets/Logo.png" alt="Image" class="rounded" style="margin-top: 2px; margin-right: 5em"></b-img>
                 <template #append>
-                    <b-dropdown text="หมวดหมู่สินค้า" variant="outline-secondary">
-                        <b-dropdown-item>Action C</b-dropdown-item>
-                        <b-dropdown-item>Action D</b-dropdown-item>
-                    </b-dropdown>
-                    <b-input-group-text type="submit" style="background-color: #ffd000; margin-right: 30px">
-                        <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
-                    </b-input-group-text>
+                    <form :action="`/search/${name}`" style="margin-left: -1em;" method="post">
+                        <div style="float: left;">
+                            <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="name" required></b-form-input>
+                        </div>
+                        <div style="float: left;">
+                            <b-dropdown text="ชื่อสินค้า" right variant="outline-secondary" disabled>
+                                <input type="radio" id="radio" value="ราคา" v-model="checkedNames" style="margin: 0 0 0 1em;">
+                                <label for="jack">ราคา</label>
+
+                                <input type="radio" id="radio" value="ชื่อ" v-model="checkedNames" style="margin: 0 0 0 1em;">
+                                <label for="john">ชื่อ</label>
+                            </b-dropdown>
+                        </div>
+                        <b-button type="submit" style="background-color: #ffd000;border-color: #ffd000;">
+                            <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
+                        </b-button>
+                    </form>
 
                     <div class="login-user">
                         <b-link href="/login" style="color: #8d8d8d" disabled>ล็อคอิน</b-link>
@@ -79,6 +86,7 @@
                         </b-dropdown>
                     </div>
                 </template>
+
             </b-input-group>
         </b-row>
     </b-container>
@@ -139,7 +147,9 @@ export default {
     data() {
         return {
             showNav: false,
-
+            value: '',
+            checkedNames: [],
+            name: '',
         };
     },
     methods: {
@@ -151,6 +161,7 @@ export default {
     computed: {
         ...mapState("auth", ["loggedIn"]),
     },
+
 };
 </script>
 
@@ -167,9 +178,9 @@ a {
 
 .login-user {
     margin-top: 7px;
-    margin-bottom: px;
+    margin-bottom: 0;
     margin-right: 10px;
-    margin-left: 20px;
+    margin-left: 40px;
 }
 
 .navbar-manu {

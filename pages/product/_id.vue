@@ -48,14 +48,6 @@
                         big: `http://54.254.134.236:6201/${productCode.product_image}`,
                         thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
                     },
-                    {
-                        big: `http://54.254.134.236:6201/${productCode.product_image}`,
-                        thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
-                    },
-                    {
-                        big: `http://54.254.134.236:6201/${productCode.product_image}`,
-                        thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
-                    },
                     ]">
             </carousel>
         </div>
