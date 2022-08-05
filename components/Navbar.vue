@@ -3,15 +3,16 @@
     <b-container fluid="lg" style="padding-left: 0; padding-right: 0; padding-top: 20px; padding-bottom: 20px">
         <b-row style="margin: 0 0 0 0">
             <b-input-group>
+
                 <b-img src="~/assets/Logo.png" alt="Image" class="rounded" style="margin-top: 2; margin-right: 30px"></b-img>
                 <b-form-input style="height: 100%"></b-form-input>
 
                 <template #append>
                     <b-dropdown text="หมวดหมู่สินค้า" variant="outline-secondary">
-                        <b-dropdown-item >Action C</b-dropdown-item>
-                        <b-dropdown-item >Action D</b-dropdown-item>
+                        <b-dropdown-item>Action C</b-dropdown-item>
+                        <b-dropdown-item>Action D</b-dropdown-item>
                     </b-dropdown>
-                    <b-input-group-text type="button" style="background-color: #ffd000; margin-right: 30px">
+                    <b-input-group-text type="submit" style="background-color: #ffd000; margin-right: 30px">
                         <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
                     </b-input-group-text>
 

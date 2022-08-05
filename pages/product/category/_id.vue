@@ -19,6 +19,50 @@
             </div>
         </b-collapse>
     </div>
+    <div style="float: right;">
+        <div class="manu-sidebar">
+            <a href="https://www.facebook.com/kobgiftshop" target="_blank" class="" style="text-decoration: none !important;">
+                <div class="manu-sidebar-a" @mouseenter="facebook = true" @mouseleave="facebook = false">
+                    <img src="~/assets/Fbb.png" style="width: 50px; height: 50px;" alt="facebook">
+                </div>
+                <div v-if="facebook" style=" float: left; width: 150px; margin: -1.65em 0 0 2.2em; text-align: left;">
+                    <span style="margin-right: .2em;">
+                        เฟสบุ๊ค
+                    </span>
+                </div>
+            </a>
+            <a href="tel:0994619241" class="" style="text-decoration: none !important;">
+                <div class="manu-sidebar-a" @mouseenter="tel = true" @mouseleave="tel = false">
+                    <img src="~/assets/tel.png" style="width: 45px; height: 45px; margin: 0 0 0 ;" alt="tel">
+                </div>
+                <div v-if="tel" style=" float: left; width: 150px; margin: -1.65em 0 0 2.2em; text-align: left;">
+                    <span style="margin-right: .2em;">
+                        เบอร์โทรศัพท์
+                    </span>
+                </div>
+            </a>
+            <a href="https://www.google.com/maps/dir//%E0%B8%81%E0%B8%9A%E0%B8%81%E0%B8%B4%E0%B9%8A%E0%B8%9F%E0%B8%8A%E0%B9%87%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A1%E0%B8%94%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9A%E0%B8%B4%E0%B8%A7%E0%B8%95%E0%B8%B5%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B2%E0%B8%8B%E0%B9%88%E0%B8%B2+121+Jant+Rd+Tambon+Nai+Mueang,+Mueang+Nakhon+Ratchasima+District+Nakhon+Ratchasima+30000/@14.9782908,102.087612,14z/data=!4m5!4m4!1m0!1m2!1m1!1s0x31194ca4b81e8aad:0x3b5d3e95ddf93832" target="_blank" class="" style="text-decoration: none !important;">
+                <div class="manu-sidebar-a" @mouseenter="map = true" @mouseleave="map = false">
+                    <img src="~/assets/map.png" style="width: 50px; height: 50px;" alt="map">
+                </div>
+                <div v-if="map" style=" float: left; width: 150px; margin: -1.75em 0 0 2.2em; text-align: left;">
+                    <span style="margin-right: .2em;">
+                        แผนที่
+                    </span>
+                </div>
+            </a>
+            <a href="/contact" target="_blank" class="" style="text-decoration: none !important;">
+                <div class="manu-sidebar-a" @mouseenter="contact = true" @mouseleave="contact = false">
+                    <img src="~/assets/contact.png" style="width: 50px; height: 50px;" alt="contact">
+                </div>
+                <div v-if="contact" style=" float: left; width: 150px; margin: -1.65em 0 0 2.2em; text-align: left;">
+                    <span style="margin-right: .2em;">
+                        ติดต่อเรา
+                    </span>
+                </div>
+            </a>
+        </div>
+    </div>
     <b-row class="title-product" style="margin: -1em -2em auto -1em">
         <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em" v-for="categoryCode in categoryCodes" :key="categoryCode.product_category_code">
             {{categoryCode.product_category_name}}
@@ -187,16 +231,16 @@
         <b-col v-for="categoryCode in categoryCodes" :key="categoryCode.product_category_code" style="display: flex; flex-wrap: wrap; margin: 0 -3em 0 -1em">
             <b-col cols="" style="display: flex; flex-wrap: wrap;">
                 <b-col v-for="product in products" :key="product.product_code" class="card-product" cols="3" v-if="
-                      (product.product_category_code==categoryCode.product_category_code && product.product_price < 50 && checkbox1.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categoryCode.product_category_code && product.product_price < 50 && checkbox1.toString() == 'true' && categoryCode.product_brand_code == checkedNames) ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_price < 50 && checkbox1.toString() == 'true' && checkedNames == '') ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
-                      (product.product_category_code==categoryCode.product_category_code && product.product_price >= 50 && product.product_price <= 100 && checkbox2.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categoryCode.product_category_code && product.product_price >= 50 && product.product_price <= 100 && checkbox2.toString() == 'true' && categoryCode.product_brand_code == checkedNames) ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_price >= 50 && product.product_price <= 100 && checkbox2.toString() == 'true' && checkedNames == '') ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
-                      (product.product_category_code==categoryCode.product_category_code && product.product_price >= 100 && product.product_price <= 200 && checkbox3.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categoryCode.product_category_code && product.product_price >= 100 && product.product_price <= 200 && checkbox3.toString() == 'true' && categoryCode.product_brand_code == checkedNames) ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_price >= 100 && product.product_price <= 200 && checkbox3.toString() == 'true' && checkedNames == '') ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
-                      (product.product_category_code==categoryCode.product_category_code && product.product_price >= 200 && product.product_price <= 500 && checkbox4.toString() == 'true' && datadb.product_brand_code == checkedNames) ||
+                      (product.product_category_code==categoryCode.product_category_code && product.product_price >= 200 && product.product_price <= 500 && checkbox4.toString() == 'true' && categoryCode.product_brand_code == checkedNames) ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_price >= 200 && product.product_price <= 500 && checkbox4.toString() == 'true' && checkedNames == '') ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_brand_code == checkedNames && checkbox1.toString() == 'false' && checkbox2.toString() == 'false' && checkbox3.toString() == 'false' && checkbox4.toString() == 'false' && checkbox5.toString() == 'false') ||
                       (product.product_category_code==categoryCode.product_category_code && product.product_price > 500 && checkbox5.toString() == 'true' && product.product_brand_code == checkedNames) ||
@@ -269,7 +313,9 @@ export default {
     }) {
         const products = await $productService.product.getProductBy();
         const categorys = await $productService.product.getProductCategoryBy();
-        const categoryCodes = await $productService.product.getProductCategoryByCode({product_category_code : params.id});
+        const categoryCodes = await $productService.product.getProductCategoryByCode({
+            product_category_code: params.id
+        });
         const brands = await $productService.product.getProductBandBy();
         // console.log("categoryCodes", categoryCodes);
         return {
@@ -300,6 +346,10 @@ export default {
             checkbox4: false,
             checkbox5: false,
             checkedNames: [],
+            contact: false,
+            tel: false,
+            facebook: false,
+            map: false,
         }
     },
 
@@ -460,5 +510,23 @@ ul {
 
 .divCheckbox {
     display: none !important;
+}
+
+.manu-sidebar {
+
+    position: fixed !important;
+    font-size: 24px !important;
+    width: 50px;
+    margin-top: 12%;
+    margin-left: 2em;
+    float: right;
+    display: block;
+    text-align: center;
+}
+
+.manu-sidebar-a {
+    /* border: 0.2px solid #e5e5e5; */
+    margin-top: 5px;
+    /* background-color: #fff; */
 }
 </style>
