@@ -30,7 +30,7 @@
                     <div><b>ไอดีไลน์ : </b><span>@kob0994619241</span> หรือ
                         @modnganbeauty</div>
                     <div><b>อีเมล : </b><span>katai_ee@hotmail.com</span></div>
-                    <div><b>เฟสบุ๊ค : </b><span><a href="https://www.facebook.com/kobgiftshop">กบกิ๊ฟช็อปและมดงานบิวตี้ @
+                    <div><b>เฟสบุ๊ค : </b><span><a href="https://www.facebook.com/kobgiftshop" target="_blank">กบกิ๊ฟช็อปและมดงานบิวตี้ @
                                 ตรอกจันทร์(ตึกเขียวส้ม)</a></span></div>
                     <div><b>เวลาเปิด-ปิด วันจันทร์-วันเสาร์ :
                         </b><span style="color: red;">08.00 - 17.30</span></div>

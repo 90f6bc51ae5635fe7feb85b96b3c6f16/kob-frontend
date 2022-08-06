@@ -7,7 +7,7 @@
                 <template #append>
                     <form :action="`/search/${name}`" style="margin-left: -1em;" method="post">
                         <div style="float: left;">
-                            <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="name" required></b-form-input>
+                            <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="name" oninvalid="this.setCustomValidity('กรุณาพิมพ์รายการก่อนค้นหา')" required></b-form-input>
                         </div>
                         <div style="float: left;">
                             <b-dropdown text="ชื่อสินค้า" right variant="outline-secondary" disabled>
