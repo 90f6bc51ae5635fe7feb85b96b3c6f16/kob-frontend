@@ -36,19 +36,11 @@
             </div>
         </div>
     </div>
+
     <div class="photos" style="margin: 2em 0 0 -1em;" v-for="productCode in productCodes" :key="productCode.product_code">
         <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
         <div v-if="productCode.product_image" style="border: 1px solid #e4e4e4;">
-            <carousel style="border: 1px solid #e4e4e4;" :starting-image="0" :images="[
-                    {
-                        big: `http://54.254.134.236:6201/${productCode.product_image}`,
-                        thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
-                    },
-                    {
-                        big: `http://54.254.134.236:6201/${productCode.product_image}`,
-                        thumb: `http://54.254.134.236:6201/${productCode.product_image}`,
-                    },
-                    ]">
+            <carousel style="border: 1px solid #e4e4e4;" :starting-image="0" :images="images">
             </carousel>
         </div>
         <div v-else style="border: 1px solid #e4e4e4;">
@@ -393,12 +385,46 @@ export default {
     }) {
         const products = await $productService.product.getProductBy();
         const categorys = await $productService.product.getProductCategoryBy();
-        const productCodes = await $productService.product.getProductByCode({product_code : params.id});
-        // console.log("productsCodes",productsCodes);
+        const productCodes = await $productService.product.getProductByCode({
+            product_code: params.id
+        });
+        const productImages = await $productService.product.getProductImageByCode({
+            product_code: params.id
+        });
+
+        let images = [];
+        let obj = {};
+        productCodes.data.forEach((e, i) => {
+            let objToAdd1 = {
+                'big': `http://54.254.134.236:6201/${e.product_image}`,
+                'thumb': `http://54.254.134.236:6201/${e.product_image}`
+            }
+            obj = {
+                ...obj,
+                ...objToAdd1
+            };
+            images.push(obj);
+
+        });
+        productImages.data.forEach((e, i) => {
+            let objToAdd1 = {
+                'big': `http://54.254.134.236:6201/${e.product_image_name}`,
+                'thumb': `http://54.254.134.236:6201/${e.product_image_name}`
+            }
+            obj = {
+                ...obj,
+                ...objToAdd1
+            };
+            images.push(obj);
+
+        });
+        // console.log("imgs", imgs);
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],
             productCodes: productCodes.data ? productCodes.data : [],
+            productImages: productImages.data ? productImages.data : [],
+            images,
         };
     },
 
@@ -412,28 +438,28 @@ export default {
                 dots: false,
             },
             rating: 4.4,
-            images: [{
-                    id: "1",
-                    big: "https://picsum.photos/400/400/?image=1",
-                    thumb: "https://picsum.photos/400/400/?image=1",
-                },
-                {
-                    id: "2",
-                    big: "https://picsum.photos/400/400/?image=2",
-                    thumb: "https://picsum.photos/400/400/?image=2",
-                },
-                {
-                    id: "3",
-                    big: "https://picsum.photos/400/400/?image=3",
-                    thumb: "https://picsum.photos/400/400/?image=3",
-                },
-                {
-                    id: "4",
-                    big: "https://picsum.photos/400/400/?image=4",
-                    thumb: "https://picsum.photos/400/400/?image=4",
-                },
+            // images: [{
+            //         // id: "1",
+            //         big: `http://54.254.134.236:6201/product/923721f7-4079-4256-ac82-07e41c6710dc.jpg`,
+            //         thumb: `http://54.254.134.236:6201/product/923721f7-4079-4256-ac82-07e41c6710dc.jpg`,
+            //     },
+            //     {
+            //         // id: "2",
+            //         big: `http://54.254.134.236:6201/product/f46dfb79-16a9-4db2-966c-39110272f62c.jpg`,
+            //         thumb: `http://54.254.134.236:6201/product/f46dfb79-16a9-4db2-966c-39110272f62c.jpg`,
+            //     },
+            //     {
+            //         // id: "3",
+            //         big: `http://54.254.134.236:6201/product/56b88d07-6c4a-4bca-b4de-509dbf30dc7e.jpeg`,
+            //         thumb: `http://54.254.134.236:6201/product/56b88d07-6c4a-4bca-b4de-509dbf30dc7e.jpeg`,
+            //     },
+            //     {
+            //         // id: "4",
+            //         big: "https://picsum.photos/400/400/?image=4",
+            //         thumb: "https://picsum.photos/400/400/?image=4",
+            //     },
                 // {
-                //   id: "5",
+                //   // id: "5",
                 //   big: "https://picsum.photos/400/400/?image=5",
                 //   thumb: "https://picsum.photos/400/400/?image=5",
                 // },
@@ -452,7 +478,7 @@ export default {
                 //   big: "https://picsum.photos/400/400/?image=8",
                 //   thumb: "https://picsum.photos/400/400/?image=8",
                 // },
-            ],
+            // ],
         };
     },
     methods: {
