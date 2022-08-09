@@ -13,7 +13,7 @@
             </div>
         </b-collapse>
     </div>
-    <div style="float: right;">
+    <div style="float: right; z-index: 9999999 !important;">
         <div class="manu-sidebar">
             <a href="https://www.facebook.com/kobgiftshop" target="_blank" class="" style="text-decoration: none !important;">
                 <div class="manu-sidebar-a" @mouseenter="facebook = true" @mouseleave="facebook = false">
@@ -57,7 +57,6 @@
             </a>
         </div>
     </div>
-
     <b-row class="title-product" style="margin: -1em -2em auto -1em">
         <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em">
             รายการสินค้า
