@@ -157,18 +157,20 @@ export default {
             try {
                 await this.$auth.loginWith("local", payload);
                 this.$router.push("/home");
+                
             } catch (error) {
                 this.error = error;
             }
         },
     },
     async asyncData({
-        $productService
+        $productService,
+        $userService,
     }) {
-        const membrinserts = await $productService.product.getMemberInsertBy();
-        const checkemails = await $productService.product.getCheckEmailBy();
-        const checkphones = await $productService.product.getCheckPhoneBy();
-        const checkmembers = await $productService.product.getCheckMemberBy();
+        const membrinserts = await $userService.user.getMemberInsertBy();
+        const checkemails = await $userService.user.getCheckEmailBy();
+        const checkphones = await $userService.user.getCheckPhoneBy();
+        const checkmembers = await $userService.user.getCheckMemberBy();
         const categorys = await $productService.product.getProductCategoryBy();
         return {
             membrinserts: membrinserts.data ? membrinserts.data : [],

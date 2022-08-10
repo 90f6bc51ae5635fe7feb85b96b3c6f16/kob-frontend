@@ -41,7 +41,7 @@
                 </div>
                 <div v-if="map" style=" float: left; width: 150px; margin: -1.75em 0 0 2.2em; text-align: left;">
                     <span style="margin-right: .2em;">
-                        แผนที่
+                        แผนที่ร้าน
                     </span>
                 </div>
             </a>
