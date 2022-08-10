@@ -349,6 +349,7 @@ export default {
         const products = await $productService.product.getProductBy();
         const categorys = await $productService.product.getProductCategoryBy();
         const brands = await $productService.product.getProductBandBy();
+        
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],

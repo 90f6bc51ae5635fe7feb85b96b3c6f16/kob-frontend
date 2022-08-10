@@ -112,12 +112,11 @@ export default {
         };
     },
     async asyncData({
-        $axios,
-        params
+        $productService
     }) {
-        const categorys = await $axios.$get('http://127.0.0.1:3001/api/category');
+        const categorys = await $productService.product.getProductCategoryBy();
         return {
-            categorys
+            categorys: categorys.data ? categorys.data : [],
         };
     },
     // middleware: 'auth',
@@ -139,7 +138,7 @@ div {
     font-family: 'Kanit', sans-serif;
 }
 
-.my{
+.my {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -203,7 +202,6 @@ ul {
     background-color: #39b44f !important;
     box-sizing: border-box;
 }
-
 
 li a {
     display: block;

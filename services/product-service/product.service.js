@@ -7,4 +7,8 @@ export default (axios) => ({
     getProductBandBy: (data) => axios.get(`/api/product-brand`),
     getProductSearchByCode: (data) => axios.post(`/api/product-search/`,data),
     getProductImageByCode: (data) => axios.get(`/api/product-sub-img/${data.product_code}`),
+    getMemberInsertBy: (data) => axios.post(`/api/member-insert/`,data),
+    getCheckEmailBy: (data) => axios.post(`/api/check-email/`,data),
+    getCheckPhoneBy: (data) => axios.post(`/api/check-phone/`,data),
+    getCheckMemberBy: (data) => axios.post(`/api/check-member/`,data),
   })

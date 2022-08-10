@@ -31,15 +31,15 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 ชื่อ <span style="color: red;">*</span>
-                                <b-form-input v-model="text" type="text" class="" placeholder="ชื่อ"></b-form-input>
+                                <b-form-input v-model="firstname" type="text" class="" placeholder="ชื่อ"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                     <b-col cols="6">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
-                                นามสกุล <span style="color: red;">*</span>
-                                <b-form-input v-model="text" type="text" class="" placeholder="นามสกุล"></b-form-input>
+                                นามสกุล <span style="color: red">*</span>
+                                <b-form-input v-model="lastname" type="text" class="" placeholder="นามสกุล"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -48,7 +48,7 @@
                     <b-col cols="6">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
-                                Email <span style="color: red;">*</span>
+                                Email <span style="color: red">*</span>
                                 <b-form-input v-model="email" class="" type="email" placeholder="อีเมล"></b-form-input>
                             </template>
                         </b-form-group>
@@ -56,8 +56,9 @@
                     <b-col cols="6">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
-                                Password <span style="color: red;">*</span>
-                                <b-form-input v-model="password" class="" type="password" placeholder="รหัสผ่าน"></b-form-input>
+                                Password <span style="color: red">*</span>
+                                <b-form-input v-model="password" type="password" placeholder="รหัสผ่าน">
+                                </b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -66,16 +67,20 @@
                     <b-col cols="6">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
-                                Confirm Password <span style="color: red;">*</span>
-                                <b-form-input v-model="password" class="" type="password" placeholder="ยืนยันรหัสผ่าน"></b-form-input>
+                                Confirm Password <span style="color: red">*</span>
+                                <b-form-input v-model="confirmpassword" type="password" placeholder="ยืนยันรหัสผ่าน">
+                                <div :display="password == confirmpassword && password != '' &&confirmpassword != ''">รหัสตรง</div>
+                                </b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                     <b-col cols="6">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
-                                หมายเลขโทรศัพท์ <span style="color: red;">*</span>
-                                <b-form-input v-model="number" type="number" class="" placeholder="หมายเลขโทรศัพท์"></b-form-input>
+                                หมายเลขโทรศัพท์ <span style="color: red">*</span>
+                                <b-form-input v-model="phone" type="number" class="" placeholder="หมายเลขโทรศัพท์">
+
+                                </b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -84,16 +89,16 @@
                     <b-col cols="6">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
-                                ที่อยู่ <span style="color: red;">*</span>
-                                <b-form-input v-model="text" type="text" class="" placeholder="ที่อยู่"></b-form-input>
+                                ที่อยู่ <span style="color: red">*</span>
+                                <b-form-input v-model="address" type="text" class="" placeholder="ที่อยู่"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                     <b-col cols="6">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
-                                วันเกิด <span style="color: red;">*</span>
-                                <b-form-datepicker id="" v-model="date" type="date" class="" placeholder="วันเกิด"></b-form-datepicker>
+                                วันเกิด <span style="color: red">*</span>
+                                <b-form-datepicker id="" v-model="dates" type="date" class="" placeholder="วันเกิด"></b-form-datepicker>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -121,46 +126,64 @@
 export default {
     data() {
         return {
-            email: '',
-            password: '',
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+            confirmpassword: "",
+            phone: "",
+            address: "",
+            dates: "",
             error: null,
-        }
+            submitted: false,
+        };
     },
     methods: {
         async onSubmit(e) {
-            e.preventDefault()
-
+            e.preventDefault();
+            this.submitted = true;
             const payload = {
                 data: {
+                    firstname: this.firstname,
+                    lastname: this.lastname,
                     email: this.email,
                     password: this.password,
+                    phone: this.phone,
+                    address: this.address,
+                    dates: this.dates,
                 },
-            }
-            console.log('payload', payload)
+            };
+            console.log("payload", payload);
             try {
-                await this.$auth.loginWith('local', payload)
-                this.$router.push('/home')
+                await this.$auth.loginWith("local", payload);
+                this.$router.push("/home");
             } catch (error) {
-                this.error = error
+                this.error = error;
             }
         },
     },
     async asyncData({
-        $axios,
-        params
+        $productService
     }) {
-        const categorys = await $axios.$get('http://127.0.0.1:3001/api/category');
+        const membrinserts = await $productService.product.getMemberInsertBy();
+        const checkemails = await $productService.product.getCheckEmailBy();
+        const checkphones = await $productService.product.getCheckPhoneBy();
+        const checkmembers = await $productService.product.getCheckMemberBy();
+        const categorys = await $productService.product.getProductCategoryBy();
         return {
-            categorys
+            membrinserts: membrinserts.data ? membrinserts.data : [],
+            checkemails: checkemails.data ? checkemails.data : [],
+            checkphones: checkphones.data ? checkphones.data : [],
+            checkmembers: checkmembers.data ? checkmembers.data : [],
+            categorys: categorys.data ? categorys.data : [],
         };
     },
-
-}
+};
 </script>
 
 <style scoped>
 div {
-    font-family: 'Kanit', sans-serif;
+    font-family: "Kanit", sans-serif;
 }
 
 ul {

@@ -7,9 +7,10 @@
                     <b-input-group>
                         <b-img src="~/assets/Logo.png" alt="Image" class="rounded" style="margin-top: 2px; margin-right: 5em"></b-img>
                         <template #append>
-                            <form :action="`/search/${name}`" style="margin-left: -1em;" method="post">
+                            <form :action="`/search/${keyword}`" style="margin-left: -1em;" method="post">
                                 <div style="float: left;">
-                                    <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="name" oninvalid="this.setCustomValidity('กรุณาพิมพ์รายการก่อนค้นหา')" required></b-form-input>
+                                    <!-- <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="keyword"  required oninvalid="this.setCustomValidity('กรุณาพิมพ์รายการก่อนค้นหา')" ></b-form-input> -->
+                                    <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="keyword" ></b-form-input>
                                 </div>
                                 <div style="float: left;">
                                     <b-dropdown text="ชื่อสินค้า" right variant="outline-secondary" disabled>
@@ -20,7 +21,7 @@
                                         <label for="john">ชื่อ</label>
                                     </b-dropdown>
                                 </div>
-                                <b-button type="submit" style="background-color: #ffd000;border-color: #ffd000;">
+                                <b-button type="submit" :disabled="keyword == ''" style="background-color: #ffd000;border-color: #ffd000;">
                                     <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
                                 </b-button>
                             </form>
@@ -100,6 +101,7 @@
                         <b-navbar-nav>
                             <b-nav-item style="background-color: #ffd000; margin: auto 0 auto -15px">
                                 <a v-b-toggle href="#example-collapse" @click.prevent @click="scrollToTop()" style="color: #000; text-decoration: none">
+                                    <!-- <a v-b-toggle href="#example-collapse" @click="scrollToTop()" style="color: #000; text-decoration: none"> -->
                                     <b-form inline style="margin: auto -0.9em auto 0.5em">
                                         <div style="font-size: 13pt; color: #222222">รายการสินค้า</div>
                                         <b-input-group-text style="
@@ -154,7 +156,7 @@ export default {
             showNav: false,
             value: '',
             checkedNames: [],
-            name: '',
+            keyword: '',
         };
     },
     methods: {
