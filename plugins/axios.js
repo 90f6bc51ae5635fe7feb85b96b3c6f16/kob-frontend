@@ -7,13 +7,13 @@ const services = [
 ]
 //this retrive from publicRuntimeConfig
 const getBaseURL = (ctx, service) => {
-  let url
+  let url 
   switch (service.name) {
     case 'productService':
-      url = ctx.baseServiceURL || service.url
+      url = ctx.BASE_ENDPOINT || service.url
       break
     case 'userService':
-      url = ctx.baseServiceURL || service.url
+      url = ctx.BASE_ENDPOINT || service.url
       break
     default:
       url = service.url

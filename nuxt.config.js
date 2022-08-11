@@ -122,12 +122,12 @@ export default {
 
   publicRuntimeConfig: {
     APP_URL: process.env.APP_URL,
-    BASE_ENDPOINT: process.env.BASE_ENDPOINT,
+    BASE_ENDPOINT: process.env.BASE_ENDPOINT, 
   },
 
   privateRuntimeConfig: {
     APP_URL: process.env.APP_URL,
-    BASE_ENDPOINT: process.env.BASE_ENDPOINT,
+    BASE_ENDPOINT: process.env.BASE_ENDPOINT, 
   },
 
   axios: {
@@ -138,7 +138,7 @@ export default {
         'Access-Control-Allow-Origin': '*',
       },
     },
-    credentials: false,
+    credentials: false, 
   },
 
   i18n: {
