@@ -69,7 +69,7 @@
                             <template v-slot="label">
                                 Confirm Password <span style="color: red">*</span>
                                 <b-form-input v-model="confirmpassword" type="password" placeholder="ยืนยันรหัสผ่าน">
-                                <div :display="password == confirmpassword && password != '' &&confirmpassword != ''">รหัสตรง</div>
+                                    <div :display="password == confirmpassword && password != '' &&confirmpassword != ''">รหัสตรง</div>
                                 </b-form-input>
                             </template>
                         </b-form-group>
@@ -117,7 +117,6 @@
                 </b-row>
             </form>
         </b-col>
-
     </b-row>
 </div>
 </template>
@@ -153,14 +152,13 @@ export default {
                     dates: this.dates,
                 },
             };
-            console.log("payload", payload);
             try {
                 await this.$auth.loginWith("local", payload);
                 this.$router.push("/home");
-                
             } catch (error) {
                 this.error = error;
             }
+
         },
     },
     async asyncData({

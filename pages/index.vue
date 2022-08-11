@@ -213,7 +213,7 @@
                 </b-col>
             </b-row>
         </b-col>
-        <b-col class="card-product" style="width : 100%;height 100%; background-color :; border-top: 4px solid #39b54a;">
+        <b-col class="card-product-hot" style="width : 100%;height 100%; background-color :; border-top: 4px solid #39b54a;">
             <div style="background-color: #adadad; margin: 0.6em">
                 <h4 style="padding-top: 1em; text-align: center; color: #fff">
                     NEW GADJETS
@@ -335,7 +335,7 @@
                 </b-col>
             </b-row>
         </b-col>
-        <b-col class="card-product" style="width : 100%;height 100%; background-color :; border-top: 4px solid #ff6289;">
+        <b-col class="card-product-hot" style="width : 100%;height 100%; background-color :; border-top: 4px solid #ff6289;">
             <div style="background-color: #adadad; margin: 0.6em">
                 <h4 style="padding-top: 1em; text-align: center; color: #fff">
                     NEW GADJETS
@@ -458,7 +458,7 @@
                 </b-col>
             </b-row>
         </b-col>
-        <b-col class="card-product" style="width : 100%;height 100%; background-color :; border-top: 4px solid #ecb856;">
+        <b-col class="card-product-hot" style="width : 100%;height 100%; background-color :; border-top: 4px solid #ecb856;">
             <div style="background-color: #adadad; margin: 0.6em">
                 <h4 style="padding-top: 1em; text-align: center; color: #fff">
                     NEW GADJETS
@@ -580,7 +580,7 @@ export default {
 }
 
 .card-product:hover {
-    box-shadow: 0 0 20px rgba(33, 33, 33, 0.5);
+    box-shadow: 0 0 5px rgba(33, 33, 33, 0.5);
     border: 1px solid #ccc;
 }
 
@@ -671,6 +671,13 @@ div {
 
 .card-product-shop {
     padding: 1em 0 2em 0;
+}
+
+.card-product-hot {
+    border-right: 1px solid rgb(0 0 0 / 14%);
+    border-bottom: 1px solid rgb(0 0 0 / 14%);
+    padding-left: 0;
+    padding-right: 0;
 }
 
 ul {

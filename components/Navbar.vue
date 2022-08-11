@@ -5,11 +5,12 @@
             <b-container fluid="lg" style="padding-left: 0; padding-right: 0; padding-top: 20px; padding-bottom: 20px">
                 <b-row style="margin: 0 0 0 0">
                     <b-input-group>
+
                         <b-img src="~/assets/Logo.png" alt="Image" class="rounded" style="margin-top: 2px; margin-right: 5em"></b-img>
                         <template #append>
                             <form :action="`/search/${keyword}`" style="margin-left: -1em;" method="post">
                                 <div style="float: left;">
-                                    <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="keyword"  required></b-form-input>
+                                    <b-form-input style=" width: 470px; margin: 0 0 0 -2em; border-radius: 0;" type="text" placeholder="ค้นหา" v-model="keyword" pattern=".{1,}" required oninvalid="setCustomValidity(' ');" oninput="setCustomValidity('');"></b-form-input>
                                     <!-- <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="keyword" ></b-form-input> -->
                                 </div>
                                 <div style="float: left;">
@@ -21,8 +22,8 @@
                                         <label for="john">ชื่อ</label>
                                     </b-dropdown>
                                 </div>
-                                <b-button type="submit" style="background-color: #ffd000;border-color: #ffd000;">
-                                <!-- <b-button type="submit" :disabled="keyword == ''" style="background-color: #ffd000;border-color: #ffd000;"> -->
+                                <b-button type="submit" style="background-color: #ffd000;border-color: #ffd000; border-radius: 0;">
+                                    <!-- <b-button type="submit" :disabled="keyword == ''" style="background-color: #ffd000;border-color: #ffd000;"> -->
                                     <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
                                 </b-button>
                             </form>
@@ -89,8 +90,43 @@
                                     </b-dropdown-text>
                                 </b-dropdown>
                             </div>
+                            <div style="float: right; z-index: 9999999 !important;">
+                                <div class="manu-sidebar">
+                                    <a href="https://www.facebook.com/kobgiftshop" target="_blank" class="" style="text-decoration: none !important;" id="tooltip-target-1">
+                                        <div class="manu-sidebar-a">
+                                            <img src="~/assets/Fbb.png" style="width: 50px; height: 50px;" alt="facebook">
+                                        </div>
+                                        <b-tooltip target="tooltip-target-1" triggers="hover" placement="left" variant="primary">
+                                            <h5>เฟสบุ๊ค</h5>
+                                        </b-tooltip>
+                                    </a>
+                                    <a href="tel:0994619241" class="" style="text-decoration: none !important;" id="tooltip-target-2">
+                                        <div class="manu-sidebar-a">
+                                            <img src="~/assets/tel.png" style="width: 45px; height: 45px; margin: 0 0 0 ;" alt="tel">
+                                        </div>
+                                        <b-tooltip target="tooltip-target-2" triggers="hover" placement="left" variant="success">
+                                            <h5>เบอร์โทรศัพท์</h5>
+                                        </b-tooltip>
+                                    </a>
+                                    <a href="https://www.google.com/maps/dir//%E0%B8%81%E0%B8%9A%E0%B8%81%E0%B8%B4%E0%B9%8A%E0%B8%9F%E0%B8%8A%E0%B9%87%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A1%E0%B8%94%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9A%E0%B8%B4%E0%B8%A7%E0%B8%95%E0%B8%B5%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B2%E0%B8%8B%E0%B9%88%E0%B8%B2+121+Jant+Rd+Tambon+Nai+Mueang,+Mueang+Nakhon+Ratchasima+District+Nakhon+Ratchasima+30000/@14.9782908,102.087612,14z/data=!4m5!4m4!1m0!1m2!1m1!1s0x31194ca4b81e8aad:0x3b5d3e95ddf93832" target="_blank" class="" style="text-decoration: none !important;" id="tooltip-target-3">
+                                        <div class="manu-sidebar-a">
+                                            <img src="~/assets/map.png" style="width: 50px; height: 50px;" alt="map">
+                                        </div>
+                                        <b-tooltip target="tooltip-target-3" triggers="hover" placement="left" variant="danger">
+                                            <h5>แผนที่ร้าน</h5>
+                                        </b-tooltip>
+                                    </a>
+                                    <a href="/contact" target="_blank" class="" style="text-decoration: none !important;" id="tooltip-target-4">
+                                        <div class="manu-sidebar-a">
+                                            <img src="~/assets/contact.png" style="width: 50px; height: 50px;" alt="contact">
+                                        </div>
+                                        <b-tooltip target="tooltip-target-4" triggers="hover" placement="left" variant="warning">
+                                            <h5>ติดต่อเรา</h5>
+                                        </b-tooltip>
+                                    </a>
+                                </div>
+                            </div>
                         </template>
-
                     </b-input-group>
                 </b-row>
             </b-container>
@@ -286,5 +322,23 @@ a {
     width: 100%;
     z-index: 9999999 !important;
     background-color: #fff;
+}
+
+.manu-sidebar {
+
+    position: fixed !important;
+    font-size: 24px !important;
+    width: 50px;
+    margin-top: 20%;
+    margin-left: 2em;
+    float: right;
+    display: block;
+    text-align: center;
+}
+
+.manu-sidebar-a {
+    /* border: 0.2px solid #e5e5e5; */
+    margin-top: 5px;
+    /* background-color: #fff; */
 }
 </style>

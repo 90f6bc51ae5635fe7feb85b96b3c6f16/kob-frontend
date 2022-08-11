@@ -567,7 +567,7 @@ export default {
 }
 
 .card-product:hover {
-    box-shadow: 0 0 20px rgba(33, 33, 33, 0.5);
+    box-shadow: 0 0 5px rgba(33, 33, 33, 0.5);
     border: 1px solid #ccc;
 }
 
@@ -689,4 +689,5 @@ ul {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 </style>
