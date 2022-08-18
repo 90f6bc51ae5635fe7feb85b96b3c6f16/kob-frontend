@@ -418,7 +418,7 @@ export default {
             images.push(obj);
 
         });
-        // console.log("imgs", imgs);
+        console.log("imgs", images);
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],

@@ -6,4 +6,3 @@ export default (axios) => ({
     getCheckMemberBy: (data) => axios.post(`/api/check-member/`,data),
 
   })
-  

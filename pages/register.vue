@@ -137,6 +137,25 @@ export default {
             submitted: false,
         };
     },
+    async asyncData({
+        $productService,
+        $userService,
+    }) {
+        const membrinserts = await $userService.user.getMemberInsertBy();
+        const checkemails = await $userService.user.getCheckEmailBy();
+        const checkphones = await $userService.user.getCheckPhoneBy();
+        const checkmembers = await $userService.user.getCheckMemberBy();
+        const categorys = await $productService.product.getProductCategoryBy();
+        const users = await $userService.user.getUserBy();
+        console.log("users", users);
+        return {
+            membrinserts: membrinserts.data ? membrinserts.data : [],
+            checkemails: checkemails.data ? checkemails.data : [],
+            checkphones: checkphones.data ? checkphones.data : [],
+            checkmembers: checkmembers.data ? checkmembers.data : [],
+            categorys: categorys.data ? categorys.data : [],
+        };
+    },
     methods: {
         async onSubmit(e) {
             e.preventDefault();
@@ -152,32 +171,39 @@ export default {
                     dates: this.dates,
                 },
             };
-            try {
-                await this.$auth.loginWith("local", payload);
-                this.$router.push("/home");
-            } catch (error) {
-                this.error = error;
-            }
+            // try {
+            //     await this.$auth.loginWith("local", payload);
+            //     this.$router.push("/home");
+            // } catch (error) {
+            //     this.error = error;
+            // }
+            this.$axios.post('http://localhost:3001/api/member-insert/', {
+                    // console.log("checkphones", checkphones);
+                    // this.$axios.post(checkphones , {
+                    // member_code: "12312",
+                    member_name: this.firstname,
+                    member_firstname: this.firstname,
+                    member_lastname: this.lastname,
+                    member_email: this.email,
+                    member_password: this.password,
+                    member_phone: this.phone,
+                    member_address: this.address,
+                    member_birthdate: this.dates,
+                    name: 'test',
+                    // payload,
+                })
+                .then(function (response) {
+                    console.log(response);
+                    this.$router.push('/home')
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
         },
     },
-    async asyncData({
-        $productService,
-        $userService,
-    }) {
-        const membrinserts = await $userService.user.getMemberInsertBy();
-        const checkemails = await $userService.user.getCheckEmailBy();
-        const checkphones = await $userService.user.getCheckPhoneBy();
-        const checkmembers = await $userService.user.getCheckMemberBy();
-        const categorys = await $productService.product.getProductCategoryBy();
-        return {
-            membrinserts: membrinserts.data ? membrinserts.data : [],
-            checkemails: checkemails.data ? checkemails.data : [],
-            checkphones: checkphones.data ? checkphones.data : [],
-            checkmembers: checkmembers.data ? checkmembers.data : [],
-            categorys: categorys.data ? categorys.data : [],
-        };
-    },
+
 };
 </script>
 
