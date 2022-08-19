@@ -31,7 +31,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 ชื่อ <span style="color: red;">*</span>
-                                <b-form-input v-model="firstname" type="text" class="" placeholder="ชื่อ"></b-form-input>
+                                <b-form-input v-model="firstname" type="text" class="" placeholder="ชื่อ" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกชื่อ');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -39,7 +39,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 นามสกุล <span style="color: red">*</span>
-                                <b-form-input v-model="lastname" type="text" class="" placeholder="นามสกุล"></b-form-input>
+                                <b-form-input v-model="lastname" type="text" class="" placeholder="นามสกุล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกนามสกุล');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -49,7 +49,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Email <span style="color: red">*</span>
-                                <b-form-input v-model="email" class="" type="email" placeholder="อีเมล"></b-form-input>
+                                <b-form-input v-model="email" class="" type="email" placeholder="อีเมล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกอีเมล');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -57,7 +57,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Password <span style="color: red">*</span>
-                                <b-form-input v-model="password" type="password" placeholder="รหัสผ่าน">
+                                <b-form-input v-model="password" type="password" placeholder="รหัสผ่าน" required pattern=".{6}" oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
@@ -68,8 +68,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Confirm Password <span style="color: red">*</span>
-                                <b-form-input v-model="confirmpassword" type="password" placeholder="ยืนยันรหัสผ่าน">
-                                    <div :display="password == confirmpassword && password != '' &&confirmpassword != ''">รหัสตรง</div>
+                                <b-form-input v-model="confirmpassword" type="password" placeholder="ยืนยันรหัสผ่าน" required pattern=".{6}" oninvalid="setCustomValidity('ยืนยันรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
@@ -78,8 +77,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 หมายเลขโทรศัพท์ <span style="color: red">*</span>
-                                <b-form-input v-model="phone" type="number" class="" placeholder="หมายเลขโทรศัพท์">
-
+                                <b-form-input v-model="phone" type="phone" class="" placeholder="หมายเลขโทรศัพท์" required pattern="[0-9]{10}" oninvalid="setCustomValidity('กรุณากรอกเบอร์โทรทัพท์ 0-9');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
@@ -90,7 +88,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 ที่อยู่ <span style="color: red">*</span>
-                                <b-form-input v-model="address" type="text" class="" placeholder="ที่อยู่"></b-form-input>
+                                <b-form-input v-model="address" type="text" class="" placeholder="ที่อยู่" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกที่อยู่');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -98,7 +96,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 วันเกิด <span style="color: red">*</span>
-                                <b-form-datepicker id="" v-model="dates" type="date" class="" placeholder="วันเกิด"></b-form-datepicker>
+                                <b-form-input id="" v-model="dates" type="date" class="" placeholder="วันเกิด" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณาเลือกวันเดือนปีเกิด');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -147,7 +145,6 @@ export default {
         const checkmembers = await $userService.user.getCheckMemberBy();
         const categorys = await $productService.product.getProductCategoryBy();
         const users = await $userService.user.getUserBy();
-        console.log("users", users);
         return {
             membrinserts: membrinserts.data ? membrinserts.data : [],
             checkemails: checkemails.data ? checkemails.data : [],
@@ -157,6 +154,16 @@ export default {
         };
     },
     methods: {
+        validateBeforeSubmit() {
+            this.$validator
+                .validateAll()
+                .then(function (response) {
+                    // Validation success if response === true
+                })
+                .catch(function (e) {
+                    // Catch errors
+                })
+        },
         async onSubmit(e) {
             e.preventDefault();
             this.submitted = true;
@@ -177,29 +184,30 @@ export default {
             // } catch (error) {
             //     this.error = error;
             // }
-            this.$axios.post('http://localhost:3001/api/member-insert/', {
-                    // console.log("checkphones", checkphones);
-                    // this.$axios.post(checkphones , {
-                    // member_code: "12312",
-                    member_name: this.firstname,
-                    member_firstname: this.firstname,
-                    member_lastname: this.lastname,
-                    member_email: this.email,
-                    member_password: this.password,
-                    member_phone: this.phone,
-                    member_address: this.address,
-                    member_birthdate: this.dates,
-                    name: 'test',
-                    // payload,
-                })
-                .then(function (response) {
-                    console.log(response);
-                    this.$router.push('/home')
 
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            // this.$axios.post('http://localhost:3001/api/member-insert/', {
+            //         // console.log("checkphones", checkphones);
+            //         // this.$axios.post(checkphones , {
+            //         // member_code: "12312",
+            //         member_name: this.firstname,
+            //         member_firstname: this.firstname,
+            //         member_lastname: this.lastname,
+            //         member_email: this.email,
+            //         member_password: this.password,
+            //         member_phone: this.phone,
+            //         member_address: this.address,
+            //         member_birthdate: this.dates,
+            //         name: 'test',
+            //         // payload,
+            //     })
+            //     .then(function (response) {
+            //         console.log(response);
+            //         this.$router.push('/home')
+
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
 
         },
     },
