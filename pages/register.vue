@@ -57,7 +57,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Password <span style="color: red">*</span>
-                                <b-form-input v-model="password" type="password" placeholder="รหัสผ่าน" required pattern=".{6}" oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="password" type="password" placeholder="รหัสผ่าน" name="password" id="password" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
@@ -68,8 +68,9 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Confirm Password <span style="color: red">*</span>
-                                <b-form-input v-model="confirmpassword" type="password" placeholder="ยืนยันรหัสผ่าน" required pattern=".{6}" oninvalid="setCustomValidity('ยืนยันรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="confirmpassword" type="password" placeholder="ยืนยันรหัสผ่าน" name="confirmpassword" id="confirmpassword" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('ยืนยันรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
+                                <span id="message"></span>
                             </template>
                         </b-form-group>
                     </b-col>
@@ -105,7 +106,7 @@
                     <b-col cols="4">
                     </b-col>
                     <b-col cols="2">
-                        <b-button type="submit" variant="success" size="md" style="width: 100%;">Save</b-button>
+                        <b-button type="submit" variant="success" name="submit" id="submit" size="md" style="width: 100%;" disabled>Save</b-button>
                     </b-col>
                     <b-col cols="2">
                         <b-button type="reset" variant="warning" size="md" style="width: 100%;">Reset</b-button>
@@ -154,6 +155,25 @@ export default {
         };
     },
     methods: {
+        check() {
+            if (password.value == confirmpassword.value && password.value != '' && confirmpassword.value != '') {
+                document.getElementById('message').style.color = 'green';
+                document.getElementById('message').innerHTML = 'รหัสผ่านตรงกัน';
+                document.getElementById("submit").removeAttribute("disabled");
+                document.getElementById("submit").classList.remove("disabled");
+                console.log("submit",document.getElementById("submit"));
+            } else if (password.value == '' || confirmpassword.value == '') {
+                document.getElementById('message').style.color = 'red';
+                document.getElementById('message').innerHTML = 'กรุณากรอกรหัสผ่าน';
+                document.getElementById("submit").disabled = true;
+                console.log("submit1",document.getElementById("submit"));
+            } else {
+                document.getElementById('message').style.color = 'red';
+                document.getElementById('message').innerHTML = 'รหัสผ่านไม่ตรงกัน';
+                document.getElementById("submit").disabled = true;
+                console.log("submit2",document.getElementById("submit"));
+            }
+        },
         validateBeforeSubmit() {
             this.$validator
                 .validateAll()
@@ -178,36 +198,35 @@ export default {
                     dates: this.dates,
                 },
             };
-            // try {
-            //     await this.$auth.loginWith("local", payload);
-            //     this.$router.push("/home");
-            // } catch (error) {
-            //     this.error = error;
-            // }
+            try {
+                // await this.$auth.loginWith("local", payload);
+                // this.$axios.post('http://localhost:3001/api/member-insert/', {
+                //         // console.log("checkphones", checkphones);
+                //         // this.$axios.post(checkphones , {
+                //         // member_code: "12312",
+                //         member_name: this.firstname,
+                //         member_firstname: this.firstname,
+                //         member_lastname: this.lastname,
+                //         member_email: this.email,
+                //         member_password: this.password,
+                //         member_phone: this.phone,
+                //         member_address: this.address,
+                //         member_birthdate: this.dates,
+                //         name: 'test',
+                //         // payload,
+                //     })
+                //     .then(function (response) {
+                //         console.log(response);
+                //         this.$router.push('/home')
 
-            // this.$axios.post('http://localhost:3001/api/member-insert/', {
-            //         // console.log("checkphones", checkphones);
-            //         // this.$axios.post(checkphones , {
-            //         // member_code: "12312",
-            //         member_name: this.firstname,
-            //         member_firstname: this.firstname,
-            //         member_lastname: this.lastname,
-            //         member_email: this.email,
-            //         member_password: this.password,
-            //         member_phone: this.phone,
-            //         member_address: this.address,
-            //         member_birthdate: this.dates,
-            //         name: 'test',
-            //         // payload,
-            //     })
-            //     .then(function (response) {
-            //         console.log(response);
-            //         this.$router.push('/home')
-
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     });
+                this.$router.push("/login");
+            } catch (error) {
+                this.error = error;
+            }
 
         },
     },
