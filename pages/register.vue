@@ -106,7 +106,7 @@
                     <b-col cols="4">
                     </b-col>
                     <b-col cols="2">
-                        <b-button type="submit" variant="success" name="submit" id="submit" size="md" style="width: 100%;" disabled>Save</b-button>
+                        <b-button type="submit" variant="success" name="submit" id="submit" size="md" style="width: 100%;">Save</b-button>
                     </b-col>
                     <b-col cols="2">
                         <b-button type="reset" variant="warning" size="md" style="width: 100%;">Reset</b-button>
@@ -161,17 +161,20 @@ export default {
                 document.getElementById('message').innerHTML = 'รหัสผ่านตรงกัน';
                 document.getElementById("submit").removeAttribute("disabled");
                 document.getElementById("submit").classList.remove("disabled");
-                console.log("submit",document.getElementById("submit"));
+                return true
+
             } else if (password.value == '' || confirmpassword.value == '') {
                 document.getElementById('message').style.color = 'red';
                 document.getElementById('message').innerHTML = 'กรุณากรอกรหัสผ่าน';
                 document.getElementById("submit").disabled = true;
-                console.log("submit1",document.getElementById("submit"));
+                return false
+
             } else {
                 document.getElementById('message').style.color = 'red';
                 document.getElementById('message').innerHTML = 'รหัสผ่านไม่ตรงกัน';
                 document.getElementById("submit").disabled = true;
-                console.log("submit2",document.getElementById("submit"));
+                return false
+
             }
         },
         validateBeforeSubmit() {
@@ -186,48 +189,49 @@ export default {
         },
         async onSubmit(e) {
             e.preventDefault();
-            this.submitted = true;
-            const payload = {
-                data: {
-                    firstname: this.firstname,
-                    lastname: this.lastname,
-                    email: this.email,
-                    password: this.password,
-                    phone: this.phone,
-                    address: this.address,
-                    dates: this.dates,
-                },
-            };
-            try {
-                // await this.$auth.loginWith("local", payload);
-                // this.$axios.post('http://localhost:3001/api/member-insert/', {
-                //         // console.log("checkphones", checkphones);
-                //         // this.$axios.post(checkphones , {
-                //         // member_code: "12312",
-                //         member_name: this.firstname,
-                //         member_firstname: this.firstname,
-                //         member_lastname: this.lastname,
-                //         member_email: this.email,
-                //         member_password: this.password,
-                //         member_phone: this.phone,
-                //         member_address: this.address,
-                //         member_birthdate: this.dates,
-                //         name: 'test',
-                //         // payload,
-                //     })
-                //     .then(function (response) {
-                //         console.log(response);
-                //         this.$router.push('/home')
+            if (this.check()) {
+                this.submitted = true;
+                const payload = {
+                    data: {
+                        firstname: this.firstname,
+                        lastname: this.lastname,
+                        email: this.email,
+                        password: this.password,
+                        phone: this.phone,
+                        address: this.address,
+                        dates: this.dates,
+                    },
+                };
+                try {
+                    // await this.$auth.loginWith("local", payload);
+                    // this.$axios.post('http://localhost:3001/api/member-insert/', {
+                    //         // console.log("checkphones", checkphones);
+                    //         // this.$axios.post(checkphones , {
+                    //         // member_code: "12312",
+                    //         member_name: this.firstname,
+                    //         member_firstname: this.firstname,
+                    //         member_lastname: this.lastname,
+                    //         member_email: this.email,
+                    //         member_password: this.password,
+                    //         member_phone: this.phone,
+                    //         member_address: this.address,
+                    //         member_birthdate: this.dates,
+                    //         name: 'test',
+                    //         // payload,
+                    //     })
+                    //     .then(function (response) {
+                    //         console.log(response);
+                    //         this.$router.push('/home')
 
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error);
-                //     });
-                this.$router.push("/login");
-            } catch (error) {
-                this.error = error;
+                    //     })
+                    //     .catch(function (error) {
+                    //         console.log(error);
+                    //     });
+                    this.$router.push("/login");
+                } catch (error) {
+                    this.error = error;
+                }
             }
-
         },
     },
 
