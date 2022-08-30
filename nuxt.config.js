@@ -71,6 +71,7 @@ export default {
     "@nuxtjs/google-fonts",
     "@nuxtjs/fontawesome",
     "@nuxtjs/pwa",
+    // '@nuxtjs/vuetify',
     [
       '@nuxtjs/i18n',
       {
@@ -109,6 +110,8 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
     "@nuxtjs/axios",
+    '@nuxt/content',
+    // "@nuxt/content"
 
   ],
 
@@ -122,12 +125,12 @@ export default {
 
   publicRuntimeConfig: {
     APP_URL: process.env.APP_URL,
-    BASE_ENDPOINT: process.env.BASE_ENDPOINT, 
+    BASE_ENDPOINT: process.env.BASE_ENDPOINT,
   },
 
   privateRuntimeConfig: {
     APP_URL: process.env.APP_URL,
-    BASE_ENDPOINT: process.env.BASE_ENDPOINT, 
+    BASE_ENDPOINT: process.env.BASE_ENDPOINT,
   },
 
   axios: {
@@ -138,7 +141,7 @@ export default {
         'Access-Control-Allow-Origin': '*',
       },
     },
-    credentials: false, 
+    credentials: false,
   },
 
   i18n: {

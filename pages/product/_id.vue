@@ -383,7 +383,12 @@ export default {
         $productService,
         params,
     }) {
-        const products = await $productService.product.getProductBy();
+        const products = await $productService.product.getProductPage({
+            page: 1,
+            // page_brand: brand,
+            // page_min: min,
+            // page_max: max
+        });
         const categorys = await $productService.product.getProductCategoryBy();
         const productCodes = await $productService.product.getProductByCode({
             product_code: params.id
@@ -418,7 +423,7 @@ export default {
             images.push(obj);
 
         });
-        console.log("imgs", images);
+        // console.log("imgs", images);
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],

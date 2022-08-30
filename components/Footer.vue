@@ -100,17 +100,23 @@
           ">
                 <b-img src="~/assets/Logo.png" alt="Image" style="margin: 5px"></b-img>
                 <div style="display: flex; justify-content: left; padding-top: 20px">
-                    Many say exploration is part of our dest but it’s actually our duty
-                    to future and their.
+                    กิ๊ฟช็อป ของขวัญ ของใช้
+                    เครื่องสำอางค์ อยากได้อะไรขอให้ถามนะจ๊ะ ขายปลีก-ส่ง กิฟช็อป หวี กระจก ยางมัดผม โบว์
+                    ผ้าเช็ดหน้า ของขวัญ ของชำร่วย งานบวช งานแต่ง งานศพ ยาหม่อง ยาดม ถุงเท้า ถุงมือ แฟชั่น
+                    นักเรียน เครื่องเขียนทุกชนิด กระเป๋า ลิขสิทธิ์ถูกต้อง กรอบรูป อัลบั้มรูป ออมสิน ของใช้
+                    คัตตอนบัต สำลี น้ำยาล้างเล็บ ทาเล็บ น้ำมันมะกอก กรรไกรตัดเล็บ ใบมีดโกน ถุงแขน ถุงน่อง
                 </div>
                 <div style="display: flex; justify-content: left; padding-top: 10px">
-                    Address: 868 Fake Street, New York
+                    ที่อยู่ : ถนนจันทร์ ตำบลในเมือง อำเภอเมืองนครราชสีมา จังหวัดนครราชสีมา 30000
                 </div>
                 <div style="display: flex; justify-content: left; padding-top: 10px">
-                    Phone: (08) 08 4752 1499
+                    เบอร์โทรศัพท์ : 099-461-9241
                 </div>
                 <div style="display: flex; justify-content: left; padding-top: 10px">
-                    Email: info@supermart.com
+                    ไอดีไลน์ : @kob0994619241
+                </div>
+                <div style="display: flex; justify-content: left; padding-top: 10px">
+                    อีเมล : katai_ee@hotmail.com
                 </div>
             </b-col>
             <b-col cols="2" style="

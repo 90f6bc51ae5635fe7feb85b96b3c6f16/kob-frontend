@@ -516,6 +516,7 @@
 import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
+
     data() {
         return {
             slickOptions: {
@@ -531,6 +532,9 @@ export default {
                 slidesToShow: 3,
                 navButtons: false,
                 dots: false,
+                min: 'undefined',
+                max: 'undefined',
+                brand: 'undefined',
             },
             rating: 4.5,
         };
@@ -538,7 +542,12 @@ export default {
     async asyncData({
         $productService
     }) {
-        const products = await $productService.product.getProductBy();
+        const products = await $productService.product.getProductPage({
+            page: 1,
+            // page_brand: brand,
+            // page_min: min,
+            // page_max: max
+        });
         const categorys = await $productService.product.getProductCategoryBy();
         return {
             products: products.data ? products.data : [],
