@@ -2,7 +2,7 @@ export default (axios) => ({
     getProductBy: (data) => axios.get('/api/product'),
     getProductByCode: (data) => axios.get(`/api/product/${data.product_code}`),
     getProductPage: (data) => axios.get(`/api/product/page/${data.page},${data.page_brand},${data.page_min},${data.page_max}`),
-    getProductCount: (data) => axios.get(`/api/product-count/${data.count_brand},${data.count_min},${data.count_max}`),
+    getProductCount: (data) => axios.get(`/api/product-count/${data.count_keyword},${data.count_brand},${data.count_min},${data.count_max}`),
     // getProductPaginationByCode: (data) => axios.get(`/api/product-pagination/${data.page
       // ,data.pag1
     // }`),

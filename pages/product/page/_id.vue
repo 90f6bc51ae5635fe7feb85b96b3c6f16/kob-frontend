@@ -600,7 +600,7 @@
                         </ul>
                     </div>
                 </div>
-                <div v-else>
+                <div v-if="count.product_count >=5">
                     <ul v-if="pageNo == 1" style="margin-top: 1em;
                       justify-content: center;
                       list-style-type: none;

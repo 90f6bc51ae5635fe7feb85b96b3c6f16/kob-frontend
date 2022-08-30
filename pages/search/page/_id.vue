@@ -233,7 +233,6 @@
                 </nuxt-link>
             </b-col>
             <div class="divCheckbox"></div>
-
             <div style="margin-top: 1em;
                       justify-content: center;
                       list-style-type: none;
@@ -245,14 +244,13 @@
                       border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
 
             " v-for="count in counts" :key="count">
-
                 <div v-if="count.product_count < 5">
-                    <div v-if="count.product_count == 0">
-                        <div v-if="search_product == ''" style="
-                                  margin-top: 1em;
-                                  margin-bottom: 10em;
-                                  text-align: center;
-                                  ">
+                    <div v-if="count.product_count == 0 ">
+                        <div style="
+                      margin-top: 1em;
+                      margin-bottom: 10em;
+                      text-align:center;
+                      " v-if="search_product == ''">
                             <p>ไม่พบสินค้า</p>
                         </div>
                         <ul v-if="pageNo == 1" style="margin-top: 1em;
@@ -894,6 +892,7 @@ export default {
         const categorys = await $productService.product.getProductCategoryBy();
         const brands = await $productService.product.getProductBandBy();
         const counts = await $productService.product.getProductCount({
+            count_keyword: query_keyword,
             count_brand: brand,
             count_min: min,
             count_max: max
@@ -948,21 +947,19 @@ export default {
             if (this.query_keyword == '') {
                 this.query_keyword = 'undefined';
             }
-            console.log("query", this.min);
             return this.$router.push({
-                    path: `/search/page/1`,
-                    query: {
-                        query_keyword: this.query_keyword,
-                        brand: this.brand,
-                        min: this.min,
-                        max: this.max
+                        path: `/search/page/1`,
+                        query: {
+                            query_keyword: this.query_keyword,
+                            brand: this.brand,
+                            min: this.min,
+                            max: this.max
+                        },
                     },
-                },
-                () => {
-                    this.$router.app.refresh()
-                }
-            );
-
+                    () => {
+                        this.$router.app.refresh();
+                    }
+                );
         },
     },
 
