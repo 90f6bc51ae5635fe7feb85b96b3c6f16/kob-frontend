@@ -178,9 +178,9 @@
                   text-align: center;
                 ">
                     <p>ใส่จำนวนเงิน น้อยสุด และ มากสุด</p>
-                    <input placeholder="ใส่ราคาต่ำสุด" v-model="min" type="number" style="width: 40%; font-size: 14px;" >
+                    <input placeholder="ใส่ราคาต่ำสุด" v-model="min" type="number" style="width: 40%; font-size: 14px;">
                     <span style=" margin: 0 0.3em 0 0.3em;">ถึง</span>
-                    <input placeholder="ใส่ราคาสูงสุด" v-model="max" type="number" style="width: 40%; font-size: 14px;" >
+                    <input placeholder="ใส่ราคาสูงสุด" v-model="max" type="number" style="width: 40%; font-size: 14px;">
                     <div v-if="(parseInt(min) <= parseInt(max) && min != 'undefined' && max != 'undefined')">
                         <nuxt-link class="btn btn-success" style="margin-top: 0.4em; width: 30%" :to="{ path: `/product/page/1`, query: { brand: brand,min: min, max: max}}" @click="scrollToTop()">
                             ยืนยัน
@@ -240,7 +240,21 @@
             </b-col>
             <!-- <div v-else-if="product.product_code" class="divCheckbox"></div> -->
             <!-- <div v-else>ไม่พิสินค้า</div> -->
-            <ul style="margin-top: 1em;
+            <div style="margin-top: 1em;
+                      text-align: center;
+                      list-style-type: none;
+                      width: 100%;
+                      padding: 1em 1em;
+                      border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                      border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                      border-right: 0px solid rgba(0, 0, 0, 0.14) !important;" v-if="products == ''">
+                <div style="
+                      margin-top: 1em;
+                      margin-bottom: 10em;
+                      ">
+                    <p>ไม่พบสินค้า</p>
+                </div>
+                <ul style="margin-top: 1em;
                       justify-content: center;
                       list-style-type: none;
                       width: 100%;
@@ -251,32 +265,68 @@
                       border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
 
             ">
-                <li style="margin: 0 0.5em 0 0;">
-                    <button class="btn btn-light" style="float: left; color: #333;" disbled>
-                        <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
-                    </button>
-                </li>
-                <li style="margin: 0 0.5em 0 0.5em;">
-                    <button class="btn btn-primary" style="background-color: #39b54a; color: #fff; margin-left: 4.335%; margin-right: 4.335%;" disbled>{{pages}}</button>
-                </li>
-                <li style="margin: 0 0.5em 0 0.5em;">
-                    <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/product/page/${pages + 1}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">{{pages + 1}}</nuxt-link>
-                </li>
-                <li style="margin: 0 0.5em 0 0.5em;">
-                    <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/product/page/${pages + 2}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">{{pages + 2}}</nuxt-link>
-                </li>
-                <li style="margin: 0 0.5em 0 0.5em;">
-                    <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/product/page/${pages + 3}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">{{pages + 3}}</nuxt-link>
-                </li>
-                <li style="margin: 0 0.5em 0 0.5em;">
-                    <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/product/page/${pages + 4}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">{{pages + 4}}</nuxt-link>
-                </li>
-                <li style="margin: 0 0 0 0.5em;">
-                    <nuxt-link class="btn btn-outline-primary" style="float: right;margin-right: 5em;" :to="{ path: `/product/page/${pages + 1}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">
-                        <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
-                    </nuxt-link>
-                </li>
-            </ul>
+                    <li style="margin: 0 0.5em 0 0;">
+                        <button class="btn btn-light" style="float: left; color: #333;" disbled>
+                            <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
+                        </button>
+                    </li>
+                    <li style="margin: 0 0.5em 0 0.5em;">
+                        <button class="btn btn-primary" style="background-color: #39b54a; color: #fff; margin-left: 4.335%; margin-right: 4.335%;" disbled>{{pages}}</button>
+                    </li>
+                    <li style="margin: 0 0 0 0.5em;">
+                        <button class="btn btn-light" style="float: left; color: #333;" disbled>
+                            <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div style="margin-top: 1em;
+                      justify-content: center;
+                      list-style-type: none;
+                      width: 100%;
+                      display: flex;
+                      padding: 1em 1em;
+                      border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                      border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                      border-right: 0px solid rgba(0, 0, 0, 0.14) !important;" v-else>
+                <ul style="margin-top: 1em;
+                      justify-content: center;
+                      list-style-type: none;
+                      width: 100%;
+                      display: flex;
+                      padding: 1em 1em;
+                      border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                      border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                      border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+
+            ">
+                    <li style="margin: 0 0.5em 0 0;">
+                        <button class="btn btn-light" style="float: left; color: #333;" disbled>
+                            <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
+                        </button>
+                    </li>
+                    <li style="margin: 0 0.5em 0 0.5em;">
+                        <button class="btn btn-primary" style="background-color: #39b54a; color: #fff; margin-left: 4.335%; margin-right: 4.335%;" disbled>{{pages}}</button>
+                    </li>
+                    <li style="margin: 0 0.5em 0 0.5em;">
+                        <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/product/page/${pages + 1}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">{{pages + 1}}</nuxt-link>
+                    </li>
+                    <li style="margin: 0 0.5em 0 0.5em;">
+                        <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/product/page/${pages + 2}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">{{pages + 2}}</nuxt-link>
+                    </li>
+                    <li style="margin: 0 0.5em 0 0.5em;">
+                        <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/product/page/${pages + 3}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">{{pages + 3}}</nuxt-link>
+                    </li>
+                    <li style="margin: 0 0.5em 0 0.5em;">
+                        <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/product/page/${pages + 4}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">{{pages + 4}}</nuxt-link>
+                    </li>
+                    <li style="margin: 0 0 0 0.5em;">
+                        <nuxt-link class="btn btn-outline-primary" style="float: right;margin-right: 5em;" :to="{ path: `/product/page/${pages + 1}`, query: { brand: brand,min: min, max: max  }}" @click="scrollToTop()">
+                            <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
+                        </nuxt-link>
+                    </li>
+                </ul>
+            </div>
             <!-- <v-pagination style="
             margin-top: 1em;
             justify-content: center;
@@ -355,7 +405,7 @@ export default {
             // brand:'',
             min: 'undefined',
             max: 'undefined',
-            brand:'undefined',
+            brand: 'undefined',
             contact: false,
             tel: false,
             facebook: false,

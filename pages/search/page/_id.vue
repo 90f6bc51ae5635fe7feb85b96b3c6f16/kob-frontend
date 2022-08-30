@@ -233,6 +233,7 @@
                 </nuxt-link>
             </b-col>
             <div class="divCheckbox"></div>
+
             <div style="margin-top: 1em;
                       justify-content: center;
                       list-style-type: none;
@@ -247,6 +248,13 @@
 
                 <div v-if="count.product_count < 5">
                     <div v-if="count.product_count == 0">
+                        <div style="
+                                  margin-top: 1em;
+                                  margin-bottom: 10em;
+                                  text-align: center;
+                                  ">
+                            <p>ไม่พบสินค้า</p>
+                        </div>
                         <ul v-if="pageNo == 1" style="margin-top: 1em;
                       justify-content: center;
                       list-style-type: none;
@@ -928,17 +936,17 @@ export default {
     },
     methods: {
         submit_search() {
-            if(this.min == ''){
-              this.min = 'undefined';
+            if (this.min == '') {
+                this.min = 'undefined';
             }
-            if(this.max == ''){
-              this.max = 'undefined';
+            if (this.max == '') {
+                this.max = 'undefined';
             }
-            if(this.brand == ''){
-              this.brand = 'undefined';
+            if (this.brand == '') {
+                this.brand = 'undefined';
             }
-            if(this.query_keyword == ''){
-              this.query_keyword = 'undefined';
+            if (this.query_keyword == '') {
+                this.query_keyword = 'undefined';
             }
             console.log("query", this.min);
             return this.$router.push({

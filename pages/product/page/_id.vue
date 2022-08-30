@@ -247,6 +247,13 @@
 
                 <div v-if="count.product_count < 5">
                     <div v-if="count.product_count == 0">
+                        <div style="
+                                  margin-top: 1em;
+                                  margin-bottom: 10em;
+                                  text-align: center;
+                                  ">
+                            <p>ไม่พบสินค้า</p>
+                        </div>
                         <ul v-if="pageNo == 1" style="margin-top: 1em;
                       justify-content: center;
                       list-style-type: none;
@@ -926,14 +933,14 @@ export default {
     },
     methods: {
         submit_product() {
-            if(this.min == ''){
-              this.min = 'undefined';
+            if (this.min == '') {
+                this.min = 'undefined';
             }
-            if(this.max == ''){
-              this.max = 'undefined';
+            if (this.max == '') {
+                this.max = 'undefined';
             }
-            if(this.brand == ''){
-              this.brand = 'undefined';
+            if (this.brand == '') {
+                this.brand = 'undefined';
             }
             return this.$router.push({
                     path: `/product/page/1`,
