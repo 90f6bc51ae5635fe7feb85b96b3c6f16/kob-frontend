@@ -891,11 +891,12 @@ export default {
         const categorys = await $productService.product.getProductCategoryBy();
         const brands = await $productService.product.getProductBandBy();
         const counts = await $productService.product.getProductCount({
+          count_keyword: 'undefined',
             count_brand: brand,
             count_min: min,
             count_max: max
         });
-        // console.log("min", min);
+        // console.log("counts", counts.data);
         const pageNo = parseInt(params.id);
         const tenPosts = await $content()
             .only(['author', 'createdAt', 'description', 'path', 'title'])
