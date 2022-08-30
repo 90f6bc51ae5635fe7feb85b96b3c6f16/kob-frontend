@@ -247,7 +247,7 @@
 
                 <div v-if="count.product_count < 5">
                     <div v-if="count.product_count == 0">
-                        <div style="
+                        <div v-if="product == ''" style="
                                   margin-top: 1em;
                                   margin-bottom: 10em;
                                   text-align: center;
