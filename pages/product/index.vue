@@ -117,7 +117,7 @@
               color: #222222;
             ">
                     BRANDS
-                    <b-button v-b-toggle.collapse1 variant="outline" size="sm" style="float: right; margin-top: -0.2em" disabled>
+                    <b-button v-b-toggle.collapse1 variant="outline" size="sm" style="float: right; margin-top: -0.2em" >
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
@@ -136,7 +136,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               ">
-                        <input type="radio" id="id1" checked="checked" name="" value="" style="margin: 0 5px 0 10px" v-model="checkedNames" />
+                        <input type="radio" id="id1" checked="checked" name="" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)"/>
                         ไม่เลือก
                     </li>
 
@@ -149,7 +149,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               " v-for="brand in brands" :key="brand.product_brand_code">
-                        <input type="radio" id="id1" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" style="margin: 0 5px 0 10px" v-model="checkedNames" />
+                        <input type="radio" id="id1" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @change="check($event)" />
                         {{ brand.product_brand_name }}
                     </li>
                 </b-collapse>
@@ -358,7 +358,7 @@ export default {
         const max = query.max;
         const products = await $productService.product.getProductPage({
             page: 1,
-            // page_brand: brand,
+            page_brand: brand,
             page_min: min,
             page_max: max
         });
@@ -387,6 +387,31 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
+        check(){
+          // console.log("this.checkedNames",this.checkedNames);
+          if (this.min == '') {
+                this.min = 'undefined';
+            }
+            if (this.max == '') {
+                this.max = 'undefined';
+            }
+            if (this.brand == '') {
+                this.brand = 'undefined';
+            }
+            return this.$router.push({
+                    path: `/product/page/1`,
+                    query: {
+                        brand: this.checkedNames,
+                        min: this.min,
+                        max: this.max
+                    },
+                },
+                () => {
+                    this.$router.app.refresh()
+                }
+            );
+
+        }
     },
     data() {
         return {
@@ -410,22 +435,6 @@ export default {
             tel: false,
             facebook: false,
             map: false,
-            //pagination
-            currentPage: 1,
-            numPage: 50,
-            bootstrapPaginationClasses: {
-                ul: "pagination",
-                li: "page-item",
-                liActive: "active",
-                liDisable: "disabled",
-                button: "page-link",
-            },
-            paginationAnchorTexts: {
-                first: "First",
-                prev: "Previous",
-                next: "Next",
-                last: "Last",
-            },
         };
     },
 };
