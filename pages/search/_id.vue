@@ -136,7 +136,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               ">
-                        <input type="radio" id="id1" checked="checked" name="" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)"/>
+                        <input type="radio" id="id1" checked="checked" name="" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)" />
                         ไม่เลือก
                     </li>
 
@@ -177,11 +177,12 @@
                   border: 0.2px solid #e5e5e5;
                   text-align: center;
                 ">
-                    <p>ใส่จำนวนเงิน น้อยสุด และ มากสุด</p>
-                    <input placeholder="ใส่ราคาต่ำสุด" v-model="min" type="number" style="width: 40%; font-size: 14px;">
+                    <input placeholder="ใส่ราคาต่ำสุด" v-model="min" type="number" style="margin-top: 0.5em; width: 40%; font-size: 14px;">
                     <span style=" margin: 0 0.3em 0 0.3em;">ถึง</span>
-                    <input placeholder="ใส่ราคาสูงสุด" v-model="max" type="number" style="width: 40%; font-size: 14px;">
-                    <div v-if="(parseInt(min) <= parseInt(max) && min != 'undefined' && max != 'undefined')">
+                    <input placeholder="ใส่ราคาสูงสุด" v-model="max" type="number" style="margin-top: 0.5em; width: 40%; font-size: 14px;">
+                    <p style="margin-top: 0.4em; text-align: center;" id="demo"></p>
+                    <button type="submit" class="btn btn-success" style=" width: 30%" @click="submit_product()">ยืนยัน</button>
+                    <!-- <div v-if="(parseInt(min) <= parseInt(max) && min != 'undefined' && max != 'undefined')">
                         <nuxt-link class="btn btn-success" style="margin-top: 0.4em; width: 30%" :to="{ path: `/search/page/1`, query: { query_keyword : query_keyword, brand: brand, min: min, max: max}}">
                             ยืนยัน
                         </nuxt-link>
@@ -195,7 +196,7 @@
                         <nuxt-link class="btn btn-success" style="margin-top: 0.4em; width: 30%" :to="{ path: `/search/page/1`, query: { query_keyword : query_keyword, brand: brand, min: min, max: max}}">
                             ยืนยัน
                         </nuxt-link>
-                    </div>
+                    </div> -->
                 </li>
                 </b-collapse>
                 </li>
@@ -388,9 +389,9 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
-        check(){
-          // console.log("this.checkedNames",this.checkedNames);
-          if (this.min == '') {
+        check() {
+            // console.log("this.checkedNames",this.checkedNames);
+            if (this.min == '') {
                 this.min = 'undefined';
             }
             if (this.max == '') {
@@ -413,7 +414,37 @@ export default {
                 }
             );
 
-        }
+        },
+        submit_product() {
+            if (this.min <= this.max || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
+                if (this.min == '') {
+                    this.min = 'undefined';
+                }
+                if (this.max == '') {
+                    this.max = 'undefined';
+                }
+                if (this.brand == '') {
+                    this.brand = 'undefined';
+                }
+                return this.$router.push({
+                        path: `/search/page/1`,
+                        query: {
+                            query_keyword: this.query_keyword,
+                            brand: this.brand,
+                            min: this.min,
+                            max: this.max
+                        },
+                    },
+                    () => {
+                        this.$router.app.refresh()
+                    }
+                );
+
+            } else {
+                document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
+
+            }
+        },
     },
     data() {
         return {
