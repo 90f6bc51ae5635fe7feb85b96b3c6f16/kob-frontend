@@ -136,7 +136,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               ">
-                        <input type="radio" checked="checked" name="" value="" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)" />
+                        <input type="radio" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)" />
                         ไม่เลือก
                     </li>
 
@@ -1175,7 +1175,7 @@ export default {
                     },
                 },
                 () => {
-                    this.$router.app.refresh()
+                    this.$router.app.refresh();
                 }
             );
         },
@@ -1187,7 +1187,7 @@ export default {
                     },
                 },
                 () => {
-                    this.$router.app.refresh()
+                    this.$router.app.refresh();
                 }
             );
         }

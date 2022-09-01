@@ -1154,9 +1154,9 @@ export default {
             return this.$router.push({
                     path: `/product/page/1`,
                     query: {
-                        brand: brand,
-                        min: min,
-                        max: max
+                        brand: this.checkedNames,
+                        min: this.min,
+                        max: this.max
                     },
                 },
                 () => {

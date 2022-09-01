@@ -136,7 +136,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               ">
-                        <input type="radio" id="id1" checked="checked" name="" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)" />
+                        <input type="radio" id="id1" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)" />
                         ไม่เลือก
                     </li>
 
@@ -256,6 +256,7 @@
                                   text-align: center;
                                   ">
                     <p>ไม่พบสินค้า</p>
+                    <button type="submit" class="btn btn-success" @click="reset_data()">กลับไปหน้ารายการสินค้า</button>
                 </div>
                 <div v-if="count.product_count < 1 && count.product_count > 0 && count.product_count != 0 && Math.round(count.product_count) != 1 ">
                     <ul v-if="pages == 1" style="margin-top: 1em;
@@ -1172,6 +1173,15 @@ export default {
 
             }
         },
+        reset_data() {
+            return this.$router.push({
+                    path: `/product/page/1`,
+                },
+                () => {
+                    this.$router.app.refresh()
+                }
+            );
+        }
     },
     data() {
         return {
