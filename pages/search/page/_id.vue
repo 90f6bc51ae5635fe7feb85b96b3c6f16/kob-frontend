@@ -73,7 +73,7 @@
               color: #222222;
             ">
                     CATEGORIES
-                    <b-button v-b-toggle.collapse variant="outline" size="sm" style="float: right; margin-top: -0.2em" disabled>
+                    <b-button v-b-toggle.collapse variant="outline" size="sm" style="float: right; margin-top: -0.2em">
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
@@ -136,7 +136,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               ">
-                        <input type="radio" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)" />
+                        <input type="radio" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @click="reset_brand($event)" />
                         ไม่เลือก
                     </li>
 
@@ -1115,11 +1115,6 @@ export default {
             checkedNames: [],
         }
     },
-    computed: {
-        prevLink() {
-            return this.pageNo === 2 ? '/pagination' : `/pagination/page/${this.pageNo - 1}`
-        },
-    },
     methods: {
         submit_product() {
             if (this.min <= this.max || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
@@ -1179,6 +1174,34 @@ export default {
                 }
             );
         },
+        reset_brand() {
+            if (this.min == '') {
+                this.min = 'undefined';
+            }
+            if (this.max == '') {
+                this.max = 'undefined';
+            }
+            if (this.checkedNames == '') {
+                this.checkedNames = 'undefined';
+            }
+            if (this.keyword == '') {
+                this.keyword = 'undefined';
+            }
+            return this.$router.push({
+                    path: `/search/page/1`,
+                    query: {
+                        keyword: this.keyword,
+                        brand: this.checkedNames,
+                        min: this.min,
+                        max: this.max
+                    },
+                },
+                () => {
+                    // this.$router.app.refresh()
+                    window.location.reload(true)
+                }
+            );
+        },
         reset_data() {
             return this.$router.push({
                     path: `/search/page/1`,
@@ -1190,7 +1213,7 @@ export default {
                     this.$router.app.refresh();
                 }
             );
-        }
+        },
     },
 
 };

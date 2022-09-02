@@ -73,7 +73,7 @@
               color: #222222;
             ">
                     CATEGORIES
-                    <b-button v-b-toggle.collapse variant="outline" size="sm" style="float: right; margin-top: -0.2em" disabled>
+                    <b-button v-b-toggle.collapse variant="outline" size="sm" style="float: right; margin-top: -0.2em">
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
@@ -136,7 +136,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               ">
-                        <input type="radio" id="id1" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)" />
+                        <input type="radio" id="id1" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @click="reset_brand($event)" />
                         ไม่เลือก
                     </li>
 
@@ -1072,7 +1072,7 @@ export default {
         const brand = query.brand;
         const min = query.min;
         const max = query.max;
-        const keyword = await params.id;
+        const keyword = params.id;
         const search_products = await $productService.product.getProductSearchByCode({
             search_page: 1,
             search_keyword: params.id,
@@ -1093,7 +1093,7 @@ export default {
             count_min: min,
             count_max: max
         });
-        // console.log("counts", counts.data);
+        // console.log("keyword", keyword);
         const nextPage = tenPosts.length === 10;
         const posts = nextPage ? tenPosts.slice(0, -1) : tenPosts;
         return {
@@ -1138,7 +1138,34 @@ export default {
                     this.$router.app.refresh()
                 }
             );
-
+        },
+        reset_brand() {
+            if (this.min == '') {
+                this.min = 'undefined';
+            }
+            if (this.max == '') {
+                this.max = 'undefined';
+            }
+            if (this.checkedNames == '') {
+                this.checkedNames = 'undefined';
+            }
+            if (this.keyword == '') {
+                this.keyword = 'undefined';
+            }
+            return this.$router.push({
+                    path: `/search/page/1`,
+                    query: {
+                        keyword: this.keyword,
+                        brand: this.checkedNames,
+                        min: this.min,
+                        max: this.max
+                    },
+                },
+                () => {
+                    // this.$router.app.refresh()
+                    window.location.reload(true)
+                }
+            );
         },
         submit_product() {
             if (this.min <= this.max || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
@@ -1181,7 +1208,7 @@ export default {
                     this.$router.app.refresh()
                 }
             );
-        }
+        },
     },
     data() {
         return {

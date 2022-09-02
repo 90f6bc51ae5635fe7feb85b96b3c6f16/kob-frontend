@@ -73,7 +73,7 @@
               color: #222222;
             ">
                     CATEGORIES
-                    <b-button v-b-toggle.collapse variant="outline" size="sm" style="float: right; margin-top: -0.2em" disabled>
+                    <b-button v-b-toggle.collapse variant="outline" size="sm" style="float: right; margin-top: -0.2em">
                         <font-awesome-icon :icon="['fas', 'angle-down']" style="color: #000" />
                     </b-button>
                 </li>
@@ -136,7 +136,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               ">
-                        <input type="radio" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="check($event)" />
+                        <input type="radio" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @click="reset_brand($event)" />
                         ไม่เลือก
                     </li>
 
@@ -1069,7 +1069,7 @@ export default {
         const max = query.max;
         const keyword = query.keyword;
         const products = await $productService.product.getProductPage({
-            page: parseInt(params.id),
+            product_page: parseInt(params.id),
             page_brand: brand,
             page_min: min,
             page_max: max
@@ -1114,11 +1114,6 @@ export default {
             checkedNames: [],
             c: 1.200,
         }
-    },
-    computed: {
-        prevLink() {
-            return this.pageNo === 2 ? '/pagination' : `/pagination/page/${this.pageNo - 1}`
-        },
     },
     methods: {
         submit_product() {
@@ -1168,6 +1163,30 @@ export default {
                 },
                 () => {
                     this.$router.app.refresh()
+                }
+            );
+        },
+        reset_brand(){
+          if (this.min == '') {
+                this.min = 'undefined';
+            }
+            if (this.max == '') {
+                this.max = 'undefined';
+            }
+            if (this.brand == '') {
+                this.brand = 'undefined';
+            }
+            return this.$router.push({
+                    path: `/product/page/1`,
+                    query: {
+                        brand: this.checkedNames,
+                        min: this.min,
+                        max: this.max
+                    },
+                },
+                () => {
+                    // this.$router.app.refresh()
+                    window.location.reload(true)
                 }
             );
         },

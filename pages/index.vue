@@ -13,9 +13,7 @@
                         <div v-for="category in categorys" :key="category.product_category_code">
                             <ul>
                                 <li>
-                                    <nuxt-link :to="{
-                        path: `/product/category/${category.product_category_code}`,
-                      }">
+                                    <nuxt-link :to="{ path: `/product/category/${category.product_category_code}`}">
                                         {{ category.product_category_name }}
                                     </nuxt-link>
                                 </li>
@@ -543,7 +541,7 @@ export default {
         $productService
     }) {
         const products = await $productService.product.getProductPage({
-            page: 1,
+            product_page: 1,
             // page_brand: brand,
             // page_min: min,
             // page_max: max

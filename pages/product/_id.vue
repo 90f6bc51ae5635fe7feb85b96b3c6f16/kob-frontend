@@ -384,7 +384,7 @@ export default {
         params,
     }) {
         const products = await $productService.product.getProductPage({
-            page: 1,
+            product_page: 1,
             // page_brand: brand,
             // page_min: min,
             // page_max: max
