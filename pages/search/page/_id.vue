@@ -149,7 +149,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               " v-for="brand in brands" :key="brand.product_brand_code">
-                        <input type="radio" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @click="check($event)" />
+                        <input type="radio" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @click="check_brand($event)" />
                         {{ brand.product_brand_name }}
                     </li>
                 </b-collapse>
@@ -177,11 +177,11 @@
                   border: 0.2px solid #e5e5e5;
                   text-align: center;
                 ">
-                    <input placeholder="ใส่ราคาต่ำสุด" v-model="min" type="number" style="margin-top: 0.5em; width: 40%; font-size: 14px;">
-                    <span style=" margin: 0 0.3em 0 0.3em;">ถึง</span>
-                    <input placeholder="ใส่ราคาสูงสุด" v-model="max" type="number" style="margin-top: 0.5em; width: 40%; font-size: 14px;">
+                    <input placeholder="ใส่ราคาต่ำสุด" v-model="min" type="number" style="margin-top: 0.5em; width: 80%; font-size: 12pt; border: 2px solid rgb(229, 229, 229); border-radius: 3px;">
+                    <p style=" margin: 0.5em 0.3em 0 0.3em;">ถึง</p>
+                    <input placeholder="ใส่ราคาสูงสุด" v-model="max" type="number" style="margin-top: 0.5em; width: 80%; font-size: 12pt; border: 2px solid rgb(229, 229, 229); border-radius: 3px;">
                     <p style="margin-top: 0.4em; text-align: center;" id="demo"></p>
-                    <button type="submit" class="btn btn-success" style=" width: 30%" @click="submit_product()">ยืนยัน</button>
+                    <button type="submit" class="btn btn-success" style=" width: 30%" @click="check_price()">ยืนยัน</button>
                     <!-- <div v-if="(parseInt(min) <= parseInt(max) && (min != 'undefined' || min != '' || min != null) && (max != 'undefined' || max != '' || max != null))">
                         <button type="submit" class="btn btn-success" style="margin-top: 0.4em; width: 30%" @click="submit_search()">ยืนยัน</button>
                     </div>
@@ -1119,7 +1119,7 @@ export default {
         }
     },
     methods: {
-        submit_product() {
+        check_price() {
             if (parseInt(this.min) <= parseInt(this.max) || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
                 if (this.min == '') {
                     this.min = 'undefined';
@@ -1150,7 +1150,7 @@ export default {
                 document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
             }
         },
-        check() {
+        check_brand() {
             if (this.min == '') {
                 this.min = 'undefined';
             }
@@ -1403,5 +1403,17 @@ ul {
     /* border: 0.2px solid #e5e5e5; */
     margin-top: 5px;
     /* background-color: #fff; */
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 </style>
