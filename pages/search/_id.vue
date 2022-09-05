@@ -1075,7 +1075,7 @@ export default {
         const keyword = params.id;
         const search_products = await $productService.product.getProductSearchByCode({
             search_page: 1,
-            search_keyword: params.id,
+            search_keyword: encodeURIComponent(params.id),
             search_page_brand: brand,
             search_page_min: min,
             search_page_max: max
@@ -1088,12 +1088,14 @@ export default {
             .limit(10)
             .fetch();
         const counts = await $productService.product.getProductCount({
-            count_keyword: keyword,
+            count_keyword: encodeURIComponent(keyword),
             count_brand: brand,
             count_min: min,
             count_max: max
         });
-        // console.log("keyword", keyword);
+        // const ceend = encodeURIComponent(params.id);
+        // console.log("counts", counts.data);
+        // console.log("params.id", decodeURIComponent(ceend));
         const nextPage = tenPosts.length === 10;
         const posts = nextPage ? tenPosts.slice(0, -1) : tenPosts;
         return {
@@ -1205,7 +1207,8 @@ export default {
                     path: `/product/page/1`,
                 },
                 () => {
-                    this.$router.app.refresh()
+                    window.location.reload(true)
+                    // this.$router.app.refresh()
                 }
             );
         },

@@ -1239,7 +1239,8 @@ export default {
                     path: `/product/page/1`,
                 },
                 () => {
-                    this.$router.app.refresh()
+                    window.location.reload(true)
+                    // this.$router.app.refresh()
                 }
             );
         },

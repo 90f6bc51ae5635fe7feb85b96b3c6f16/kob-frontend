@@ -786,6 +786,18 @@
                     </ul>
                 </div>
                 <div v-if="Math.round(count.product_count) > 5 ">
+                    <!-- <div style="margin-top: 1em;
+                                  justify-content: center;
+                                  list-style-type: none;
+                                  width: 100%;
+                                  display: flex;
+                                  padding: 1em 1em;
+                                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                        ">
+                        Page {{pageNo}} of {{Math.round(count.product_count)}}
+                    </div> -->
                     <ul v-if="pageNo == 1" style="margin-top: 1em;
                               justify-content: center;
                               list-style-type: none;
@@ -1166,8 +1178,8 @@ export default {
                 }
             );
         },
-        reset_brand(){
-          if (this.min == '') {
+        reset_brand() {
+            if (this.min == '') {
                 this.min = 'undefined';
             }
             if (this.max == '') {
@@ -1195,7 +1207,8 @@ export default {
                     path: `/product/page/1`,
                 },
                 () => {
-                    this.$router.app.refresh()
+                    window.location.reload(true)
+                    // this.$router.app.refresh()
                 }
             );
         }

@@ -1069,7 +1069,7 @@ export default {
         const keyword = query.keyword;
         const search_products = await $productService.product.getProductSearchByCode({
             search_page: params.id,
-            search_keyword: keyword,
+            search_keyword: encodeURIComponent(keyword),
             search_page_brand: brand,
             search_page_min: min,
             search_page_max: max
@@ -1077,7 +1077,7 @@ export default {
         const categorys = await $productService.product.getProductCategoryBy();
         const brands = await $productService.product.getProductBandBy();
         const counts = await $productService.product.getProductCount({
-            count_keyword: keyword,
+            count_keyword: encodeURIComponent(keyword),
             count_brand: brand,
             count_min: min,
             count_max: max
@@ -1210,7 +1210,8 @@ export default {
                     },
                 },
                 () => {
-                    this.$router.app.refresh();
+                    window.location.reload(true)
+                    // this.$router.app.refresh();
                 }
             );
         },

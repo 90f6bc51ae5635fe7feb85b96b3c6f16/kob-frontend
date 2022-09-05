@@ -1215,7 +1215,8 @@ export default {
                     },
                 },
                 () => {
-                    this.$router.app.refresh();
+                    window.location.reload(true)
+                    // this.$router.app.refresh();
                 }
             );
         },
