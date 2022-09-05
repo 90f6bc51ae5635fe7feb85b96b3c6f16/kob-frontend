@@ -201,6 +201,9 @@
                 </b-collapse>
                 </li>
             </ul>
+            <b-row>
+                <b-col style="font-weight: 500; padding: 15px; font-size: 13pt; text-align: center;"><button type="submit" class="btn btn-danger" style=" width: 80%;" @click="reset_filter()">ลบตัวกรองสินค้าทั้งหมด</button></b-col>
+            </b-row>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
             <b-col class="card-product" cols="3" v-for="category_product in category_products" :key="category_product.product_code">
@@ -1202,7 +1205,7 @@ export default {
 
         },
         submit_product() {
-            if (this.min <= this.max || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
+            if (parseInt(this.min) <= parseInt(this.max) || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
                 if (this.min == '') {
                     this.min = 'undefined';
                 }
@@ -1236,11 +1239,21 @@ export default {
         },
         reset_data() {
             return this.$router.push({
-                    path: `/product/page/1`,
+                    path: `/product/category/${this.category}`,
                 },
                 () => {
                     window.location.reload(true)
                     // this.$router.app.refresh()
+                }
+            );
+        },
+        reset_filter() {
+            return this.$router.push({
+                    path: `/search/${this.keyword}`,
+                },
+                () => {
+                    // this.$router.app.refresh()
+                    window.location.reload(true)
                 }
             );
         },

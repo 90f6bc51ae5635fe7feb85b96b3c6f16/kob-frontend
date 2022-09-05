@@ -201,6 +201,9 @@
                 </b-collapse>
                 </li>
             </ul>
+            <b-row>
+                <b-col style="font-weight: 500; padding: 15px; font-size: 13pt; text-align: center;"><button type="submit" class="btn btn-danger" style=" width: 80%;" @click="reset_filter()">ลบตัวกรองสินค้าทั้งหมด</button></b-col>
+            </b-row>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
             <b-col class="card-product" cols="3" v-for="product in products" :key="product.product_code">
@@ -1125,7 +1128,7 @@ export default {
             window.scrollTo(0, 0);
         },
         submit_product() {
-            if (this.min <= this.max || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
+            if (parseInt(this.min) <= parseInt(this.max) || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
                 if (this.min == '') {
                     this.min = 'undefined';
                 }
@@ -1150,7 +1153,6 @@ export default {
 
             } else {
                 document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
-
             }
         },
         check() {
@@ -1178,8 +1180,8 @@ export default {
                 }
             );
         },
-        reset_brand(){
-          if (this.min == '') {
+        reset_brand() {
+            if (this.min == '') {
                 this.min = 'undefined';
             }
             if (this.max == '') {
@@ -1202,6 +1204,16 @@ export default {
                 }
             );
         },
+        reset_filter() {
+            return this.$router.push({
+                    path: `/product`,
+                },
+                () => {
+                    // this.$router.app.refresh()
+                    window.location.reload(true)
+                }
+            );
+        }
     },
     data() {
         return {
