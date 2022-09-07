@@ -127,7 +127,7 @@
               max-height: 250px;
               overflow: auto;
             ">
-                    <li style="
+                    <!-- <li style="
                 padding: 5px;
                 font-size: 12pt;
                 color: #777777;
@@ -138,8 +138,7 @@
               ">
                         <input type="radio" id="id1" checked="checked" name="" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @change="reset_brand($event)" />
                         ไม่เลือก
-                    </li>
-
+                    </li> -->
                     <li style="
                 padding: 5px;
                 font-size: 12pt;
@@ -149,7 +148,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               " v-for="brand in brands" :key="brand.product_brand_code">
-                        <input type="radio" id="id1" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @change="check_brand($event)" />
+                        <input type="checkbox" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @change="check_brand($event)" />
                         {{ brand.product_brand_name }}
                     </li>
                 </b-collapse>
@@ -1089,16 +1088,16 @@ export default {
         const keyword = query.keyword;
         const products = await $productService.product.getProductPage({
             product_page: 1,
-            page_brand: brand,
             page_min: min,
-            page_max: max
+            page_max: max,
+            page_brand: brand,
         });
         const counts = await $productService.product.getProductCount({
-            // count_category: category,
+            // count_category: query.category,
             count_keyword: keyword,
-            count_brand: brand,
             count_min: min,
-            count_max: max
+            count_max: max,
+            count_brand: brand,
         });
         // console.log("counts",counts.data);
         const categorys = await $productService.product.getProductCategoryBy();
@@ -1118,6 +1117,11 @@ export default {
             nextPage,
             posts,
             pages: 1,
+            query,
+            min,
+            max,
+            brand,
+            keyword,
         };
     },
     components: {
@@ -1128,7 +1132,32 @@ export default {
             window.scrollTo(0, 0);
         },
         check_price() {
-            if (parseInt(this.min) <= parseInt(this.max) || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
+            if (parseInt(this.min) > parseInt(this.max)) {
+                document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
+            } else if (parseInt(this.min) <= parseInt(this.max) || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
+                if (this.min == '') {
+                    this.min = 'undefined';
+                }
+                if (this.max == '') {
+                    this.max = 'undefined';
+                }
+                if (this.brand == '') {
+                    this.brand = 'undefined';
+                }
+                document.getElementById("demo").innerHTML = "";
+                return this.$router.push({
+                        path: `/product`,
+                        query: {
+                            brand: this.brand,
+                            min: this.min,
+                            max: this.max
+                        },
+                    },
+                    () => {
+                        this.$router.app.refresh()
+                    }
+                );
+            } else {
                 if (this.min == '') {
                     this.min = 'undefined';
                 }
@@ -1139,75 +1168,65 @@ export default {
                     this.brand = 'undefined';
                 }
                 return this.$router.push({
-                        path: `/product/page/1`,
+                        path: `/product`,
                         query: {
                             brand: this.brand,
-                            [brand]: this.checkedNames,
                             min: this.min,
-                            max: this.max
+                            max: this.max,
                         },
                     },
                     () => {
                         this.$router.app.refresh()
                     }
                 );
-
-            } else {
-                document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
             }
         },
         check_brand() {
             // console.log("this.checkedNames",this.checkedNames);
-            if (this.min == '') {
-                this.min = 'undefined';
-            }
-            if (this.max == '') {
-                this.max = 'undefined';
-            }
-            if (this.brand == '') {
-                this.brand = 'undefined';
-            }
-            return this.$router.push({
-                    path: `/product/page/1`,
-                    query: {
-                        brand: this.checkedNames,
-                        min: this.min,
-                        max: this.max
-                    },
-                },
-                () => {
-                    this.$router.app.refresh()
-                    // window.location.reload(true)
+            if (this.checkedNames != '') {
+                if (this.min == '') {
+                    this.min = 'undefined';
                 }
-            );
-        },
-        reset_brand() {
-            if (this.min == '') {
-                this.min = 'undefined';
-            }
-            if (this.max == '') {
-                this.max = 'undefined';
-            }
-            if (this.brand == '') {
-                this.brand = 'undefined';
-            }
-            return this.$router.push({
-                    path: `/product/page/1`,
-                    query: {
-                        brand: this.checkedNames,
-                        min: this.min,
-                        max: this.max
-                    },
-                },
-                () => {
-                    // this.$router.app.refresh()
-                    window.location.reload(true)
+                if (this.max == '') {
+                    this.max = 'undefined';
                 }
-            );
+                return this.$router.push({
+                        path: `/product`,
+                        query: {
+                            brand: this.checkedNames,
+                            min: this.min,
+                            max: this.max
+                        },
+                    },
+                    () => {
+                        this.$router.app.refresh()
+                        // window.location.reload(true)
+                    }
+                );
+            } else if (this.checkedNames == '') {
+                if (this.min == '') {
+                    this.min = 'undefined';
+                }
+                if (this.max == '') {
+                    this.max = 'undefined';
+                }
+                return this.$router.push({
+                        path: `/product`,
+                        query: {
+                            min: this.min,
+                            max: this.max
+                        },
+                    },
+                    () => {
+                        this.$router.app.refresh()
+                        // window.location.reload(true)
+                    }
+                );
+            }
         },
         reset_filter() {
             return this.$router.push({
-                    path: `/product`,
+                    path: `/product/`,
                 },
                 () => {
                     // this.$router.app.refresh()

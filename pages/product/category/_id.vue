@@ -135,21 +135,8 @@
                 text-align: left;
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
-              ">
-                        <input type="radio" id="id1" checked="checked" name="undefined" value="undefined" style="margin: 0 5px 0 10px" v-model="checkedNames" @click="reset_brand($event)" />
-                        ไม่เลือก
-                    </li>
-
-                    <li style="
-                padding: 5px;
-                font-size: 12pt;
-                color: #777777;
-                padding-left: 10px;
-                text-align: left;
-                padding: 5px;
-                border: 0.2px solid #e5e5e5;
               " v-for="brand in brands" :key="brand.product_brand_code">
-                        <input type="radio" id="id1" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @click="check_brand($event)" />
+                        <input type="checkbox" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @change="check_brand($event)" />
                         {{ brand.product_brand_name }}
                     </li>
                 </b-collapse>
@@ -1081,7 +1068,7 @@ export default {
             category_code: category,
             category_brand: brand,
             category_min: min,
-            category_max: max
+            category_max: max,
         });
         const category_names = await $productService.product.getProductCategoryByCategoryName({
             category_name: category,
@@ -1098,7 +1085,8 @@ export default {
             count_keyword: 'undefined',
             count_brand: brand,
             count_min: min,
-            count_max: max
+            count_max: max,
+
         });
         // console.log("category_products", category_products.data);
         const nextPage = tenPosts.length === 10;
@@ -1113,6 +1101,10 @@ export default {
             posts,
             pages: 1,
             category,
+            query,
+            brand,
+            min,
+            max,
         };
     },
     methods: {
@@ -1120,92 +1112,57 @@ export default {
             window.scrollTo(0, 0);
         },
         check_brand() {
-            // console.log("this.checkedNames",this.checkedNames);
-            if (this.min == '') {
-                this.min = 'undefined';
-            }
-            if (this.max == '') {
-                this.max = 'undefined';
-            }
-            if (this.checkedNames == '') {
-                this.checkedNames = 'undefined';
-            }
-            if (this.category == '') {
-                this.category = 'undefined';
-            }
-            return this.$router.push({
-                    path: `/product/category/page/1`,
-                    query: {
-                        category: this.category,
-                        brand: this.checkedNames,
-                        min: this.min,
-                        max: this.max
-                    },
-                },
-                () => {
-                    this.$router.app.refresh()
+            if (this.checkedNames != '') {
+                if (this.min == '') {
+                    this.min = 'undefined';
                 }
-            );
-        },
-        reset_brand() {
-            if (this.min == '') {
-                this.min = 'undefined';
-            }
-            if (this.max == '') {
-                this.max = 'undefined';
-            }
-            if (this.checkedNames == '') {
-                this.checkedNames = 'undefined';
-            }
-            if (this.category == '') {
-                this.category = 'undefined';
-            }
-            return this.$router.push({
-                    path: `/product/category/page/1`,
-                    query: {
-                        category: this.category,
-                        brand: this.checkedNames,
-                        min: this.min,
-                        max: this.max
-                    },
-                },
-                () => {
-                    // this.$router.app.refresh()
-                    window.location.reload(true)
+                if (this.max == '') {
+                    this.max = 'undefined';
                 }
-            );
-        },
-        submit_category() {
-            // console.log("this.checkedNames",this.checkedNames);
-            if (this.min == '') {
-                this.min = 'undefined';
-            }
-            if (this.max == '') {
-                this.max = 'undefined';
-            }
-            if (this.checkedNames == '') {
-                this.checkedNames = 'undefined';
-            }
-            if (this.category == '') {
-                this.category = 'undefined';
-            }
-            return this.$router.push({
-                    path: `/product/category/page/1`,
-                    query: {
-                        category: this.checkedCategory,
-                        brand: this.checkedNames,
-                        min: this.min,
-                        max: this.max
-                    },
-                },
-                () => {
-                    this.$router.app.refresh()
+                if (this.category == '') {
+                    this.category = 'undefined';
                 }
-            );
-
+                return this.$router.push({
+                        path: `/product/category/${this.category}`,
+                        query: {
+                            category: this.category,
+                            brand: this.checkedNames,
+                            min: this.min,
+                            max: this.max
+                        },
+                    },
+                    () => {
+                        this.$router.app.refresh()
+                    }
+                );
+            } else if (this.checkedNames == '') {
+                if (this.min == '') {
+                    this.min = 'undefined';
+                }
+                if (this.max == '') {
+                    this.max = 'undefined';
+                }
+                if (this.category == '') {
+                    this.category = 'undefined';
+                }
+                return this.$router.push({
+                        path: `/product/category/${this.category}`,
+                        query: {
+                            min: this.min,
+                            max: this.max
+                        },
+                    },
+                    () => {
+                        this.$router.app.refresh()
+                        // window.location.reload(true)
+                    }
+                );
+            }
         },
         check_price() {
-            if (parseInt(this.min) <= parseInt(this.max) || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
+            if (parseInt(this.min) > parseInt(this.max)) {
+                document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
+            } else if (parseInt(this.min) <= parseInt(this.max) || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
                 if (this.min == '') {
                     this.min = 'undefined';
                 }
@@ -1215,11 +1172,12 @@ export default {
                 if (this.brand == '') {
                     this.brand = 'undefined';
                 }
-                if (this.keyword == '') {
-                    this.keyword = 'undefined';
+                if (this.category == '') {
+                    this.category = 'undefined';
                 }
+                document.getElementById("demo").innerHTML = "";
                 return this.$router.push({
-                        path: `/product/category/page/1`,
+                        path: `/product/category/${this.category}`,
                         query: {
                             category: this.category,
                             brand: this.brand,
@@ -1233,13 +1191,35 @@ export default {
                 );
 
             } else {
-                document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
-
+                if (this.min == '') {
+                    this.min = 'undefined';
+                }
+                if (this.max == '') {
+                    this.max = 'undefined';
+                }
+                if (this.brand == '') {
+                    this.brand = 'undefined';
+                }
+                if (this.category == '') {
+                    this.category = 'undefined';
+                }
+                return this.$router.push({
+                        path: `/product/category/${this.category}`,
+                        query: {
+                            brand: this.brand,
+                            min: this.min,
+                            max: this.max,
+                        },
+                    },
+                    () => {
+                        this.$router.app.refresh()
+                    }
+                );
             }
         },
         reset_data() {
             return this.$router.push({
-                    path: `/product/category/${this.category}`,
+                    path: `/product`,
                 },
                 () => {
                     window.location.reload(true)
@@ -1249,7 +1229,7 @@ export default {
         },
         reset_filter() {
             return this.$router.push({
-                    path: `/search/${this.keyword}`,
+                    path: `/product/category/${this.category}`,
                 },
                 () => {
                     // this.$router.app.refresh()
@@ -1272,7 +1252,6 @@ export default {
             },
             rating: 4.3,
             checkedNames: [],
-            checkedCategory: [],
             keyword: 'undefined',
             min: 'undefined',
             max: 'undefined',
