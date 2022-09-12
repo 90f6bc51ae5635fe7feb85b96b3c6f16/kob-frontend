@@ -148,7 +148,7 @@
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
               " v-for="brand in brands" :key="brand.product_brand_code">
-                        <input type="checkbox" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @change="check_brand($event)" />
+                        <input type="checkbox" checked :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @change="check_brand($event)" />
                         {{ brand.product_brand_name }}
                     </li>
                 </b-collapse>
@@ -1086,6 +1086,10 @@ export default {
         const min = query.min;
         const max = query.max;
         const keyword = query.keyword;
+        let checkedNames = [];
+        if(brand != null){
+          checkedNames = brand;
+        }
         const products = await $productService.product.getProductPage({
             product_page: 1,
             page_min: min,
@@ -1099,7 +1103,9 @@ export default {
             count_max: max,
             count_brand: brand,
         });
-        // console.log("counts",counts.data);
+        // console.log("min",min);
+        // console.log("max",max);
+
         const categorys = await $productService.product.getProductCategoryBy();
         const brands = await $productService.product.getProductBandBy();
         const tenPosts = await $content()
@@ -1107,6 +1113,7 @@ export default {
             .sortBy('createdAt', 'desc')
             .limit(10)
             .fetch();
+            // console.log("brands",brands.data);
         const nextPage = tenPosts.length === 10;
         const posts = nextPage ? tenPosts.slice(0, -1) : tenPosts;
         return {
@@ -1122,6 +1129,7 @@ export default {
             max,
             brand,
             keyword,
+            checkedNames,
         };
     },
     components: {
@@ -1204,6 +1212,7 @@ export default {
                     }
                 );
             } else if (this.checkedNames == '') {
+              console.log("checkedNames",this.checkedNames[0]);
                 if (this.min == '') {
                     this.min = 'undefined';
                 }
@@ -1248,7 +1257,7 @@ export default {
                 dots: false,
             },
             rating: 4.3,
-            checkedNames: [],
+            // checkedNames: [],
             // brand:'',
             keyword: 'undefined',
             min: 'undefined',

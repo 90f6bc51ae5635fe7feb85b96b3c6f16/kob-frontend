@@ -1057,6 +1057,10 @@ export default {
         const min = query.min;
         const max = query.max;
         const category = query.category;
+        let checkedNames = [];
+        if(brand != null){
+          checkedNames = brand;
+        }
         const category_products = await $productService.product.getProductCategoryByCode({
             category_page: params.id,
             category_code: category,
@@ -1101,12 +1105,13 @@ export default {
             brand,
             query,
             category,
+            checkedNames,
         };
     },
     data() {
         return {
             rating: 4.3,
-            checkedNames: [],
+            // checkedNames: [],
         }
     },
     methods: {

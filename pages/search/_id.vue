@@ -1063,6 +1063,10 @@ export default {
         const min = query.min;
         const max = query.max;
         const keyword = params.id;
+        let checkedNames = [];
+        if(brand != null){
+          checkedNames = brand;
+        }
         const search_products = await $productService.product.getProductSearchByCode({
             search_page: 1,
             search_keyword: encodeURIComponent(params.id),
@@ -1101,6 +1105,7 @@ export default {
             min,
             max,
             brand,
+            checkedNames,
         };
     },
     methods: {
@@ -1246,7 +1251,7 @@ export default {
                 dots: false,
             },
             rating: 4.3,
-            checkedNames: [],
+            // checkedNames: [],
             keyword: 'undefined',
             min: 'undefined',
             max: 'undefined',
