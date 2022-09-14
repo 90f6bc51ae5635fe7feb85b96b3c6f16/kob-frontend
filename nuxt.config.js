@@ -6,7 +6,7 @@ const isProd = process.env.NODE_ENV === 'production'
 export default {
 
   // Target: https://go.nuxtjs.dev/config-target
-  target: "static",
+  target: "ssr",
   mode: "universal",
 
   // Global page headers: https://go.nuxtjs.dev/config-head
