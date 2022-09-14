@@ -172,6 +172,7 @@ export default {
     analyze: true,
     extend(config, ctx) { },
     babel: {
+      compact: true,
       presets: [
         [
           "@babel/preset-env",
