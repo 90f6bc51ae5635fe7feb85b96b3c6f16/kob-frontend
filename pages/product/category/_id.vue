@@ -2,7 +2,7 @@
 <div>
     <div class="" style="margin: 0 -2em 0 -1em">
         <b-collapse id="example-collapse" style="width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto">
-            <div v-for="category in categorys" :key="category.product_category_code">
+            <div v-for="(category,idx) in categorys" :key="'A'+idx">
                 <ul>
                     <li>
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
@@ -50,7 +50,7 @@
         </div>
     </div> -->
     <b-row class="title-product" style="margin: -1em -2em auto -1em">
-        <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em" v-for="category_name in category_names.slice(0, 1)" :key="category_name.product_category_code">
+        <b-col class="" style="font-size: 16pt; margin: auto 0 auto -0.7em" v-for="(category_name,idx) in category_names.slice(0, 1)" :key="'B'+idx">
             ค้นหา : {{category_name.product_category_name}}
         </b-col>
         <b-col class="" style="text-align: right; font-size: 12pt; margin: auto -1em auto 0">
@@ -91,7 +91,7 @@
                 text-align: left;
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
-              " v-for="category in categorys" :key="category.product_category_code">
+              " v-for="(category,idx) in categorys" :key="'C'+idx">
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }" style="
                   text-decoration: none !important;
                   margin: 0 5px 0 10px;
@@ -135,7 +135,7 @@
                 text-align: left;
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
-              " v-for="brand in brands" :key="brand.product_brand_code">
+              " v-for="(brand,idx) in brands" :key="'D'+idx">
                         <input type="checkbox" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @change="check_brand($event)" />
                         {{ brand.product_brand_name }}
                     </li>
@@ -193,7 +193,7 @@
             </b-row>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="category_product in category_products" :key="category_product.product_code">
+            <b-col class="card-product" cols="3" v-for="(category_product,idx) in category_products" :key="'E'+idx">
                 <nuxt-link :to="{ path: `/product/${category_product.product_code}` }" style="text-decoration: none !important">
                     <div v-if="category_product.product_image">
                         <b-card-img :src="`http://54.254.134.236:6201/${category_product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
@@ -239,7 +239,7 @@
                       border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                       border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
 
-            " v-for="count in counts" :key="count">
+            " v-for="(count,idx) in counts" :key="'F'+idx">
                 <div v-if="count.product_count == 0" style="
                                   margin-top: 1em;
                                   margin-bottom: 10em;

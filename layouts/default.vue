@@ -1,20 +1,16 @@
 <template>
 <div>
-
-            <Navbar />
-
+    <Navbar />
     <b-container fluid="lg" class="no-gutters" style="margin:auto;">
         <Nuxt />
     </b-container>
-
     <Footer />
 </div>
 </template>
 
 <script>
-export default {
-}
-</script> 
+export default {}
+</script>
 
 <style>
 html {
@@ -42,5 +38,4 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: #F5B041;
 }
-
 </style>

@@ -2,7 +2,7 @@
 <div>
     <div class="" style="margin: 0 -2em 0 -1em">
         <b-collapse id="example-collapse" style="width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto">
-            <div v-for="category in categorys" :key="category.product_category_code">
+            <div v-for="(category,idx) in categorys" :key="'A'+idx">
                 <ul>
                     <li>
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
@@ -91,7 +91,7 @@
                 text-align: left;
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
-              " v-for="category in categorys" :key="category.product_category_code">
+              " v-for="(category,idx) in categorys" :key="'B'+idx">
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }" style="
                   text-decoration: none !important;
                   margin: 0 5px 0 10px;
@@ -135,7 +135,7 @@
                 text-align: left;
                 padding: 5px;
                 border: 0.2px solid #e5e5e5;
-              " v-for="brand in brands" :key="brand.product_brand_code">
+              " v-for="(brand,idx) in brands" :key="'C'+idx">
                         <input type="checkbox" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" style="margin: 0 5px 0 10px" @change="check_brand($event)" />
                         {{ brand.product_brand_name }}
                     </li>
@@ -193,7 +193,7 @@
             </b-row>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="search_product in search_products" :key="search_product.product_code">
+            <b-col class="card-product" cols="3" v-for="(search_product,idx) in search_products" :key="'D'+idx">
                 <nuxt-link :to="{ path: `/product/${search_product.product_code}` }" style="text-decoration: none !important">
                     <div v-if="search_product.product_image">
                         <b-card-img :src="`http://54.254.134.236:6201/${search_product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
@@ -239,7 +239,7 @@
                       border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                       border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
 
-            " v-for="count in counts" :key="count">
+            " v-for="(count,idx) in counts" :key="'F'+idx">
                 <div v-if="count.product_count == 0" style="
                                   margin-top: 1em;
                                   margin-bottom: 10em;
@@ -1064,8 +1064,8 @@ export default {
         const max = query.max;
         const keyword = params.id;
         let checkedNames = [];
-        if(brand != null){
-          checkedNames = brand;
+        if (brand != null) {
+            checkedNames = brand;
         }
         const search_products = await $productService.product.getProductSearchByCode({
             search_page: 1,
@@ -1133,7 +1133,8 @@ export default {
                         },
                     },
                     () => {
-                        this.$router.app.refresh()
+                        // this.$router.app.refresh()
+                        window.location.reload(true)
                     }
                 );
             } else if (this.checkedNames == '') {
@@ -1154,8 +1155,8 @@ export default {
                         },
                     },
                     () => {
-                        this.$router.app.refresh()
-                        // window.location.reload(true)
+                        // this.$router.app.refresh()
+                        window.location.reload(true)
                     }
                 );
             }
@@ -1164,6 +1165,8 @@ export default {
             if (parseInt(this.min) > parseInt(this.max)) {
                 document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
             } else if (parseInt(this.min) <= parseInt(this.max) || (this.min == '' && this.max != '') || (this.min != '' && this.max == '')) {
+                console.log("min", this.min);
+                console.log("max", this.max);
                 if (this.min == '') {
                     this.min = 'undefined';
                 }
@@ -1180,14 +1183,14 @@ export default {
                 return this.$router.push({
                         path: `/search/${this.keyword}`,
                         query: {
-                            keyword: this.keyword,
                             brand: this.brand,
                             min: this.min,
                             max: this.max
                         },
                     },
                     () => {
-                        this.$router.app.refresh()
+                        // this.$router.app.refresh()
+                        window.location.reload(true)
                     }
                 );
             } else {
@@ -1212,7 +1215,8 @@ export default {
                         },
                     },
                     () => {
-                        this.$router.app.refresh()
+                        // this.$router.app.refresh()
+                        window.location.reload(true)
                     }
                 );
             }
@@ -1222,8 +1226,8 @@ export default {
                     path: `/product`,
                 },
                 () => {
-                    window.location.reload(true)
                     // this.$router.app.refresh()
+                    window.location.reload(true)
                 }
             );
         },

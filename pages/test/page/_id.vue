@@ -1,18 +1,13 @@
 <template lang="">
 <div>
     <div>
-        <label>Email</label>
-        <input type="text" v-model="user.email" />
-    </div>
-    <div v-for="role in roles" :key="role.id">
-        <label>{{role.name}}</label>
-        <input type="checkbox" v-model="user.roles" :value="role" />
-    </div>
-    <p>User's selected roels</p>
-    {{user.roles}}
-    <div v-for="brand in brands" :key="brand.product_brand_code">
-        <input type="checkbox" v-model="checkedNames" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" @change="check_brand($event)" />
-        {{brand.product_brand_code}} : {{checkedNames}}
+        <div v-for="brand in brands" :key="brand.product_brand_code">
+            <input type="checkbox" :name="`${brand.product_brand_code}`" :value="`${brand.product_brand_code}`" v-model="checkedNames" @change="check_brand($event)" />
+            {{brand.product_brand_code}} : {{checkedNames}}
+        </div>
+        {{query.brand}}
+        <input type="submit" name="submitBrand" @click="submitBrand()">
+        selected : {{selected}}
     </div>
     <ul style="margin-top: 1em;
                               justify-content: center;
@@ -25,12 +20,12 @@
                               border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
                     ">
         <li style="margin: 0 0.5em 0 0;">
-            <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/test/page/${pages -1}`, query: { keyword: keyword, brand: brand, min: min, max: max  }}">
+            <nuxt-link class="btn btn-outline-primary" style=" margin-left: 4.335%; margin-right: 4.335%;" :to="{ path: `/test/page/${pageNo -1}`, query: { keyword: keyword, brand: brand, min: min, max: max  }}">
                 <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
             </nuxt-link>
         </li>
         <li style="margin: 0 0 0 0.5em;">
-            <nuxt-link class="btn btn-outline-primary" style="float: right;" :to="{ path: `/test/page/${pages + 1}`, query: { keyword: keyword, brand: brand, min: min, max: max  }}">
+            <nuxt-link class="btn btn-outline-primary" style="float: right;" :to="{ path: `/test/page/${pageNo + 1}`, query: { keyword: keyword, brand: brand, min: min, max: max  }}">
                 <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
             </nuxt-link>
         </li>
@@ -43,6 +38,7 @@
 
 <script>
 export default {
+
     async asyncData({
         $productService,
         $content,
@@ -60,51 +56,70 @@ export default {
           checkedNames = brand;
         }
         const products = await $productService.product.getProductPage({
-            product_page: 1,
+            product_page: parseInt(params.id),
             page_min: min,
             page_max: max,
             page_brand: brand,
         });
-        const counts = await $productService.product.getProductCount({
-            // count_category: query.category,
-            count_keyword: keyword,
-            count_min: min,
-            count_max: max,
-            count_brand: brand,
-        });
-        // console.log("min",min);
-        // console.log("max",max);
-
         const categorys = await $productService.product.getProductCategoryBy();
         const brands = await $productService.product.getProductBandBy();
+        const counts = await $productService.product.getProductCount({
+            count_keyword: encodeURIComponent(keyword),
+            count_brand: brand,
+            count_min: min,
+            count_max: max
+        });
+        // console.log("counts", counts.data);
+        const pageNo = parseInt(params.id);
         const tenPosts = await $content()
             .only(['author', 'createdAt', 'description', 'path', 'title'])
             .sortBy('createdAt', 'desc')
             .limit(10)
+            .skip(9 * (pageNo - 1))
             .fetch();
-        // console.log("brands",brands.data);
         const nextPage = tenPosts.length === 10;
         const posts = nextPage ? tenPosts.slice(0, -1) : tenPosts;
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],
-            counts: counts.data ? counts.data : [],
             brands: brands.data ? brands.data : [],
+            counts: counts.data ? counts.data : [],
             nextPage,
             posts,
-            pages: 1,
-            query,
+            pageNo,
+            perPage: 10,
             min,
             max,
             brand,
+            query,
             keyword,
             checkedNames,
         };
     },
+    data() {
+        return {
+            // checkedNames,
+            selected: [], // Must be an array reference!
+            options: [{
+                    text: 'Orange',
+                    value: 'orange'
+                },
+                {
+                    text: 'Apple',
+                    value: 'apple'
+                },
+                {
+                    text: 'Pineapple',
+                    value: 'pineapple'
+                },
+                {
+                    text: 'Grape',
+                    value: 'grape'
+                }
+            ]
+        }
+    },
     methods: {
-        scrollToTop() {
-            window.scrollTo(0, 0);
-        },
         check_price() {
             if (parseInt(this.min) > parseInt(this.max)) {
                 document.getElementById("demo").innerHTML = "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
@@ -120,7 +135,7 @@ export default {
                 }
                 document.getElementById("demo").innerHTML = "";
                 return this.$router.push({
-                        path: `/test`,
+                        path: `/test/page/1`,
                         query: {
                             brand: this.brand,
                             min: this.min,
@@ -142,7 +157,7 @@ export default {
                     this.brand = 'undefined';
                 }
                 return this.$router.push({
-                        path: `/test`,
+                        path: `/test/page/1`,
                         query: {
                             brand: this.brand,
                             min: this.min,
@@ -156,7 +171,7 @@ export default {
             }
         },
         check_brand() {
-            // console.log("this.checkedNames",this.checkedNames);
+            // this.checkedNames.push(this.query.brand);
             if (this.checkedNames != '') {
                 if (this.min == '') {
                     this.min = 'undefined';
@@ -165,11 +180,11 @@ export default {
                     this.max = 'undefined';
                 }
                 return this.$router.push({
-                        path: `/test`,
+                        path: `/test/page/1`,
                         query: {
                             brand: this.checkedNames,
                             min: this.min,
-                            max: this.max
+                            max: this.max,
                         },
                     },
                     () => {
@@ -178,7 +193,6 @@ export default {
                     }
                 );
             } else if (this.checkedNames == '') {
-                console.log("checkedNames", this.checkedNames[0]);
                 if (this.min == '') {
                     this.min = 'undefined';
                 }
@@ -186,7 +200,7 @@ export default {
                     this.max = 'undefined';
                 }
                 return this.$router.push({
-                        path: `/test`,
+                        path: `/test/page/1`,
                         query: {
                             min: this.min,
                             max: this.max
@@ -199,50 +213,27 @@ export default {
                 );
             }
         },
+        reset_data() {
+            return this.$router.push({
+                    path: `/product`,
+                },
+                () => {
+                    window.location.reload(true)
+                    // this.$router.app.refresh()
+                }
+            );
+        },
         reset_filter() {
             return this.$router.push({
-                    path: `/test/`,
+                    path: `/product/`,
                 },
                 () => {
                     // this.$router.app.refresh()
                     window.location.reload(true)
                 }
             );
-        }
+        },
     },
-    data() {
-        return {
-            // brand:'',
-            keyword: 'undefined',
-            min: 'undefined',
-            max: 'undefined',
-            brand: 'undefined',
-            user: {
-                email: 'test@test.com',
-                roles: [{
-                    id: 2,
-                    name: 'Admin',
-                    lo: 2
-                }]
-            },
-            roles: [{
-                    id: 1,
-                    name: 'Client',
-                    lo: 1
-                },
-                {
-                    id: 2,
-                    name: 'Admin',
-                    lo: 2
-                },
-                {
-                    id: 3,
-                    name: 'Guest',
-                    lo: 3
-                }
-            ]
-        }
-    }
 }
 </script>
 

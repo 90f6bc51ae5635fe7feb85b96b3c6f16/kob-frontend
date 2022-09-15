@@ -5,7 +5,6 @@
             <b-container fluid="lg" style="padding-left: 0; padding-right: 0; padding-top: 20px; padding-bottom: 20px">
                 <b-row style="margin: 0 0 0 0">
                     <b-input-group>
-
                         <b-img src="~/assets/Logo.png" alt="Image" class="rounded" style="margin-top: 2px; margin-right: 5em"></b-img>
                         <template #append>
                             <form :action="`/search/${keyword}`" style="margin-left: -1em;" method="post">
@@ -35,12 +34,12 @@
                             </div>
                             <div style="margin: -10px 0 -10px 0">
                                 <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none" style="
-                  margin: 9.59px 0 0 0;
-                  height: 40px;
-                  width: ;
-                  border: 1px solid #ccc;
-                  border-radius: 3px;
-                " no-caret disabled>
+                                    margin: 9.59px 0 0 0;
+                                    height: 40px;
+                                    width: ;
+                                    border: 1px solid #ccc;
+                                    border-radius: 3px;
+                                  " no-caret disabled>
                                     <template #button-content style="height: 20px; width: 20px">
                                         <font-awesome-icon :icon="['fas', 'lock']" style="height: 15px; width: 15px; margin: -1px 0 9px 0" />
                                     </template>

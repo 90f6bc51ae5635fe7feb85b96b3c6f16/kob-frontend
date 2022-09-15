@@ -37,9 +37,9 @@
         </div>
     </div>
 
-    <div class="photos" style="margin: 2em 0 0 -1em;" v-for="productCode in productCodes" :key="productCode.product_code">
+    <div class="photos" style="margin: 2em 0 0 -1em;" v-for="(product_mother,index) in product_mothers" :key="product_mother.product_code">
         <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
-        <div v-if="productCode.product_image" style="border: 1px solid #e4e4e4;">
+        <div v-if="product_mother[index].product_image" style="border: 1px solid #e4e4e4;">
             <carousel style="border: 1px solid #e4e4e4;" :starting-image="0" :images="images">
             </carousel>
         </div>
@@ -53,7 +53,7 @@
 
         <div>
             <div style="text-align: left">
-                <div style="color: #232323; font-size: 28pt;">{{productCode.product_name}}</div>
+                <div style="color: #232323; font-size: 28pt;">{{product_mother[index].product_name}}</div>
             </div>
             <div class="product-star-ating">
                 <div style="float:left; margin: -2px 5px 0 0;">
@@ -73,15 +73,30 @@
               color: #999999;
               font-size: 18pt;
             ">
-                    $200.00
+                    ฿200.00
                 </div>
                 <div style="color: #222222; font-size: 18pt;">
-                    ${{productCode.product_price}}
+                    ฿{{product_mother[index].product_price}}
                 </div>
             </div>
             <div style="text-align: left; display: flex; padding-bottom: 10px">
                 <div style="color: #777777; font-size: 12pt;">
-                    {{productCode.product_detail}}
+                    {{product_mother[index].product_detail}}
+                </div>
+            </div>
+            <div style="
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #e4e4e4;
+            background-color: #f5fffa;
+          " v-if="product_childs != ''">
+                <div v-for="product_child in product_childs" :key="product_child.product_code">
+                    <div class="dotted" style="color: #777777; font-size: 12pt;">
+                        จำนวนชิ้น : <span style="color: #222222;">{{product_child.product_unit_name}} ชิ้น</span> ราคา : <span style="color: #222222;">{{product_child.product_price}} บาท</span>
+                    </div>
                 </div>
             </div>
             <div style="
@@ -96,7 +111,7 @@
                     Free Shipping On order <span style="color: #222222;">over $99</span>
                 </div>
                 <div class="dotted" style="color: #8aa47b; font-size: 12pt;">
-                    {{productCode.product_delivery_time}} วัน
+                    {{product_mother[index].product_delivery_time}} วัน
                 </div>
                 <div class="dotted" style="color: #777777; font-size: 12pt;">
                     Gift-wrap available
@@ -152,11 +167,11 @@
                 <div style="color: #222222; font-size: 12pt;" class="">
                     SKU :
                     <span style="color: #777777; font-size: 12pt;">
-                        {{productCode.product_code}}
+                        {{product_mother[index].product_code}}
                     </span>
                 </div>
                 <div v-for="category in categorys" :key="category.product_category_code">
-                    <div style="color: #222222; font-size: 12pt;" class="" v-if="productCode.product_category_code == category.product_category_code">
+                    <div style="color: #222222; font-size: 12pt;" class="" v-if="product_mother[index].product_category_code == category.product_category_code">
                         Category :
                         <span style="color: #777777; font-size: 12pt;">
                             {{category.product_category_name}}
@@ -166,7 +181,7 @@
                 <div style="color: #222222; font-size: 12pt;" class="">
                     Tags :
                     <span style="color: #777777; font-size: 12pt;">
-                        {{productCode.product_tag}}
+                        {{product_mother[index].product_tag}}
                     </span>
                 </div>
             </div>
@@ -176,8 +191,8 @@
         <b-card no-body>
             <b-tabs pills card vertical nav-wrapper-class="w-25">
                 <b-tab title="DESCRIPTION" active>
-                    <div v-for="productCode in productCodes" :key="productCode.product_code">
-                        <b-card-text>{{productCode.product_description}}</b-card-text>
+                    <div v-for="(product_mother,index) in product_mothers" :key="product_mother.product_code">
+                        <b-card-text>{{product_mother[index].product_description}}</b-card-text>
                     </div>
                 </b-tab>
                 <b-tab title="ADDITIONAL INFORMATION">
@@ -189,7 +204,7 @@
                   padding-top: 20px;
                   padding-bottom: 10px;
                 ">
-                            <div v-for="productCode in productCodes" :key="productCode.product_code">
+                            <div v-for="(product_mother,index) in product_mothers" :key="product_mother.product_code">
                                 <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
                                     <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Weight : </div>
                                     <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">1.5 kg</div>
@@ -370,12 +385,6 @@
 <script>
 import Carousel from "../../plugins/vue-carousel/Carousel.vue";
 export default {
-    // async asyncData({ $axios, params }) {
-    //   const photo = await $axios.$get(
-    //     `https://picsum.photos/id/${params.id}/info`
-    //   );
-    //   return { photo };
-    // }
     components: {
         Carousel,
     },
@@ -383,6 +392,7 @@ export default {
         $productService,
         params,
     }) {
+        console.log("params", params.id);
         const products = await $productService.product.getProductPage({
             product_page: 1,
             // page_brand: brand,
@@ -393,46 +403,143 @@ export default {
         const productCodes = await $productService.product.getProductByCode({
             product_code: params.id
         });
-        const productImages = await $productService.product.getProductImageByCode({
-            product_code: params.id
-        });
-
+        console.log("products", products);
+        let group_child = [];
         let images = [];
         let obj = {};
-        productCodes.data.forEach((e, i) => {
-            let objToAdd1 = {
-                'big': `http://54.254.134.236:6201/${e.product_image}`,
-                'thumb': `http://54.254.134.236:6201/${e.product_image}`
+        let product_mothers = [];
+        let product_childs = [];
+        productCodes.data.forEach(async (e, i) => {
+            if (e.product_child == 1) {
+                // console.log("ลูก");
+                console.log("e.product_code", e.product_code);
+                const includes = await $productService.product.getProductInclude({
+                    product_code: e.product_code
+                });
+                console.log("includess", includes.data);
+                includes.data.forEach(async (e1, i1) => {
+                    console.log("e1", e1);
+                    // console.log("e1", e1);
+                    const mothers = await $productService.product.getProductByCode({
+                        product_code: e1.product_code
+                    });
+                    const productImages = await $productService.product.getProductImageByCode({
+                        product_code: e1.product_code
+                    });
+                    const name_child = await $productService.product.getProductIncludeByCode({
+                        product_code: e1.product_code
+                    });
+                    // console.log("แม่ = ", mothers.data);
+                    // console.log("ลูก = ", name_child.data);
+                    mothers.data.forEach((e_img1, i) => {
+                        let objToAdd1 = {
+                            'big': `http://54.254.134.236:6201/${e_img1.product_image}`,
+                            'thumb': `http://54.254.134.236:6201/${e_img1.product_image}`
+                        }
+                        obj = {
+                            ...obj,
+                            ...objToAdd1
+                        };
+                        // product_mothers.push(e_img1);
+                        images.push(obj);
+                    });
+                    productImages.data.forEach((e_img2, i) => {
+                        let objToAdd1 = {
+                            'big': `http://54.254.134.236:6201/${e_img2.product_image_name}`,
+                            'thumb': `http://54.254.134.236:6201/${e_img2.product_image_name}`
+                        }
+                        obj = {
+                            ...obj,
+                            ...objToAdd1
+                        };
+                        images.push(obj);
+                    });
+                    name_child.data.forEach(async (e2, i2) => {
+                        group_child.push(e2.product_main_code)
+                    });
+                    const childs = await $productService.product.getProductIncludeByName({
+                        product_code: group_child
+                    });
+                    // mothers.data.forEach((e_m, iii) => {
+                    //     product_mothers.push(e_m);
+                    // });
+                    childs.data.forEach((e_c, iii) => {
+                        product_childs.push(e_c);
+                    });
+                    product_mothers.push(mothers.data);
+                    // product_childs.push(childs.data);
+                    // console.log("product_childs", childs.data);
+                });
+            } else if (e.product_child == 0) {
+                console.log("แม่");
+                const mothers = await $productService.product.getProductByCode({
+                    product_code: e.product_code
+                });
+                const productImages = await $productService.product.getProductImageByCode({
+                    product_code: e.product_code
+                });
+                const name_child = await $productService.product.getProductIncludeByCode({
+                    product_code: e.product_code
+                });
+                console.log("name_child", name_child.data);
+                if (name_child.data != '') {
+                    console.log("แม่มีลูก");
+                    name_child.data.forEach(async (e2, i2) => {
+                        group_child.push(e2.product_main_code)
+                    });
+                    const childs = await $productService.product.getProductIncludeByName({
+                        product_code: group_child
+                    });
+                    childs.data.forEach((e_c, iii) => {
+                        product_childs.push(e_c);
+                    });
+                } else if (name_child.data == '') {
+                    console.log("แม่ไม่มีลูก");
+                    const childs = '';
+                    product_childs.push(childs);
+                }
+                mothers.data.forEach((e_img1, i) => {
+                    let objToAdd1 = {
+                        'big': `http://54.254.134.236:6201/${e_img1.product_image}`,
+                        'thumb': `http://54.254.134.236:6201/${e_img1.product_image}`
+                    }
+                    obj = {
+                        ...obj,
+                        ...objToAdd1
+                    };
+                    // product_mothers.push(e_img1);
+                    images.push(obj);
+                });
+                productImages.data.forEach((e_img2, i) => {
+                    let objToAdd1 = {
+                        'big': `http://54.254.134.236:6201/${e_img2.product_image_name}`,
+                        'thumb': `http://54.254.134.236:6201/${e_img2.product_image_name}`
+                    }
+                    obj = {
+                        ...obj,
+                        ...objToAdd1
+                    };
+                    images.push(obj);
+                });
+                product_mothers.push(mothers.data);
+                // mothers.data.forEach((e_m, iii) => {
+                //     product_mothers.push(e_m);
+                // });
             }
-            obj = {
-                ...obj,
-                ...objToAdd1
-            };
-            images.push(obj);
-
         });
-        productImages.data.forEach((e, i) => {
-            let objToAdd1 = {
-                'big': `http://54.254.134.236:6201/${e.product_image_name}`,
-                'thumb': `http://54.254.134.236:6201/${e.product_image_name}`
-            }
-            obj = {
-                ...obj,
-                ...objToAdd1
-            };
-            images.push(obj);
-
-        });
-        // console.log("imgs", images);
+        console.log("product_mothers", product_mothers);
+        console.log("product_childs", product_childs);
+        // console.log("clone",clone);
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],
-            productCodes: productCodes.data ? productCodes.data : [],
-            productImages: productImages.data ? productImages.data : [],
+            // product_mothers: product_mothers.data ? product_mothers.data : [],
+            // product_childs: product_childs.data ? product_childs.data : [],
+            product_mothers,
+            product_childs,
             images,
         };
     },
-
     data() {
         return {
             quantity: 1,
@@ -443,47 +550,6 @@ export default {
                 dots: false,
             },
             rating: 4.4,
-            // images: [{
-            //         // id: "1",
-            //         big: `http://54.254.134.236:6201/product/923721f7-4079-4256-ac82-07e41c6710dc.jpg`,
-            //         thumb: `http://54.254.134.236:6201/product/923721f7-4079-4256-ac82-07e41c6710dc.jpg`,
-            //     },
-            //     {
-            //         // id: "2",
-            //         big: `http://54.254.134.236:6201/product/f46dfb79-16a9-4db2-966c-39110272f62c.jpg`,
-            //         thumb: `http://54.254.134.236:6201/product/f46dfb79-16a9-4db2-966c-39110272f62c.jpg`,
-            //     },
-            //     {
-            //         // id: "3",
-            //         big: `http://54.254.134.236:6201/product/56b88d07-6c4a-4bca-b4de-509dbf30dc7e.jpeg`,
-            //         thumb: `http://54.254.134.236:6201/product/56b88d07-6c4a-4bca-b4de-509dbf30dc7e.jpeg`,
-            //     },
-            //     {
-            //         // id: "4",
-            //         big: "https://picsum.photos/400/400/?image=4",
-            //         thumb: "https://picsum.photos/400/400/?image=4",
-            //     },
-                // {
-                //   // id: "5",
-                //   big: "https://picsum.photos/400/400/?image=5",
-                //   thumb: "https://picsum.photos/400/400/?image=5",
-                // },
-                // {
-                //   id: "6",
-                //   big: "https://picsum.photos/400/400/?image=6",
-                //   thumb: "https://picsum.photos/400/400/?image=6",
-                // },
-                // {
-                //   id: "7",
-                //   big: "https://picsum.photos/400/400/?image=7",
-                //   thumb: "https://picsum.photos/400/400/?image=7",
-                // },
-                // {
-                //   id: "8",
-                //   big: "https://picsum.photos/400/400/?image=8",
-                //   thumb: "https://picsum.photos/400/400/?image=8",
-                // },
-            // ],
         };
     },
     methods: {
@@ -694,5 +760,4 @@ ul {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 </style>
