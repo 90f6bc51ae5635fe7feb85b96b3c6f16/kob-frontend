@@ -9,7 +9,7 @@
                         <template #append>
                             <form :action="`/search/${keyword}`" style="margin-left: -1em;" method="post">
                                 <div style="float: left;">
-                                    <b-form-input style=" width: 470px; margin: 0 0 0 -2em; border-radius: 0;" type="text" placeholder="ค้นหา" v-model="keyword" pattern=".{1,}" required oninvalid="setCustomValidity(' ');" oninput="setCustomValidity('');"></b-form-input>
+                                    <b-form-input style=" width: 445px; margin: 0 0 0 -2em; border-radius: 0;" type="text" placeholder="ค้นหา" v-model="keyword" pattern=".{1,}" required oninvalid="setCustomValidity(' ');" oninput="setCustomValidity('');"></b-form-input>
                                     <!-- <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="keyword" ></b-form-input> -->
                                 </div>
                                 <div style="float: left;">
@@ -39,54 +39,59 @@
                                     width: ;
                                     border: 1px solid #ccc;
                                     border-radius: 3px;
-                                  " no-caret disabled>
+                                  " no-caret>
                                     <template #button-content style="height: 20px; width: 20px">
+                                        <span v-if="dataValue" class="show_shop" aria-label="Close">{{count_shop}}</span>
                                         <font-awesome-icon :icon="['fas', 'lock']" style="height: 15px; width: 15px; margin: -1px 0 9px 0" />
                                     </template>
-                                    <b-dropdown-text style="width: 400px">
-                                        <div style="">
-                                            <button class="close" aria-label="Close"></button>
-                                        </div>
-                                        <div class="manu-shop" style="height: 100px">
-                                            <div style="float: left">
-                                                <img style="width: 100px; height: 100px" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="" />
+                                    <div v-if="dataValue != 0">
+                                        <b-dropdown-text style="width: 400px" v-for="(product,index) in dataValue" :key="'product'+index">
+                                            <div style="">
+                                                <button class="close" aria-label="Close" @click="removeFromCart(product)"></button>
                                             </div>
-                                            <div style="text-align: left; padding-top: 1em">
-                                                <div class="text-overflow">Halogen Room Handwear</div>
-                                                <div class="text-overflow">$125.00<span> X2</span></div>
+                                            <div class="manu-shop" style="height: 100px">
+                                                <div style="float: left">
+                                                    <div v-if="product.product_image" style="border: .5px solid grey;">
+                                                        <img style="width: 100px; height: 90px" :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                                                    </div>
+                                                    <div v-else style="border: .5px solid grey;">
+                                                        <svg class="" width="100px" height="90px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                                            <title></title>
+                                                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                                                            <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div style="text-align: left; padding-top: 1em; margin: 0 0 0 120px;">
+                                                    <div class="text-overflow">{{product.product_name}}</div>
+                                                    <div class="text-overflow">฿{{product.product_price}}<span> X {{product.amount}}</span></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </b-dropdown-text>
-                                    <b-dropdown-text style="width: 400px">
-                                        <div style="">
-                                            <button class="close" aria-label="Close"></button>
-                                        </div>
-                                        <div class="manu-shop" style="height: 100px">
-                                            <div style="float: left">
-                                                <img style="width: 100px; height: 100px" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="" />
+                                        </b-dropdown-text>
+                                        <b-dropdown-text style="width: 400px">
+                                            <div class="">
+                                                <div style="float: left">ORDER TOTAL</div>
+                                                <div style="text-align: right">฿{{Sum}}</div>
                                             </div>
-                                            <div style="text-align: left; padding-top: 1em">
-                                                <div class="text-overflow">Shaving Cream, 100 gm</div>
-                                                <div class="text-overflow">$75.00<span> X1</span></div>
+                                        </b-dropdown-text>
+                                        <b-dropdown-text style="width: 400px">
+                                            <div class="">
+                                                <div style="float: left; width: 45%">
+                                                    <b-button variant="primary" style="width: 100%">VIEW CART</b-button>
+                                                </div>
+                                                <div style="float: right; width: 45%">
+                                                    <b-button variant="light" style="border: 1px solid #e4e4e4; width: 100%">CHECKOUT</b-button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </b-dropdown-text>
-                                    <b-dropdown-text style="width: 400px">
-                                        <div class="">
-                                            <div style="float: left">ORDER TOTAL</div>
-                                            <div style="text-align: right">$350</div>
-                                        </div>
-                                    </b-dropdown-text>
-                                    <b-dropdown-text style="width: 400px">
-                                        <div class="">
-                                            <div style="float: left; width: 45%">
-                                                <b-button variant="primary" style="width: 100%">VIEW CART</b-button>
+                                        </b-dropdown-text>
+                                    </div>
+                                    <div v-if="dataValue == 0">
+                                        <b-dropdown-text style="width: 400px">
+                                            <div style="text-align: center; padding-top: 30px; padding-bottom: 30px;">
+                                                กรุณาเลือกซื้อสินค้า
                                             </div>
-                                            <div style="float: right; width: 45%">
-                                                <b-button variant="light" style="border: 1px solid #e4e4e4; width: 100%">CHECKOUT</b-button>
-                                            </div>
-                                        </div>
-                                    </b-dropdown-text>
+                                        </b-dropdown-text>
+                                    </div>
                                 </b-dropdown>
                             </div>
                             <div style="float: right; z-index: 9999999 !important;">
@@ -129,7 +134,6 @@
                     </b-input-group>
                 </b-row>
             </b-container>
-
             <b-navbar toggleable="lg" type="dark" variant="info" style="padding: 0px">
                 <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
                 <b-container fluid="lg">
@@ -159,7 +163,6 @@
                             <a class="navbar-manu" style="" href="/howtoorder">วิธีการสั่งซื้อ</a>
                             <a class="navbar-manu" style="" href="/contact">ติดต่อเรา</a>
                         </b-navbar-nav>
-
                         <!-- Right aligned nav items -->
                         <b-navbar-nav class="ml-auto" style="margin: 0 -2em 0 0; color: #fff; font-size: 12pt">
                             โทรศัพท์ :
@@ -187,13 +190,42 @@ import {
 } from "vuex";
 import FixedHeader from 'vue-fixed-header';
 export default {
+    props: ['modelValue'],
     data() {
         return {
             showNav: false,
             value: '',
             checkedNames: [],
+            dataValue: [],
             keyword: '',
+            Sum: 0,
+            count_shop: 0,
         };
+    },
+    mounted() {
+        this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+        this.dataValue.forEach(element => {
+            this.Sum += element.product_price * element.amount;
+            this.count_shop += element.amount;
+        });
+        console.log("modelValue", this.modelValue);
+    },
+    watch: {
+        dataValue: {
+            handler(newValue) {
+              this.count_shop = 0;
+              this.Sum = 0;
+                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
+                console.log("newValue", newValue);
+                this.dataValue = newValue;
+                this.dataValue.forEach(element => {
+                    this.Sum += element.product_price * element.amount;
+                    this.count_shop += element.amount;
+                });
+                console.log("2", this.dataValue);
+            },
+            deep: true
+        },
     },
     methods: {
         async logout() {
@@ -203,12 +235,30 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
-    },
-    computed: {
-        ...mapState("auth", ["loggedIn"]),
+        removeFromCart(product) {
+            const shoppingCart = this.dataValue;
+            const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+            shoppingCart[productIndex].amount -= 1;
+
+            if (shoppingCart[productIndex].amount < 1) {
+                shoppingCart.splice(productIndex, 1);
+            }
+            this.dataValue = shoppingCart;
+            this.count_shop -= 1;
+            this.Sum = 0;
+            this.dataValue.forEach(element => {
+                this.Sum += element.product_price * element.amount;
+            });
+            // console.log("this.dataValue", this.dataValue);
+            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+            this.$emit('update:modelValue', shoppingCart)
+        }
     },
     components: {
         FixedHeader
+    },
+    computed: {
+        ...mapState("auth", ["loggedIn"]),
     },
 };
 </script>
@@ -262,6 +312,14 @@ a {
     /* border: 1px solid #adadad; */
 }
 
+.show_shop {
+    float: right !important;
+    color: inherit;
+    border-radius: 50%;
+    background-color: #fff;
+    margin: -.4em 0 0 .1em !important;
+}
+
 .close {
     float: left !important;
     vertical-align: middle;
@@ -307,12 +365,13 @@ a {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+/*
 .text-overflow {
     white-space: nowrap;
     width: 240px;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */
 
 .fix-navbar.vue-fixed-header--isFixed {
     position: fixed;
@@ -339,5 +398,10 @@ a {
     /* border: 0.2px solid #e5e5e5; */
     margin-top: 5px;
     /* background-color: #fff; */
+}
+
+.tooltip .tooltip-inner {
+    max-width: 500px !important;
+    width: 400px !important;
 }
 </style>

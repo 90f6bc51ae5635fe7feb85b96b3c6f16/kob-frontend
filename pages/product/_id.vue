@@ -148,7 +148,7 @@
             margin: 0 -2em 0 0;
           ">
                 <div style="width: 35%">
-                    <b-button variant="dark" class="mb-2" disabled>
+                    <b-button variant="dark" class="mb-2" @click="add_cart(product_mother[index])">
                         ADD TO CART
                         <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #fff" />
                     </b-button>
@@ -392,7 +392,6 @@ export default {
         $productService,
         params,
     }) {
-        console.log("params", params.id);
         const products = await $productService.product.getProductPage({
             product_page: 1,
             // page_brand: brand,
@@ -403,7 +402,6 @@ export default {
         const productCodes = await $productService.product.getProductByCode({
             product_code: params.id
         });
-        console.log("products", products);
         let group_child = [];
         let images = [];
         let obj = {};
@@ -412,13 +410,12 @@ export default {
         productCodes.data.forEach(async (e, i) => {
             if (e.product_child == 1) {
                 // console.log("ลูก");
-                console.log("e.product_code", e.product_code);
                 const includes = await $productService.product.getProductInclude({
                     product_code: e.product_code
                 });
-                console.log("includess", includes.data);
+                // console.log("includess", includes.data);
                 includes.data.forEach(async (e1, i1) => {
-                    console.log("e1", e1);
+                    // console.log("e1", e1);
                     // console.log("e1", e1);
                     const mothers = await $productService.product.getProductByCode({
                         product_code: e1.product_code
@@ -481,9 +478,8 @@ export default {
                 const name_child = await $productService.product.getProductIncludeByCode({
                     product_code: e.product_code
                 });
-                console.log("name_child", name_child.data);
                 if (name_child.data != '') {
-                    console.log("แม่มีลูก");
+                    // console.log("แม่มีลูก");
                     name_child.data.forEach(async (e2, i2) => {
                         group_child.push(e2.product_main_code)
                     });
@@ -494,7 +490,7 @@ export default {
                         product_childs.push(e_c);
                     });
                 } else if (name_child.data == '') {
-                    console.log("แม่ไม่มีลูก");
+                    // console.log("แม่ไม่มีลูก");
                     const childs = '';
                     product_childs.push(childs);
                 }
@@ -527,8 +523,8 @@ export default {
                 // });
             }
         });
-        console.log("product_mothers", product_mothers);
-        console.log("product_childs", product_childs);
+        // console.log("product_mothers", product_mothers);
+        // console.log("product_childs", product_childs);
         // console.log("clone",clone);
         return {
             products: products.data ? products.data : [],
@@ -550,6 +546,8 @@ export default {
                 dots: false,
             },
             rating: 4.4,
+            cart: [],
+            obj_item: {},
         };
     },
     methods: {
@@ -562,6 +560,19 @@ export default {
             } else {
                 this.quantity--;
             }
+        },
+        add_cart(item) {
+            let objToAdd1_item = {
+                'keyword': item,
+                'count': this.quantity
+            }
+            this.obj_item = {
+                ...this.obj_item,
+                ...objToAdd1_item
+            };
+            this.cart.push(this.obj_item);
+            console.log("this.item", this.cart);
+            console.log("q", this.quantity);
         },
     },
 };
