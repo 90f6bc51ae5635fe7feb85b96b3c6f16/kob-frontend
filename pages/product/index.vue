@@ -224,12 +224,14 @@
                 </div>
                 <div class="product-price">฿{{ product.product_price }}</div>
                 <div class="left">
-                    <button @click="" class="text btn btn-outline-success">
-                        <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                    </button>
+                    <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
+                        <button @click="" class="text btn btn-outline-success border-0 border-radius-0">
+                            <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                        </button>
+                    </nuxt-link>
                 </div>
                 <div class="right">
-                    <button @click="addToCart(product)" class="text btn btn-outline-success">
+                    <button @click="addToCart(product)" class="text btn btn-outline-success border-0 radius-0">
                         <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
                     </button>
                 </div>
@@ -1272,6 +1274,7 @@ export default {
                     amount: 1,
                 })
             }
+            window.location.reload(true)
         },
     },
     data() {
@@ -1362,7 +1365,7 @@ style .card-product:hover .image {
     background-color: white;
     color: white;
     font-size: 16px;
-    padding: 5px 43px;
+    padding: 5px 45px;
 }
 
 div {

@@ -148,7 +148,7 @@
             margin: 0 -2em 0 0;
           ">
                 <div style="width: 35%">
-                    <b-button variant="dark" class="mb-2" @click="add_cart(product_mother[index])">
+                    <b-button variant="dark" class="mb-2" @click="addToCart(product_mother[index])">
                         ADD TO CART
                         <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #fff" />
                     </b-button>
@@ -256,39 +256,39 @@
             <agile :options="options" ref="carousel">
                 <div v-for="product in products" :key="product.product_code">
                     <b-col class="card-product">
-                        <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important;">
-                            <div v-if="product.product_image">
-                                <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
+                        <div v-if="product.product_image">
+                            <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
+                        </div>
+                        <div v-else>
+                            <svg class="" width="100%" height="230px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title></title>
+                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                            </svg>
+                        </div>
+                        <div class="product-name">
+                            <div class="text-overflow">
+                                {{product.product_name}}
                             </div>
-                            <div v-else>
-                                <svg class="" width="100%" height="230px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                    <title></title>
-                                    <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                                </svg>
-                            </div>
-                            <div class="product-name">
-                                <div class="text-overflow">
-                                    {{product.product_name}}
-                                </div>
-                            </div>
-                            <div class="product-price">
-                                ${{product.product_price}}
-                            </div>
-                            <div class="product-star-ating" style="padding: 0 0 1em 0;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                </star-rating>
-                            </div>
-                            <div class="left">
-                                <div class="text">
+                        </div>
+                        <div class="product-price">
+                            ${{product.product_price}}
+                        </div>
+                        <div class="product-star-ating" style="padding: 0 0 1em 0;">
+                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                            </star-rating>
+                        </div>
+                        <div class="left">
+                            <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
+                                <button @click="" class="text btn btn-outline-success border-0 border-radius-0">
                                     <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="text">
-                                    <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                                </div>
-                            </div>
-                        </nuxt-link>
+                                </button>
+                            </nuxt-link>
+                        </div>
+                        <div class="right">
+                            <button @click="addToCart(product)" class="text btn btn-outline-success border-0 radius-0">
+                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                            </button>
+                        </div>
                     </b-col>
                 </div>
             </agile>
@@ -546,9 +546,20 @@ export default {
                 dots: false,
             },
             rating: 4.4,
-            cart: [],
             obj_item: {},
+            shoppingCart: [],
         };
+    },
+    mounted() {
+        this.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+    },
+    watch: {
+        shoppingCart: {
+            handler(newValue) {
+                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
+            },
+            deep: true
+        }
     },
     methods: {
         increment() {
@@ -561,18 +572,23 @@ export default {
                 this.quantity--;
             }
         },
-        add_cart(item) {
-            let objToAdd1_item = {
-                'keyword': item,
-                'count': this.quantity
+        addToCart(product) {
+            let exists = false;
+            // console.log("product", product);
+            for (const cartItem of this.shoppingCart) {
+                if (cartItem.product_code === product.product_code) {
+                    cartItem.amount = cartItem.amount + this.quantity;
+                    exists = true;
+                    break;
+                }
             }
-            this.obj_item = {
-                ...this.obj_item,
-                ...objToAdd1_item
-            };
-            this.cart.push(this.obj_item);
-            console.log("this.item", this.cart);
-            console.log("q", this.quantity);
+            if (!exists) {
+                this.shoppingCart.push({
+                    ...product,
+                    amount: this.quantity,
+                })
+            }
+            window.location.reload(true)
         },
     },
 };

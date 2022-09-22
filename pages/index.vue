@@ -78,36 +78,36 @@
     </b-row>
     <b-row class="row-product">
         <b-col class="card-product" v-for="product in products.slice(0, 5)" :key="product.product_code">
-            <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
-                <div v-if="product.product_image">
-                    <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
-                </div>
-                <div v-else>
-                    <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title></title>
-                        <rect width="100%" height="100%" fill="#55595c"></rect>
-                        <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                    </svg>
-                </div>
-                <div class="card-product-shop">
-                    <div class="product-name">
-                        <div class="text-overflow">
-                            {{ product.product_name }}
-                        </div>
+            <div v-if="product.product_image">
+                <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
+            </div>
+            <div v-else>
+                <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <title></title>
+                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                    <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                </svg>
+            </div>
+            <div class="card-product-shop">
+                <div class="product-name">
+                    <div class="text-overflow">
+                        {{ product.product_name }}
                     </div>
-                    <div class="product-price">฿{{ product.product_price }}</div>
-                    <div class="left">
-                        <div class="text">
+                </div>
+                <div class="product-price">฿{{ product.product_price }}</div>
+                <div class="left">
+                    <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
+                        <button @click="" class="text btn btn-outline-success border-0 border-radius-0">
                             <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="text">
-                            <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                        </div>
-                    </div>
+                        </button>
+                    </nuxt-link>
                 </div>
-            </nuxt-link>
+                <div class="right">
+                    <button @click="addToCart(product)" class="text btn btn-outline-success border-0 radius-0">
+                        <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                    </button>
+                </div>
+            </div>
         </b-col>
     </b-row>
     <b-row class="row-product">
@@ -514,15 +514,6 @@
 import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
-
-    data() {
-        return {
-            slickOptions: {
-                slidesToShow: 3,
-                arrows: false,
-            },
-        };
-    },
     data() {
         return {
             options: {
@@ -534,8 +525,47 @@ export default {
                 max: 'undefined',
                 brand: 'undefined',
             },
+            slickOptions: {
+                slidesToShow: 3,
+                arrows: false,
+            },
             rating: 4.5,
+            shoppingCart: [],
         };
+    },
+    mounted() {
+        this.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+    },
+    watch: {
+        shoppingCart: {
+            handler(newValue) {
+                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
+            },
+            deep: true
+        }
+    },
+    methods: {
+        addToCart(product) {
+            console.log("T");
+            let exists = false;
+            // console.log("product", product);
+            for (const cartItem of this.shoppingCart) {
+                // console.log("cartItem.product_code", cartItem.product_code);
+                // console.log("this.shoppingCart", this.shoppingCart);
+                if (cartItem.product_code === product.product_code) {
+                    cartItem.amount = cartItem.amount + 1;
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                this.shoppingCart.push({
+                    ...product,
+                    amount: 1,
+                })
+            }
+            window.location.reload(true)
+        },
     },
     async asyncData({
         $productService
@@ -613,7 +643,7 @@ style .card-product:hover .image {
     background-color: white;
     color: white;
     font-size: 16px;
-    padding: 5px 42px;
+    padding: 5px 48px;
 }
 
 div {

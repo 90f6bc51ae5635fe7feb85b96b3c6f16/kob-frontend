@@ -193,10 +193,9 @@
             </b-row>
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="(search_product,idx) in search_products" :key="'D'+idx">
-                <nuxt-link :to="{ path: `/product/${search_product.product_code}` }" style="text-decoration: none !important">
-                    <div v-if="search_product.product_image">
-                        <b-card-img :src="`http://54.254.134.236:6201/${search_product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
+            <b-col class="card-product" cols="3" v-for="(product,idx) in search_products" :key="'D'+idx">
+                    <div v-if="product.product_image">
+                        <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
                     </div>
                     <div v-else>
                         <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -207,19 +206,21 @@
                     </div>
                     <div class="product-name">
                         <div class="text-overflow">
-                            {{ search_product.product_name }}
+                            {{ product.product_name }}
                         </div>
                     </div>
-                    <div class="product-price">฿{{ search_product.product_price }}</div>
+                    <div class="product-price">฿{{ product.product_price }}</div>
                     <div class="left">
-                        <div class="text">
-                            <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                        </div>
+                        <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
+                            <button @click="" class="text btn btn-outline-success border-0 border-radius-0">
+                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                            </button>
+                        </nuxt-link>
                     </div>
                     <div class="right">
-                        <div class="text">
+                        <button @click="addToCart(product)" class="text btn btn-outline-success border-0 radius-0">
                             <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                        </div>
+                        </button>
                     </div>
                     <div class="product-star-ating">
                         <p style="text-align: center">
@@ -227,7 +228,6 @@
                             </star-rating>
                         </p>
                     </div>
-                </nuxt-link>
             </b-col>
             <div style="margin-top: 1em;
                       justify-content: center;
@@ -1108,6 +1108,17 @@ export default {
             checkedNames,
         };
     },
+    mounted() {
+        this.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+    },
+    watch: {
+        shoppingCart: {
+            handler(newValue) {
+                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
+            },
+            deep: true
+        }
+    },
     methods: {
         scrollToTop() {
             window.scrollTo(0, 0);
@@ -1241,6 +1252,26 @@ export default {
                 }
             );
         },
+        addToCart(product) {
+            let exists = false;
+            // console.log("product", product);
+            for (const cartItem of this.shoppingCart) {
+                // console.log("cartItem.product_code", cartItem.product_code);
+                // console.log("this.shoppingCart", this.shoppingCart);
+                if (cartItem.product_code === product.product_code) {
+                    cartItem.amount = cartItem.amount + 1;
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                this.shoppingCart.push({
+                    ...product,
+                    amount: 1,
+                })
+            }
+            window.location.reload(true)
+        },
     },
     data() {
         return {
@@ -1264,6 +1295,7 @@ export default {
             tel: false,
             facebook: false,
             map: false,
+            shoppingCart: [],
         };
     },
 
@@ -1328,7 +1360,7 @@ style .card-product:hover .image {
     background-color: white;
     color: white;
     font-size: 16px;
-    padding: 5px 42px;
+    padding: 5px 45px;
 }
 
 div {

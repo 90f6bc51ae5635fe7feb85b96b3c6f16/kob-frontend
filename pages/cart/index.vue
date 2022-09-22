@@ -43,23 +43,36 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="items in items" :key="items.name">
+            <tr v-for="(product,index) in dataValue" :key="'product'+index">
                 <td>
-                    <b-card-img :src="`https://placeimg.com/480/480/any?1`" style="max-width: 60px; margin: 10px" alt="Image" class="rounded-0"></b-card-img>
-                    {{ items.name }}
+                    <div v-if="product.product_image" style="">
+                        <img style="width: 100px; height: 90px" :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                        <span style="margin: 0 0 0 1em;">{{ product.product_name }}</span>
+                    </div>
+                    <div v-else style="">
+                        <svg class="" width="100px" height="90px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title></title>
+                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                            <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                        </svg>
+                        <span style="margin: 0 0 0 1em;">{{ product.product_name }}</span>
+                    </div>
+
                 </td>
                 <td style="text-align: center; vertical-align: middle">
-                    {{ items.price }}
+                    {{ product.product_price }}
                 </td>
                 <td style="text-align: center; vertical-align: middle">
-                    <input type="number" :value="items.qty" style="text-align: center; width: 40%;" />
+                    <b-button type="" variant="success" @click="removeFromCart(product)">-</b-button>
+                    <input type="number" :value="product.amount" style="text-align: center; width: 40%;" disabled />
+                    <b-button type="" variant="success" @click="addFromCart(product)">+</b-button>
                 </td>
-                <td style="text-align: center; vertical-align: middle">
-                    {{ items.price * items.qty }}
+                <td style=" text-align: center; vertical-align: middle">
+                    {{ product.product_price * product.amount }}
                 </td>
 
                 <td style="text-align: center; vertical-align: middle">
-                    <button class="btn" style="">
+                    <button class="btn" style="" @click="delFromCart(product)">
                         <font-awesome-icon :icon="['fas', 'circle-xmark']" style="color: #red" />
                     </button>
                 </td>
@@ -103,7 +116,7 @@
                 <table class="table table-bordered" style="border: 1px solid #ccc !important;">
                     <tr style="">
                         <td width="50%">SUB TOTAL</td>
-                        <td>฿87.00</td>
+                        <td>฿{{Sum}}</td>
                     </tr>
                     <tr>
                         <td>SHIPPING</td>
@@ -135,7 +148,7 @@
                     </tr>
                     <tr>
                         <td>TOTAL</td>
-                        <td>฿87.00</td>
+                        <td>฿{{Sum}}</td>
                     </tr>
                 </table>
                 <b-button variant="success" size="lg" class="mb-2" style="border-radius: 3px; width: 100%;margin: 1em 0 0 0.55em;">
@@ -170,8 +183,14 @@
 import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
+    props: ['modelValue'],
     data() {
         return {
+            dataValue: [],
+            keyword: '',
+            Sum: 0,
+            count_shop: 0,
+            sss: [],
             fields: [{
                     key: "name",
                     label: "PRODUCT",
@@ -230,6 +249,124 @@ export default {
                 },
             ],
         };
+    },
+    mounted() {
+        this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+        this.dataValue.forEach(element => {
+            this.Sum += element.product_price * element.amount;
+            this.count_shop += element.amount;
+        });
+    },
+    watch: {
+        modelValue: {
+            deep: true,
+            handler(newValue) {
+                this.count_shop = 0;
+                this.Sum = 0;
+                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
+                console.log("newValue", newValue);
+                this.dataValue = newValue;
+                this.dataValue.forEach(element => {
+                    this.Sum += element.product_price * element.amount;
+                    this.count_shop += element.amount;
+                });
+            },
+        },
+    },
+    methods: {
+        async logout() {
+            await this.$auth.logout();
+            this.$router.push("/login");
+        },
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        },
+        removeFromCart(product) {
+            const shoppingCart = this.dataValue;
+            const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+            if (shoppingCart[productIndex].amount > 1) {
+                shoppingCart[productIndex].amount -= 1;
+            }
+            this.dataValue = shoppingCart;
+            this.count_shop -= 1;
+            this.Sum = 0;
+            this.dataValue.forEach(element => {
+                this.Sum += element.product_price * element.amount;
+            });
+            // console.log("this.dataValue", this.dataValue);
+            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+            this.$emit('update:modelValue', shoppingCart)
+        },
+        addFromCart(product) {
+            const shoppingCart = this.dataValue;
+            const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+            shoppingCart[productIndex].amount += 1;
+
+            this.dataValue = shoppingCart;
+            this.count_shop += 1;
+            this.Sum = 0;
+            this.dataValue.forEach(element => {
+                this.Sum += element.product_price * element.amount;
+            });
+
+            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+            this.$emit('update:modelValue', shoppingCart)
+        },
+        // delFromCart(product) {
+        //     var result = confirm("ต้องการลบหรือไม่ ?");
+        //     if (result == true) {
+        //         const shoppingCart = this.dataValue;
+        //         const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+        //         shoppingCart.splice(productIndex, 1);
+        //         this.dataValue = shoppingCart;
+        //         this.Sum = 0;
+        //         this.dataValue.forEach(element => {
+        //             this.Sum += element.product_price * element.amount;
+        //         });
+        //         // console.log("this.dataValue", this.dataValue);
+        //         localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+        //         this.$emit('update:modelValue', shoppingCart)
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+        delFromCart(product) {
+            this.$swal.fire({
+                title: 'คุณแน่ใจไหม ?',
+                text: "คุณจะไม่สามารถย้อนกลับได้ !",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ตกลง',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                console.log("this.$swal1", this.$swal);
+                if (result.value == true) {
+                    this.$swal.fire(
+                        "success",
+                        "ลบสำเร็จ",
+                        'success',
+                    )
+                    console.log("this.$swal2", this.$swal);
+                    const shoppingCart = this.dataValue;
+                    const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+                    shoppingCart.splice(productIndex, 1);
+                    this.dataValue = shoppingCart;
+                    this.Sum = 0;
+                    this.dataValue.forEach(element => {
+                        this.Sum += element.product_price * element.amount;
+                    });
+                    // console.log("this.dataValue", this.dataValue);
+                    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+                    this.$emit('update:modelValue', shoppingCart)
+                    setTimeout(() => {
+                        window.location.reload(true);
+                    }, 1500);
+                }
+            })
+        }
     },
     async asyncData({
         $productService

@@ -32,7 +32,7 @@
                                 /
                                 <b-link href="/register" style="color: #8d8d8d" disabled>สมัครสมาชิค</b-link>
                             </div>
-                            <div style="margin: -10px 0 -10px 0">
+                            <div style="margin: -10px 0 -10px 0;">
                                 <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none" style="
                                     margin: 9.59px 0 0 0;
                                     height: 40px;
@@ -45,29 +45,31 @@
                                         <font-awesome-icon :icon="['fas', 'lock']" style="height: 15px; width: 15px; margin: -1px 0 9px 0" />
                                     </template>
                                     <div v-if="dataValue != 0">
-                                        <b-dropdown-text style="width: 400px" v-for="(product,index) in dataValue" :key="'product'+index">
-                                            <div style="">
-                                                <button class="close" aria-label="Close" @click="removeFromCart(product)"></button>
-                                            </div>
-                                            <div class="manu-shop" style="height: 100px">
-                                                <div style="float: left">
-                                                    <div v-if="product.product_image" style="border: .5px solid grey;">
-                                                        <img style="width: 100px; height: 90px" :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                                        <div style="max-height: 430px; overflow: auto">
+                                            <b-dropdown-text style="width: 400px;" v-for="(product,index) in dataValue" :key="'product'+index">
+                                                <div style="">
+                                                    <button class="close" aria-label="Close" @click="removeFromCart(product)"></button>
+                                                </div>
+                                                <div class="manu-shop" style="height: 100px">
+                                                    <div style="float: left">
+                                                        <div v-if="product.product_image" style="border: .5px solid grey;">
+                                                            <img style="width: 100px; height: 90px" :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                                                        </div>
+                                                        <div v-else style="border: .5px solid grey;">
+                                                            <svg class="" width="100px" height="90px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                                                <title></title>
+                                                                <rect width="100%" height="100%" fill="#55595c"></rect>
+                                                                <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                                                            </svg>
+                                                        </div>
                                                     </div>
-                                                    <div v-else style="border: .5px solid grey;">
-                                                        <svg class="" width="100px" height="90px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                                            <title></title>
-                                                            <rect width="100%" height="100%" fill="#55595c"></rect>
-                                                            <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                                                        </svg>
+                                                    <div style="text-align: left; padding-top: 1em; margin: 0 0 0 120px;">
+                                                        <div class="text-overflow">{{product.product_name}}</div>
+                                                        <div class="text-overflow">฿{{product.product_price}}<span> X {{product.amount}}</span></div>
                                                     </div>
                                                 </div>
-                                                <div style="text-align: left; padding-top: 1em; margin: 0 0 0 120px;">
-                                                    <div class="text-overflow">{{product.product_name}}</div>
-                                                    <div class="text-overflow">฿{{product.product_price}}<span> X {{product.amount}}</span></div>
-                                                </div>
-                                            </div>
-                                        </b-dropdown-text>
+                                            </b-dropdown-text>
+                                        </div>
                                         <b-dropdown-text style="width: 400px">
                                             <div class="">
                                                 <div style="float: left">ORDER TOTAL</div>
@@ -77,10 +79,10 @@
                                         <b-dropdown-text style="width: 400px">
                                             <div class="">
                                                 <div style="float: left; width: 45%">
-                                                    <b-button variant="primary" style="width: 100%">VIEW CART</b-button>
+                                                    <a type="button" class="btn btn-primary" href="/order" style="width: 100%">VIEW CART</a>
                                                 </div>
                                                 <div style="float: right; width: 45%">
-                                                    <b-button variant="light" style="border: 1px solid #e4e4e4; width: 100%">CHECKOUT</b-button>
+                                                    <a type="button" class="btn btn-primary" href="/cart" style="width: 100%">CHECKOUT</a>
                                                 </div>
                                             </div>
                                         </b-dropdown-text>
@@ -202,30 +204,33 @@ export default {
             count_shop: 0,
         };
     },
-    mounted() {
-        this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
-        this.dataValue.forEach(element => {
-            this.Sum += element.product_price * element.amount;
-            this.count_shop += element.amount;
-        });
-        console.log("modelValue", this.modelValue);
-    },
     watch: {
-        dataValue: {
+        modelValue: {
+            deep: true,
             handler(newValue) {
-              this.count_shop = 0;
-              this.Sum = 0;
+                this.count_shop = 0;
+                this.Sum = 0;
                 localStorage.setItem('shoppingCart', JSON.stringify(newValue));
                 console.log("newValue", newValue);
                 this.dataValue = newValue;
-                this.dataValue.forEach(element => {
+                this.dataValue.forEach((element, index) => {
                     this.Sum += element.product_price * element.amount;
-                    this.count_shop += element.amount;
+                    this.count_shop = index + 1;
+                    console.log("index", index);
                 });
+                this.refresh()
                 console.log("2", this.dataValue);
             },
-            deep: true
         },
+    },
+    mounted() {
+        this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+        this.dataValue.forEach((element, index) => {
+            this.Sum += element.product_price * element.amount;
+            this.count_shop = index + 1;
+            console.log("index", index);
+        });
+        console.log("this.dataValue", this.dataValue);
     },
     methods: {
         async logout() {
@@ -235,23 +240,57 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
-        removeFromCart(product) {
-            const shoppingCart = this.dataValue;
-            const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
-            shoppingCart[productIndex].amount -= 1;
+        // removeFromCart(product) {
+        //     const shoppingCart = this.dataValue;
+        //     const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+        //     shoppingCart[productIndex].amount -= 1;
 
-            if (shoppingCart[productIndex].amount < 1) {
-                shoppingCart.splice(productIndex, 1);
-            }
-            this.dataValue = shoppingCart;
-            this.count_shop -= 1;
-            this.Sum = 0;
-            this.dataValue.forEach(element => {
-                this.Sum += element.product_price * element.amount;
-            });
-            // console.log("this.dataValue", this.dataValue);
-            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-            this.$emit('update:modelValue', shoppingCart)
+        //     if (shoppingCart[productIndex].amount < 1) {
+        //         shoppingCart.splice(productIndex, 1);
+        //     }
+        //     this.dataValue = shoppingCart;
+        //     this.count_shop -= 1;
+        //     this.Sum = 0;
+        //     this.dataValue.forEach(element => {
+        //         this.Sum += element.product_price * element.amount;
+        //     });
+        //     // console.log("this.dataValue", this.dataValue);
+        //     localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+        //     this.$emit('update:modelValue', shoppingCart)
+        // },
+        removeFromCart(product) {
+            this.$swal.fire({
+                title: 'คุณแน่ใจไหม ?',
+                text: "คุณจะไม่สามารถย้อนกลับได้ !",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ตกลง',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.value == true) {
+                    this.$swal.fire(
+                        'success',
+                        'ลบสำเร็จ',
+                        'success'
+                    )
+                    const shoppingCart = this.dataValue;
+                    const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+                    shoppingCart.splice(productIndex, 1);
+                    this.dataValue = shoppingCart;
+                    this.Sum = 0;
+                    this.dataValue.forEach(element => {
+                        this.Sum += element.product_price * element.amount;
+                    });
+                    // console.log("this.dataValue", this.dataValue);
+                    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+                    this.$emit('update:modelValue', shoppingCart)
+                    setTimeout(() => {
+                        window.location.reload(true);
+                    }, 1000);
+                }
+            })
         }
     },
     components: {

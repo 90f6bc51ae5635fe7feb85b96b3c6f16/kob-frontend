@@ -35,24 +35,33 @@
                     </div>
                 </b-col>
             </b-row>
-            <div style="padding: 10px; border-bottom: 1px solid #ccc !important; margin: 0 -1em 0 -1em;" v-for="items in items" :key="items.name">
+            <div style="padding: 10px; border-bottom: 1px solid #ccc !important; margin: 0 -1em 0 -1em;" v-for="(product,index) in dataValue" :key="'product'+index">
                 <b-row>
                     <b-col cols="1">
-                        <b-card-img :src="`https://placeimg.com/480/480/any?1`" style="max-width: 60px; margin: 10px" alt="Image" class="rounded-0"></b-card-img>
+                        <div v-if="product.product_image" style="">
+                            <img style="width: 100px; height: 90px" :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                        </div>
+                        <div v-else style="">
+                            <svg class="" width="100px" height="90px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title></title>
+                                <rect width="100%" height="100%" fill="#55595c"></rect>
+                                <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                            </svg>
+                        </div>
                     </b-col>
-                    <b-col cols="10" class="d-flex align-items-center justify-content">
-                        {{ items.name }}<br />
-                        x{{ items.qty }}
+                    <b-col cols="10" style="margin: 0 0 0 1em;" class="d-flex align-items-center justify-content">
+                        {{ product.product_name }}<br />
+                        ฿{{ product.product_price }} x {{ product.amount }}
                     </b-col>
-                    <b-col cols="1"> ฿{{ items.price }}</b-col>
+                    <b-col cols="1" style="margin: 2em 0 0 -1.5em;"> ฿{{ product.product_price * product.amount }}</b-col>
                 </b-row>
             </div>
             <b-row style="padding-top: 30px">
                 <b-col class="title-product"></b-col>
                 <b-col class="title-product">
                     <div style="text-align: right">
-                        <span style="color: #000">ยอดคำสั่งซื้อทั้งหมด:</span>
-                        <span style="color: #000; font-size: 1.8em">฿500</span>
+                        <span style="color: #000">ยอดคำสั่งซื้อทั้งหมด : </span>
+                        <span style="color: #000; font-size: 1.8em">฿{{Sum}}</span>
                     </div>
                 </b-col>
             </b-row>
@@ -71,7 +80,7 @@
             </b-row>
         </b-col>
     </b-row>
-    <b-row style="padding-top: 30px; margin: 0 -2em 0 -1em;">
+    <!-- <b-row style="padding-top: 30px; margin: 0 -2em 0 -1em;">
         <b-col cols="12" style="border: 0.2px solid #e5e5e5">
             <b-row>
                 <b-col class="title-product">ORDER 2022-05-05 15:03</b-col>
@@ -119,7 +128,7 @@
                 </b-col>
             </b-row>
         </b-col>
-    </b-row>
+    </b-row> -->
 </div>
 </template>
 
@@ -127,6 +136,7 @@
 import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
+    props: ['modelValue'],
     data() {
         return {
             form: {
@@ -135,6 +145,9 @@ export default {
                 food: null,
                 checked: [],
             },
+            dataValue: [],
+            Sum: 0,
+            count_shop: 0,
             foods: [{
                     text: "Select One",
                     value: null
@@ -203,6 +216,58 @@ export default {
                 },
             ],
         };
+    },
+    mounted() {
+        this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+        this.dataValue.forEach(element => {
+            this.Sum += element.product_price * element.amount;
+            this.count_shop += element.amount;
+        });
+        console.log("modelValue", this.modelValue);
+    },
+    watch: {
+        modelValue: {
+            deep: true,
+            handler(newValue) {
+                this.count_shop = 0;
+                this.Sum = 0;
+                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
+                console.log("newValue", newValue);
+                this.dataValue = newValue;
+                this.dataValue.forEach(element => {
+                    this.Sum += element.product_price * element.amount;
+                    this.count_shop += element.amount;
+                });
+                console.log("2", this.dataValue);
+            },
+        },
+    },
+    methods: {
+        async logout() {
+            await this.$auth.logout();
+            this.$router.push("/login");
+        },
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        },
+        removeFromCart(product) {
+            const shoppingCart = this.dataValue;
+            const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+            shoppingCart[productIndex].amount -= 1;
+
+            if (shoppingCart[productIndex].amount < 1) {
+                shoppingCart.splice(productIndex, 1);
+            }
+            this.dataValue = shoppingCart;
+            this.count_shop -= 1;
+            this.Sum = 0;
+            this.dataValue.forEach(element => {
+                this.Sum += element.product_price * element.amount;
+            });
+            // console.log("this.dataValue", this.dataValue);
+            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+            this.$emit('update:modelValue', shoppingCart)
+        }
     },
     async asyncData({
         $productService

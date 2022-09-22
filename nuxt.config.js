@@ -111,6 +111,7 @@ export default {
     "bootstrap-vue/nuxt",
     "@nuxtjs/axios",
     '@nuxt/content',
+    'nuxt-sweetalert2',
     // "@nuxt/content"
 
   ],
