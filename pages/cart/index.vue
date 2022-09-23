@@ -179,6 +179,7 @@
 </div>
 </template>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" charset="UTF-8"></script>
 <script>
 import "slick-carousel/slick/slick.css";
 export default {
@@ -342,28 +343,28 @@ export default {
                 confirmButtonText: 'ตกลง',
                 cancelButtonText: 'ยกเลิก'
             }).then((result) => {
-                console.log("this.$swal1", this.$swal);
                 if (result.value == true) {
-                    this.$swal.fire(
-                        "success",
-                        "ลบสำเร็จ",
-                        'success',
-                    )
-                    console.log("this.$swal2", this.$swal);
-                    const shoppingCart = this.dataValue;
-                    const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
-                    shoppingCart.splice(productIndex, 1);
-                    this.dataValue = shoppingCart;
-                    this.Sum = 0;
-                    this.dataValue.forEach(element => {
-                        this.Sum += element.product_price * element.amount;
-                    });
-                    // console.log("this.dataValue", this.dataValue);
-                    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-                    this.$emit('update:modelValue', shoppingCart)
-                    setTimeout(() => {
-                        window.location.reload(true);
-                    }, 1500);
+                    this.$swal.fire({
+                        title: 'success',
+                        text: "ลบสำเร็จ",
+                        type: 'success',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    }).then((e) => {
+                        if (e.dismiss == 'timer') {
+                            const shoppingCart = this.dataValue;
+                            const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
+                            shoppingCart.splice(productIndex, 1);
+                            this.dataValue = shoppingCart;
+                            this.Sum = 0;
+                            this.dataValue.forEach(element => {
+                                this.Sum += element.product_price * element.amount;
+                            });
+                            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+                            this.$emit('update:modelValue', shoppingCart)
+                            window.location.reload(true);
+                        }
+                    })
                 }
             })
         }
