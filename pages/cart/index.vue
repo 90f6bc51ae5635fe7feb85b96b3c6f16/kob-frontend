@@ -179,7 +179,6 @@
 </div>
 </template>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" charset="UTF-8"></script>
 <script>
 import "slick-carousel/slick/slick.css";
 export default {
@@ -336,7 +335,7 @@ export default {
             this.$swal.fire({
                 title: 'คุณแน่ใจไหม ?',
                 text: "คุณจะไม่สามารถย้อนกลับได้ !",
-                icon: 'warning',
+                type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',

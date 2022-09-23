@@ -257,7 +257,7 @@ export default {
             this.$swal.fire({
                 title: 'คุณแน่ใจไหม ?',
                 text: "คุณจะไม่สามารถย้อนกลับได้ !",
-                icon: 'warning',
+                type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
