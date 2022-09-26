@@ -39,7 +39,7 @@
 
     <div class="photos" style="margin: 2em 0 0 -1em;" v-for="(product_mother,index) in product_mothers" :key="product_mother.product_code">
         <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
-        <div v-if="product_mother[index].product_image" style="border: 1px solid #e4e4e4;">
+        <div v-if="product_mother.product_image" style="border: 1px solid #e4e4e4;">
             <carousel style="border: 1px solid #e4e4e4;" :starting-image="0" :images="images">
             </carousel>
         </div>
@@ -53,7 +53,7 @@
 
         <div>
             <div style="text-align: left">
-                <div style="color: #232323; font-size: 28pt;">{{product_mother[index].product_name}}</div>
+                <div style="color: #232323; font-size: 28pt;">{{product_mother.product_name}}</div>
             </div>
             <div class="product-star-ating">
                 <div style="float:left; margin: -2px 5px 0 0;">
@@ -76,12 +76,12 @@
                     ฿200.00
                 </div>
                 <div style="color: #222222; font-size: 18pt;">
-                    ฿{{product_mother[index].product_price}}
+                    ฿{{product_mother.product_price}}
                 </div>
             </div>
             <div style="text-align: left; display: flex; padding-bottom: 10px">
                 <div style="color: #777777; font-size: 12pt;">
-                    {{product_mother[index].product_detail}}
+                    {{product_mother.product_detail}}
                 </div>
             </div>
             <div style="
@@ -111,7 +111,7 @@
                     Free Shipping On order <span style="color: #222222;">over $99</span>
                 </div>
                 <div class="dotted" style="color: #8aa47b; font-size: 12pt;">
-                    {{product_mother[index].product_delivery_time}} วัน
+                    {{product_mother.product_delivery_time}} วัน
                 </div>
                 <div class="dotted" style="color: #777777; font-size: 12pt;">
                     Gift-wrap available
@@ -148,7 +148,7 @@
             margin: 0 -2em 0 0;
           ">
                 <div style="width: 35%">
-                    <b-button variant="dark" class="mb-2" @click="addToCart(product_mother[index])">
+                    <b-button variant="dark" class="mb-2" @click="addToCart(product_mother)">
                         ADD TO CART
                         <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #fff" />
                     </b-button>
@@ -167,11 +167,11 @@
                 <div style="color: #222222; font-size: 12pt;" class="">
                     SKU :
                     <span style="color: #777777; font-size: 12pt;">
-                        {{product_mother[index].product_code}}
+                        {{product_mother.product_code}}
                     </span>
                 </div>
                 <div v-for="category in categorys" :key="category.product_category_code">
-                    <div style="color: #222222; font-size: 12pt;" class="" v-if="product_mother[index].product_category_code == category.product_category_code">
+                    <div style="color: #222222; font-size: 12pt;" class="" v-if="product_mother.product_category_code == category.product_category_code">
                         Category :
                         <span style="color: #777777; font-size: 12pt;">
                             {{category.product_category_name}}
@@ -181,7 +181,7 @@
                 <div style="color: #222222; font-size: 12pt;" class="">
                     Tags :
                     <span style="color: #777777; font-size: 12pt;">
-                        {{product_mother[index].product_tag}}
+                        {{product_mother.product_tag}}
                     </span>
                 </div>
             </div>
@@ -192,7 +192,7 @@
             <b-tabs pills card vertical nav-wrapper-class="w-25">
                 <b-tab title="DESCRIPTION" active>
                     <div v-for="(product_mother,index) in product_mothers" :key="product_mother.product_code">
-                        <b-card-text>{{product_mother[index].product_description}}</b-card-text>
+                        <b-card-text>{{product_mother.product_description}}</b-card-text>
                     </div>
                 </b-tab>
                 <b-tab title="ADDITIONAL INFORMATION">
@@ -407,125 +407,106 @@ export default {
         let obj = {};
         let product_mothers = [];
         let product_childs = [];
-        productCodes.data.forEach(async (e, i) => {
-            if (e.product_child == 1) {
-                // console.log("ลูก");
-                const includes = await $productService.product.getProductInclude({
-                    product_code: e.product_code
-                });
-                // console.log("includess", includes.data);
-                includes.data.forEach(async (e1, i1) => {
-                    // console.log("e1", e1);
-                    // console.log("e1", e1);
-                    const mothers = await $productService.product.getProductByCode({
-                        product_code: e1.product_code
-                    });
-                    const productImages = await $productService.product.getProductImageByCode({
-                        product_code: e1.product_code
-                    });
-                    const name_child = await $productService.product.getProductIncludeByCode({
-                        product_code: e1.product_code
-                    });
-                    // console.log("แม่ = ", mothers.data);
-                    // console.log("ลูก = ", name_child.data);
-                    mothers.data.forEach((e_img1, i) => {
-                        let objToAdd1 = {
-                            'big': `http://54.254.134.236:6201/${e_img1.product_image}`,
-                            'thumb': `http://54.254.134.236:6201/${e_img1.product_image}`
-                        }
-                        obj = {
-                            ...obj,
-                            ...objToAdd1
-                        };
-                        // product_mothers.push(e_img1);
-                        images.push(obj);
-                    });
-                    productImages.data.forEach((e_img2, i) => {
-                        let objToAdd1 = {
-                            'big': `http://54.254.134.236:6201/${e_img2.product_image_name}`,
-                            'thumb': `http://54.254.134.236:6201/${e_img2.product_image_name}`
-                        }
-                        obj = {
-                            ...obj,
-                            ...objToAdd1
-                        };
-                        images.push(obj);
-                    });
-                    name_child.data.forEach(async (e2, i2) => {
-                        group_child.push(e2.product_main_code)
-                    });
-                    const childs = await $productService.product.getProductIncludeByName({
-                        product_code: group_child
-                    });
-                    // mothers.data.forEach((e_m, iii) => {
-                    //     product_mothers.push(e_m);
-                    // });
-                    childs.data.forEach((e_c, iii) => {
-                        product_childs.push(e_c);
-                    });
-                    product_mothers.push(mothers.data);
-                    // product_childs.push(childs.data);
-                    // console.log("product_childs", childs.data);
-                });
-            } else if (e.product_child == 0) {
-                console.log("แม่");
-                const mothers = await $productService.product.getProductByCode({
-                    product_code: e.product_code
-                });
-                const productImages = await $productService.product.getProductImageByCode({
-                    product_code: e.product_code
-                });
-                const name_child = await $productService.product.getProductIncludeByCode({
-                    product_code: e.product_code
-                });
-                if (name_child.data != '') {
-                    // console.log("แม่มีลูก");
-                    name_child.data.forEach(async (e2, i2) => {
-                        group_child.push(e2.product_main_code)
-                    });
-                    const childs = await $productService.product.getProductIncludeByName({
-                        product_code: group_child
-                    });
-                    childs.data.forEach((e_c, iii) => {
-                        product_childs.push(e_c);
-                    });
-                } else if (name_child.data == '') {
-                    // console.log("แม่ไม่มีลูก");
-                    const childs = '';
-                    product_childs.push(childs);
+        if (productCodes.data[0].product_child == 1) {
+            // console.log("ลูก");
+            const includes = await $productService.product.getProductInclude({
+                product_code: productCodes.data[0].product_code
+            });
+            const mothers = await $productService.product.getProductByCode({
+                product_code: includes.data[0].product_code
+            });
+            const productImages = await $productService.product.getProductImageByCode({
+                product_code: includes.data[0].product_code
+            });
+            const name_child = await $productService.product.getProductIncludeByCode({
+                product_code: includes.data[0].product_code
+            });
+            mothers.data.forEach((e_img1, i) => {
+                let objToAdd1 = {
+                    'big': `http://54.254.134.236:6201/${e_img1.product_image}`,
+                    'thumb': `http://54.254.134.236:6201/${e_img1.product_image}`
                 }
-                mothers.data.forEach((e_img1, i) => {
-                    let objToAdd1 = {
-                        'big': `http://54.254.134.236:6201/${e_img1.product_image}`,
-                        'thumb': `http://54.254.134.236:6201/${e_img1.product_image}`
-                    }
-                    obj = {
-                        ...obj,
-                        ...objToAdd1
-                    };
-                    // product_mothers.push(e_img1);
-                    images.push(obj);
+                obj = {
+                    ...obj,
+                    ...objToAdd1
+                };
+                images.push(obj);
+            });
+            productImages.data.forEach((e_img2, i) => {
+                let objToAdd1 = {
+                    'big': `http://54.254.134.236:6201/${e_img2.product_image_name}`,
+                    'thumb': `http://54.254.134.236:6201/${e_img2.product_image_name}`
+                }
+                obj = {
+                    ...obj,
+                    ...objToAdd1
+                };
+                images.push(obj);
+            });
+            name_child.data.forEach(async (e, i) => {
+                group_child.push(e.product_main_code)
+            });
+            const childs = await $productService.product.getProductIncludeByName({
+                product_code: group_child
+            });
+            childs.data.forEach((e, i) => {
+                product_childs.push(e);
+            });
+            product_mothers.push(mothers.data[0]);
+
+        } else if (productCodes.data[0].product_child == 0) {
+            // console.log("แม่");
+            const mothers = await $productService.product.getProductByCode({
+                product_code: productCodes.data[0].product_code
+            });
+            const productImages = await $productService.product.getProductImageByCode({
+                product_code: productCodes.data[0].product_code
+            });
+            const name_child = await $productService.product.getProductIncludeByCode({
+                product_code: productCodes.data[0].product_code
+            });
+            if (name_child.data != '') {
+                // console.log("แม่มีลูก");
+                name_child.data.forEach(async (e, i) => {
+                    group_child.push(e.product_main_code)
                 });
-                productImages.data.forEach((e_img2, i) => {
-                    let objToAdd1 = {
-                        'big': `http://54.254.134.236:6201/${e_img2.product_image_name}`,
-                        'thumb': `http://54.254.134.236:6201/${e_img2.product_image_name}`
-                    }
-                    obj = {
-                        ...obj,
-                        ...objToAdd1
-                    };
-                    images.push(obj);
+                const childs = await $productService.product.getProductIncludeByName({
+                    product_code: group_child
                 });
-                product_mothers.push(mothers.data);
-                // mothers.data.forEach((e_m, iii) => {
-                //     product_mothers.push(e_m);
-                // });
+                childs.data.forEach((e, i) => {
+                    product_childs.push(e);
+                });
+            } else if (name_child.data == '') {
+                // console.log("แม่ไม่มีลูก");
+                const childs = '';
+                product_childs.push(childs);
             }
-        });
+            mothers.data.forEach((e_img1, i) => {
+                let objToAdd1 = {
+                    'big': `http://54.254.134.236:6201/${e_img1.product_image}`,
+                    'thumb': `http://54.254.134.236:6201/${e_img1.product_image}`
+                }
+                obj = {
+                    ...obj,
+                    ...objToAdd1
+                };
+                images.push(obj);
+            });
+            productImages.data.forEach((e_img2, i) => {
+                let objToAdd1 = {
+                    'big': `http://54.254.134.236:6201/${e_img2.product_image_name}`,
+                    'thumb': `http://54.254.134.236:6201/${e_img2.product_image_name}`
+                }
+                obj = {
+                    ...obj,
+                    ...objToAdd1
+                };
+                images.push(obj);
+            });
+            product_mothers.push(mothers.data[0]);
+        }
         // console.log("product_mothers", product_mothers);
         // console.log("product_childs", product_childs);
-        // console.log("clone",clone);
         return {
             products: products.data ? products.data : [],
             categorys: categorys.data ? categorys.data : [],
