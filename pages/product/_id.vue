@@ -672,7 +672,7 @@ style .card-product:hover .image {
     background-color: white;
     color: white;
     font-size: 16px;
-    padding: 5px 48px;
+    padding: 5px 47.5px;
 }
 
 div {

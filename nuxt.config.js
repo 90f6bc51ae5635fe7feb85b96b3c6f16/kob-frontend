@@ -112,9 +112,43 @@ export default {
     "@nuxtjs/axios",
     '@nuxt/content',
     'nuxt-sweetalert2',
+    '@nuxtjs/auth',
     // "@nuxt/content"
-
   ],
+
+  axios: {
+    baseURL: 'http://localhost:3000/api',
+    headers: {
+      common: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    },
+    credentials: false,
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'login',
+            method: 'post',
+            propertyName: 'data.token',
+          },
+          user: {
+            url: 'me',
+            method: 'get',
+            propertyName: 'data.user',
+          },
+          logout: false,
+        },
+      },
+    },
+    redirect: {
+      login: '/login',
+    },
+  },
 
   env: {
     baseServiceURL: process.env.BASE_ENDPOINT
@@ -134,16 +168,6 @@ export default {
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
   },
 
-  axios: {
-    headers: {
-      common: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    },
-    credentials: false,
-  },
 
   i18n: {
     // ... your other options

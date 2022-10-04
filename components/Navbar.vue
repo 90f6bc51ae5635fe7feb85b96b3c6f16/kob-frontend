@@ -28,9 +28,9 @@
                             </form>
 
                             <div class="login-user">
-                                <b-link href="/login" style="color: #8d8d8d" disabled>ล็อคอิน</b-link>
+                                <b-link href="/login" style="color: #8d8d8d" >ล็อคอิน</b-link>
                                 /
-                                <b-link href="/register" style="color: #8d8d8d" disabled>สมัครสมาชิค</b-link>
+                                <b-link href="/register" style="color: #8d8d8d" >สมัครสมาชิค</b-link>
                             </div>
                             <div style="margin: -10px 0 -10px 0;">
                                 <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none" style="

@@ -56,8 +56,11 @@
                     <span class="" style="text-align: right;">Forgot <a href="/resetpassword">password ?</a></span>
                 </div>
             </div>
-            <div class="field">
-                <p style="margin-top: 2em; background-color: red; color: #fff; border-radius: 5px;" v-if="error" class="notification is-danger">{{ error.message }}</p>
+            <div class="field" style="margin-top: 5em;">
+                <div v-show="error" class="notification is-danger">
+                    {{error}}
+                    <p>Invalid password</p>
+                </div>
             </div>
         </form>
     </div>
@@ -72,7 +75,7 @@ export default {
         return {
             email: '',
             password: '',
-            error: null,
+            error: '',
         }
     },
     methods: {
@@ -87,9 +90,11 @@ export default {
             }
             console.log('payload', payload)
             try {
-                await this.$auth.loginWith('local', payload)
-                this.$router.push('/home')
+                console.log("tt");
+                await this.$auth.loginWith('local', payload);
+                this.$router.push('/');
             } catch (error) {
+                console.log("error", error);
                 this.error = error
             }
         },
@@ -153,5 +158,4 @@ ul {
     background-color: #39b44f !important;
     box-sizing: border-box;
 }
-
 </style>

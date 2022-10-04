@@ -1340,7 +1340,7 @@ style .card-product:hover .image {
     background-color: white;
     color: white;
     font-size: 16px;
-    padding: 5px 45px;
+    padding: 5px 44px;
 }
 
 div {

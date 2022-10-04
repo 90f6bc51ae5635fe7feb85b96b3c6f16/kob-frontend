@@ -10,6 +10,7 @@ const user = {
   email: 'john@doe.com',
   name: 'John Doe'
 };
+console.log("ToT");
 router.get('/me', (req, res) => {
   return res.json({
     data: {
@@ -33,8 +34,8 @@ router.post('/login', (req, res) => {
     });
   }
 });
-app.use(router)
+app.use(router);
 module.exports = {
   path: '/api',
   handler: app
-}
+};
