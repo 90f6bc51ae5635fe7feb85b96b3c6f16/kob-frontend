@@ -26,16 +26,29 @@
                                     <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
                                 </b-button>
                             </form>
-
-                            <div class="login-user">
-                                <b-link href="/login" style="color: #8d8d8d" >ล็อคอิน</b-link>
+                            <!-- <div class="login-user" style="margin-left: 8.5em;" v-if="loggedIn">
+                                <input type="submit" style="border-top-style: hidden;
+                                                                border-right-style: hidden;
+                                                                border-left-style: hidden;
+                                                                border-bottom-style: hidden;
+                                                                background-color: #fff;
+                                    " value="Logout" @click="logout">
+                                </input>
+                            </div> -->
+                            <div v-if="loggedIn" style="margin: 0 1em 0 6.9em;">
+                                <button type="button" class="btn btn-danger" @click="logout">
+                                    <strong>Log Out</strong>
+                                </button>
+                            </div>
+                            <div class="login-user" v-else>
+                                <b-link href="/login" style="color: #8d8d8d">ล็อคอิน</b-link>
                                 /
-                                <b-link href="/register" style="color: #8d8d8d" >สมัครสมาชิค</b-link>
+                                <b-link href="/register" style="color: #8d8d8d">สมัครสมาชิค</b-link>
                             </div>
                             <div style="margin: -10px 0 -10px 0;">
                                 <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none" style="
                                     margin: 9.59px 0 0 0;
-                                    height: 40px;
+                                    height: 38px;
                                     width: ;
                                     border: 1px solid #ccc;
                                     border-radius: 3px;

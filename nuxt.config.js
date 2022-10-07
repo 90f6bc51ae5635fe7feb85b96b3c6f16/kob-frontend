@@ -4,7 +4,8 @@ import i18n from './configs/i18n'
 const isProd = process.env.NODE_ENV === 'production'
 
 export default {
-
+  // serverMiddleware: ['~/api/controllers/member.js'],
+  serverMiddleware: ['~/api/controllers/auth.js'],
   // Target: https://go.nuxtjs.dev/config-target
   target: "ssr",
   mode: "universal",
@@ -132,13 +133,13 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: 'login',
             method: 'post',
+            url: 'login',
             propertyName: 'data.token',
           },
           user: {
-            url: 'me',
             method: 'get',
+            url: 'me',
             propertyName: 'data.user',
           },
           logout: false,

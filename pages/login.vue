@@ -58,7 +58,6 @@
             </div>
             <div class="field" style="margin-top: 5em;">
                 <div v-show="error" class="notification is-danger">
-                    {{error}}
                     <p>Invalid password</p>
                 </div>
             </div>
@@ -71,6 +70,20 @@
 <script>
 export default {
     middleware: 'isLoggedIn',
+    async asyncData({
+        $productService,
+        // $userService,
+        // query
+    }) {
+        const categorys = await $productService.product.getProductCategoryBy();
+        // const login_data = await $userService.user.getLogin({
+        //   email_data: query.email,
+        //   password_data: query.password,
+        // });
+        return {
+            categorys: categorys.data ? categorys.data : [],
+        };
+    },
     data() {
         return {
             email: '',
@@ -89,6 +102,18 @@ export default {
                 },
             }
             console.log('payload', payload)
+            // return this.$router.push({
+            //         path: `/login`,
+            //         query: {
+            //             email: this.email,
+            //             password: this.password
+            //         },
+            //     },
+            //     () => {
+            //         // this.$router.app.refresh()
+            //         window.location.reload(true)
+            //     }
+            // );
             try {
                 console.log("tt");
                 await this.$auth.loginWith('local', payload);
@@ -98,14 +123,6 @@ export default {
                 this.error = error
             }
         },
-    },
-    async asyncData({
-        $productService
-    }) {
-        const categorys = await $productService.product.getProductCategoryBy();
-        return {
-            categorys: categorys.data ? categorys.data : [],
-        };
     },
 }
 </script>

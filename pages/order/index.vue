@@ -136,6 +136,7 @@
 import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
+    middleware: 'auth',
     props: ['modelValue'],
     data() {
         return {

@@ -28,6 +28,7 @@
     "jquery": "^3.6.0",
     "jw-vue-pagination": "^1.0.3",
     "laravel-vue-pagination": "^3.0.0",
+    "mysql": "^2.18.1",
     "nuxt": "^2.15.8",
     "nuxt-sweetalert2": "^1.0.0",
     "swiper": "^8.0.7",
