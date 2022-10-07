@@ -21,7 +21,7 @@ memberModel.getLogin = (email,password, callback) => {
                     callback(null, rows);
                     conn.end()
                   }else{
-
+                    callback(null,'loginErr')
                     conn.end()
                   }
               }

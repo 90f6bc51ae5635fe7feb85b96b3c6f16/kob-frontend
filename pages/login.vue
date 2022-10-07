@@ -101,25 +101,19 @@ export default {
                     password: this.password,
                 },
             }
-            console.log('payload', payload)
-            // return this.$router.push({
-            //         path: `/login`,
-            //         query: {
-            //             email: this.email,
-            //             password: this.password
-            //         },
-            //     },
-            //     () => {
-            //         // this.$router.app.refresh()
-            //         window.location.reload(true)
-            //     }
-            // );
             try {
-                console.log("tt");
-                await this.$auth.loginWith('local', payload);
-                this.$router.push('/');
+                await this.$auth.loginWith('local', payload)
+                    .then((response) => {
+                        this.$router.push("/");
+                    })
+                    .catch((error) => {
+                        this.$swal.fire({
+                            type: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: 'กรุณาใช้อีเมลและรหัสผ่านใหม่',
+                        })
+                    });
             } catch (error) {
-                console.log("error", error);
                 this.error = error
             }
         },

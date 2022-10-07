@@ -25,7 +25,7 @@
     <b-row class="" style="margin: 0 -2.9em 0 -1.9em;">
 
         <b-col cols="12">
-            <form action="" @submit="onSubmit">
+            <form action="" @submit.prevent="onSubmit">
                 <b-row>
                     <b-col cols="6">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
@@ -140,14 +140,14 @@ export default {
         $productService,
         $userService,
     }) {
-        const membrinserts = await $userService.user.getMemberInsertBy();
+        // const membrinserts = await $userService.user.getMemberInsertBy();
         const checkemails = await $userService.user.getCheckEmailBy();
         const checkphones = await $userService.user.getCheckPhoneBy();
         const checkmembers = await $userService.user.getCheckMemberBy();
         const categorys = await $productService.product.getProductCategoryBy();
         const users = await $userService.user.getUserBy();
         return {
-            membrinserts: membrinserts.data ? membrinserts.data : [],
+            // membrinserts: membrinserts.data ? membrinserts.data : [],
             checkemails: checkemails.data ? checkemails.data : [],
             checkphones: checkphones.data ? checkphones.data : [],
             checkmembers: checkmembers.data ? checkmembers.data : [],
@@ -202,11 +202,11 @@ export default {
                         dates: this.dates,
                     },
                 };
-                console.log("data", payload);
+                // console.log("data", payload);
                 try {
-                    console.log("true");
+                    // console.log("true");
                     // await this.$auth.loginWith("local", payload);
-                    this.$axios.post('http://localhost:3001/api/member-insert/', {
+                    await this.$axios.post('http://localhost:3001/api/member-insert/', {
                             // console.log("checkphones", checkphones);
                             // this.$axios.post(checkphones , {
                             // member_code: "12312",
@@ -221,16 +221,37 @@ export default {
                             name: 'test',
                             // payload,
                         })
-                        .then(function (response) {
-                            console.log("true",response);
-                            this.$router.push("/")
-
+                        .then((response) => {
+                            console.log("true", response);
+                            if (response.data == "EmailErr") {
+                                // console.log("Email");
+                                this.$swal.fire({
+                                    type: 'error',
+                                    title: 'อีเมลถูกใช้งานแล้ว',
+                                    text: 'กรุณาใช้อีเมลอื่น',
+                                })
+                            } else if (response.data == "PhoneErr") {
+                                // console.log("Phone");
+                                this.$swal.fire({
+                                    type: 'error',
+                                    title: 'เบอร์โทรศัพท์ถูกใช้งานแล้ว',
+                                    text: 'กรุณาใช้เบอร์โทรศัพท์อื่น',
+                                })
+                            } else {
+                                this.$swal.fire({
+                                    type: 'success',
+                                    title: 'สมัครสมาชิกสำเร็จ',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(() => {  this.$router.push("/"); }, 2000);
+                            }
                         })
-                        .catch(function (error) {
-                            console.log("err",error);
+                        .catch((error) => {
+                            console.log("err", error);
                         });
                 } catch (error) {
-                    console.log("err");
+                    // console.log("err");
                     this.error = error;
 
                 }
