@@ -326,7 +326,7 @@ a {
 .login-user {
     margin-top: 7px;
     margin-bottom: 0;
-    margin-right: 10px;
+    margin-right: 28px;
     margin-left: 40px;
 }
 
