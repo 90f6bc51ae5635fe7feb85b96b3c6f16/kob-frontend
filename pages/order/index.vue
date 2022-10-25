@@ -1,138 +1,169 @@
 <template>
-<div>
-    <div class="" style="margin: 0 -2em 0 -1em;">
-        <b-collapse id="example-collapse" style="
+    <div>
+        <div class="" style="margin: 0 -2em 0 -1em;">
+            <b-collapse id="example-collapse" style="
               width: 100%;
               margin: 0 0 0 0;
               max-height: 250px;
               overflow: auto;
 
             ">
-            <div v-for="category in categorys" :key="category.product_category_code">
-                <ul>
-                    <li>
-                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                            {{category.product_category_name}}
-                        </nuxt-link>
-                    </li>
-                </ul>
+                <div v-for="category in categorys" :key="category.product_category_code">
+                    <ul>
+                        <li>
+                            <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                                {{ category.product_category_name }}
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </div>
+            </b-collapse>
+        </div>
+        <b-row style=" margin: 0 -2em 0 -1em;">
+            <b-col class="title-product" style="font-size: 16pt;">MY ORDER</b-col>
+        </b-row>
+        <b-row style="padding-top: 30px; margin: 0 -2em 0 -1em;" v-for="(order, index) in orders"
+            :key="'order' + index">
+            <b-col cols="12" style="border: 0.2px solid #e5e5e5">
+                <b-row>
+                    <b-col class="title-product">{{ order.order_code }} {{ order.order_date }}</b-col>
+                    <b-col class="title-product">
+                        <div style="text-align: right">
+                            <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"><span
+                                    style="color: green">{{ status[order.order_status] }} </span></a>
+                            <font-awesome-icon :icon="['fas', 'question']" style="color: #000" />
+                            |
+                            <span style="color: green" v-if="order.order_shipping">{{ order.order_shipping }}
+                                {{ order.order_track_number }}</span>
+                            <span style="color: green" v-else></span>
+                        </div>
+                    </b-col>
+                </b-row>
+                <div style="padding: 10px; border-bottom: 1px solid #ccc !important; margin: 0 -1em 0 -1em;"
+                    v-for="(product, index) in order.order_list" :key="'product' + index">
+                    <b-row>
+                        <b-col cols="1">
+                            <div v-if="product.product_image" style="">
+                                <img style="width: 100px; height: 90px"
+                                    :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                            </div>
+                            <div v-else style="">
+                                <svg class="" width="100px" height="90px" role="img"
+                                    aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice"
+                                    focusable="false">
+                                    <title></title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob
+                                        Giftshop</text>
+                                </svg>
+                            </div>
+                        </b-col>
+                        <b-col cols="10" style="margin: 0 0 0 1em;" class="d-flex align-items-center justify-content">
+                            {{ product.product_name }}<br />
+                            ฿{{ product.product_price }} x {{ product.order_list_qty }}
+                        </b-col>
+                        <b-col cols="1" style="margin: 2em 0 0 -1.5em;"> ฿{{ product.product_price *
+                                product.order_list_qty
+                        }}
+                        </b-col>
+                    </b-row>
+                </div>
+                <b-row style="padding-top: 30px">
+                    <b-col class="title-product"></b-col>
+                    <b-col class="title-product">
+                        <div style="text-align: right">
+                            <span style="color: #000">ยอดคำสั่งซื้อทั้งหมด : </span>
+                            <span style="color: #000; font-size: 1.8em">฿{{ order.order_product_price }}</span>
+                        </div>
+                        <div style="text-align: right" v-if="order.order_predict_price">
+                            <span style="color: #000">ค่าขนส่ง : </span>
+                            <span style="color: #000; font-size: 1.8em">฿{{ order.order_predict_price -
+                                    order.order_product_price
+                            }}</span>
+                        </div>
+                        <div style="text-align: right" v-if="order.order_predict_price">
+                            <span style="color: #000">ยอดคำสั่งซื้อรวมค่าขนส่ง : </span>
+                            <span style="color: #000; font-size: 1.8em">฿{{ order.order_predict_price }}</span>
+                        </div>
+                    </b-col>
+
+                </b-row>
+                <b-row>
+                    <b-col class="title-product"></b-col>
+                    <b-col class="title-product">
+                        <div style="text-align: right">
+                            <!-- <button class="btn-success btn" style="border-radius: 0px"
+                                v-if="order.status == request_check_confirm">
+                                ยืนยันคำสั่งซื้อ
+                            </button> -->
+                            <button class="btn-success btn" style="border-radius: 0px"
+                                v-if="order.status == request_check_confirm || order.status == request_check_slip"
+                                v-b-modal.modal-1 @click="setOrderCode(order.order_code, order)">
+                                แนบเอกสารการโอน
+                            </button>
+                            <button class="btn-danger btn" style="border-radius: 0px"
+                                v-if="order.status == request_check_confirm || order.status == request_check_slip"
+                                @click="handleSubmit('cancel')">
+                                ยกเลิกออร์เดอร์
+                            </button>
+                            <!-- <button class="btn-success btn" style="border-radius: 0px">
+                                ซื้ออีกครั้ง
+                            </button> -->
+                            <button class="btn-primary btn" style="border-radius: 0px" @click="gotoContact">
+                                ติดต่อผู้ขาย
+                            </button>
+                        </div>
+                    </b-col>
+                </b-row>
+            </b-col>
+        </b-row>
+        <b-modal id="modal-1" title="แจ้งหลักฐานการโอน" @ok="handleSubmit('request_check_slip')">
+            <div id="preview">
+                <img v-if="url" :src="url" />
             </div>
-        </b-collapse>
+            <b-form-file v-model="file" ref="file-input" class="mb-2" @change="onFileChange" required
+                style="margin-top :10px;"></b-form-file>
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="order_slip_date" placeholder="วันที่" required></b-form-input>
+            </div>
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="order_slip_time" placeholder="เวลา" required></b-form-input>
+            </div>
+        </b-modal>
+
+        <b-modal id="modal-2" title="ประวัติทำรายการ">
+            <div style="
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            border: 1px solid #e4e4e4;
+            background-color: #f5fffa;
+          ">
+                <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_code">
+                    {{ new Date(order_selected.adddate) }} <br>สร้างคำสั่งซื้อ {{ order_selected.order_code }}
+                </div>
+                <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_predict_price">
+                    {{ new Date(order_selected.order_predict_price_date) }} <br>ประเมินราคาเสร็จสิ้น {{
+                            order_selected.order_predict_price
+                    }} บาท
+                </div>
+                <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_slip">
+                    {{ new Date(order_selected.order_slip_lastupdate) }} <br>แนบหลักฐานชำระเงิน
+                </div>
+                <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_track_number">
+                    {{ order_selected.order_track_date }} <br>จัดส่งสินค้าแล้ว {{ new Date(order_selected.order_shipping) }}
+                    {{ order_selected.order_track_number }}
+                </div>
+            </div>
+
+        </b-modal>
     </div>
-    <b-row style=" margin: 0 -2em 0 -1em;">
-        <b-col class="title-product" style="font-size: 16pt;">MY ORDER</b-col>
-    </b-row>
-    <b-row style="padding-top: 30px; margin: 0 -2em 0 -1em;">
-        <b-col cols="12" style="border: 0.2px solid #e5e5e5">
-            <b-row>
-                <b-col class="title-product">ORDER 2022-05-05 15:03</b-col>
-                <b-col class="title-product">
-                    <div style="text-align: right">
-                        <span style="color: green">พัสดุจัดส่งเรียบร้อย </span>
-                        <font-awesome-icon :icon="['fas', 'question']" style="color: #000" />
-                        |
-                        <span style="color: green">สำเร็จแล้ว</span>
-                    </div>
-                </b-col>
-            </b-row>
-            <div style="padding: 10px; border-bottom: 1px solid #ccc !important; margin: 0 -1em 0 -1em;" v-for="(product,index) in dataValue" :key="'product'+index">
-                <b-row>
-                    <b-col cols="1">
-                        <div v-if="product.product_image" style="">
-                            <img style="width: 100px; height: 90px" :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
-                        </div>
-                        <div v-else style="">
-                            <svg class="" width="100px" height="90px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title></title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect>
-                                <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                            </svg>
-                        </div>
-                    </b-col>
-                    <b-col cols="10" style="margin: 0 0 0 1em;" class="d-flex align-items-center justify-content">
-                        {{ product.product_name }}<br />
-                        ฿{{ product.product_price }} x {{ product.amount }}
-                    </b-col>
-                    <b-col cols="1" style="margin: 2em 0 0 -1.5em;"> ฿{{ product.product_price * product.amount }}</b-col>
-                </b-row>
-            </div>
-            <b-row style="padding-top: 30px">
-                <b-col class="title-product"></b-col>
-                <b-col class="title-product">
-                    <div style="text-align: right">
-                        <span style="color: #000">ยอดคำสั่งซื้อทั้งหมด : </span>
-                        <span style="color: #000; font-size: 1.8em">฿{{Sum}}</span>
-                    </div>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col class="title-product"></b-col>
-                <b-col class="title-product">
-                    <div style="text-align: right">
-                        <button class="btn-success btn" style="border-radius: 0px">
-                            ซื้ออีกครั้ง
-                        </button>
-                        <button class="btn-primary btn" style="border-radius: 0px">
-                            ติดต่อผู้ขาย
-                        </button>
-                    </div>
-                </b-col>
-            </b-row>
-        </b-col>
-    </b-row>
-    <!-- <b-row style="padding-top: 30px; margin: 0 -2em 0 -1em;">
-        <b-col cols="12" style="border: 0.2px solid #e5e5e5">
-            <b-row>
-                <b-col class="title-product">ORDER 2022-05-05 15:03</b-col>
-                <b-col class="title-product">
-                    <div style="text-align: right">
-                        <span style="color: green">พัสดุจัดส่งเรียบร้อย</span>
-                        <font-awesome-icon :icon="['fas', 'question']" style="color: #000" />
-                        |
-                        <span style="color: green">สำเร็จแล้ว</span>
-                    </div>
-                </b-col>
-            </b-row>
-            <div style="padding: 10px; border-bottom: 1px solid #ccc !important; margin: 0 -1em 0 -1em;" v-for="items in items" :key="items.name">
-                <b-row>
-                    <b-col cols="1">
-                        <b-card-img :src="`https://placeimg.com/480/480/any?1`" style="max-width: 60px; margin: 10px" alt="Image" class="rounded-0"></b-card-img>
-                    </b-col>
-                    <b-col cols="10" class="d-flex align-items-center justify-content">
-                        {{ items.name }}<br />
-                        x{{ items.qty }}
-                    </b-col>
-                    <b-col cols="1"> ฿{{ items.price }}</b-col>
-                </b-row>
-            </div>
-            <b-row style="padding-top: 30px">
-                <b-col class="title-product"></b-col>
-                <b-col class="title-product">
-                    <div style="text-align: right">
-                        <span style="color: #000">ยอดคำสั่งซื้อทั้งหมด:</span>
-                        <span style="color: #000; font-size: 1.8em">฿500</span>
-                    </div>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col class="title-product"></b-col>
-                <b-col class="title-product">
-                    <div style="text-align: right">
-                        <button class="btn-success btn" style="border-radius: 0px">
-                            ซื้ออีกครั้ง
-                        </button>
-                        <button class="btn-primary btn" style="border-radius: 0px">
-                            ติดต่อผู้ขาย
-                        </button>
-                    </div>
-                </b-col>
-            </b-row>
-        </b-col>
-    </b-row> -->
-</div>
+
 </template>
 
 <script>
+import { call } from "file-loader";
 import "slick-carousel/slick/slick.css";
 export default {
     name: "Homepage",
@@ -146,76 +177,44 @@ export default {
                 food: null,
                 checked: [],
             },
+            status: {
+                request_check_price: 'รอประเมินราคา',
+                request_check_confirm: 'รอยืนยันคำสั่งซื้อ',
+                request_check_slip: 'รอตรวจสอบหลักฐาน',
+                request_check_track: 'รอระบุเลขขนส่ง',
+                cancel: 'ยกเลิกออเดอร์',
+                success: 'จัดส่งสำเร็จ',
+            },
             dataValue: [],
             Sum: 0,
             count_shop: 0,
-            foods: [{
-                    text: "Select One",
-                    value: null
-                },
-                "Carrots",
-                "Beans",
-                "Tomatoes",
-                "Corn",
-            ],
             show: true,
             fields: [{
-                    key: "name",
-                    label: "PRODUCT",
-                },
-                {
-                    key: "price",
-                    label: "PRICE",
-                },
-                {
-                    key: "qty",
-                    label: "QUANTITY",
-                    thClass: "red",
-                },
-                {
-                    key: "manage",
-                    label: "",
-                    thClass: "red",
-                },
-            ],
-            items: [{
-                    name: "สาย TV HDMI TO HDMI CABLE ยาว 1.5 เมตร / 3 เมตร รองรับความละเอียดสูงสุดที่ 4K 2.0 สาย HDMI",
-                    price: 33,
-                    qty: 1,
-                    manage: "",
-                },
-                {
-                    name: "อุปกรณ์เพิ่มช่อง Ultra HD 4K x 2K 3in1 HDMI Switch Hub Splitter 3ช่อง เข้า3ออก1จอ Switcher สาย HDMI Full HD 1080P 3D",
-                    price: 77,
-                    qty: 10,
-                    manage: "",
-                },
+                key: "name",
+                label: "PRODUCT",
+            },
+            {
+                key: "price",
+                label: "PRICE",
+            },
+            {
+                key: "qty",
+                label: "QUANTITY",
+                thClass: "red",
+            },
+            {
+                key: "manage",
+                label: "",
+                thClass: "red",
+            },
             ],
             selected: null,
-            options: [{
-                    value: null,
-                    text: "Please select an option"
-                },
-                {
-                    value: "a",
-                    text: "This is First option"
-                },
-                {
-                    value: "b",
-                    text: "Selected Option"
-                },
-                {
-                    value: {
-                        C: "3PO"
-                    },
-                    text: "This is an option with object value"
-                },
-                {
-                    value: "d",
-                    text: "This one is disabled",
-                    disabled: true
-                },
-            ],
+            order_slip_date: '',
+            order_slip_time: '',
+            url: '',
+            order_code: '',
+            file: null,
+            order_selected: '',
         };
     },
     mounted() {
@@ -224,7 +223,7 @@ export default {
             this.Sum += element.product_price * element.amount;
             this.count_shop += element.amount;
         });
-        console.log("modelValue", this.modelValue);
+        // console.log("modelValue", this.modelValue);
     },
     watch: {
         modelValue: {
@@ -244,6 +243,103 @@ export default {
         },
     },
     methods: {
+        setOrderCode(value, order) {
+            this.order_code = value;
+            this.url = 'http://localhost:3001/slip/' + order.order_slip
+            this.order_slip_date = order.order_slip_date
+            this.order_slip_time = order.order_slip_time
+            this.order_selected = order
+        },
+        async handleSubmit(status) {
+            this.order_status = status;
+            try {
+                if (this.file != null && this.file != '' && this.order_slip_date != '' && this.order_slip_time != '' && this.order_code != '') {
+
+                    var formData = new FormData()
+                    formData.append('photo', this.file)
+                    formData.append('order_status', this.order_status)
+                    formData.append('order_slip_date', this.order_slip_date)
+                    formData.append('order_slip_time', this.order_slip_time)
+                    formData.append('order_code', this.order_code)
+
+                    await this.$axios.post('http://localhost:3001/api/upload-slip', formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    })
+                        .then(async (response) => {
+                            console.log("true", response);
+                            if (response.data == "error") {
+                                // console.log("Email");
+                                this.$swal.fire({
+                                    type: 'error',
+                                    title: 'ไม่สามารถเพิ่มข้อมูล',
+                                    text: 'ไม่สามารถเพิ่มข้อมูล',
+                                })
+                                // setTimeout(() => { this.$router.push("/order"); }, 2000);
+
+                            } else {
+
+                                this.order_slip = response.data.filename
+                                if (this.order_slip != '') {
+
+                                    await this.$axios.post('http://localhost:3001/api/order-status-update', {
+                                        order_status: this.order_status,
+                                        order_slip_date: this.order_slip_date,
+                                        order_slip_time: this.order_slip_time,
+                                        order_slip: this.order_slip,
+                                        order_code: this.order_code,
+
+                                    })
+                                        .then((response) => {
+                                            console.log("true", response);
+                                            if (response.data == "error") {
+                                                // console.log("Email");
+                                                this.$swal.fire({
+                                                    type: 'error',
+                                                    title: 'ไม่สามารถเพิ่มข้อมูล',
+                                                    text: 'ไม่สามารถเพิ่มข้อมูล',
+                                                })
+                                                setTimeout(() => { this.$router.push("/order"); }, 2000);
+
+                                            } else {
+                                                this.$swal.fire({
+                                                    type: 'success',
+                                                    title: 'สำเร็จ',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                })
+                                                setTimeout(() => { this.$router.go(); }, 2000);
+                                            }
+                                        })
+                                        .catch((error) => {
+                                            console.log("err", error);
+                                        });
+                                    setTimeout(() => { this.$router.go(); }, 2000);
+                                }
+
+                            }
+                        })
+                        .catch((error) => {
+                            console.log("err", error);
+                        });
+                } else {
+                    this.$swal.fire({
+                        type: 'error',
+                        title: 'ไม่สามารถเพิ่มข้อมูล',
+                        text: 'ไม่สามารถเพิ่มข้อมูล',
+                    })
+                }
+            } catch (error) {
+                // console.log("err");
+                this.error = error;
+
+            }
+
+        },
+        gotoContact() {
+            this.$router.push("/contact")
+        },
         async logout() {
             await this.$auth.logout();
             this.$router.push("/login");
@@ -268,14 +364,44 @@ export default {
             // console.log("this.dataValue", this.dataValue);
             localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
             this.$emit('update:modelValue', shoppingCart)
+        },
+        onFileChange(e) {
+            const file = e.target.files[0];
+            console.log('file', file);
+            if (file != null) {
+                this.url = URL.createObjectURL(file);
+                console.log(' this.url', this.url);
+
+            } else {
+                this.url = null
+            }
         }
     },
     async asyncData({
-        $productService
+        $productService,
+        $orderService,
+        $cookies
     }) {
+        var user = $cookies.get('user')
+        var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
+        const orders = await $orderService.order.getOrderByCode({ customer_code: user.member_code });
+        console.log('user.member_code', user.member_code);
+        for (var i = 0; i < orders.data.length; i++) {
+            const orders_list = await $orderService.order.getOrderListByOrderCode({ order_code: orders.data[i].order_code });
+            // orders.data[i].push(orders_list.data)
+            await order_data.push({
+                ...orders.data[i],
+                order_list: orders_list.data
+            }
+            )
+            // console.log('orders_list' + i, orders_list.data);
+        }
+
+        console.log(order_data);
         return {
             categorys: categorys.data ? categorys.data : [],
+            orders: order_data ? order_data : [],
         };
     },
 };
@@ -284,6 +410,17 @@ export default {
 <style scoped>
 div {
     font-family: 'Kanit', sans-serif;
+}
+
+#preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#preview img {
+    max-width: 100%;
+    max-height: 200px;
 }
 
 .title-product {
@@ -327,5 +464,10 @@ ul {
     color: #fff;
     background-color: #39b44f !important;
     box-sizing: border-box;
+}
+
+.dotted:before {
+    content: "• ";
+    color: green;
 }
 </style>

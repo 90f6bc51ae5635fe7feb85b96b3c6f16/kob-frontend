@@ -8,7 +8,7 @@ export default {
   serverMiddleware: ['~/api/controllers/auth.js'],
   // Target: https://go.nuxtjs.dev/config-target
   target: "ssr",
-  mode: "universal",
+
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -114,6 +114,7 @@ export default {
     '@nuxt/content',
     'nuxt-sweetalert2',
     '@nuxtjs/auth',
+    'cookie-universal-nuxt',
     // "@nuxt/content"
   ],
 

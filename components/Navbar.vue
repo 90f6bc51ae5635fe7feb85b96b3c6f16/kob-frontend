@@ -1,32 +1,40 @@
 <template>
-<div class="font-navbar">
-    <fixed-header>
-        <div class="fix-navbar">
-            <b-container fluid="lg" style="padding-left: 0; padding-right: 0; padding-top: 20px; padding-bottom: 20px">
-                <b-row style="margin: 0 0 0 0">
-                    <b-input-group>
-                        <b-img src="~/assets/Logo.png" alt="Image" class="rounded" style="margin-top: 2px; margin-right: 5em"></b-img>
-                        <template #append>
-                            <form :action="`/search/${keyword}`" style="margin-left: -1em;" method="post">
-                                <div style="float: left;">
-                                    <b-form-input style=" width: 445px; margin: 0 0 0 -2em; border-radius: 0;" type="text" placeholder="ค้นหา" v-model="keyword" pattern=".{1,}" required oninvalid="setCustomValidity(' ');" oninput="setCustomValidity('');"></b-form-input>
-                                    <!-- <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="keyword" ></b-form-input> -->
-                                </div>
-                                <div style="float: left;">
-                                    <b-dropdown text="ชื่อสินค้า" right variant="outline-secondary" disabled>
-                                        <input type="radio" id="radio" value="ราคา" v-model="checkedNames" style="margin: 0 0 0 1em;">
-                                        <label for="jack">ราคา</label>
+    <div class="font-navbar">
+        <fixed-header>
+            <div class="fix-navbar">
+                <b-container fluid="lg"
+                    style="padding-left: 0; padding-right: 0; padding-top: 20px; padding-bottom: 20px">
+                    <b-row style="margin: 0 0 0 0">
+                        <b-input-group>
+                            <b-img src="~/assets/Logo.png" alt="Image" class="rounded"
+                                style="margin-top: 2px; margin-right: 4em"></b-img>
+                            <template #append>
+                                <form :action="`/search/${keyword}`" style="margin-left: -1em;" method="post">
+                                    <div style="float: left;">
+                                        <b-form-input style=" width: 445px; margin: 0 0 0 -2em; border-radius: 0;"
+                                            type="text" placeholder="ค้นหา" v-model="keyword" pattern=".{1,}" required
+                                            oninvalid="setCustomValidity(' ');" oninput="setCustomValidity('');">
+                                        </b-form-input>
+                                        <!-- <b-form-input style=" width: 470px; margin: 0 0 0 -2em;" type="text" placeholder="ค้นหา" v-model="keyword" ></b-form-input> -->
+                                    </div>
+                                    <div style="float: left;">
+                                        <b-dropdown text="ชื่อสินค้า" right variant="outline-secondary" disabled>
+                                            <input type="radio" id="radio" value="ราคา" v-model="checkedNames"
+                                                style="margin: 0 0 0 1em;">
+                                            <label for="jack">ราคา</label>
 
-                                        <input type="radio" id="radio" value="ชื่อ" v-model="checkedNames" style="margin: 0 0 0 1em;">
-                                        <label for="john">ชื่อ</label>
-                                    </b-dropdown>
-                                </div>
-                                <b-button type="submit" style="background-color: #ffd000;border-color: #ffd000; border-radius: 0;">
-                                    <!-- <b-button type="submit" :disabled="keyword == ''" style="background-color: #ffd000;border-color: #ffd000;"> -->
-                                    <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
-                                </b-button>
-                            </form>
-                            <!-- <div class="login-user" style="margin-left: 8.5em;" v-if="loggedIn">
+                                            <input type="radio" id="radio" value="ชื่อ" v-model="checkedNames"
+                                                style="margin: 0 0 0 1em;">
+                                            <label for="john">ชื่อ</label>
+                                        </b-dropdown>
+                                    </div>
+                                    <b-button type="submit"
+                                        style="background-color: #ffd000;border-color: #ffd000; border-radius: 0;">
+                                        <!-- <b-button type="submit" :disabled="keyword == ''" style="background-color: #ffd000;border-color: #ffd000;"> -->
+                                        <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
+                                    </b-button>
+                                </form>
+                                <!-- <div class="login-user" style="margin-left: 8.5em;" v-if="loggedIn">
                                 <input type="submit" style="border-top-style: hidden;
                                                                 border-right-style: hidden;
                                                                 border-left-style: hidden;
@@ -35,131 +43,177 @@
                                     " value="Logout" @click="logout">
                                 </input>
                             </div> -->
-                            <div v-if="loggedIn" style="margin: 0 1em 0 6.9em;">
-                                <button type="button" class="btn btn-danger" @click="logout">
-                                    <strong>Log Out</strong>
-                                </button>
-                            </div>
-                            <div class="login-user" v-else>
-                                <b-link href="/login" style="color: #8d8d8d">ล็อคอิน</b-link>
-                                /
-                                <b-link href="/register" style="color: #8d8d8d">สมัครสมาชิค</b-link>
-                            </div>
-                            <div style="margin: -10px 0 -10px 0;">
-                                <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none" style="
+                                <div v-if="loggedIn" style="margin: 0 1em 0 6.9em;">
+                                    <button type="button" class="btn btn-danger" @click="logout">
+                                        <strong>Log Out</strong>
+                                    </button>
+                                </div>
+                                <div class="login-user" v-else>
+                                    <b-link href="/login" style="color: #8d8d8d">ล็อคอิน</b-link>
+                                    /
+                                    <b-link href="/register" style="color: #8d8d8d">สมัครสมาชิค</b-link>
+                                </div>
+                                <div style="margin: -10px 0 -10px 0;">
+                                    <b-dropdown size="lg" right variant="link" toggle-class="text-decoration-none"
+                                        style="
                                     margin: 9.59px 0 0 0;
                                     height: 38px;
                                     width: ;
                                     border: 1px solid #ccc;
                                     border-radius: 3px;
                                   " no-caret>
-                                    <template #button-content style="height: 20px; width: 20px">
-                                        <span v-if="dataValue" class="show_shop" aria-label="Close">{{count_shop}}</span>
-                                        <font-awesome-icon :icon="['fas', 'lock']" style="height: 15px; width: 15px; margin: -1px 0 9px 0" />
-                                    </template>
-                                    <div v-if="dataValue != 0">
-                                        <div style="max-height: 430px; overflow: auto">
-                                            <b-dropdown-text style="width: 400px;" v-for="(product,index) in dataValue" :key="'product'+index">
-                                                <div style="">
-                                                    <button class="close" aria-label="Close" @click="removeFromCart(product)"></button>
-                                                </div>
-                                                <div class="manu-shop" style="height: 100px">
-                                                    <div style="float: left">
-                                                        <div v-if="product.product_image" style="border: .5px solid grey;">
-                                                            <img style="width: 100px; height: 90px" :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                                        <template #button-content style="height: 20px; width: 20px">
+                                            <span v-if="dataValue" class="show_shop"
+                                                aria-label="Close">{{count_shop}}</span>
+                                            <font-awesome-icon :icon="['fas', 'lock']"
+                                                style="height: 15px; width: 15px; margin: -1px 0 9px 0" />
+                                        </template>
+                                        <div v-if="dataValue != 0">
+                                            <div style="max-height: 430px; overflow: auto">
+                                                <b-dropdown-text style="width: 400px;"
+                                                    v-for="(product,index) in dataValue" :key="'product'+index">
+                                                    <div style="">
+                                                        <button class="close" aria-label="Close"
+                                                            @click="removeFromCart(product)"></button>
+                                                    </div>
+                                                    <div class="manu-shop" style="height: 100px">
+                                                        <div style="float: left">
+                                                            <div v-if="product.product_image"
+                                                                style="border: .5px solid grey;">
+                                                                <img style="width: 100px; height: 90px"
+                                                                    :src="`http://54.254.134.236:6201/${product.product_image}`"
+                                                                    alt="" />
+                                                            </div>
+                                                            <div v-else style="border: .5px solid grey;">
+                                                                <svg class="" width="100px" height="90px" role="img"
+                                                                    aria-label="Placeholder: Kob Giftshop"
+                                                                    preserveAspectRatio="xMidYMid slice"
+                                                                    focusable="false">
+                                                                    <title></title>
+                                                                    <rect width="100%" height="100%" fill="#55595c">
+                                                                    </rect>
+                                                                    <text x="3%" y="50%" style="font-size: 12pt;"
+                                                                        fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                                                                </svg>
+                                                            </div>
                                                         </div>
-                                                        <div v-else style="border: .5px solid grey;">
-                                                            <svg class="" width="100px" height="90px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                                                <title></title>
-                                                                <rect width="100%" height="100%" fill="#55595c"></rect>
-                                                                <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                                                            </svg>
+                                                        <div
+                                                            style="text-align: left; padding-top: 1em; margin: 0 0 0 120px;">
+                                                            <div class="text-overflow">{{product.product_name}}</div>
+                                                            <div class="text-overflow">฿{{product.product_price}}<span>
+                                                                    X {{product.amount}}</span></div>
                                                         </div>
                                                     </div>
-                                                    <div style="text-align: left; padding-top: 1em; margin: 0 0 0 120px;">
-                                                        <div class="text-overflow">{{product.product_name}}</div>
-                                                        <div class="text-overflow">฿{{product.product_price}}<span> X {{product.amount}}</span></div>
+                                                </b-dropdown-text>
+                                            </div>
+                                            <b-dropdown-text style="width: 400px">
+                                                <div class="">
+                                                    <div style="float: left">ORDER TOTAL</div>
+                                                    <div style="text-align: right">฿{{Sum}}</div>
+                                                </div>
+                                            </b-dropdown-text>
+                                            <b-dropdown-text style="width: 400px">
+                                                <div class="">
+                                                    <div style="float: left; width: 45%">
+                                                        <a type="button" class="btn btn-primary" href="/order"
+                                                            style="width: 100%">การสั่งซื้อสินค้า</a>
+                                                    </div>
+                                                    <div style="float: right; width: 45%">
+                                                        <a type="button" class="btn btn-primary" href="/cart"
+                                                            style="width: 100%">ตะกร้าสินค้า</a>
+                                                    </div>
+                                                </div>
+                                                <div class="" style="padding-top:20px;">
+
+                                                    <div style="float: left; width: 100%;padding-top:20px;">
+                                                        <a type="button" class="btn btn-primary" href="/profile"
+                                                            style="width: 100%">MY ACCOUNT</a>
                                                     </div>
                                                 </div>
                                             </b-dropdown-text>
                                         </div>
-                                        <b-dropdown-text style="width: 400px">
-                                            <div class="">
-                                                <div style="float: left">ORDER TOTAL</div>
-                                                <div style="text-align: right">฿{{Sum}}</div>
-                                            </div>
-                                        </b-dropdown-text>
-                                        <b-dropdown-text style="width: 400px">
-                                            <div class="">
-                                                <div style="float: left; width: 45%">
-                                                    <a type="button" class="btn btn-primary" href="/order" style="width: 100%">VIEW CART</a>
+                                        <div v-if="dataValue == 0">
+                                            <b-dropdown-text style="width: 400px">
+                                                <div
+                                                    style="text-align: center; padding-top: 30px; padding-bottom: 30px;">
+                                                    กรุณาเลือกซื้อสินค้า
                                                 </div>
-                                                <div style="float: right; width: 45%">
-                                                    <a type="button" class="btn btn-primary" href="/cart" style="width: 100%">CHECKOUT</a>
+                                                <div class="" style="padding-top:20px;">
+
+                                                    <div style="float: left; width: 100%;padding-top:20px;">
+                                                        <a type="button" class="btn btn-primary" href="/profile"
+                                                            style="width: 100%">MY ACCOUNT</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </b-dropdown-text>
-                                    </div>
-                                    <div v-if="dataValue == 0">
-                                        <b-dropdown-text style="width: 400px">
-                                            <div style="text-align: center; padding-top: 30px; padding-bottom: 30px;">
-                                                กรุณาเลือกซื้อสินค้า
-                                            </div>
-                                        </b-dropdown-text>
-                                    </div>
-                                </b-dropdown>
-                            </div>
-                            <div style="float: right; z-index: 9999999 !important;">
-                                <div class="manu-sidebar">
-                                    <a href="https://www.facebook.com/kobgiftshop" target="_blank" class="" style="text-decoration: none !important;" id="tooltip-target-1">
-                                        <div class="manu-sidebar-a">
-                                            <img src="~/assets/Fbb.png" style="width: 50px; height: 50px;" alt="facebook">
+                                            </b-dropdown-text>
                                         </div>
-                                        <b-tooltip target="tooltip-target-1" triggers="hover" placement="left" variant="primary">
-                                            <h5>เฟสบุ๊ค</h5>
-                                        </b-tooltip>
-                                    </a>
-                                    <a href="tel:0994619241" class="" style="text-decoration: none !important;" id="tooltip-target-2">
-                                        <div class="manu-sidebar-a">
-                                            <img src="~/assets/tel.png" style="width: 45px; height: 45px; margin: 0 0 0 ;" alt="tel">
-                                        </div>
-                                        <b-tooltip target="tooltip-target-2" triggers="hover" placement="left" variant="success">
-                                            <h5>เบอร์โทรศัพท์</h5>
-                                        </b-tooltip>
-                                    </a>
-                                    <a href="https://www.google.com/maps/dir//%E0%B8%81%E0%B8%9A%E0%B8%81%E0%B8%B4%E0%B9%8A%E0%B8%9F%E0%B8%8A%E0%B9%87%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A1%E0%B8%94%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9A%E0%B8%B4%E0%B8%A7%E0%B8%95%E0%B8%B5%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B2%E0%B8%8B%E0%B9%88%E0%B8%B2+121+Jant+Rd+Tambon+Nai+Mueang,+Mueang+Nakhon+Ratchasima+District+Nakhon+Ratchasima+30000/@14.9782908,102.087612,14z/data=!4m5!4m4!1m0!1m2!1m1!1s0x31194ca4b81e8aad:0x3b5d3e95ddf93832" target="_blank" class="" style="text-decoration: none !important;" id="tooltip-target-3">
-                                        <div class="manu-sidebar-a">
-                                            <img src="~/assets/map.png" style="width: 50px; height: 50px;" alt="map">
-                                        </div>
-                                        <b-tooltip target="tooltip-target-3" triggers="hover" placement="left" variant="danger">
-                                            <h5>แผนที่ร้าน</h5>
-                                        </b-tooltip>
-                                    </a>
-                                    <a href="/contact" target="_blank" class="" style="text-decoration: none !important;" id="tooltip-target-4">
-                                        <div class="manu-sidebar-a">
-                                            <img src="~/assets/contact.png" style="width: 50px; height: 50px;" alt="contact">
-                                        </div>
-                                        <b-tooltip target="tooltip-target-4" triggers="hover" placement="left" variant="warning">
-                                            <h5>ติดต่อเรา</h5>
-                                        </b-tooltip>
-                                    </a>
+                                    </b-dropdown>
                                 </div>
-                            </div>
-                        </template>
-                    </b-input-group>
-                </b-row>
-            </b-container>
-            <b-navbar toggleable="lg" type="dark" variant="info" style="padding: 0px">
-                <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-                <b-container fluid="lg">
-                    <b-collapse id="nav-collapse" is-nav>
-                        <b-navbar-nav>
-                            <b-nav-item style="background-color: #ffd000; margin: auto 0 auto -15px">
-                                <a v-b-toggle href="#example-collapse" @click.prevent @click="scrollToTop()" style="color: #000; text-decoration: none">
-                                    <!-- <a v-b-toggle href="#example-collapse" @click="scrollToTop()" style="color: #000; text-decoration: none"> -->
-                                    <b-form inline style="margin: auto -0.9em auto 0.5em">
-                                        <div style="font-size: 13pt; color: #222222">รายการสินค้า</div>
-                                        <b-input-group-text style="
+                                <div style="float: right; z-index: 9999999 !important;">
+                                    <div class="manu-sidebar">
+                                        <a href="https://www.facebook.com/kobgiftshop" target="_blank" class=""
+                                            style="text-decoration: none !important;" id="tooltip-target-1">
+                                            <div class="manu-sidebar-a">
+                                                <img src="~/assets/Fbb.png" style="width: 50px; height: 50px;"
+                                                    alt="facebook">
+                                            </div>
+                                            <b-tooltip target="tooltip-target-1" triggers="hover" placement="left"
+                                                variant="primary">
+                                                <h5>เฟสบุ๊ค</h5>
+                                            </b-tooltip>
+                                        </a>
+                                        <a href="tel:0994619241" class="" style="text-decoration: none !important;"
+                                            id="tooltip-target-2">
+                                            <div class="manu-sidebar-a">
+                                                <img src="~/assets/tel.png"
+                                                    style="width: 45px; height: 45px; margin: 0 0 0 ;" alt="tel">
+                                            </div>
+                                            <b-tooltip target="tooltip-target-2" triggers="hover" placement="left"
+                                                variant="success">
+                                                <h5>เบอร์โทรศัพท์</h5>
+                                            </b-tooltip>
+                                        </a>
+                                        <a href="https://www.google.com/maps/dir//%E0%B8%81%E0%B8%9A%E0%B8%81%E0%B8%B4%E0%B9%8A%E0%B8%9F%E0%B8%8A%E0%B9%87%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A1%E0%B8%94%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9A%E0%B8%B4%E0%B8%A7%E0%B8%95%E0%B8%B5%E0%B9%89%E0%B8%9E%E0%B8%A5%E0%B8%B2%E0%B8%8B%E0%B9%88%E0%B8%B2+121+Jant+Rd+Tambon+Nai+Mueang,+Mueang+Nakhon+Ratchasima+District+Nakhon+Ratchasima+30000/@14.9782908,102.087612,14z/data=!4m5!4m4!1m0!1m2!1m1!1s0x31194ca4b81e8aad:0x3b5d3e95ddf93832"
+                                            target="_blank" class="" style="text-decoration: none !important;"
+                                            id="tooltip-target-3">
+                                            <div class="manu-sidebar-a">
+                                                <img src="~/assets/map.png" style="width: 50px; height: 50px;"
+                                                    alt="map">
+                                            </div>
+                                            <b-tooltip target="tooltip-target-3" triggers="hover" placement="left"
+                                                variant="danger">
+                                                <h5>แผนที่ร้าน</h5>
+                                            </b-tooltip>
+                                        </a>
+                                        <a href="/contact" target="_blank" class=""
+                                            style="text-decoration: none !important;" id="tooltip-target-4">
+                                            <div class="manu-sidebar-a">
+                                                <img src="~/assets/contact.png" style="width: 50px; height: 50px;"
+                                                    alt="contact">
+                                            </div>
+                                            <b-tooltip target="tooltip-target-4" triggers="hover" placement="left"
+                                                variant="warning">
+                                                <h5>ติดต่อเรา</h5>
+                                            </b-tooltip>
+                                        </a>
+                                    </div>
+                                </div>
+                            </template>
+                        </b-input-group>
+                    </b-row>
+                </b-container>
+                <b-navbar toggleable="lg" type="dark" variant="info" style="padding: 0px">
+                    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+                    <b-container fluid="lg">
+                        <b-collapse id="nav-collapse" is-nav>
+                            <b-navbar-nav>
+                                <b-nav-item style="background-color: #ffd000; margin: auto 0 auto -15px">
+                                    <a v-b-toggle href="#example-collapse" @click.prevent @click="scrollToTop()"
+                                        style="color: #000; text-decoration: none">
+                                        <!-- <a v-b-toggle href="#example-collapse" @click="scrollToTop()" style="color: #000; text-decoration: none"> -->
+                                        <b-form inline style="margin: auto -0.9em auto 0.5em">
+                                            <div style="font-size: 13pt; color: #222222">รายการสินค้า</div>
+                                            <b-input-group-text style="
                       background-color: transparent;
                       border-color: transparent;
                       padding-left: 8em;
@@ -167,36 +221,36 @@
                       margin-right: 0.8em;
                       margin-left: -1em;
                     " v-b-toggle.sidebar-1>
-                                            <font-awesome-icon :icon="['fas', 'bars']" style="color: #000" />
-                                        </b-input-group-text>
-                                    </b-form>
-                                </a>
-                            </b-nav-item>
-                            <a class="navbar-manu" style="" href="/">หน้าหลัก</a>
-                            <a class="navbar-manu" style="" href="/product">รายการสินค้า</a>
-                            <a class="navbar-manu" style="" href="/">เกี่ยวกับเรา</a>
-                            <a class="navbar-manu" style="" href="/howtoorder">วิธีการสั่งซื้อ</a>
-                            <a class="navbar-manu" style="" href="/contact">ติดต่อเรา</a>
-                        </b-navbar-nav>
-                        <!-- Right aligned nav items -->
-                        <b-navbar-nav class="ml-auto" style="margin: 0 -2em 0 0; color: #fff; font-size: 12pt">
-                            โทรศัพท์ :
-                            <span style="
+                                                <font-awesome-icon :icon="['fas', 'bars']" style="color: #000" />
+                                            </b-input-group-text>
+                                        </b-form>
+                                    </a>
+                                </b-nav-item>
+                                <a class="navbar-manu" style="" href="/">หน้าหลัก</a>
+                                <a class="navbar-manu" style="" href="/product">รายการสินค้า</a>
+                                <a class="navbar-manu" style="" href="/">เกี่ยวกับเรา</a>
+                                <a class="navbar-manu" style="" href="/howtoorder">วิธีการสั่งซื้อ</a>
+                                <a class="navbar-manu" style="" href="/contact">ติดต่อเรา</a>
+                            </b-navbar-nav>
+                            <!-- Right aligned nav items -->
+                            <b-navbar-nav class="ml-auto" style="margin: 0 -2em 0 0; color: #fff; font-size: 12pt">
+                                โทรศัพท์ :
+                                <span style="
                 background-color: #ffd000;
                 width: 110px;
                 color: #333333;
                 margin: 0 0 0 0.5em;
                 text-align: center;
               ">
-                                <div style="margin: 0 2.5px 0 2.5px; font-size: 12pt">099-461-9241</div>
-                            </span>
-                        </b-navbar-nav>
-                    </b-collapse>
-                </b-container>
-            </b-navbar>
-        </div>
-    </fixed-header>
-</div>
+                                    <div style="margin: 0 2.5px 0 2.5px; font-size: 12pt">099-461-9241</div>
+                                </span>
+                            </b-navbar-nav>
+                        </b-collapse>
+                    </b-container>
+                </b-navbar>
+            </div>
+        </fixed-header>
+    </div>
 </template>
 
 <script>

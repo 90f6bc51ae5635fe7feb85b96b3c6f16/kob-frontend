@@ -1,231 +1,234 @@
 <template>
-<div>
-    <div class="" style="margin: 0 -2em 0 -1em;">
-        <b-collapse id="example-collapse" style="
+    <div>
+        <div class="" style="margin: 0 -2em 0 -1em;">
+            <b-collapse id="example-collapse" style="
               width: 100%;
               margin: 0 0 0 0;
               max-height: 250px;
               overflow: auto;
 
             ">
-            <div v-for="category in categorys" :key="category.product_category_code">
-                <ul>
-                    <li>
-                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                            {{category.product_category_name}}
+                <div v-for="category in categorys" :key="category.product_category_code">
+                    <ul>
+                        <li>
+                            <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                                {{category.product_category_name}}
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </div>
+            </b-collapse>
+        </div>
+        <b-row style="margin: 0 -2em 0 -1em;">
+            <b-col class="title-product" style="font-size: 16pt;">ข้อมูลที่จัดส่ง</b-col>
+        </b-row>
+        <b-row style="padding-top: 30px; margin: 0 -2em 0 -1.9em;">
+            <b-col cols="3">
+                <ul class="my" style="">
+                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                        <nuxt-link :to="{ path: `/profile` }">
+                            <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
+                            My Details
+                        </nuxt-link>
+                    </li>
+                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                        <nuxt-link :to="{ path: `/address` }">
+                            <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
+                            My address book
+                        </nuxt-link>
+                    </li>
+                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                        <nuxt-link :to="{ path: `/order` }">
+                            <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
+                            My Order
                         </nuxt-link>
                     </li>
                 </ul>
+            </b-col>
+            <b-col cols="9" style="border: 0.2px solid #e5e5e5">
+                <b-row>
+                    <b-col class="title-product">ที่อยู่ของฉัน</b-col>
+                    <b-col class="title-product">
+                        <div style="text-align: right">
+                            <!-- <b-button v-b-modal.modal-1>Launch demo modal</b-button> -->
+                            <button v-b-modal.modal-1 class="btn-success btn" style="border-radius: 0px">
+                                <font-awesome-icon :icon="['fas', 'plus']" style="color: #fff" />
+                                เพิ่มที่อยู่
+                            </button>
+                        </div>
+                    </b-col>
+                </b-row>
+                <div style="padding: 10px" v-for="(address_,idx) in address" :key="'B'+idx">
+                    <b-row>
+                        <b-col cols="3">ชื่อ-นามสกุล</b-col>
+                        <b-col cols="5"> {{ address_.customer_name }}</b-col>
+                        <b-col cols="1"></b-col>
+                        <b-col cols="3"></b-col>
+                    </b-row>
+                    <b-row style="">
+                        <b-col cols="3">โทรศัพท์</b-col>
+                        <b-col cols="5">{{ address_.customer_tel }}</b-col>
+                        <b-col cols="1"></b-col>
+                        <b-col cols="3"></b-col>
+                    </b-row>
+                    <b-row style="">
+                        <b-col cols="3">ที่อยู่</b-col>
+                        <b-col cols="5">{{ address_.customer_address }} {{ address_.customer_zipcode }}</b-col>
+                        <b-col cols="1">
+                            <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px">
+                                แก้ไข
+                            </button>
+                        </b-col>
+                        <b-col cols="3">
+                            <button class="btn-secondary btn" style="border-radius: 0px">
+                                ตั้งเป็นค่าตั้งต้น
+                            </button>
+                        </b-col>
+                    </b-row>
+                </div>
+
+            </b-col>
+        </b-row>
+        <b-modal id="modal-1" title="ที่อยู่" @ok="handleSubmit">
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="customer_name" placeholder="ชื่อ-นามสกุล"></b-form-input>
             </div>
-        </b-collapse>
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="customer_tel" placeholder="โทรศัพท์"></b-form-input>
+            </div>
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="customer_address" placeholder="ที่อยู่"></b-form-input>
+            </div>
+            <!-- <div style="padding-bottom: 10px; padding-top: 10px">
+            <b-form-select v-model="selected" :options="options"></b-form-select>
+        </div> -->
+            <!-- <div style="padding-bottom: 10px">
+            <b-form-select v-model="selected" :options="options"></b-form-select>
+        </div> -->
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="customer_zipcode" placeholder="รหัสไปรษณีย์"></b-form-input>
+            </div>
+        </b-modal>
     </div>
-    <b-row style="margin: 0 -2em 0 -1em;">
-        <b-col class="title-product" style="font-size: 16pt;">ข้อมูลที่จัดส่ง</b-col>
-    </b-row>
-    <b-row style="padding-top: 30px; margin: 0 -2em 0 -1.9em;">
-        <b-col cols="3">
-            <ul class="my" style="">
-                <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                    <nuxt-link :to="{ path: `/profile` }">
-                        <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
-                        My Details
-                    </nuxt-link>
-                </li>
-                <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                    <nuxt-link :to="{ path: `/address` }">
-                        <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
-                        My address book
-                    </nuxt-link>
-                </li>
-                <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                    <nuxt-link :to="{ path: `/order` }">
-                        <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
-                        My Order
-                    </nuxt-link>
-                </li>
-            </ul>
-        </b-col>
-        <b-col cols="9" style="border: 0.2px solid #e5e5e5">
-            <b-row>
-                <b-col class="title-product">ที่อยู่ของฉัน</b-col>
-                <b-col class="title-product">
-                    <div style="text-align: right">
-                        <!-- <b-button v-b-modal.modal-1>Launch demo modal</b-button> -->
-                        <button v-b-modal.modal-1 class="btn-success btn" style="border-radius: 0px">
-                            <font-awesome-icon :icon="['fas', 'plus']" style="color: #fff" />
-                            เพิ่มที่อยู่
-                        </button>
-                    </div>
-                </b-col>
-            </b-row>
-            <div style="padding: 10px">
-                <b-row>
-                    <b-col cols="3">ชื่อ-นามสกุล</b-col>
-                    <b-col cols="5">วรายุทธ โชโตวงษ์</b-col>
-                    <b-col cols="1"></b-col>
-                    <b-col cols="3"></b-col>
-                </b-row>
-                <b-row style="">
-                    <b-col cols="3">โทรศัพท์</b-col>
-                    <b-col cols="5">(+66) 807272521</b-col>
-                    <b-col cols="1"></b-col>
-                    <b-col cols="3"></b-col>
-                </b-row>
-                <b-row style="">
-                    <b-col cols="3">ที่อยู่</b-col>
-                    <b-col cols="5">269/2 ถนนสุรนารายณ์ ซอยสุรนารายณ์3/11 อำเภอเมืองนครราชสีมา,
-                        จังหวัดนครราชสีมา, 30000</b-col>
-                    <b-col cols="1">
-                        <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px">
-                            แก้ไข
-                        </button>
-                    </b-col>
-                    <b-col cols="3">
-                        <button class="btn-secondary btn" style="border-radius: 0px">
-                            ตั้งเป็นค่าตั้งต้น
-                        </button>
-                    </b-col>
-                </b-row>
-            </div>
-
-            <div style="padding: 10px">
-                <b-row>
-                    <b-col cols="3">ชื่อ-นามสกุล</b-col>
-                    <b-col cols="5">วรายุทธ โชโตวงษ์</b-col>
-                    <b-col cols="1"></b-col>
-                    <b-col cols="3"></b-col>
-                </b-row>
-                <b-row style="">
-                    <b-col cols="3">โทรศัพท์</b-col>
-                    <b-col cols="5">(+66) 807272521</b-col>
-                    <b-col cols="1"></b-col>
-                    <b-col cols="3"></b-col>
-                </b-row>
-                <b-row style="">
-                    <b-col cols="3">ที่อยู่</b-col>
-                    <b-col cols="5">269/2 ถนนสุรนารายณ์ ซอยสุรนารายณ์3/11 อำเภอเมืองนครราชสีมา,
-                        จังหวัดนครราชสีมา, 30000</b-col>
-                    <b-col cols="1">
-                        <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px">
-                            แก้ไข
-                        </button>
-                    </b-col>
-                    <b-col cols="3">
-                        <button class="btn-secondary btn" style="border-radius: 0px">
-                            ตั้งเป็นค่าตั้งต้น
-                        </button>
-                    </b-col>
-                </b-row>
-            </div>
-
-            <div style="padding: 10px">
-                <b-row>
-                    <b-col cols="3">ชื่อ-นามสกุล</b-col>
-                    <b-col cols="5">วรายุทธ โชโตวงษ์</b-col>
-                    <b-col cols="1"></b-col>
-                    <b-col cols="3"></b-col>
-                </b-row>
-                <b-row style="">
-                    <b-col cols="3">โทรศัพท์</b-col>
-                    <b-col cols="5">(+66) 807272521</b-col>
-                    <b-col cols="1"></b-col>
-                    <b-col cols="3"></b-col>
-                </b-row>
-                <b-row style="">
-                    <b-col cols="3">ที่อยู่</b-col>
-                    <b-col cols="5">269/2 ถนนสุรนารายณ์ ซอยสุรนารายณ์3/11 อำเภอเมืองนครราชสีมา,
-                        จังหวัดนครราชสีมา, 30000</b-col>
-                    <b-col cols="1">
-                        <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px">
-                            แก้ไข
-                        </button>
-                    </b-col>
-                    <b-col cols="3">
-                        <button class="btn-secondary btn" style="border-radius: 0px">
-                            ตั้งเป็นค่าตั้งต้น
-                        </button>
-                    </b-col>
-                </b-row>
-            </div>
-        </b-col>
-    </b-row>
-    <b-modal id="modal-1" title="ที่อยู่">
-        <div style="padding-bottom: 10px">
-            <b-form-input placeholder="ชื่อ-นามสกุล"></b-form-input>
-        </div>
-        <div style="padding-bottom: 10px">
-            <b-form-input placeholder="โทรศัพท์"></b-form-input>
-        </div>
-        <div style="padding-bottom: 10px; padding-top: 10px">
-            <b-form-select v-model="selected" :options="options"></b-form-select>
-        </div>
-        <div style="padding-bottom: 10px">
-            <b-form-select v-model="selected" :options="options"></b-form-select>
-        </div>
-        <div style="padding-bottom: 10px">
-            <b-form-input placeholder="Post Code / ZIP"></b-form-input>
-        </div>
-        <div style="padding-bottom: 10px">
-            <b-form-input placeholder="รายะเอียดที่อยู่"></b-form-input>
-        </div>
-    </b-modal>
-</div>
 </template>
 
 <script>
 export default {
     data() {
         return {
+            customer_name: "",
+            customer_tel: "",
+            customer_address: "",
+            customer_zipcode: "",
+            user: "",
             form: {
-                email: "",
-                name: "",
-                food: null,
-                checked: [],
+
+                // checked: [],
             },
             foods: [{
-                    text: "Select One",
-                    value: null
-                },
+                text: "Select One",
+                value: null
+            },
                 "Carrots",
                 "Beans",
                 "Tomatoes",
                 "Corn",
             ],
             options: [{
-                    value: null,
-                    text: "Please select an option"
+                value: null,
+                text: "Please select an option"
+            },
+            {
+                value: "a",
+                text: "This is First option"
+            },
+            {
+                value: "b",
+                text: "Selected Option"
+            },
+            {
+                value: {
+                    C: "3PO"
                 },
-                {
-                    value: "a",
-                    text: "This is First option"
-                },
-                {
-                    value: "b",
-                    text: "Selected Option"
-                },
-                {
-                    value: {
-                        C: "3PO"
-                    },
-                    text: "This is an option with object value"
-                },
-                {
-                    value: "d",
-                    text: "This one is disabled",
-                    disabled: true
-                },
+                text: "This is an option with object value"
+            },
+            {
+                value: "d",
+                text: "This one is disabled",
+                disabled: true
+            },
             ],
             show: true,
         };
     },
     async asyncData({
-        $productService
+        $userService,
+        $productService,
+        $cookies,
     }) {
+        // console.log('this.user ', this.user)
+
         const categorys = await $productService.product.getProductCategoryBy();
+
+        const address = await $userService.user.getMemberAddress($cookies.get('user'));
+
+
         return {
+            address: address.data ? address.data : [],
             categorys: categorys.data ? categorys.data : [],
+
         };
     },
+    mounted() {
+        this.user = this.$cookies.get('user');
+        // console.log('  this.user ', this.user)
+        console.log('user', this.$cookies.get('user'))
+
+    },
+    methods: {
+        async handleSubmit() {
+            try {
+
+                await this.$axios.post('http://localhost:3001/api//member-insert-address/', {
+                    customer_code: this.user.member_code,
+                    customer_name: this.customer_name,
+                    customer_tel: this.customer_tel,
+                    customer_address: this.customer_address,
+                    customer_zipcode: this.customer_zipcode,
+
+                })
+                    .then((response) => {
+                        console.log("true", response);
+                        if (response.data == "error") {
+                            // console.log("Email");
+                            this.$swal.fire({
+                                type: 'error',
+                                title: 'ไม่สามารถเพิ่มข้อมูล',
+                                text: 'ไม่สามารถเพิ่มข้อมูล',
+                            })
+                            setTimeout(() => { this.$router.push("/address"); }, 2000);
+
+                        } else {
+                            this.$swal.fire({
+                                type: 'success',
+                                title: 'เพิ่มที่อยู่สำเร็จ',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(() => { this.$router.push("/address"); }, 2000);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("err", error);
+                    });
+            } catch (error) {
+                // console.log("err");
+                this.error = error;
+
+            }
+        }
+
+    }
     // middleware: 'auth',
     // async asyncData({ $axios }) {
     //   $axios.setHeader('Authorization', null)
@@ -245,7 +248,7 @@ div {
     font-family: 'Kanit', sans-serif;
 }
 
-.my{
+.my {
     list-style-type: none;
     margin: 0;
     padding: 0;

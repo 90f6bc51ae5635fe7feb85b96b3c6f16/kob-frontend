@@ -204,8 +204,7 @@ export default {
                 };
                 // console.log("data", payload);
                 try {
-                    // console.log("true");
-                    // await this.$auth.loginWith("local", payload);
+
                     await this.$axios.post('http://localhost:3001/api/member-insert/', {
                             // console.log("checkphones", checkphones);
                             // this.$axios.post(checkphones , {

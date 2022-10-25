@@ -1,18 +1,23 @@
 import productService from '~/services/product-service'
 import userService from '~/services/user-service'
+import orderService from '~/services/order-service'
 
 const services = [
   productService,
   userService,
+  orderService
 ]
 //this retrive from publicRuntimeConfig
 const getBaseURL = (ctx, service) => {
-  let url 
+  let url
   switch (service.name) {
     case 'productService':
       url = ctx.BASE_ENDPOINT || service.url
       break
     case 'userService':
+      url = ctx.BASE_ENDPOINT || service.url
+      break
+    case 'orderService':
       url = ctx.BASE_ENDPOINT || service.url
       break
     default:
