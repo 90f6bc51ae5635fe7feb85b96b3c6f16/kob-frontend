@@ -64,14 +64,14 @@
                                   " no-caret>
                                         <template #button-content style="height: 20px; width: 20px">
                                             <span v-if="dataValue" class="show_shop"
-                                                aria-label="Close">{{count_shop}}</span>
+                                                aria-label="Close">{{ count_shop }}</span>
                                             <font-awesome-icon :icon="['fas', 'lock']"
                                                 style="height: 15px; width: 15px; margin: -1px 0 9px 0" />
                                         </template>
                                         <div v-if="dataValue != 0">
                                             <div style="max-height: 430px; overflow: auto">
                                                 <b-dropdown-text style="width: 400px;"
-                                                    v-for="(product,index) in dataValue" :key="'product'+index">
+                                                    v-for="(product, index) in dataValue" :key="'product' + index">
                                                     <div style="">
                                                         <button class="close" aria-label="Close"
                                                             @click="removeFromCart(product)"></button>
@@ -99,9 +99,9 @@
                                                         </div>
                                                         <div
                                                             style="text-align: left; padding-top: 1em; margin: 0 0 0 120px;">
-                                                            <div class="text-overflow">{{product.product_name}}</div>
-                                                            <div class="text-overflow">฿{{product.product_price}}<span>
-                                                                    X {{product.amount}}</span></div>
+                                                            <div class="text-overflow">{{ product.product_name }}</div>
+                                                            <div class="text-overflow">฿{{ product.product_price }}<span>
+                                                                    X {{ product.amount }}</span></div>
                                                         </div>
                                                     </div>
                                                 </b-dropdown-text>
@@ -109,7 +109,7 @@
                                             <b-dropdown-text style="width: 400px">
                                                 <div class="">
                                                     <div style="float: left">ORDER TOTAL</div>
-                                                    <div style="text-align: right">฿{{Sum}}</div>
+                                                    <div style="text-align: right">฿{{ Sum }}</div>
                                                 </div>
                                             </b-dropdown-text>
                                             <b-dropdown-text style="width: 400px">
@@ -137,6 +137,14 @@
                                                 <div
                                                     style="text-align: center; padding-top: 30px; padding-bottom: 30px;">
                                                     กรุณาเลือกซื้อสินค้า
+                                                </div>
+                                                <div style="float: left; width: 45%">
+                                                    <a type="button" class="btn btn-primary" href="/order"
+                                                        style="width: 100%">การสั่งซื้อสินค้า</a>
+                                                </div>
+                                                <div style="float: right; width: 45%">
+                                                    <a type="button" class="btn btn-primary" href="/cart"
+                                                        style="width: 100%">ตะกร้าสินค้า</a>
                                                 </div>
                                                 <div class="" style="padding-top:20px;">
 

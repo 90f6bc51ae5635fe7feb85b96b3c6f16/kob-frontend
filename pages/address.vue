@@ -189,7 +189,7 @@ export default {
         async handleSubmit() {
             try {
 
-                await this.$axios.post('http://localhost:3001/api//member-insert-address/', {
+                await this.$axios.post('http://127.0.0.1:3001/api//member-insert-address/', {
                     customer_code: this.user.member_code,
                     customer_name: this.customer_name,
                     customer_tel: this.customer_tel,

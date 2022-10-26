@@ -26,7 +26,7 @@
             :key="'order' + index">
             <b-col cols="12" style="border: 0.2px solid #e5e5e5">
                 <b-row>
-                    <b-col class="title-product">{{ order.order_code }} {{ order.order_date }}</b-col>
+                    <b-col class="title-product">{{ order.order_code }} {{ new Date(order.order_date) }}</b-col>
                     <b-col class="title-product">
                         <div style="text-align: right">
                             <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"><span
@@ -97,13 +97,13 @@
                                 ยืนยันคำสั่งซื้อ
                             </button> -->
                             <button class="btn-success btn" style="border-radius: 0px"
-                                v-if="order.status == request_check_confirm || order.status == request_check_slip"
+                                v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'"
                                 v-b-modal.modal-1 @click="setOrderCode(order.order_code, order)">
                                 แนบเอกสารการโอน
                             </button>
                             <button class="btn-danger btn" style="border-radius: 0px"
-                                v-if="order.status == request_check_confirm || order.status == request_check_slip"
-                                @click="handleSubmit('cancel')">
+                                v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip' || order.order_status == 'request_check_price'"
+                                @click="setOrderCode(order.order_code, order), handleSubmit('cancel')">
                                 ยกเลิกออร์เดอร์
                             </button>
                             <!-- <button class="btn-success btn" style="border-radius: 0px">
@@ -117,7 +117,7 @@
                 </b-row>
             </b-col>
         </b-row>
-        <b-modal id="modal-1" title="แจ้งหลักฐานการโอน" @ok="handleSubmit('request_check_slip')">
+        <b-modal id="modal-1" title="แจ้งหลักฐานการโอน" @ok="handleSubmit('request_check_slip')" centered>
             <div id="preview">
                 <img v-if="url" :src="url" />
             </div>
@@ -131,7 +131,7 @@
             </div>
         </b-modal>
 
-        <b-modal id="modal-2" title="ประวัติทำรายการ">
+        <b-modal id="modal-2" title="ประวัติทำรายการ" centered>
             <div style="
             text-align: left;
             display: flex;
@@ -141,19 +141,29 @@
             background-color: #f5fffa;
           ">
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_code">
-                    {{ new Date(order_selected.adddate) }} <br>สร้างคำสั่งซื้อ {{ order_selected.order_code }}
+                    {{ new Date(order_selected.adddate) }} <br><span style="color:green;">สร้างคำสั่งซื้อ {{
+                            order_selected.order_code
+                    }}</span>
+                </div>
+                <div class="dotted" style="color: #212529; font-size: 12pt;"
+                    v-if="order_selected.order_status == 'cancel'">
+                    {{ new Date(order_selected.lastupdate) }} <br><span style="color:green;">ยกเลิกคำสั่งซื้อ</span>
                 </div>
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_predict_price">
-                    {{ new Date(order_selected.order_predict_price_date) }} <br>ประเมินราคาเสร็จสิ้น {{
-                            order_selected.order_predict_price
-                    }} บาท
+                    {{ new Date(order_selected.order_predict_price_date) }} <br><span
+                        style="color:green;">ประเมินราคาเสร็จสิ้น {{
+                                order_selected.order_predict_price
+                        }} บาท</span>
                 </div>
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_slip">
-                    {{ new Date(order_selected.order_slip_lastupdate) }} <br>แนบหลักฐานชำระเงิน
+                    {{ new Date(order_selected.order_slip_lastupdate) }} <br><span
+                        style="color:green;">แนบหลักฐานชำระเงิน</span>
                 </div>
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_track_number">
-                    {{ order_selected.order_track_date }} <br>จัดส่งสินค้าแล้ว {{ new Date(order_selected.order_shipping) }}
-                    {{ order_selected.order_track_number }}
+                    {{ new Date(order_selected.order_track_date) }} <br><span style="color:green;">จัดส่งสินค้าแล้ว {{
+                            order_selected.order_shipping
+                    }}
+                        {{ order_selected.order_track_number }}</span>
                 </div>
             </div>
 
@@ -245,7 +255,7 @@ export default {
     methods: {
         setOrderCode(value, order) {
             this.order_code = value;
-            this.url = 'http://localhost:3001/slip/' + order.order_slip
+            this.url = 'http://127.0.0.1:3001/slip/' + order.order_slip
             this.order_slip_date = order.order_slip_date
             this.order_slip_time = order.order_slip_time
             this.order_selected = order
@@ -253,21 +263,16 @@ export default {
         async handleSubmit(status) {
             this.order_status = status;
             try {
-                if (this.file != null && this.file != '' && this.order_slip_date != '' && this.order_slip_time != '' && this.order_code != '') {
+                if (status == 'cancel') {
+                    await this.$axios.post('http://127.0.0.1:3001/api/order-status-update', {
+                        order_status: this.order_status,
+                        order_slip_date: this.order_slip_date,
+                        order_slip_time: this.order_slip_time,
+                        order_slip: this.order_slip,
+                        order_code: this.order_code,
 
-                    var formData = new FormData()
-                    formData.append('photo', this.file)
-                    formData.append('order_status', this.order_status)
-                    formData.append('order_slip_date', this.order_slip_date)
-                    formData.append('order_slip_time', this.order_slip_time)
-                    formData.append('order_code', this.order_code)
-
-                    await this.$axios.post('http://localhost:3001/api/upload-slip', formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
                     })
-                        .then(async (response) => {
+                        .then((response) => {
                             console.log("true", response);
                             if (response.data == "error") {
                                 // console.log("Email");
@@ -276,60 +281,102 @@ export default {
                                     title: 'ไม่สามารถเพิ่มข้อมูล',
                                     text: 'ไม่สามารถเพิ่มข้อมูล',
                                 })
-                                // setTimeout(() => { this.$router.push("/order"); }, 2000);
+                                setTimeout(() => { this.$router.push("/order"); }, 2000);
 
                             } else {
-
-                                this.order_slip = response.data.filename
-                                if (this.order_slip != '') {
-
-                                    await this.$axios.post('http://localhost:3001/api/order-status-update', {
-                                        order_status: this.order_status,
-                                        order_slip_date: this.order_slip_date,
-                                        order_slip_time: this.order_slip_time,
-                                        order_slip: this.order_slip,
-                                        order_code: this.order_code,
-
-                                    })
-                                        .then((response) => {
-                                            console.log("true", response);
-                                            if (response.data == "error") {
-                                                // console.log("Email");
-                                                this.$swal.fire({
-                                                    type: 'error',
-                                                    title: 'ไม่สามารถเพิ่มข้อมูล',
-                                                    text: 'ไม่สามารถเพิ่มข้อมูล',
-                                                })
-                                                setTimeout(() => { this.$router.push("/order"); }, 2000);
-
-                                            } else {
-                                                this.$swal.fire({
-                                                    type: 'success',
-                                                    title: 'สำเร็จ',
-                                                    showConfirmButton: false,
-                                                    timer: 1500
-                                                })
-                                                setTimeout(() => { this.$router.go(); }, 2000);
-                                            }
-                                        })
-                                        .catch((error) => {
-                                            console.log("err", error);
-                                        });
-                                    setTimeout(() => { this.$router.go(); }, 2000);
-                                }
-
+                                this.$swal.fire({
+                                    type: 'success',
+                                    title: 'สำเร็จ',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(() => { this.$router.go(); }, 2000);
                             }
                         })
                         .catch((error) => {
                             console.log("err", error);
                         });
+                    setTimeout(() => { this.$router.go(); }, 2000);
                 } else {
-                    this.$swal.fire({
-                        type: 'error',
-                        title: 'ไม่สามารถเพิ่มข้อมูล',
-                        text: 'ไม่สามารถเพิ่มข้อมูล',
-                    })
+                    if (this.file != null && this.file != '' && this.order_slip_date != '' && this.order_slip_time != '' && this.order_code != '') {
+
+                        var formData = new FormData()
+                        formData.append('photo', this.file)
+                        formData.append('order_status', this.order_status)
+                        formData.append('order_slip_date', this.order_slip_date)
+                        formData.append('order_slip_time', this.order_slip_time)
+                        formData.append('order_code', this.order_code)
+
+                        await this.$axios.post('http://127.0.0.1:3001/api/upload-slip', formData, {
+                            headers: {
+                                "Content-Type": "multipart/form-data",
+                            },
+                        })
+                            .then(async (response) => {
+                                console.log("true", response);
+                                if (response.data == "error") {
+                                    // console.log("Email");
+                                    this.$swal.fire({
+                                        type: 'error',
+                                        title: 'ไม่สามารถเพิ่มข้อมูล',
+                                        text: 'ไม่สามารถเพิ่มข้อมูล',
+                                    })
+                                    // setTimeout(() => { this.$router.push("/order"); }, 2000);
+
+                                } else {
+
+                                    this.order_slip = response.data.filename
+                                    if (this.order_slip != '') {
+
+                                        await this.$axios.post('http://127.0.0.1:3001/api/order-status-update', {
+                                            order_status: this.order_status,
+                                            order_slip_date: this.order_slip_date,
+                                            order_slip_time: this.order_slip_time,
+                                            order_slip: this.order_slip,
+                                            order_code: this.order_code,
+
+                                        })
+                                            .then((response) => {
+                                                console.log("true", response);
+                                                if (response.data == "error") {
+                                                    // console.log("Email");
+                                                    this.$swal.fire({
+                                                        type: 'error',
+                                                        title: 'ไม่สามารถเพิ่มข้อมูล',
+                                                        text: 'ไม่สามารถเพิ่มข้อมูล',
+                                                    })
+                                                    setTimeout(() => { this.$router.push("/order"); }, 2000);
+
+                                                } else {
+                                                    this.$swal.fire({
+                                                        type: 'success',
+                                                        title: 'สำเร็จ',
+                                                        showConfirmButton: false,
+                                                        timer: 1500
+                                                    })
+                                                    setTimeout(() => { this.$router.go(); }, 2000);
+                                                }
+                                            })
+                                            .catch((error) => {
+                                                console.log("err", error);
+                                            });
+                                        setTimeout(() => { this.$router.go(); }, 2000);
+                                    }
+
+                                }
+                            })
+                            .catch((error) => {
+                                console.log("err", error);
+                            });
+                    } else {
+                        this.$swal.fire({
+                            type: 'error',
+                            title: 'ไม่สามารถเพิ่มข้อมูล',
+                            text: 'ไม่สามารถเพิ่มข้อมูล',
+                        })
+                    }
                 }
+
             } catch (error) {
                 // console.log("err");
                 this.error = error;

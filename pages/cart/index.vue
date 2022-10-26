@@ -262,7 +262,7 @@ export default {
                 var now_time = (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()).toString()
                 console.log('now_date', now_date);
 
-                await this.$axios.post('http://localhost:3001/api/order-insert/', {
+                await this.$axios.post('http://127.0.0.1:3001/api/order-insert/', {
                     customer_code: this.user.member_code,
                     sale_station_code: '',
                     user_code: '',
@@ -294,6 +294,7 @@ export default {
                             setTimeout(() => { this.$router.push("/cart"); }, 2000);
 
                         } else {
+                            localStorage.removeItem("shoppingCart");
                             this.$swal.fire({
                                 type: 'success',
                                 title: 'สั่งซื้อสำเร็จ',

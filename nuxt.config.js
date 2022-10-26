@@ -119,7 +119,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://localhost:3000/api',
+    baseURL: 'http://127.0.0.1:3000/api',
     headers: {
       common: {
         'Accept': 'application/json',
@@ -220,7 +220,7 @@ export default {
 
   server: {
     port: 3000, // default: 3000
-    host: 'localhost', // default: localhost,
+    host: '127.0.0.1', // default: 127.0.0.1,
     timing: false,
   },
 
