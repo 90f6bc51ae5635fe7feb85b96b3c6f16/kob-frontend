@@ -601,7 +601,7 @@ export default {
 
 .carousel-wrapper {
     padding-top: 20px;
-    padding-bottom: ;
+    padding-bottom: 0;
 }
 
 .img-wrapper img {

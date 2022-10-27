@@ -12,7 +12,7 @@
                     <ul>
                         <li>
                             <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                                {{category.product_category_name}}
+                                {{ category.product_category_name }}
                             </nuxt-link>
                         </li>
                     </ul>
@@ -43,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(product,index) in dataValue" :key="'product'+index">
+                <tr v-for="(product, index) in dataValue" :key="'product' + index">
                     <td>
                         <div v-if="product.product_image" style="">
                             <img style="width: 100px; height: 90px"
@@ -123,12 +123,12 @@
                                 <b-form-group v-slot="{ ariaDescribedby }" label="เลือกที่อยู่จัดสั่ง">
                                     <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby"
                                         style="padding-top : 10px;" name="some-radios"
-                                        :value="address_.customer_address_id" v-for="(address_,idx) in address"
-                                        @change="selectAddress(address_)" :key="'B'+idx">
+                                        :value="address_.customer_address_id" v-for="(address_, idx) in address"
+                                        @change="selectAddress(address_)" :key="'B' + idx">
                                         {{ address_.customer_name }}
                                         <br>
                                         {{ address_.customer_address }} {{ address_.customer_zipcode }} <br>
-                                        {{address_.customer_tel }}
+                                        {{ address_.customer_tel }}
                                     </b-form-radio>
                                 </b-form-group>
 
@@ -148,12 +148,12 @@
                         </tr>
                         <tr style="">
                             <td width="50%">SUB TOTAL</td>
-                            <td>฿{{Sum}}</td>
+                            <td>฿{{ Sum }}</td>
                         </tr>
 
                         <tr>
                             <td>TOTAL</td>
-                            <td>฿{{Sum}}</td>
+                            <td>฿{{ Sum }}</td>
                         </tr>
                     </table>
                     <b-button variant="success" size="lg" class="mb-2"
@@ -232,6 +232,14 @@ export default {
             this.Sum += element.product_price * element.amount;
             this.count_shop += element.amount;
         });
+        this.address.map((address) => {
+            if (address.customer_default_address == 1) {
+                this.selected = address.customer_address_id
+                this.selected_address = address
+            }
+        })
+    },
+    computed: {
 
     },
     watch: {
@@ -250,11 +258,21 @@ export default {
             },
         },
     },
+    computed: {
+
+    },
     methods: {
+        setDefaultAddress(value) {
+            if (value.customer_default_address == 1) {
+                this.selected_address = value;
+                this.selected = value.customer_address_id;
+            }
+        },
         selectAddress(value) {
-            console.log('selected address', value);
+
             this.selected_address = value;
         },
+
         async _submitData() {
             try {
                 var today = new Date()
@@ -262,7 +280,7 @@ export default {
                 var now_time = (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()).toString()
                 console.log('now_date', now_date);
 
-                await this.$axios.post('http://127.0.0.1:3001/api/order-insert/', {
+                await this.$axios.post('http://54.254.134.236:6901/api/order-insert/', {
                     customer_code: this.user.member_code,
                     sale_station_code: '',
                     user_code: '',

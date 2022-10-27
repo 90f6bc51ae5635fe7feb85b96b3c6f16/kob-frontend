@@ -12,7 +12,7 @@
                     <ul>
                         <li>
                             <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                                {{category.product_category_name}}
+                                {{ category.product_category_name }}
                             </nuxt-link>
                         </li>
                     </ul>
@@ -58,7 +58,7 @@
                         </div>
                     </b-col>
                 </b-row>
-                <div style="padding: 10px" v-for="(address_,idx) in address" :key="'B'+idx">
+                <div style="padding: 10px" v-for="(address_, idx) in address" :key="'B' + idx">
                     <b-row>
                         <b-col cols="3">ชื่อ-นามสกุล</b-col>
                         <b-col cols="5"> {{ address_.customer_name }}</b-col>
@@ -75,12 +75,18 @@
                         <b-col cols="3">ที่อยู่</b-col>
                         <b-col cols="5">{{ address_.customer_address }} {{ address_.customer_zipcode }}</b-col>
                         <b-col cols="1">
-                            <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px">
+                            <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px"
+                                v-b-modal.modal-2 @click="setAddress(address_)">
                                 แก้ไข
                             </button>
                         </b-col>
                         <b-col cols="3">
-                            <button class="btn-secondary btn" style="border-radius: 0px">
+                            <button class="btn-success btn" style="border-radius: 0px"
+                                @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address == 1">
+                                ตั้งเป็นค่าตั้งต้น
+                            </button>
+                            <button class="btn-secondary btn" style="border-radius: 0px"
+                                @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address != 1">
                                 ตั้งเป็นค่าตั้งต้น
                             </button>
                         </b-col>
@@ -89,7 +95,7 @@
 
             </b-col>
         </b-row>
-        <b-modal id="modal-1" title="ที่อยู่" @ok="handleSubmit">
+        <b-modal id="modal-1" title="เพิ่มที่อยู่" @ok="handleSubmit" centered>
             <div style="padding-bottom: 10px">
                 <b-form-input v-model="customer_name" placeholder="ชื่อ-นามสกุล"></b-form-input>
             </div>
@@ -109,6 +115,21 @@
                 <b-form-input v-model="customer_zipcode" placeholder="รหัสไปรษณีย์"></b-form-input>
             </div>
         </b-modal>
+
+        <b-modal id="modal-2" title="แก้ไขที่อยู่" @ok="updateAddress" centered>
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="customer_name" placeholder="ชื่อ-นามสกุล"></b-form-input>
+            </div>
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="customer_tel" placeholder="โทรศัพท์"></b-form-input>
+            </div>
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="customer_address" placeholder="ที่อยู่"></b-form-input>
+            </div>
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="customer_zipcode" placeholder="รหัสไปรษณีย์"></b-form-input>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -120,6 +141,7 @@ export default {
             customer_tel: "",
             customer_address: "",
             customer_zipcode: "",
+            customer_address_id: "",
             user: "",
             form: {
 
@@ -186,10 +208,99 @@ export default {
 
     },
     methods: {
+        setAddress(address) {
+
+            this.customer_name = address.customer_name
+            this.customer_tel = address.customer_tel
+            this.customer_address = address.customer_address
+            this.customer_zipcode = address.customer_zipcode
+            this.customer_address_id = address.customer_address_id
+        },
+
+        async updateDefaultAddress(customer_address_id) {
+            try {
+
+                await this.$axios.post('http://54.254.134.236:6901/api//member-update-default-address/', {
+                    customer_code: this.user.member_code,
+                    customer_address_id: customer_address_id,
+
+                })
+                    .then((response) => {
+                        console.log("true", response);
+                        if (response.data == "error") {
+                            // console.log("Email");
+                            this.$swal.fire({
+                                type: 'error',
+                                title: 'ไม่สามารถแก้ไขข้อมูล',
+                                text: 'ไม่สามารถแก้ไขข้อมูล',
+                            })
+                            setTimeout(() => { this.$router.go(); }, 2000);
+
+                        } else {
+                            this.$swal.fire({
+                                type: 'success',
+                                title: 'แก้ไขสำเร็จ',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(() => { this.$router.go(); }, 2000);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("err", error);
+                    });
+            } catch (error) {
+                // console.log("err");
+                this.error = error;
+
+            }
+        },
+        async updateAddress() {
+            try {
+
+                await this.$axios.post('http://54.254.134.236:6901/api//member-update-address/', {
+                    customer_code: this.user.member_code,
+                    customer_name: this.customer_name,
+                    customer_tel: this.customer_tel,
+                    customer_address: this.customer_address,
+                    customer_zipcode: this.customer_zipcode,
+                    customer_address_id: this.customer_address_id,
+
+                })
+                    .then((response) => {
+                        console.log("true", response);
+                        if (response.data == "error") {
+                            // console.log("Email");
+                            this.$swal.fire({
+                                type: 'error',
+                                title: 'ไม่สามารถแก้ไขข้อมูล',
+                                text: 'ไม่สามารถแก้ไขข้อมูล',
+                            })
+                            setTimeout(() => { this.$router.go(); }, 2000);
+
+                        } else {
+                            this.$swal.fire({
+                                type: 'success',
+                                title: 'แก้ไขสำเร็จ',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(() => { this.$router.go(); }, 2000);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("err", error);
+                    });
+            } catch (error) {
+                // console.log("err");
+                this.error = error;
+
+            }
+        },
         async handleSubmit() {
             try {
 
-                await this.$axios.post('http://127.0.0.1:3001/api//member-insert-address/', {
+                await this.$axios.post('http://54.254.134.236:6901/api//member-insert-address/', {
                     customer_code: this.user.member_code,
                     customer_name: this.customer_name,
                     customer_tel: this.customer_tel,

@@ -143,7 +143,9 @@
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_code">
                     {{ new Date(order_selected.adddate) }} <br><span style="color:green;">สร้างคำสั่งซื้อ {{
                             order_selected.order_code
-                    }}</span>
+                    }} <br>ที่อยู่ : {{ order_selected.order_name }} {{ order_selected.order_address }}
+
+                    </span>
                 </div>
                 <div class="dotted" style="color: #212529; font-size: 12pt;"
                     v-if="order_selected.order_status == 'cancel'">
@@ -255,7 +257,7 @@ export default {
     methods: {
         setOrderCode(value, order) {
             this.order_code = value;
-            this.url = 'http://127.0.0.1:3001/slip/' + order.order_slip
+            this.url = 'http://54.254.134.236:6901/slip/' + order.order_slip
             this.order_slip_date = order.order_slip_date
             this.order_slip_time = order.order_slip_time
             this.order_selected = order
@@ -264,7 +266,7 @@ export default {
             this.order_status = status;
             try {
                 if (status == 'cancel') {
-                    await this.$axios.post('http://127.0.0.1:3001/api/order-status-update', {
+                    await this.$axios.post('http://54.254.134.236:6901/api/order-status-update', {
                         order_status: this.order_status,
                         order_slip_date: this.order_slip_date,
                         order_slip_time: this.order_slip_time,
@@ -307,7 +309,7 @@ export default {
                         formData.append('order_slip_time', this.order_slip_time)
                         formData.append('order_code', this.order_code)
 
-                        await this.$axios.post('http://127.0.0.1:3001/api/upload-slip', formData, {
+                        await this.$axios.post('http://54.254.134.236:6901/api/upload-slip', formData, {
                             headers: {
                                 "Content-Type": "multipart/form-data",
                             },
@@ -328,7 +330,7 @@ export default {
                                     this.order_slip = response.data.filename
                                     if (this.order_slip != '') {
 
-                                        await this.$axios.post('http://127.0.0.1:3001/api/order-status-update', {
+                                        await this.$axios.post('http://54.254.134.236:6901/api/order-status-update', {
                                             order_status: this.order_status,
                                             order_slip_date: this.order_slip_date,
                                             order_slip_time: this.order_slip_time,
