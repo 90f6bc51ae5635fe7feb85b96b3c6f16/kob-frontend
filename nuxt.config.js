@@ -186,6 +186,8 @@ export default {
   },
 
   fontawesome: {
+    component: "font-awesome-icon",
+    addCss: false,
     icons: {
       solid: true,
       brands: true,
