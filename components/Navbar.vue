@@ -127,7 +127,7 @@
 
                                                     <div style="float: left; width: 100%;padding-top:20px;">
                                                         <a type="button" class="btn btn-primary" href="/profile"
-                                                            style="width: 100%">MY ACCOUNT</a>
+                                                            style="width: 100%">ข้อมูลสมาชิก</a>
                                                     </div>
                                                 </div>
                                             </b-dropdown-text>

@@ -30,12 +30,43 @@
                     <b-col class="title-product">
                         <div style="text-align: right">
                             <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"><span
-                                    style="color: green">{{ status[order.order_status] }} </span></a>
-                            <font-awesome-icon :icon="['fas', 'question']" style="color: #000" />
+                                    style="color: #39b44f">{{ status[order.order_status] }} </span></a>
+                            <!-- <font-awesome-icon :icon="['fas', 'question']" style="color: #000" /> -->
                             |
-                            <span style="color: green" v-if="order.order_shipping">{{ order.order_shipping }}
-                                {{ order.order_track_number }}</span>
-                            <span style="color: green" v-else></span>
+                            <span style="color: #39b44f" v-if="order.order_shipping || order.order_track_number">
+                                <a v-if="order.order_shipping == 'thailand-post'"
+                                    :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
+                                    target="_blank">
+                                    {{
+                                            order.order_shipping
+                                    }}
+                                    {{ order.order_track_number }}
+                                </a>
+                                <a v-if="order.order_shipping == 'flash'"
+                                    :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
+                                    target="_blank">
+                                    {{
+                                            order.order_shipping
+                                    }}
+                                    {{ order.order_track_number }}
+                                </a>
+                                <a v-if="order.order_shipping == 'kerry'"
+                                    :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
+                                    target="_blank">
+                                    {{
+                                            order.order_shipping
+                                    }}
+                                    {{ order.order_track_number }}
+                                </a>
+
+                                <a v-else>
+                                    {{
+                                            order.order_shipping
+                                    }}
+                                    {{ order.order_track_number }}
+                                </a>
+                            </span>
+                            <span style="color: #39b44f" v-else></span>
                         </div>
                     </b-col>
                 </b-row>
@@ -85,25 +116,45 @@
                             <span style="color: #000">ยอดคำสั่งซื้อรวมค่าขนส่ง : </span>
                             <span style="color: #000; font-size: 1.8em">฿{{ order.order_predict_price }}</span>
                         </div>
+
+                        <div style="text-align: right" v-if="order.order_box_qty">
+                            <span style="color: #000">จำนวนลัง : {{ order.order_box_qty }}</span>
+                        </div>
+                        <div style="text-align: right" v-if="order.order_vat">
+                            <span style="color: green;">ขอใบกำกับภาษี</span>
+                            <span style="color: green;">{{ order_invoice_address }}</span>
+
+                        </div>
                     </b-col>
 
                 </b-row>
                 <b-row>
-                    <b-col class="title-product"></b-col>
                     <b-col class="title-product">
+                        <div v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'">
+                            <b-img src="~/assets/qr_pp.png" alt="Image" class="rounded" width="80" height="80"
+                                style="margin-top: 2;float: left;"></b-img>
+                            &nbsp; ธนาคารกสิกรไทย <br>
+                            &nbsp; 417-417-9525 <br>
+                            &nbsp; วรายุทธ โชโตวงษ์
+                        </div>
+                    </b-col>
+                    <b-col class="title-product">
+
                         <div style="text-align: right">
                             <!-- <button class="btn-success btn" style="border-radius: 0px"
                                 v-if="order.status == request_check_confirm">
                                 ยืนยันคำสั่งซื้อ
                             </button> -->
+
+
                             <button class="btn-success btn" style="border-radius: 0px"
                                 v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'"
                                 v-b-modal.modal-1 @click="setOrderCode(order.order_code, order)">
                                 แนบเอกสารการโอน
                             </button>
                             <button class="btn-danger btn" style="border-radius: 0px"
-                                v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip' || order.order_status == 'request_check_price'"
-                                @click="setOrderCode(order.order_code, order), handleSubmit('cancel')">
+                                v-if="order.order_status != 'success' && order.order_status != 'customer_request_cancel' && order.order_status != 'cancel'"
+                                @click="setOrderCode(order.order_code, order), showCancelOrder()">
                                 ยกเลิกออร์เดอร์
                             </button>
                             <!-- <button class="btn-success btn" style="border-radius: 0px">
@@ -118,7 +169,7 @@
             </b-col>
         </b-row>
         <b-modal id="modal-1" title="แจ้งหลักฐานการโอน" @ok="handleSubmit('request_check_slip')" centered>
-            <div id="preview">
+            <div id="preview" v-if="url != 'http://127.0.0.1:6901/slip/'">
                 <img v-if="url" :src="url" />
             </div>
             <b-form-file v-model="file" ref="file-input" class="mb-2" @change="onFileChange" required
@@ -131,7 +182,7 @@
             </div>
         </b-modal>
 
-        <b-modal id="modal-2" title="ประวัติทำรายการ" centered>
+        <b-modal id="modal-2" title="ประวัติทำรายการ" centered scrollable style="z-index:9999999 !important;">
             <div style="
             text-align: left;
             display: flex;
@@ -160,6 +211,9 @@
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_slip">
                     {{ new Date(order_selected.order_slip_lastupdate) }} <br><span
                         style="color:green;">แนบหลักฐานชำระเงิน</span>
+                    <div id="preview">
+                        <img v-if="url" :src="url" />
+                    </div>
                 </div>
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_track_number">
                     {{ new Date(order_selected.order_track_date) }} <br><span style="color:green;">จัดส่งสินค้าแล้ว {{
@@ -167,8 +221,26 @@
                     }}
                         {{ order_selected.order_track_number }}</span>
                 </div>
+                <div class="dotted" style="color: #212529; font-size: 12pt;"
+                    v-if="order_selected.order_payment_return_slip">
+                    {{ new Date(order_selected.lastupdate) }} <br><span style="color:green;">โอนคืนลูกค้า
+                    </span>
+                    <div id="preview">
+                        <img v-if="url_payment" :src="url_payment" />
+                    </div>
+                </div>
             </div>
 
+        </b-modal>
+        <b-modal id="modal-cancel" title="แจ้งยกเลิกรายการ" centered no-close-on-esc no-close-on-backdrop
+            hide-header-close hide-footer>
+
+            <div style="padding-bottom: 10px">
+                <b-form-input v-model="order_customer_cancel_user_remark" placeholder="หมายเหตุ" required>
+                </b-form-input>
+            </div>
+            <b-button class="mt-3 btn-danger" block @click="confirmCancelOrder()">ยกเลิกรายการ</b-button>
+            <b-button class="mt-3 " block @click="this.$bvModal.hide('modal-cancel')">ปิด</b-button>
         </b-modal>
     </div>
 
@@ -196,6 +268,8 @@ export default {
                 request_check_track: 'รอระบุเลขขนส่ง',
                 cancel: 'ยกเลิกออเดอร์',
                 success: 'จัดส่งสำเร็จ',
+                customer_request_cancel: 'ลูกค้าขอยกเลิกออเดอร์',
+                payment_failed: 'ชำระเงินไม่สำเร็จ',
             },
             dataValue: [],
             Sum: 0,
@@ -223,6 +297,7 @@ export default {
             selected: null,
             order_slip_date: '',
             order_slip_time: '',
+            order_customer_cancel_user_remark: '',
             url: '',
             order_code: '',
             file: null,
@@ -255,9 +330,30 @@ export default {
         },
     },
     methods: {
+        confirmCancelOrder() {
+            this.$swal.fire({
+                title: 'คุณแน่ใจไหม ?',
+                text: "คุณจะไม่สามารถย้อนกลับได้ !",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ตกลง',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.value == true) {
+                    this.$bvModal.hide('modal-cancel')
+                    this.handleSubmit('customer_request_cancel')
+                }
+            })
+        },
+        showCancelOrder() {
+            this.$bvModal.show('modal-cancel')
+        },
         setOrderCode(value, order) {
             this.order_code = value;
-            this.url = 'http://54.254.134.236:6901/slip/' + order.order_slip
+            this.url = 'http://127.0.0.1:6901/slip/' + order.order_slip
+            this.url_payment = "http://54.254.134.236:6201/" + order.order_payment_return_slip
             this.order_slip_date = order.order_slip_date
             this.order_slip_time = order.order_slip_time
             this.order_selected = order
@@ -265,13 +361,11 @@ export default {
         async handleSubmit(status) {
             this.order_status = status;
             try {
-                if (status == 'cancel') {
-                    await this.$axios.post('http://54.254.134.236:6901/api/order-status-update', {
+                if (status == 'customer_request_cancel') {
+                    await this.$axios.post('http://127.0.0.1:6901/api/order-status-update', {
                         order_status: this.order_status,
-                        order_slip_date: this.order_slip_date,
-                        order_slip_time: this.order_slip_time,
-                        order_slip: this.order_slip,
                         order_code: this.order_code,
+                        order_customer_cancel_user_remark: this.order_customer_cancel_user_remark,
 
                     })
                         .then((response) => {
@@ -309,7 +403,7 @@ export default {
                         formData.append('order_slip_time', this.order_slip_time)
                         formData.append('order_code', this.order_code)
 
-                        await this.$axios.post('http://54.254.134.236:6901/api/upload-slip', formData, {
+                        await this.$axios.post('http://127.0.0.1:6901/api/upload-slip', formData, {
                             headers: {
                                 "Content-Type": "multipart/form-data",
                             },
@@ -330,7 +424,7 @@ export default {
                                     this.order_slip = response.data.filename
                                     if (this.order_slip != '') {
 
-                                        await this.$axios.post('http://54.254.134.236:6901/api/order-status-update', {
+                                        await this.$axios.post('http://127.0.0.1:6901/api/order-slip-update', {
                                             order_status: this.order_status,
                                             order_slip_date: this.order_slip_date,
                                             order_slip_time: this.order_slip_time,
@@ -457,6 +551,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+    color: #39b44f;
+}
+
 div {
     font-family: 'Kanit', sans-serif;
 }
@@ -518,5 +616,9 @@ ul {
 .dotted:before {
     content: "• ";
     color: green;
+}
+
+#modal-2___BV_modal_outer_ {
+    z-index: 999999999 !important;
 }
 </style>

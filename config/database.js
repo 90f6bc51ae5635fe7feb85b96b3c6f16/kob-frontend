@@ -6,9 +6,9 @@ export default {
   //     'database': 'giftshop_base'
   // }
   'connection': {
-      'host': 'rvscsdevelop-db.cfbckbnxiox7.ap-southeast-1.rds.amazonaws.com',
-      'user': 'admin',
-      'password': 'ezVrr6ia56frWz9dCUSR',
+      'host': '141.98.19.44',
+      'user': 'rvscs01',
+      'password': 'Qwerty1@#$',
       'database': 'giftshop_base',
       'charset': 'utf8mb4',
   }

@@ -118,6 +118,17 @@
                     <h5>CART TOTALS</h5>
                     <table class="table table-bordered" style="border: 1px solid #ccc !important;">
                         <tr>
+                            <td></td>
+                            <td>
+                                <b-form-checkbox id="checkbox-1" v-model="order_vat" name="checkbox-1" value="1"
+                                    unchecked-value="0">
+                                    ขอใบกำกับภาษี(กรุณาติดต่อทางร้าน)
+                                </b-form-checkbox>
+                                <b-form-textarea  v-model="order_invoice_address" placeholder="ข้อมูลใบกำกับภาษี" rows="5"
+                                max-rows="5"></b-form-textarea>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>ที่อยู่จัดส่ง</td>
                             <td>
                                 <b-form-group v-slot="{ ariaDescribedby }" label="เลือกที่อยู่จัดสั่ง">
@@ -164,6 +175,23 @@
                 </div>
             </b-col>
         </b-row>
+
+        <b-modal id="modal-1" title="สั่งซื้อเรียบร้อย" centered hide-footer @hidden="gotoOrderPage()" no-close-on-esc
+            no-close-on-backdrop hide-header-close>
+            <div id="preview">
+                <img src="~/assets/qr1.png" />
+            </div>
+            <div id="preview">
+                <img src="~/assets/qr2.png" />
+            </div>
+            <div style="padding-bottom: 10px;text-align: center;">
+                <div><b>แจ้งหรือสอบถามข้อมูลการสั่งซื้อได้ที่</b></div>
+                <div><b>ไอดีไลน์ : </b><span>@kob0994619241</span> หรือ
+                    @modnganbeauty</div>
+                <div><b>เบอร์โทรศัพท์ : </b><span>099-461-9241</span></div>
+            </div>
+            <b-button class="mt-3 btn-success" block @click="gotoOrderPage()">ไปที่คำสั่งซื้อ</b-button>
+        </b-modal>
         <!-- <b-table striped hover :items="items" :fields="fields" :bordered="true">
       <template v-slot:cell(name)="row" style="width: 30%">
         <span> {{ row.item.name }}</span>
@@ -217,7 +245,7 @@ export default {
                 thClass: "red",
             },
             ],
-
+            order_vat: 0,
             selected: null,
             user: "",
             customer_code: '',
@@ -238,6 +266,8 @@ export default {
                 this.selected_address = address
             }
         })
+        // this.$bvModal.show('modal-1')
+
     },
     computed: {
 
@@ -262,6 +292,11 @@ export default {
 
     },
     methods: {
+        gotoOrderPage() {
+            this.$bvModal.hide('modal-1')
+            this.$router.push("/order");
+
+        },
         setDefaultAddress(value) {
             if (value.customer_default_address == 1) {
                 this.selected_address = value;
@@ -280,7 +315,7 @@ export default {
                 var now_time = (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()).toString()
                 console.log('now_date', now_date);
 
-                await this.$axios.post('http://54.254.134.236:6901/api/order-insert/', {
+                await this.$axios.post('http://127.0.0.1:6901/api/order-insert/', {
                     customer_code: this.user.member_code,
                     sale_station_code: '',
                     user_code: '',
@@ -298,7 +333,8 @@ export default {
                     adddate: '',
                     updateby: '',
                     lastupdate: '',
-                    order_list: this.dataValue
+                    order_list: this.dataValue,
+                    order_vat: this.order_vat
                 })
                     .then((response) => {
                         console.log("true", response);
@@ -315,11 +351,12 @@ export default {
                             localStorage.removeItem("shoppingCart");
                             this.$swal.fire({
                                 type: 'success',
-                                title: 'สั่งซื้อสำเร็จ',
+                                title: 'สร้างออเดอร์แล้ว',
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-                            setTimeout(() => { this.$router.push("/order"); }, 2000);
+                            console.log('response.data', response.data)
+                            this.$bvModal.show('modal-1')
                         }
                     })
                     .catch((error) => {
@@ -443,6 +480,17 @@ export default {
 </script>
 
 <style scoped>
+#preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#preview img {
+    max-width: 100%;
+    max-height: 200px;
+}
+
 div {
     font-family: 'Kanit', sans-serif;
 }
