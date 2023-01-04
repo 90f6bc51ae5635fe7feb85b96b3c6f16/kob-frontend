@@ -53,6 +53,8 @@ export default {
   css: [
     "slick-carousel/slick/slick.css",
     "slick-carousel/slick/slick-theme.css",
+    "@fortawesome/fontawesome-svg-core/styles.css",
+
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
