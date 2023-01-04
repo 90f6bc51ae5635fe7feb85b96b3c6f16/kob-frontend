@@ -121,7 +121,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://127.0.0.1:3000/api',
+    baseURL: 'http://km-korat.com:3000/api',
     headers: {
       common: {
         'Accept': 'application/json',
