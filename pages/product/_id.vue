@@ -257,7 +257,7 @@
                 <div v-for="product in products" :key="product.product_code">
                     <b-col class="card-product">
                         <div v-if="product.product_image">
-                            <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
+                            <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
                         </div>
                         <div v-else>
                             <svg class="" width="100%" height="230px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -305,7 +305,7 @@
                                 <b-col class="card-product">
                                     <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
                                         <div v-if="datadb.product_image">
-                                            <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" class="rounded-0"></b-card-img>
+                                            <b-card-img :src="`http://141.98.19.44:6201/${datadb.product_image}`" alt="Image" class="rounded-0"></b-card-img>
                                         </div>
                                         <div v-else>
                                             <svg class="" width="100%" height="230" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -342,7 +342,7 @@
                                 <b-col class="card-product">
                                     <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
                                         <div v-if="datadb.product_image">
-                                            <b-card-img :src="`http://54.254.134.236:6201/${datadb.product_image}`" alt="Image" class="rounded-0"></b-card-img>
+                                            <b-card-img :src="`http://141.98.19.44:6201/${datadb.product_image}`" alt="Image" class="rounded-0"></b-card-img>
                                         </div>
                                         <div v-else>
                                             <svg class="" width="100%" height="230" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -423,8 +423,8 @@ export default {
             });
             mothers.data.forEach((e_img1, i) => {
                 let objToAdd1 = {
-                    'big': `http://54.254.134.236:6201/${e_img1.product_image}`,
-                    'thumb': `http://54.254.134.236:6201/${e_img1.product_image}`
+                    'big': `http://141.98.19.44:6201/${e_img1.product_image}`,
+                    'thumb': `http://141.98.19.44:6201/${e_img1.product_image}`
                 }
                 obj = {
                     ...obj,
@@ -434,8 +434,8 @@ export default {
             });
             productImages.data.forEach((e_img2, i) => {
                 let objToAdd1 = {
-                    'big': `http://54.254.134.236:6201/${e_img2.product_image_name}`,
-                    'thumb': `http://54.254.134.236:6201/${e_img2.product_image_name}`
+                    'big': `http://141.98.19.44:6201/${e_img2.product_image_name}`,
+                    'thumb': `http://141.98.19.44:6201/${e_img2.product_image_name}`
                 }
                 obj = {
                     ...obj,
@@ -483,8 +483,8 @@ export default {
             }
             mothers.data.forEach((e_img1, i) => {
                 let objToAdd1 = {
-                    'big': `http://54.254.134.236:6201/${e_img1.product_image}`,
-                    'thumb': `http://54.254.134.236:6201/${e_img1.product_image}`
+                    'big': `http://141.98.19.44:6201/${e_img1.product_image}`,
+                    'thumb': `http://141.98.19.44:6201/${e_img1.product_image}`
                 }
                 obj = {
                     ...obj,
@@ -494,8 +494,8 @@ export default {
             });
             productImages.data.forEach((e_img2, i) => {
                 let objToAdd1 = {
-                    'big': `http://54.254.134.236:6201/${e_img2.product_image_name}`,
-                    'thumb': `http://54.254.134.236:6201/${e_img2.product_image_name}`
+                    'big': `http://141.98.19.44:6201/${e_img2.product_image_name}`,
+                    'thumb': `http://141.98.19.44:6201/${e_img2.product_image_name}`
                 }
                 obj = {
                     ...obj,

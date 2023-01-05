@@ -79,7 +79,7 @@
     <b-row class="row-product">
         <b-col class="card-product" v-for="product in products.slice(0, 5)" :key="product.product_code">
             <div v-if="product.product_image">
-                <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
+                <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
             </div>
             <div v-else>
                 <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">

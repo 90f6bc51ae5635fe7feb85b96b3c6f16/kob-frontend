@@ -81,7 +81,7 @@
                                                             <div v-if="product.product_image"
                                                                 style="border: .5px solid grey;">
                                                                 <img style="width: 100px; height: 90px"
-                                                                    :src="`http://54.254.134.236:6201/${product.product_image}`"
+                                                                    :src="`http://141.98.19.44:6201/${product.product_image}`"
                                                                     alt="" />
                                                             </div>
                                                             <div v-else style="border: .5px solid grey;">

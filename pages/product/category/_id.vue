@@ -195,7 +195,7 @@
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
             <b-col class="card-product" cols="3" v-for="(product,idx) in category_products" :key="'E'+idx">
                 <div v-if="product.product_image">
-                    <b-card-img :src="`http://54.254.134.236:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
+                    <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
                 </div>
                 <div v-else>
                     <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">

@@ -76,7 +76,7 @@
                         <b-col cols="1">
                             <div v-if="product.product_image" style="">
                                 <img style="width: 100px; height: 90px"
-                                    :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                                    :src="`http://141.98.19.44:6201/${product.product_image}`" alt="" />
                             </div>
                             <div v-else style="">
                                 <svg class="" width="100px" height="90px" role="img"
@@ -353,7 +353,7 @@ export default {
         setOrderCode(value, order) {
             this.order_code = value;
             this.url = 'http://141.98.19.44:6901/slip/' + order.order_slip
-            this.url_payment = "http://54.254.134.236:6201/" + order.order_payment_return_slip
+            this.url_payment = "http://141.98.19.44:6201/" + order.order_payment_return_slip
             this.order_slip_date = order.order_slip_date
             this.order_slip_time = order.order_slip_time
             this.order_selected = order

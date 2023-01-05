@@ -47,7 +47,7 @@
                     <td>
                         <div v-if="product.product_image" style="">
                             <img style="width: 100px; height: 90px"
-                                :src="`http://54.254.134.236:6201/${product.product_image}`" alt="" />
+                                :src="`http://141.98.19.44:6201/${product.product_image}`" alt="" />
                             <span style="margin: 0 0 0 1em;">{{ product.product_name }}</span>
                         </div>
                         <div v-else style="">
