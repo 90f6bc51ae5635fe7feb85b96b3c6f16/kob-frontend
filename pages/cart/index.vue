@@ -315,7 +315,7 @@ export default {
                 var now_time = (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()).toString()
                 console.log('now_date', now_date);
 
-                await this.$axios.post('http://127.0.0.1:6901/api/order-insert/', {
+                await this.$axios.post('http://141.98.19.44:6901/api/order-insert/', {
                     customer_code: this.user.member_code,
                     sale_station_code: '',
                     user_code: '',

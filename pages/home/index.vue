@@ -510,8 +510,8 @@ export default {
     async asyncData({
         $axios
     }) {
-        const codes = await $axios.$get('http://127.0.0.1:6901/api/product');
-        const categorys = await $axios.$get('http://127.0.0.1:6901/api/category');
+        const codes = await $axios.$get('http://141.98.19.44:6901/api/product');
+        const categorys = await $axios.$get('http://141.98.19.44:6901/api/category');
     //     // console.log("codes", codes);
         return {
             codes,

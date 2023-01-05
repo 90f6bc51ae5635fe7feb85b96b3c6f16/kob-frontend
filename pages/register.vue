@@ -205,7 +205,7 @@ export default {
                 // console.log("data", payload);
                 try {
 
-                    await this.$axios.post('http://127.0.0.1:6901/api/member-insert/', {
+                    await this.$axios.post('http://141.98.19.44:6901/api/member-insert/', {
                             // console.log("checkphones", checkphones);
                             // this.$axios.post(checkphones , {
                             // member_code: "12312",
