@@ -110,13 +110,14 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    'cookie-universal-nuxt',
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
     "@nuxtjs/axios",
     '@nuxt/content',
     'nuxt-sweetalert2',
     '@nuxtjs/auth',
-    'cookie-universal-nuxt',
+
     // "@nuxt/content"
   ],
 

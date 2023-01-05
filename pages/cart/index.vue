@@ -143,18 +143,6 @@
                                     </b-form-radio>
                                 </b-form-group>
 
-                                <!-- <a> Calculate Shipping</a> -->
-
-
-
-                                <!-- <div style="padding-bottom: 10px">
-                                    <b-button variant="" class="mb-2 update-totals-button" style="border-radius: 2px;
-                                                                          border: 1px solid #f2f2f2;
-                                                                          background-color: #f2f2f2;
-                                                                          color: #a6a6a6;">
-                                        UPDATE TOTALS
-                                    </b-button>
-                                </div> -->
                             </td>
                         </tr>
                         <tr style="">
@@ -170,7 +158,6 @@
                     <b-button variant="success" size="lg" class="mb-2"
                         style="border-radius: 3px; width: 100%;margin: 1em 0 0 0.55em;" @click="_submitData">
                         สั่งซื้อสินค้า
-                        <!-- <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #fff" /> -->
                     </b-button>
                 </div>
             </b-col>
@@ -192,24 +179,6 @@
             </div>
             <b-button class="mt-3 btn-success" block @click="gotoOrderPage()">ไปที่คำสั่งซื้อ</b-button>
         </b-modal>
-        <!-- <b-table striped hover :items="items" :fields="fields" :bordered="true">
-      <template v-slot:cell(name)="row" style="width: 30%">
-        <span> {{ row.item.name }}</span>
-      </template>
-      <template v-slot:cell(price)="row">
-        {{ row.item.price }}
-      </template>
-      <template v-slot:cell(qty)="row">
-        <b-form-input
-          v-model="row.item.qty"
-          style="width: 10%"
-          :type="numbers"
-        />
-      </template>
-      <template v-slot:cell(manage)="row">
-        {{ row.item.manage }}
-      </template>
-    </b-table> -->
     </div>
 </template>
 
@@ -407,25 +376,7 @@ export default {
             localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
             this.$emit('update:modelValue', shoppingCart)
         },
-        // delFromCart(product) {
-        //     var result = confirm("ต้องการลบหรือไม่ ?");
-        //     if (result == true) {
-        //         const shoppingCart = this.dataValue;
-        //         const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
-        //         shoppingCart.splice(productIndex, 1);
-        //         this.dataValue = shoppingCart;
-        //         this.Sum = 0;
-        //         this.dataValue.forEach(element => {
-        //             this.Sum += element.product_price * element.amount;
-        //         });
-        //         // console.log("this.dataValue", this.dataValue);
-        //         localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-        //         this.$emit('update:modelValue', shoppingCart)
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // }
+
         delFromCart(product) {
             this.$swal.fire({
                 title: 'คุณแน่ใจไหม ?',
