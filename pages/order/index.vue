@@ -526,6 +526,7 @@ export default {
         $cookies
     }) {
         var user = $cookies.get('user')
+        console.log('user==========',user);
         var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
         const orders = await $orderService.order.getOrderByCode({ customer_code: user.member_code });
