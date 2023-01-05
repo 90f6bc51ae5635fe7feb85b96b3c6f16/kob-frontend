@@ -12,7 +12,7 @@
                     <ul>
                         <li>
                             <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                                {{category.product_category_name}}
+                                {{ category.product_category_name }}
                             </nuxt-link>
                         </li>
                     </ul>
@@ -105,8 +105,12 @@ export default {
             }
             try {
                 await this.$auth.loginWith('local', payload)
-                    .then( (response) => {
-                        this.$cookies.set('user', response.data[0],);
+                    .then((response) => {
+                        this.$cookies.set('user', response.data[0], {
+                            path: '/',
+                            maxAge: 60 * 60 * 24 * 7,
+                            domain : 'http://km-korat.com/'
+                        });
                         this.$router.push("/");
                     })
                     .catch((error) => {
