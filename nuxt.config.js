@@ -34,7 +34,7 @@ export default {
       {
         hid: 'Cache-Control',
         name: 'Cache-Control',
-        content: 'private',
+        content: 'public',
       },
       { hid: 'og:url', name: 'og:url', content: process.env.APP_URL },
       { hid: 'og:type', name: 'og:type', content: 'website' },
