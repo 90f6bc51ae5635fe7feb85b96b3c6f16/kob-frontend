@@ -308,6 +308,8 @@ export default {
         };
     },
     mounted() {
+        this.$cookies.get('user')
+        alert(this.$cookies.get('user'))
         this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
         this.dataValue.forEach(element => {
             this.Sum += element.product_price * element.amount;
