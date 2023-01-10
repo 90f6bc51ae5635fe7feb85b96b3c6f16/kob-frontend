@@ -109,7 +109,8 @@ export default {
                         this.$cookies.set('user', response.data[0], {
                             path: '/',
                             maxAge: 60 * 60 * 24 * 7,
-                            domain : '.km-korat.com/'
+                            domain : '.km-korat.com/',
+                            secure: true
                         });
                         this.$router.push("/");
                     })
