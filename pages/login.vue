@@ -109,7 +109,7 @@ export default {
 
                         await this.$cookies.set('user', response.data[0], {
 
-                            domain: ".km-korat.com",
+                            domain: "km-korat.com",
                             maxAge: 60 * 60 * 24 * 7,
                             secure: true
                         }, this.$router.push("/"));
