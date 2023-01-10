@@ -106,7 +106,7 @@ export default {
             try {
                 await this.$auth.loginWith('local', payload)
                     .then(async (response) => {
-                        cookies.set('userssssssss', response.data[0])
+
                         await this.$cookies.set('user', response.data[0], {
                             path: '/',
                             domain: ".km-korat.com",
