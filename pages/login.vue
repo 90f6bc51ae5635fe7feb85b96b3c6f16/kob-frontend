@@ -108,6 +108,7 @@ export default {
                     .then(async (response) => {
 
                         await this.$cookies.set('user', response.data[0], {
+                            path: '/',
                             domain: ".km-korat.com",
                             maxAge: 60 * 60 * 24 * 7,
                             secure: true
