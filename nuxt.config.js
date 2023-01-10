@@ -123,7 +123,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'https://141.98.19.44:6901/api',
+    baseURL: 'https://rvscs-develop.com/km-korat/api',
     headers: {
       common: {
         'Accept': 'application/json',
