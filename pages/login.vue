@@ -106,7 +106,7 @@ export default {
             try {
                 await this.$auth.loginWith('local', payload)
                     .then(async (response) => {
-                        await localStorage.setItem('user', response.data[0])
+                        localStorage.setItem('user', JSON.stringify(response.data[0]))
                         this.$cookies.set('user', response.data[0], {
 
                             maxAge: 60 * 60 * 24 * 7,
