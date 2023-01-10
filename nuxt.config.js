@@ -43,7 +43,7 @@ export default {
     ],
 
     // <meta http-equiv="Content-Security-Policy" content="default-src https://cdn.example.net; child-src 'none'; object-src 'none'">
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '~/assets/Logo.jpg' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: 'assets/Logo.jpg' }],
     script: [
       {
       },
@@ -203,7 +203,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    cache: false,
+    
     analyze: true,
     extend(config, ctx) { },
     babel: {
