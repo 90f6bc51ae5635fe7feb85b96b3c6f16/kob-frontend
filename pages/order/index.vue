@@ -302,7 +302,6 @@ export default {
             order_code: '',
             file: null,
             order_selected: '',
-            user : '',
         };
     },
     mounted() {
@@ -311,7 +310,6 @@ export default {
             this.Sum += element.product_price * element.amount;
             this.count_shop += element.amount;
         });
-        this.user = JSON.parse(localStorage.getItem('user') || "[]")
         // console.log("modelValue", this.modelValue);
     },
     watch: {
@@ -525,14 +523,13 @@ export default {
     async asyncData({
         $productService,
         $orderService,
-        $cookies,
-        localStorage
-        
+        $cookies
     }) {
-
+        var user = $cookies.get('user')
+        console.log('user', user);
         var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
-        const orders = await $orderService.order.getOrderByCode({ customer_code: this.user.member_code });
+        const orders = await $orderService.order.getOrderByCode({ customer_code: user.member_code });
 
         for (var i = 0; i < orders.data.length; i++) {
             const orders_list = await $orderService.order.getOrderListByOrderCode({ order_code: orders.data[i].order_code });
