@@ -205,7 +205,7 @@ export default {
                 // console.log("data", payload);
                 try {
 
-                    await this.$axios.post('https://rvscs-develop.com/km-korat/api/member-insert/', {
+                    await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/member-insert/', {
                             // console.log("checkphones", checkphones);
                             // this.$axios.post(checkphones , {
                             // member_code: "12312",

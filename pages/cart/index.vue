@@ -284,7 +284,7 @@ export default {
                 var now_time = (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()).toString()
                 console.log('now_date', now_date);
 
-                await this.$axios.post('https://rvscs-develop.com/km-korat/api/order-insert/', {
+                await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/order-insert/', {
                     customer_code: this.user.member_code,
                     sale_station_code: '',
                     user_code: '',
