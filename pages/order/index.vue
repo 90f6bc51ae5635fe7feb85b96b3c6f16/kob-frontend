@@ -526,10 +526,11 @@ export default {
         $cookies
     }) {
         var user = $cookies.get('user')
+        console.log('user', user);
         var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
         const orders = await $orderService.order.getOrderByCode({ customer_code: user.member_code });
-        console.log('user.member_code', user.member_code);
+
         for (var i = 0; i < orders.data.length; i++) {
             const orders_list = await $orderService.order.getOrderListByOrderCode({ order_code: orders.data[i].order_code });
             // orders.data[i].push(orders_list.data)
