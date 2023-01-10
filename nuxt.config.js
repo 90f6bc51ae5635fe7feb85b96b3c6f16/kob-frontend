@@ -123,7 +123,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'https://rvscs-develop.com/km-korat/api',
+    baseURL: 'https://km-korat.com/api',
     headers: {
       common: {
         'Accept': 'application/json',
