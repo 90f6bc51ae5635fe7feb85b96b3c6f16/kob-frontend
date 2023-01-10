@@ -223,7 +223,7 @@ export default {
         };
     },
     mounted() {
-        this.user = JSON.parse(localStorage.getItem('user') || "[]");
+        this.user = this.$cookies.get('user');
         this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
         this.dataValue.forEach(element => {
             this.Sum += element.product_price * element.amount;
@@ -420,7 +420,7 @@ export default {
         $cookies,
     }) {
         const categorys = await $productService.product.getProductCategoryBy();
-        const address = await $userService.user.getMemberAddress(JSON.parse(localStorage.getItem('user') || "[]"));
+        const address = await $userService.user.getMemberAddress($cookies.get('user'));
         return {
             address: address.data ? address.data : [],
             categorys: categorys.data ? categorys.data : [],
