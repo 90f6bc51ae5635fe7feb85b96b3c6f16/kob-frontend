@@ -107,7 +107,7 @@ export default {
                 await this.$auth.loginWith('local', payload)
                     .then((response) => {
                         this.$cookies.set('user', response.data[0], {
-                            path: '/',
+                         
                             maxAge: 60 * 60 * 24 * 7,
                             secure: true
                         });
