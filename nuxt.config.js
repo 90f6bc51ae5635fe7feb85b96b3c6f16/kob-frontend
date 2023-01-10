@@ -31,6 +31,11 @@ export default {
         name: 'og:image',
         content: '/images/logo/ais_logo.webp',
       },
+      {
+        hid: 'Cache-Control',
+        name: 'Cache-Control',
+        content: 'private',
+      },
       { hid: 'og:url', name: 'og:url', content: process.env.APP_URL },
       { hid: 'og:type', name: 'og:type', content: 'website' },
       {
