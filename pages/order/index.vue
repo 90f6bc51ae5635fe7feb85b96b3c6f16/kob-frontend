@@ -525,7 +525,7 @@ export default {
         $orderService,
         $cookies
     }) {
-        var user = $cookies.get('user')
+        var user = JSON.parse(localStorage.getItem('user') || "[]")
         console.log('user', user);
         var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
