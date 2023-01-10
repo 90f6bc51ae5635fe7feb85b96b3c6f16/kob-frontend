@@ -523,7 +523,9 @@ export default {
     async asyncData({
         $productService,
         $orderService,
-        $cookies
+        $cookies,
+        localStorage
+        
     }) {
         var user = JSON.parse(localStorage.getItem('user') || "[]")
         console.log('user', user);
