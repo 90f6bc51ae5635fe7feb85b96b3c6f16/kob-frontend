@@ -71,6 +71,7 @@ export default {
     { src: "~/plugins/slick", mode: "client" },
     { src: "./plugins/vue-agile.js", mode: "client" },
     { src: "~/plugins/rating.js", mode: "client" },
+    { src: "~/plugins/cookies.js", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

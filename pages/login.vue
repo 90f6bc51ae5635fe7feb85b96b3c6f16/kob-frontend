@@ -29,7 +29,7 @@
                 <h3 class="title">Log In</h3>
                 <div class="field">
                     <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
-                        <template v-slot="label">
+                        <template >
                             Email
                             <b-form-input v-model="email" class="input" type="email" placeholder="อีเมล"></b-form-input>
                         </template>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="field">
                     <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
-                        <template v-slot="label">
+                        <template>
                             Password
                             <b-form-input v-model="password" class="input" type="password" placeholder="รหัสผ่าน">
                             </b-form-input>
@@ -106,7 +106,7 @@ export default {
             try {
                 await this.$auth.loginWith('local', payload)
                     .then(async (response) => {
-
+                        cookies.set('cookie-name', 'cookie-value')
                         await this.$cookies.set('user', response.data[0], {
                             path: '/',
                             domain: ".km-korat.com",
