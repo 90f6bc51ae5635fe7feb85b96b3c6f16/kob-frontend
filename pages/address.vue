@@ -220,7 +220,7 @@ export default {
         async updateDefaultAddress(customer_address_id) {
             try {
 
-                await this.$axios.post('http://141.98.19.44:6901/api//member-update-default-address/', {
+                await this.$axios.post('https://km-korat.com/api//member-update-default-address/', {
                     customer_code: this.user.member_code,
                     customer_address_id: customer_address_id,
 
@@ -258,7 +258,7 @@ export default {
         async updateAddress() {
             try {
 
-                await this.$axios.post('http://141.98.19.44:6901/api//member-update-address/', {
+                await this.$axios.post('https://km-korat.com/api//member-update-address/', {
                     customer_code: this.user.member_code,
                     customer_name: this.customer_name,
                     customer_tel: this.customer_tel,
@@ -300,7 +300,7 @@ export default {
         async handleSubmit() {
             try {
 
-                await this.$axios.post('http://141.98.19.44:6901/api//member-insert-address/', {
+                await this.$axios.post('https://km-korat.com/api//member-insert-address/', {
                     customer_code: this.user.member_code,
                     customer_name: this.customer_name,
                     customer_tel: this.customer_tel,

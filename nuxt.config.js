@@ -123,7 +123,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://km-korat.com/api',
+    baseURL: 'https://km-korat.com/api',
     headers: {
       common: {
         'Accept': 'application/json',
