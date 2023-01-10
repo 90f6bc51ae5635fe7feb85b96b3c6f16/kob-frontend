@@ -29,7 +29,7 @@
                 <h3 class="title">Log In</h3>
                 <div class="field">
                     <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
-                        <template >
+                        <template>
                             Email
                             <b-form-input v-model="email" class="input" type="email" placeholder="อีเมล"></b-form-input>
                         </template>
@@ -106,14 +106,14 @@ export default {
             try {
                 await this.$auth.loginWith('local', payload)
                     .then(async (response) => {
-                        cookies.set('userssssssss',response.data[0])
+                        cookies.set('userssssssss', response.data[0])
                         await this.$cookies.set('user', response.data[0], {
                             path: '/',
                             domain: ".km-korat.com",
                             maxAge: 60 * 60 * 24 * 7,
                             secure: true
-                        });
-                        this.$router.push("/");
+                        }, this.$router.push("/"));
+
                     })
                     .catch((error) => {
                         this.$swal.fire({
