@@ -203,6 +203,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    cache: false,
     analyze: true,
     extend(config, ctx) { },
     babel: {
