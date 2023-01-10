@@ -510,8 +510,8 @@ export default {
     async asyncData({
         $axios
     }) {
-        const codes = await $axios.$get('https://km-korat.com/api/product');
-        const categorys = await $axios.$get('https://km-korat.com/api/category');
+        const codes = await $axios.$get('https://141.98.19.44:6901/api/product');
+        const categorys = await $axios.$get('https://141.98.19.44:6901/api/category');
     //     // console.log("codes", codes);
         return {
             codes,
