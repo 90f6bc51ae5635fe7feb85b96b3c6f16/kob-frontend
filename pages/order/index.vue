@@ -38,7 +38,7 @@
                                     :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
                                     target="_blank">
                                     {{
-                                            order.order_shipping
+                                        order.order_shipping
                                     }}
                                     {{ order.order_track_number }}
                                 </a>
@@ -46,7 +46,7 @@
                                     :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
                                     target="_blank">
                                     {{
-                                            order.order_shipping
+                                        order.order_shipping
                                     }}
                                     {{ order.order_track_number }}
                                 </a>
@@ -54,14 +54,14 @@
                                     :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
                                     target="_blank">
                                     {{
-                                            order.order_shipping
+                                        order.order_shipping
                                     }}
                                     {{ order.order_track_number }}
                                 </a>
 
                                 <a v-else>
                                     {{
-                                            order.order_shipping
+                                        order.order_shipping
                                     }}
                                     {{ order.order_track_number }}
                                 </a>
@@ -93,7 +93,8 @@
                             {{ product.product_name }}<br />
                             ฿{{ product.product_price }} x {{ product.order_list_qty }}
                         </b-col>
-                        <b-col cols="1" style="margin: 2em 0 0 -1.5em;"> ฿{{ product.product_price *
+                        <b-col cols="1" style="margin: 2em 0 0 -1.5em;"> ฿{{
+                            product.product_price *
                                 product.order_list_qty
                         }}
                         </b-col>
@@ -108,7 +109,8 @@
                         </div>
                         <div style="text-align: right" v-if="order.order_predict_price">
                             <span style="color: #000">ค่าขนส่ง : </span>
-                            <span style="color: #000; font-size: 1.8em">฿{{ order.order_predict_price -
+                            <span style="color: #000; font-size: 1.8em">฿{{
+                                order.order_predict_price -
                                     order.order_product_price
                             }}</span>
                         </div>
@@ -130,7 +132,8 @@
                 </b-row>
                 <b-row>
                     <b-col class="title-product">
-                        <div v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'">
+                        <div
+                            v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'">
                             <b-img src="~/assets/qr_pp.png" alt="Image" class="rounded" width="80" height="80"
                                 style="margin-top: 2;float: left;"></b-img>
                             &nbsp; ธนาคารกสิกรไทย <br>
@@ -193,7 +196,7 @@
           ">
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_code">
                     {{ new Date(order_selected.adddate) }} <br><span style="color:green;">สร้างคำสั่งซื้อ {{
-                            order_selected.order_code
+                        order_selected.order_code
                     }} <br>ที่อยู่ : {{ order_selected.order_name }} {{ order_selected.order_address }}
 
                     </span>
@@ -205,7 +208,7 @@
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_predict_price">
                     {{ new Date(order_selected.order_predict_price_date) }} <br><span
                         style="color:green;">ประเมินราคาเสร็จสิ้น {{
-                                order_selected.order_predict_price
+                            order_selected.order_predict_price
                         }} บาท</span>
                 </div>
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_slip">
@@ -217,7 +220,7 @@
                 </div>
                 <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_track_number">
                     {{ new Date(order_selected.order_track_date) }} <br><span style="color:green;">จัดส่งสินค้าแล้ว {{
-                            order_selected.order_shipping
+                        order_selected.order_shipping
                     }}
                         {{ order_selected.order_track_number }}</span>
                 </div>
@@ -525,7 +528,7 @@ export default {
         $orderService,
         $cookies
     }) {
-        var user = $cookies.get('user')
+        var user = await $cookies.get('user')
         console.log('user', user);
         var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
