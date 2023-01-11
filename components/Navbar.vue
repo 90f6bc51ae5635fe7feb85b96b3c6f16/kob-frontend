@@ -283,15 +283,15 @@ export default {
         modelValue: {
             deep: true,
             handler(newValue) {
-                // this.count_shop = 0;
-                // this.Sum = 0;
-                // localStorage.setItem('shoppingCart', JSON.stringify(newValue));
-                // this.dataValue = newValue;
-                // this.dataValue.forEach((element, index) => {
-                //     this.Sum += element.product_price * element.amount;
-                //     this.count_shop = index + 1;
-                // });
-                // this.refresh()
+                this.count_shop = 0;
+                this.Sum = 0;
+                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
+                this.dataValue = newValue;
+                this.dataValue.forEach((element, index) => {
+                    this.Sum += element.product_price * element.amount;
+                    this.count_shop = index + 1;
+                });
+                this.refresh()
             },
         },
     },
@@ -353,7 +353,7 @@ export default {
         FixedHeader
     },
     computed: {
-        // ...mapState("auth", ["loggedIn"]),
+        ...mapState("auth", ["loggedIn"]),
     },
 };
 </script>
