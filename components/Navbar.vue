@@ -297,6 +297,7 @@ export default {
     },
     mounted() {
         this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+        console.log('this.dataValue',this.dataValue);
         this.dataValue.forEach((element, index) => {
             this.Sum += element.product_price * element.amount;
             this.count_shop = index + 1;

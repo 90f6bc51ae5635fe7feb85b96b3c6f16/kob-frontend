@@ -225,18 +225,17 @@ export default {
     },
     mounted() {
         this.user = this.$cookies.get('user');
-        console.log('user',user);
         this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
-        // this.dataValue.forEach(element => {
-        //     this.Sum += element.product_price * element.amount;
-        //     this.count_shop += element.amount;
-        // });
-        // this.address.map((address) => {
-        //     if (address.customer_default_address == 1) {
-        //         this.selected = address.customer_address_id
-        //         this.selected_address = address
-        //     }
-        // })
+        this.dataValue.forEach(element => {
+            this.Sum += element.product_price * element.amount;
+            this.count_shop += element.amount;
+        });
+        this.address.map((address) => {
+            if (address.customer_default_address == 1) {
+                this.selected = address.customer_address_id
+                this.selected_address = address
+            }
+        })
         // this.$bvModal.show('modal-1')
 
     },
