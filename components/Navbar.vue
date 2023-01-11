@@ -353,7 +353,7 @@ export default {
         FixedHeader
     },
     computed: {
-        ...mapState("auth", ["loggedIn"]),
+        // ...mapState("auth", ["loggedIn"]),
     },
 };
 </script>
