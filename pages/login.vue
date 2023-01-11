@@ -31,7 +31,7 @@
                     <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
                         <template>
                             Email
-                            <b-form-input v-model="email" class="input" type="email" placeholder="อีเมล"></b-form-input>
+                            <b-form-input v-model="email" class="input" type="text" placeholder="อีเมล"></b-form-input>
                         </template>
                     </b-form-group>
                 </div>
