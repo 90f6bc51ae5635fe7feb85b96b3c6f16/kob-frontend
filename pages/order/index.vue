@@ -537,13 +537,13 @@ export default {
 
         for (var i = 0; i < orders.data.length; i++) {
             const orders_list = await $orderService.order.getOrderListByOrderCode({ order_code: orders.data[i].order_code });
-            // orders.data[i].push(orders_list.data)
+
             await order_data.push({
                 ...orders.data[i],
                 order_list: orders_list.data
             }
             )
-            // console.log('orders_list' + i, orders_list.data);
+
         }
 
         console.log(order_data);

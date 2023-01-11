@@ -225,6 +225,7 @@ export default {
     },
     mounted() {
         this.user = this.$cookies.get('user');
+        console.log('user',user);
         this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
         this.dataValue.forEach(element => {
             this.Sum += element.product_price * element.amount;
