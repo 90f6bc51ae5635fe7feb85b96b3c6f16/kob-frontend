@@ -48,7 +48,7 @@ export default {
     ],
 
     // <meta http-equiv="Content-Security-Policy" content="default-src https://cdn.example.net; child-src 'none'; object-src 'none'">
-    // link: [{ rel: 'icon', type: 'image/x-icon', href: 'assets/Logo.jpg' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', src: '~/assets/Logo.jpg' }],
     script: [
       {
       },
