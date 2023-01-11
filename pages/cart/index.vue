@@ -218,6 +218,7 @@ export default {
             selected: null,
             user: "",
             customer_code: '',
+            order_invoice_address : '',
             selected_address: {},
 
         };
@@ -298,6 +299,7 @@ export default {
                     order_shipping: '',
                     order_slip: '',
                     order_track_number: '',
+                    order_invoice_address: this.order_invoice_address,
                     addby: '',
                     adddate: '',
                     updateby: '',
