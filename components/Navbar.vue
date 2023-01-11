@@ -283,15 +283,15 @@ export default {
         modelValue: {
             deep: true,
             handler(newValue) {
-                this.count_shop = 0;
-                this.Sum = 0;
-                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
-                this.dataValue = newValue;
-                this.dataValue.forEach((element, index) => {
-                    this.Sum += element.product_price * element.amount;
-                    this.count_shop = index + 1;
-                });
-                this.refresh()
+                // this.count_shop = 0;
+                // this.Sum = 0;
+                // localStorage.setItem('shoppingCart', JSON.stringify(newValue));
+                // this.dataValue = newValue;
+                // this.dataValue.forEach((element, index) => {
+                //     this.Sum += element.product_price * element.amount;
+                //     this.count_shop = index + 1;
+                // });
+                // this.refresh()
             },
         },
     },
@@ -311,24 +311,7 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
-        // removeFromCart(product) {
-        //     const shoppingCart = this.dataValue;
-        //     const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
-        //     shoppingCart[productIndex].amount -= 1;
 
-        //     if (shoppingCart[productIndex].amount < 1) {
-        //         shoppingCart.splice(productIndex, 1);
-        //     }
-        //     this.dataValue = shoppingCart;
-        //     this.count_shop -= 1;
-        //     this.Sum = 0;
-        //     this.dataValue.forEach(element => {
-        //         this.Sum += element.product_price * element.amount;
-        //     });
-        //     // console.log("this.dataValue", this.dataValue);
-        //     localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-        //     this.$emit('update:modelValue', shoppingCart)
-        // },
         removeFromCart(product) {
             this.$swal.fire({
                 title: 'คุณแน่ใจไหม ?',
