@@ -422,7 +422,7 @@ export default {
         $cookies,
     }) {
         const categorys = await $productService.product.getProductCategoryBy();
-        const address = await $userService.user.getMemberAddress($cookies.get('user'));
+        const address = await $userService.user.getMemberAddress(await $cookies.get('user'));
         return {
             address: address.data ? address.data : [],
             categorys: categorys.data ? categorys.data : [],

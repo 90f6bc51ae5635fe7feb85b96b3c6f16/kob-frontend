@@ -30,19 +30,10 @@
                                     </div>
                                     <b-button type="submit"
                                         style="background-color: #ffd000;border-color: #ffd000; border-radius: 0;">
-                                        <!-- <b-button type="submit" :disabled="keyword == ''" style="background-color: #ffd000;border-color: #ffd000;"> -->
                                         <font-awesome-icon :icon="['fas', 'search']" style="font-size: 12px" />
                                     </b-button>
                                 </form>
-                                <!-- <div class="login-user" style="margin-left: 8.5em;" v-if="loggedIn">
-                                <input type="submit" style="border-top-style: hidden;
-                                                                border-right-style: hidden;
-                                                                border-left-style: hidden;
-                                                                border-bottom-style: hidden;
-                                                                background-color: #fff;
-                                    " value="Logout" @click="logout">
-                                </input>
-                            </div> -->
+
                                 <div v-if="loggedIn" style="margin: 0 1em 0 6.9em;">
                                     <button type="button" class="btn btn-danger" @click="logout">
                                         <strong>Log Out</strong>
@@ -63,8 +54,9 @@
                                     border-radius: 3px;
                                   " no-caret>
                                         <template #button-content style="height: 20px; width: 20px">
-                                            <span v-if="dataValue" class="show_shop"
-                                                aria-label="Close">{{ count_shop }}</span>
+                                            <span v-if="dataValue" class="show_shop" aria-label="Close">{{
+                                                count_shop
+                                            }}</span>
                                             <font-awesome-icon :icon="['fas', 'lock']"
                                                 style="height: 15px; width: 15px; margin: -1px 0 9px 0" />
                                         </template>
@@ -100,7 +92,9 @@
                                                         <div
                                                             style="text-align: left; padding-top: 1em; margin: 0 0 0 120px;">
                                                             <div class="text-overflow">{{ product.product_name }}</div>
-                                                            <div class="text-overflow">฿{{ product.product_price }}<span>
+                                                            <div class="text-overflow">฿{{
+                                                                product.product_price
+                                                            }}<span>
                                                                     X {{ product.amount }}</span></div>
                                                         </div>
                                                     </div>
@@ -297,7 +291,7 @@ export default {
     },
     mounted() {
         this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
-        console.log('this.dataValue',this.dataValue);
+        console.log('this.dataValue', this.dataValue);
         this.dataValue.forEach((element, index) => {
             this.Sum += element.product_price * element.amount;
             this.count_shop = index + 1;
