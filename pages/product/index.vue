@@ -225,7 +225,7 @@
                 <div class="product-price">฿{{ product.product_price }}</div>
                 <div class="left">
                     <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
-                        <button @click="" class="text btn btn-outline-success border-0 border-radius-0">
+                        <button class="text btn btn-outline-success border-0 border-radius-0">
                             <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
                         </button>
                     </nuxt-link>
