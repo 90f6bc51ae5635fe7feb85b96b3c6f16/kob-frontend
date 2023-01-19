@@ -6,24 +6,25 @@
                 <ul>
                     <li>
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                            {{category.product_category_name}}
+                            {{ category.product_category_name }}
                         </nuxt-link>
                     </li>
                 </ul>
             </div>
         </b-collapse>
     </div>
-    <b-row style=" margin: 0 -2em 0 -1em;">
-        <b-col class="title-product" style="font-size: 16pt;">วิธีการสั่งซื้อ</b-col>
+    <b-row style=" margin: 0 -2em 0
+  -1em;">
+        <b-col class="title-product" style="font-size: 16pt;">เกี่ยวกับเรา</b-col>
     </b-row>
     <b-row style=" margin: 0 -2em 0 -1em;">
         <b-col cols="12" style="margin-top: 1em;">
             <b-row>
-                <v-card-text v-html="company.company_info_how_to_order"></v-card-text>
+                <v-card-text v-html="company.company_info_about_us"></v-card-text>
+                <!-- {{ company.company_info_about_us }} -->
             </b-row>
         </b-col>
     </b-row>
-    <no-ssr />
 </div>
 </template>
 
@@ -31,14 +32,14 @@
 export default {
     async asyncData({
         $productService,
-        $companyService,
+        $companyService
     }) {
         const categorys = await $productService.product.getProductCategoryBy();
         const company = await $companyService.company.getCompany();
-
+        console.log(company.data);
         return {
-            company: company.data ? company.data[0] : [],
             categorys: categorys.data ? categorys.data : [],
+            company: company.data ? company.data[0] : [],
         };
     },
 };
@@ -88,4 +89,23 @@ ul {
     box-sizing: border-box;
 }
 
+/* map */
+.mapouter {
+    position: relative;
+    text-align: right;
+    width: 100%;
+    height: 400px;
+}
+
+.gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+    width: 100%;
+    height: 400px;
+}
+
+.gmap_iframe {
+    width: 100% !important;
+    height: 400px !important;
+}
 </style>

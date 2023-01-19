@@ -230,7 +230,7 @@
                                 </b-nav-item>
                                 <a class="navbar-manu" style="" href="/">หน้าหลัก</a>
                                 <a class="navbar-manu" style="" href="/product">รายการสินค้า</a>
-                                <a class="navbar-manu" style="" href="/">เกี่ยวกับเรา</a>
+                                <a class="navbar-manu" style="" href="/aboutus">เกี่ยวกับเรา</a>
                                 <a class="navbar-manu" style="" href="/howtoorder">วิธีการสั่งซื้อ</a>
                                 <a class="navbar-manu" style="" href="/contact">ติดต่อเรา</a>
                             </b-navbar-nav>
