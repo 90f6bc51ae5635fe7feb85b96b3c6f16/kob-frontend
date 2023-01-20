@@ -124,9 +124,10 @@
         </b-row>
         <client-only>
             <b-row class="row-product" v-for="(category, idx) in categorys" :key="idx">
-                <b-col class="row-product-type" style="border-top: 4px solid #39b54a">
-                    <b-img src="~/assets/electronics.png" alt="Image" class="rounded" width="56" height="56"
-                        style="margin-top: 2"></b-img>
+                <b-col class="row-product-type"
+                    :style="`border-top: 4px solid ${category.product_category_color};background-color: ${category.product_category_color}`">
+                    <b-img :src="`https://rvscs-develop.com/km-korat/${category.product_category_icon}`" alt="Image"
+                        class="rounded" width="56" height="56" style="margin-top: 2"></b-img>
                     <div style="
             padding-top: 20px;
             margin-bottom: 20px;
@@ -147,7 +148,8 @@
                     </div>
 
                 </b-col>
-                <b-col class="card-product-blog" cols="7" style="border-top: 4px solid #39b54a">
+                <b-col class="card-product-blog" cols="7"
+                    :style="`border-top: 4px solid ${category.product_category_color};`">
                     <!-- {{ product_category_random }} -->
                     <b-row class="no-gutters" v-for="(product_category_random_data, idx) in product_category_random"
                         :key="idx">
@@ -216,7 +218,7 @@
                     </b-row>
                 </b-col>
                 <b-col class="card-product-hot"
-                    style="width : 100%;height 100%; background-color :; border-top: 4px solid #39b54a;">
+                    :style="`width : 100%;height 100%; border-top: 4px solid ${category.product_category_color};`">
                     <div style="background-color: #adadad; margin: 0.6em">
                         <h4 style="padding-top: 1em; text-align: center; color: #fff">
                             NEW GADJETS
@@ -252,7 +254,7 @@
                         </nuxt-link>
                     </div>
                 </div>
-                
+
                 <div v-if="category.product_category_image">
                     <b-card-img :src="`https://rvscs-develop.com/km-korat/${category.product_category_image}`"
                         width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
@@ -374,6 +376,10 @@ export default {
 </script>
 
 <style scoped>
+.rounded {
+    border-radius: 50% !important;
+}
+
 .left {
     transition: 0.5s ease;
     opacity: 0;
@@ -474,7 +480,7 @@ div {
 }
 
 .row-product-type {
-    background-color: #39b44f !important;
+
     text-align: center;
     padding-top: 2em;
     padding-left: 0;
