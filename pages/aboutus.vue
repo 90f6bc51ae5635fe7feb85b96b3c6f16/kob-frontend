@@ -20,7 +20,7 @@
     <b-row style=" margin: 0 -2em 0 -1em;">
         <b-col cols="12" style="margin-top: 1em;">
             <b-row>
-                <v-card-text v-html="company.company_info_about_us"></v-card-text>
+                <v-card-text v-html="company.company_info_about_us" class="image-style-align-center"></v-card-text>
                 <!-- {{ company.company_info_about_us }} -->
             </b-row>
         </b-col>
@@ -36,7 +36,7 @@ export default {
     }) {
         const categorys = await $productService.product.getProductCategoryBy();
         const company = await $companyService.company.getCompany();
-        console.log(company.data);
+        // console.log(company.data);
         return {
             categorys: categorys.data ? categorys.data : [],
             company: company.data ? company.data[0] : [],
@@ -45,7 +45,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
+.image-style-align-center > figure {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    /* color: red; */
+}
+
 div {
     font-family: "Kanit", sans-serif;
 }

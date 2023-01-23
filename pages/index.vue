@@ -52,8 +52,21 @@
                 <agile :options="options" ref="carousel">
                     <div v-for="(products_random, idx) in products_randoms" :key="idx" class="img-wrapper">
                         <nuxt-link :to="{ path: `/product/${products_random.product_code}` }">
-                            <img :src="`${products_random.product_image != '' && products_random.product_image != undefined ? `http://141.98.19.44:6201/${products_random.product_image}` : `https://placeimg.com/380/200/any?${idx}`}`"
-                                style="margin: 0.6rem" />
+
+                            <div v-if="products_randoms.product_image">
+                                <img :src="`${products_random.product_image != '' && products_random.product_image != undefined ? `http://141.98.19.44:6201/${products_random.product_image}` : `https://placeimg.com/380/200/any?${idx}`}`"
+                                    style="margin: 0.6rem" />
+                            </div>
+                            <div v-else>
+                                <svg class="" width="100%" height="220px" role="img"
+                                    aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice"
+                                    focusable="false">
+                                    <title></title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                                </svg>
+                            </div>
+
                             <div style="text-align: center;">
                                 {{ products_random.product_name }}
                             </div>
