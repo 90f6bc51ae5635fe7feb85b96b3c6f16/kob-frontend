@@ -46,10 +46,10 @@ export default {
 </script>
 
 <style >
-.image-style-align-center > figure {
+.image-style-align-center>figure {
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
     /* color: red; */
 }
 
@@ -66,7 +66,7 @@ div {
     padding-bottom: 20px;
 }
 
-ul {
+#example-collapse>div>ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -94,25 +94,5 @@ ul {
     color: #fff;
     background-color: #39b44f !important;
     box-sizing: border-box;
-}
-
-/* map */
-.mapouter {
-    position: relative;
-    text-align: right;
-    width: 100%;
-    height: 400px;
-}
-
-.gmap_canvas {
-    overflow: hidden;
-    background: none !important;
-    width: 100%;
-    height: 400px;
-}
-
-.gmap_iframe {
-    width: 100% !important;
-    height: 400px !important;
 }
 </style>
