@@ -51,7 +51,7 @@
             <client-only>
                 <agile :options="options" ref="carousel">
                     <div v-for="(products_random, idx) in products_randoms" :key="idx" class="img-wrapper">
-                        <nuxt-link :to="{ path: `/product/${products_random.product_code}` }">
+                        <nuxt-link :to="{ path: `/product/${products_random.product_code}` }" class="link-text-color">
 
                             <div v-if="products_randoms.product_image">
                                 <img :src="`${products_random.product_image != '' && products_random.product_image != undefined ? `http://141.98.19.44:6201/${products_random.product_image}` : `https://placeimg.com/380/200/any?${idx}`}`"
@@ -100,7 +100,8 @@
         </b-row>
         <b-row class="row-product">
             <b-col class="card-product" v-for="product in products.slice(0, 5)" :key="product.product_code">
-                <div v-if="product.product_image">
+                <nuxt-link :to="{ path: `/product/${product.product_code}` }">
+                <div v-if="product.product_image">  
                     <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px"
                         alt="Image" class="rounded-0"></b-card-img>
                 </div>
@@ -112,12 +113,15 @@
                         <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
                     </svg>
                 </div>
+                </nuxt-link>
                 <div class="card-product-shop">
-                    <div class="product-name">
-                        <div class="text-overflow">
-                            {{ product.product_name }}
+                    <nuxt-link :to="{ path: `/product/${product.product_code}` }">
+                        <div class="product-name">
+                            <div class="text-overflow">
+                                {{ product.product_name }}
+                            </div>
                         </div>
-                    </div>
+                    </nuxt-link>
                     <div class="product-price">฿{{ product.product_price }}</div>
                     <div class="left">
                         <nuxt-link :to="{ path: `/product/${product.product_code}` }"
@@ -172,8 +176,7 @@
                             :key="idx">
                             <!-- {{ product_category_random_data_show }} -->
                             <div class="">
-
-                                <nuxt-link to="#" style="text-decoration: none !important"
+                                <nuxt-link :to="{ path: `/product/${product_category_random_data_show.product_code}` }" style="text-decoration: none !important"
                                     v-if="product_category_random_data_show.product_name != '' && product_category_random_data_show != []">
 
 
@@ -262,12 +265,11 @@
                 <div style="position: absolute; top: 120px; left: 16em">
                     <div style="font-size: 1.2em; font-weight: 500">
                         <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-
                             <b-button variant="outline-light">SHOP NOW</b-button>
                         </nuxt-link>
                     </div>
                 </div>
-
+                <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
                 <div v-if="category.product_category_image">
                     <b-card-img :src="`https://rvscs-develop.com/km-korat/${category.product_category_image}`"
                         width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
@@ -280,7 +282,7 @@
                         <!-- <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text> -->
                     </svg>
                 </div>
-
+                </nuxt-link>
             </b-col>
 
         </b-row>
@@ -592,5 +594,8 @@ img.navber-show {
     width: 220px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.link-text-color{
+    color: black;
 }
 </style>

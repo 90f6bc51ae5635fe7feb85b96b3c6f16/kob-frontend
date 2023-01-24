@@ -189,6 +189,7 @@
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
             <b-col class="card-product" cols="3" v-for="(product,idx) in products" :key="'D'+idx">
+                <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
                 <div v-if="product.product_image">
                     <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
                 </div>
@@ -204,6 +205,7 @@
                         {{ product.product_name }}
                     </div>
                 </div>
+                </nuxt-link>
                 <div class="product-price">฿{{ product.product_price }}</div>
                 <div class="left">
                     <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
