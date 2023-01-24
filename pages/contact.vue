@@ -73,6 +73,11 @@
                     </div>
                 </b-col>
             </b-row>
+            <b-row>
+                <b-col cols="12" style="margin-top: 2em;">
+                    <v-card-text v-html="recruitment.recruitment_detail" class="image-style-align-center"></v-card-text>
+                </b-col>
+                </b-row>
         </b-col>
     </b-row>
 </div>
@@ -81,11 +86,15 @@
 <script>
 export default {
     async asyncData({
-        $productService
+        $productService,
+        $companyService
     }) {
         const categorys = await $productService.product.getProductCategoryBy();
+        const recruitment = await $companyService.company.getRecruitment();
+        // console.log('recruitment', recruitment);
         return {
             categorys: categorys.data ? categorys.data : [],
+            recruitment: recruitment.data ? recruitment.data[0] : [],
         };
     },
 };
