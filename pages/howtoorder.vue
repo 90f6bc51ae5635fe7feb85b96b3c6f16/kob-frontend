@@ -19,7 +19,7 @@
     <b-row style=" margin: 0 -2em 0 -1em;">
         <b-col cols="12" style="margin-top: 1em;">
             <b-row>
-                <v-card-text v-html="company.company_info_how_to_order"></v-card-text>
+                <v-card-text v-html="company.company_info_how_to_order" class="image-style-align-center"></v-card-text>
             </b-row>
         </b-col>
     </b-row>
@@ -44,9 +44,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 div {
     font-family: "Kanit", sans-serif;
+}
+
+.image-style-align-center>figure {
+    text-align: center;
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* color: red; */
 }
 
 .title-product {
@@ -58,7 +65,7 @@ div {
     padding-bottom: 20px;
 }
 
-ul {
+#example-collapse>div>ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -87,5 +94,4 @@ ul {
     background-color: #39b44f !important;
     box-sizing: border-box;
 }
-
 </style>
