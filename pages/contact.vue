@@ -75,7 +75,7 @@
             </b-row>
             <b-row>
                 <b-col cols="12" style="margin-top: 2em;">
-                    <v-card-text v-html="recruitment.recruitment_detail" class="image-style-align-center"></v-card-text>
+                    <v-card-text v-html="recruitment.company_info_recruitment" class="image-style-align-center"></v-card-text>
                 </b-col>
                 </b-row>
         </b-col>
@@ -90,7 +90,7 @@ export default {
         $companyService
     }) {
         const categorys = await $productService.product.getProductCategoryBy();
-        const recruitment = await $companyService.company.getRecruitment();
+        const recruitment = await $companyService.company.getCompany();
         // console.log('recruitment', recruitment);
         return {
             categorys: categorys.data ? categorys.data : [],
