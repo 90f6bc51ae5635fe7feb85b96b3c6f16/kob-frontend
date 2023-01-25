@@ -134,11 +134,14 @@
                     <b-col class="title-product">
                         <div
                             v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'">
-                            <b-img src="~/assets/qr_pp.png" alt="Image" class="rounded" width="80" height="80"
+                            <v-card-text v-html="company.company_info_payment_method"
+                                class="image-style-align-center"></v-card-text>
+
+                            <!-- <b-img src="~/assets/qr_pp.png" alt="Image" class="rounded" width="80" height="80"
                                 style="margin-top: 2;float: left;"></b-img>
                             &nbsp; ธนาคารกสิกรไทย <br>
                             &nbsp; 417-417-9525 <br>
-                            &nbsp; วรายุทธ โชโตวงษ์
+                            &nbsp; วรายุทธ โชโตวงษ์ -->
                         </div>
                     </b-col>
                     <b-col class="title-product">
@@ -526,14 +529,15 @@ export default {
     async asyncData({
         $productService,
         $orderService,
-        $cookies
+        $cookies,
+        $companyService,
     }) {
         var user = await $cookies.get('user')
-        console.log('user', user);
+
         var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
         const orders = await $orderService.order.getOrderByCode({ customer_code: user.member_code });
-        console.log('orders', orders);
+        const company = await $companyService.company.getCompany();
 
         for (var i = 0; i < orders.data.length; i++) {
             const orders_list = await $orderService.order.getOrderListByOrderCode({ order_code: orders.data[i].order_code });
@@ -550,6 +554,8 @@ export default {
         return {
             categorys: categorys.data ? categorys.data : [],
             orders: order_data ? order_data : [],
+            company: company.data ? company.data[0] : [],
+
         };
     },
 };
