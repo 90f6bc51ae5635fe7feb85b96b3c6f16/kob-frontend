@@ -26,7 +26,7 @@
             :key="'order' + index">
             <b-col cols="12" style="border: 0.2px solid #e5e5e5">
                 <b-row>
-                    <b-col class="title-product">{{ order.order_code }} {{ new Date(order.order_date) }}</b-col>
+                    <b-col class="title-product">{{ order.order_code }} {{ new Date(order.order_date).toLocaleString() }}</b-col>
                     <b-col class="title-product">
                         <div style="text-align: right">
                             <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"><span
