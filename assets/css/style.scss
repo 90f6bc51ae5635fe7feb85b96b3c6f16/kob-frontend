@@ -1,0 +1,35 @@
+.kg-nav.navbar-dark .navbar-nav {
+  .nav-link, .navbar-text {
+    color: #fff;
+  }
+  
+  .nav-item.product-type {
+    background-color: #ffd000;
+    
+    .nav-link {
+      width: 100%;
+      min-width: 240px;
+      display: flex;
+      align-items: center;
+      color: #000;
+    }
+
+    .dropdown-menu {
+      min-width: 240px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .search-box {
+    display: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .kg-nav.navbar-dark .navbar-nav {
+    .search-box {
+      display: block;
+    }
+  }
+}
