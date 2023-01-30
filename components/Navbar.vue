@@ -2,7 +2,10 @@
   <div class="font-navbar">
     <fixed-header>
       <div class="fix-navbar">
-        <b-container fluid="lg" class="d-flex p-2 px-md-0 align-items-center">
+        <b-container
+          fluid="lg"
+          class="d-flex p-2 py-md-4 px-md-0 align-items-center"
+        >
           <b-img
             class="d-none d-md-block p-2"
             src="~/assets/Logo.png"
@@ -25,7 +28,7 @@
               >
               </b-form-input>
               <template #append>
-                <b-dropdown
+                <!-- <b-dropdown
                   text="ชื่อสินค้า"
                   right
                   variant="outline-secondary"
@@ -35,7 +38,7 @@
                   <label for="jack">ราคา</label>
                   <input type="radio" v-model="checkedNames" />
                   <label for="john">ชื่อ</label>
-                </b-dropdown>
+                </b-dropdown> -->
                 <b-button
                   type="submit"
                   style="
@@ -340,7 +343,7 @@
             <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav class="pt-2 pt-md-0">
                 <b-nav-item-dropdown
-                  class="product-type px-2 px-md-0"
+                  class="product-type px-2 py-md-2"
                   left
                   no-caret
                 >
@@ -357,13 +360,25 @@
                     >{{ category.product_category_name }}</b-dropdown-item
                   >
                 </b-nav-item-dropdown>
-                <b-nav-item href="/">หน้าหลัก</b-nav-item>
-                <b-nav-item href="/product">รายการสินค้า</b-nav-item>
-                <b-nav-item href="/aboutus">เกี่ยวกับเรา</b-nav-item>
-                <b-nav-item href="/howtoorder">วิธีการสั่งซื้อ</b-nav-item>
-                <b-nav-item href="/contact">ติดต่อเรา</b-nav-item>
-                <b-nav-item href="/contact">ล็อคอิน</b-nav-item>
-                <b-nav-item href="/contact">สมัครสมาชิค</b-nav-item>
+                <b-nav-item class="py-0 py-md-2" href="/">หน้าหลัก</b-nav-item>
+                <b-nav-item class="py-0 py-md-2" href="/product"
+                  >รายการสินค้า</b-nav-item
+                >
+                <b-nav-item class="py-0 py-md-2" href="/aboutus"
+                  >เกี่ยวกับเรา</b-nav-item
+                >
+                <b-nav-item class="py-0 py-md-2" href="/howtoorder"
+                  >วิธีการสั่งซื้อ</b-nav-item
+                >
+                <b-nav-item class="py-0 py-md-2" href="/contact"
+                  >ติดต่อเรา</b-nav-item
+                >
+                <b-nav-item class="py-0 py-md-2" href="/contact"
+                  >ล็อคอิน</b-nav-item
+                >
+                <b-nav-item class="py-0 py-md-2" href="/contact"
+                  >สมัครสมาชิค</b-nav-item
+                >
               </b-navbar-nav>
               <!-- Right aligned nav items -->
               <b-navbar-nav class="ml-auto">
