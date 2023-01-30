@@ -27,12 +27,11 @@
                     <b-carousel id="carousel-no-animation"
                         style="text-shadow: 0px 0px 2px #000; margin: 20px -2em 0 -2.8em" no-animation indicators
                         img-width="1024" img-height="480">
-
+                        <nuxt-link v-for="(promotion, idx) in promotions" :key="idx" :to="{ path: `/promotions/${promotion.promotion_code}` }" class="link-text-color">
                         <b-carousel-slide :caption="`${promotion.promotion_name}`"
-                            v-for="(promotion, idx) in promotions" :key="idx"
                             :img-src="`${promotion.promotion_image != '' && promotion.promotion_image != undefined ? `http://141.98.19.44:6201/${promotion.promotion_image}` : `https://picsum.photos/1024/480/?image=12`}`">
                         </b-carousel-slide>
-
+                        </nuxt-link>
                     </b-carousel>
                 </b-col>
             </b-row>
@@ -101,18 +100,18 @@
         <b-row class="row-product">
             <b-col class="card-product" v-for="product in products.slice(0, 5)" :key="product.product_code">
                 <nuxt-link :to="{ path: `/product/${product.product_code}` }">
-                <div v-if="product.product_image">  
-                    <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px"
-                        alt="Image" class="rounded-0"></b-card-img>
-                </div>
-                <div v-else>
-                    <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop"
-                        preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title></title>
-                        <rect width="100%" height="100%" fill="#55595c"></rect>
-                        <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                    </svg>
-                </div>
+                    <div v-if="product.product_image">  
+                        <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px"
+                            alt="Image" class="rounded-0"></b-card-img>
+                    </div>
+                    <div v-else>
+                        <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop"
+                            preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title></title>
+                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                        </svg>
+                    </div>
                 </nuxt-link>
                 <div class="card-product-shop">
                     <nuxt-link :to="{ path: `/product/${product.product_code}` }">
@@ -123,19 +122,6 @@
                         </div>
                     </nuxt-link>
                     <div class="product-price">฿{{ product.product_price }}</div>
-                    <div class="left">
-                        <nuxt-link :to="{ path: `/product/${product.product_code}` }"
-                            style="text-decoration: none !important">
-                            <button @click="" class="text btn btn-outline-success border-0 border-radius-0">
-                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                            </button>
-                        </nuxt-link>
-                    </div>
-                    <div class="right">
-                        <button @click="addToCart(product)" class="text btn btn-outline-success border-0 radius-0">
-                            <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                        </button>
-                    </div>
                 </div>
             </b-col>
         </b-row>
@@ -179,8 +165,6 @@
                                 <nuxt-link :to="{ path: `/product/${product_category_random_data_show.product_code}` }" style="text-decoration: none !important"
                                     v-if="product_category_random_data_show.product_name != '' && product_category_random_data_show != []">
 
-
-
                                     <div v-if="product_category_random_data_show.product_image">
                                         <b-card-img
                                             :src="`http://141.98.19.44:6201/${product_category_random_data_show.product_image}`"
@@ -206,16 +190,6 @@
                                         product_category_random_data_show.product_price
                                     }}
                                     </div>
-                                    <div class="left">
-                                        <div class="text">
-                                            <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                                        </div>
-                                    </div>
-                                    <div class="right">
-                                        <div class="text">
-                                            <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                                        </div>
-                                    </div>
                                     <div class="product-star-ating">
                                         <p style="text-align: center">
                                             <star-rating v-bind:increment="0.1" v-bind:max-rating="5"
@@ -225,11 +199,7 @@
                                         </p>
                                     </div>
                                 </nuxt-link>
-                                <div class="" v-else>
-                                    เร็วๆนี้
-                                </div>
                             </div>
-
                         </b-col>
                     </b-row>
                 </b-col>
@@ -384,7 +354,6 @@ export default {
             promotions: promotions.data ? promotions.data : [],
             products_randoms: products_randoms.data ? products_randoms.data : [],
             brands: brands.data ? brands.data : [],
-
         };
     },
 };

@@ -194,21 +194,23 @@
         </b-col>
         <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
             <b-col class="card-product" cols="3" v-for="(product,idx) in category_products" :key="'E'+idx">
-                <div v-if="product.product_image">
-                    <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
-                </div>
-                <div v-else>
-                    <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title></title>
-                        <rect width="100%" height="100%" fill="#55595c"></rect>
-                        <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                    </svg>
-                </div>
-                <div class="product-name">
-                    <div class="text-overflow">
-                        {{ product.product_name }}
+                <nuxt-link :to="{ path: `/product/${product.product_code}` }">
+                    <div v-if="product.product_image">
+                        <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
                     </div>
-                </div>
+                    <div v-else>
+                        <svg class="" width="100%" height="220px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title></title>
+                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                        </svg>
+                    </div>
+                    <div class="product-name">
+                        <div class="text-overflow">
+                            {{ product.product_name }}
+                        </div>
+                    </div>
+                </nuxt-link>
                 <div class="product-price">฿{{ product.product_price }}</div>
                 <div class="left">
                     <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
