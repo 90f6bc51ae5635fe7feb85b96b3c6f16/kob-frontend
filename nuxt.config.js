@@ -10,7 +10,7 @@ export default {
   ssr: true,
   target: 'server',
   debug: true,
-  
+
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -61,7 +61,7 @@ export default {
     "slick-carousel/slick/slick.css",
     "slick-carousel/slick/slick-theme.css",
     "@fortawesome/fontawesome-svg-core/styles.css",
-
+    '~/assets/css/style.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -209,7 +209,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    
+
     analyze: true,
     extend(config, ctx) { },
     babel: {
