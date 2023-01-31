@@ -16,18 +16,19 @@
       <div>
          <b-row style=" margin: 0 -2em 0
             -1em;">
-            <b-col class="title-promotion" style="font-size: 16pt;">โปรโมชั่น</b-col>
+            <b-col class="title-promotions" style="font-size: 16pt;">โปรโมชั่น</b-col>
          </b-row>
-         <b-row class="row-promotions" style=" padding-top: 30px; display: flex; flex-wrap:wrap">
-            <b-col class="card-promotions" v-for="(promotion, idx) in promotions" :key="idx"> 
+         <b-row class="row-promotions" >
+            <b-col class="card-promotions" style=" padding-top: 30px; display: flex; flex-wrap:wrap" v-for="(promotion, idx) in promotions" :key="idx"> 
                <b-card 
                   :img-src="`${promotion.promotion_image != '' && promotion.promotion_image != undefined ? `http://141.98.19.44:6201/${promotion.promotion_image}` : `https://picsum.photos/1024/480/?image=12`}`"
                   img-alt="Image"
                   img-top
-                  style="max-width:30rem; display:flex; width:500px; margin-bottom:20px"
+                  class="card-image"
+                  style="width:30em; margin-bottom:20px"
                >
                   <b-row class="card-name" style="border-bottom: 1px solid #e4e4e4; margin-bottom:10px">
-                     <div style="font-size:18px; margin-bottom:10px">
+                     <div clas="name" style="font-size:18px; margin-bottom:10px">
                         <b-card-text>
                            {{promotion.promotion_name}}
                         </b-card-text>
@@ -37,11 +38,11 @@
                      <table >
                         <tbody>
                            <tr>
-                              <td style="width:120px;">ระยะเวลาเริ่มต้น</td>
+                              <td class="table-header" style="width:120px;">ระยะเวลาเริ่มต้น</td>
                               <td>{{new Date(promotion.promotion_begin_date).toLocaleString()}}</td>
                            </tr>
                            <tr>
-                              <td style="width:120px">ระยะเวลาสิ้นสุด</td>
+                              <td class="table-header" style="width:120px">ระยะเวลาสิ้นสุด</td>
                               <td>{{new Date(promotion.promotion_end_date).toLocaleString()}}</td>
                            </tr>
                         </tbody>
@@ -89,7 +90,7 @@ div{
    flex-direction: column;
 }
 /* --------------------------------------- */
-.title-promotion{
+.title-promotions{
    padding-top: 1em;
    font-family: "Kanit";
    font-size: 1em;
@@ -127,4 +128,28 @@ div{
     background-color: #39b44f !important;
     box-sizing: border-box;
 }
+
+/* Responsive Web */
+@media only screen and (max-width:1200px){
+   /* Foe tablet */
+   .card-promotions{
+      display: flex;
+      flex-direction:row;
+      justify-content: center;
+   }
+   .title-promotions{
+      padding-top: 1em;
+      font-family: "Kanit";
+      font-size: 1em;
+      font-weight: 500;
+      border-bottom: 1px solid #e4e4e4;
+      padding-bottom: 20px;
+      margin-left: 20px;
+   }
+   .card-text{
+      font-size: 14px;
+   }
+   
+}
+
 </style>

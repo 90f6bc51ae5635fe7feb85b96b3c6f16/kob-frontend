@@ -25,7 +25,7 @@
     </b-row>
     <b-row>
         <b-col class="image" style="margin-top: 20px; display: flex; ; justify-content: center;" >
-            <img :src="`${promotion.promotion_image != '' && promotion.promotion_image != undefined ? `http://141.98.19.44:6201/${promotion.promotion_image}` : `https://picsum.photos/1024/480/?image=12`}`" style="width:80%">
+            <img :src="`${promotion.promotion_image != '' && promotion.promotion_image != undefined ? `http://141.98.19.44:6201/${promotion.promotion_image}` : `https://picsum.photos/1024/480/?image=12`}`" style="width:70%">
         </b-col>
     </b-row>
     <b-row>
@@ -33,24 +33,24 @@
             <table >
                 <tbody >
                     <tr>
-                        <td style="width:120px; ">รหัสโปรโมชั่น</td>
-                        <td>{{promotion.promotion_code}}</td>
+                        <td  class="table-headder" style="width:120px; ">รหัสโปรโมชั่น</td>
+                        <td class="table-data">{{promotion.promotion_code}}</td>
                     </tr>
                     <tr>
-                        <td>ชื่อโปรโมชั่น</td>
-                        <td> {{promotion.promotion_name}}</td>
+                        <td class="table-headder" >ชื่อโปรโมชั่น</td>
+                        <td class="table-data"> {{promotion.promotion_name}}</td>
                     </tr>
                     <tr>
-                        <td >ระยะเวลา</td>
-                        <td>{{new Date(promotion.promotion_begin_date).toLocaleString()}}   -  {{new Date(promotion.promotion_end_date).toLocaleString()}}</td>
+                        <td  class="table-headder" >ระยะเวลา</td>
+                        <td class="table-data">{{new Date(promotion.promotion_begin_date).toLocaleString()}}  <strong>-</strong> {{new Date(promotion.promotion_end_date).toLocaleString()}}</td>
                     </tr>
                     <tr>
-                        <td >ประเภทลูกค้า</td>
-                        <td>{{promotion.promotion_customer_type}}</td>
+                        <td  class="table-headder" >ประเภทลูกค้า</td>
+                        <td class="table-data">{{promotion.promotion_customer_type}}</td>
                     </tr>
                     <tr>
-                        <td style="width:120px;">รายละเอียด</td>
-                        <td>{{promotion.promotion_detail}}</td>
+                        <td  class="table-headder" style="width:120px;">รายละเอียด</td>
+                        <td class="table-data">{{promotion.promotion_detail}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -165,5 +165,17 @@ div {
     color: #fff;
     background-color: #39b44f !important;
     box-sizing: border-box;
+}
+
+
+/* responsive */
+@media only screen and (max-width: 500px) {
+    table, table tbody, table tr, table td {
+        display: block;
+        font-size: 14px;
+    }
+    .table-data{
+        margin-left: 20px;
+    }
 }
 </style>
