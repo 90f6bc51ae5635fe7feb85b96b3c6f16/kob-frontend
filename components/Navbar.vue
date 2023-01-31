@@ -333,7 +333,7 @@
           </div>
         </b-container>
         <b-navbar
-          class="kg-nav p-md-0"
+          class="kg-nav p-lg-0"
           toggleable="lg"
           type="dark"
           variant="info"
@@ -341,9 +341,15 @@
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
           <b-container fluid="lg" class="px-0">
             <b-collapse id="nav-collapse" is-nav>
-              <b-navbar-nav class="pt-2 pt-md-0">
+              <b-navbar-nav class="pt-2 pt-lg-0">
                 <b-nav-item-dropdown
-                  class="product-type px-2 py-md-2"
+                  class="
+                    d-none d-lg-block
+                    product-type
+                    px-2
+                    py-lg-2
+                    mr-0 mr-lg-4
+                  "
                   left
                   no-caret
                 >
@@ -360,28 +366,28 @@
                     >{{ category.product_category_name }}</b-dropdown-item
                   >
                 </b-nav-item-dropdown>
-                <b-nav-item class="py-0 py-md-2" href="/">หน้าหลัก</b-nav-item>
-                <b-nav-item class="py-0 py-md-2" href="/product"
+                <b-nav-item class="py-0 py-lg-2" href="/">หน้าหลัก</b-nav-item>
+                <b-nav-item class="py-0 py-lg-2" href="/product"
                   >รายการสินค้า</b-nav-item
                 >
-                <b-nav-item class="py-0 py-md-2" href="/aboutus"
+                <b-nav-item class="py-0 py-lg-2" href="/aboutus"
                   >เกี่ยวกับเรา</b-nav-item
                 >
-                <b-nav-item class="py-0 py-md-2" href="/howtoorder"
+                <b-nav-item class="py-0 py-lg-2" href="/howtoorder"
                   >วิธีการสั่งซื้อ</b-nav-item
                 >
-                <b-nav-item class="py-0 py-md-2" href="/contact"
+                <b-nav-item class="py-0 py-lg-2" href="/contact"
                   >ติดต่อเรา</b-nav-item
                 >
-                <b-nav-item class="py-0 py-md-2" href="/contact"
+                <b-nav-item class="py-0 py-lg-2" href="/contact"
                   >ล็อคอิน</b-nav-item
                 >
-                <b-nav-item class="py-0 py-md-2" href="/contact"
+                <b-nav-item class="py-0 py-lg-2" href="/contact"
                   >สมัครสมาชิค</b-nav-item
                 >
               </b-navbar-nav>
               <!-- Right aligned nav items -->
-              <b-navbar-nav class="ml-auto">
+              <b-navbar-nav class="ml-auto d-sm-block d-lg-none d-xl-block">
                 <b-nav-text
                   >โทรศัพท์ :
                   <span
@@ -395,7 +401,7 @@
                     099-461-9241
                   </span>
                 </b-nav-text>
-                <b-nav-text class="d-block d-sm-none text-center">
+                <b-nav-text class="d-sm-block d-md-none text-center">
                   <b-link href="/login">ล็อคอิน</b-link>
                   /
                   <b-link href="/register">สมัครสมาชิค</b-link>
@@ -404,6 +410,20 @@
             </b-collapse>
           </b-container>
         </b-navbar>
+        <!-- <b-dropdown left no-caret>
+          <template slot="button-content">
+            <span class="flex-grow-1">รายการสินค้า</span>
+            <font-awesome-icon :icon="['fas', 'bars']" />
+          </template>
+          <b-dropdown-item
+            v-for="category in categorys"
+            :key="category.product_category_code"
+            :to="{
+              path: `/product/category/${category.product_category_code}`,
+            }"
+            >{{ category.product_category_name }}</b-dropdown-item
+          >
+        </b-dropdown> -->
       </div>
     </fixed-header>
   </div>
