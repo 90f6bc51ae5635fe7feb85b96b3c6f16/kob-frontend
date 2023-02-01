@@ -1,3 +1,7 @@
+img.cover {
+  object-fit: cover;
+}
+
 .kg-nav.navbar-dark .navbar-nav {
   .nav-link, .navbar-text {
     color: #fff;
@@ -43,20 +47,32 @@
   margin-left: -8px;
   margin-right: -8px;
 }
-
+.b-dropdown {
+  button {
+    svg {
+      display: none;
+    }
+  }
+}
+.b-dropdown:not(.show) {
+  svg:first-child {
+    display: inline-block;
+  }
+}
+.b-dropdown.show {
+  svg:last-child {
+    display: inline-block;
+  }
+}
+.b-dropdown.bg-transparent{
+  button {
+    background-color: transparent !important;
+    border: unset !important;
+    color: #000;
+  }
+}
 .card-product {
   border: 1px solid rgb(0 0 0 / 14%);
-}
-.card-product:not(:last-child) {
-  border-right: unset;
-}
-.card-product-blog {
-  .card-product:nth-child(3n) {
-    border-right: unset;
-  }
-  .card-product:nth-child(n + 4) {
-    border-bottom: unset;
-  }
 }
 .card-product:hover {
   box-shadow: 0 0 5px rgba(33, 33, 33, 0.5);
@@ -94,9 +110,38 @@
   }
 }
 
-.grid-5-col {
-  flex: 0 0 20%;
-  max-width: 20%;
+.card-product-blog {
+  border-top: 1px solid rgb(0 0 0 / 14%);
+  border-bottom: 1px solid rgb(0 0 0 / 14%);
+}
+
+.card-product-hot {
+  border: 1px solid rgb(0 0 0 / 14%);
+}
+
+@media (min-width: 992px) {
+  .card-product-blog > .row > div:first-child, 
+  .card-product-blog > .row > div:nth-child(4n+4) {
+    .card-product {
+      border-left: 1px solid transparent;
+    }
+  }
+  .card-product-blog > .row > div:not(:last-child), 
+  .card-product-blog > .row > div:nth-child(3n+3) {
+    .card-product {
+      border-right: 1px solid transparent;
+    }
+  }
+  .card-product-blog > .row > div:nth-child(n + 4) {
+    .card-product {
+      border-bottom: 1px solid transparent;
+    }
+  }
+
+  .grid-lg-5 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
 }
 
 @media (max-width: 992px) {
@@ -104,5 +149,21 @@
     .search-box {
       display: block;
     }
+  }
+}
+
+@media (max-width: 576px) {
+  .card-product-blog {
+    border: unset;
+  }
+  .card-product-blog > .row {
+    justify-content: space-around;
+  }
+  .card-product-blog > .row > div {
+    padding-top: 12px;
+    max-width: 240px;
+  }
+  .card-product-hot {
+    margin-top: 12px;
   }
 }

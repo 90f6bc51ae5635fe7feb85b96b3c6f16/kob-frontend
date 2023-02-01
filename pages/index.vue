@@ -144,13 +144,14 @@
     <client-only>
       <b-row
         class="no-gutters mt-5"
-        v-for="(category, idx) in categorys"
-        :key="idx"
+        v-for="(category, category_idx) in categorys"
+        :key="category_idx"
+        :style="`border-top: 4px solid ${category.product_category_color};`"
       >
         <b-col
-          md="12"
-          class="pt-4 grid-5-col d-none d-md-block"
-          :style="`border-top: 4px solid ${category.product_category_color};background-color: ${category.product_category_color}`"
+          md="3"
+          class="pt-4 grid-lg-5 d-none d-md-block"
+          :style="`background-color: ${category.product_category_color}`"
         >
           <div class="text-center mb-4">
             <b-img
@@ -179,9 +180,40 @@
           </div>
         </b-col>
         <b-col
-          class="card-product-blog"
-          :style="`border-top: 4px solid ${category.product_category_color};`"
+          cols="12"
+          class="p-2 d-block d-md-none"
+          :style="`background-color: ${category.product_category_color}`"
         >
+          <div class="d-flex">
+            <b-img
+              :src="`https://rvscs-develop.com/km-korat/${category.product_category_icon}`"
+              alt="Image"
+              class="rounded cover"
+              width="36"
+              height="36"
+            ></b-img>
+            <p class="ml-2 mb-0" style="font-size: 15pt; color: #fff">
+              {{ category.product_category_name }}
+            </p>
+            <b-dropdown
+              class="ml-auto bg-transparent"
+              variant="light"
+              no-caret
+              right
+            >
+              <template slot="button-content">
+                <font-awesome-icon :icon="['fas', 'angle-left']" />
+                <font-awesome-icon :icon="['fas', 'angle-down']" />
+              </template>
+              <b-dropdown-item
+                v-for="(brand, brand_idx) in brands"
+                :key="brand_idx"
+                >{{ brand.product_brand_name }}</b-dropdown-item
+              >
+            </b-dropdown>
+          </div>
+        </b-col>
+        <b-col class="card-product-blog">
           <b-row
             class="no-gutters"
             v-for="(
@@ -192,7 +224,74 @@
             <b-col
               sm="6"
               md="4"
-              class="card-product"
+              v-for="(
+                product_category_random_data_show, idx
+              ) in product_category_random_data[category.product_category_code]"
+              :key="idx"
+            >
+              <nuxt-link
+                :to="{
+                  path: `/product/${product_category_random_data_show.product_code}`,
+                }"
+                class="d-block"
+                style="text-decoration: none !important"
+                v-if="
+                  product_category_random_data_show &&
+                  product_category_random_data_show.product_name
+                "
+              >
+                <div class="card-product">
+                  <b-card-img
+                    v-if="product_category_random_data_show.product_image"
+                    :src="`http://141.98.19.44:6201/${product_category_random_data_show.product_image}`"
+                    width="100%"
+                    height="220px"
+                    alt="Image"
+                    class="rounded-0"
+                  ></b-card-img>
+                  <svg
+                    v-else
+                    width="100%"
+                    height="220px"
+                    role="img"
+                    aria-label="Placeholder: Kob Giftshop"
+                    preserveAspectRatio="xMidYMid slice"
+                    focusable="false"
+                  >
+                    <title></title>
+                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                    <text x="30%" y="50%" fill="#eceeef" dy=".3em">
+                      Kob Giftshop
+                    </text>
+                  </svg>
+                  <div class="product-name">
+                    <div class="text-overflow">
+                      {{ product_category_random_data_show.product_name }}
+                    </div>
+                  </div>
+                  <div class="product-price">
+                    ฿{{ product_category_random_data_show.product_price }}
+                  </div>
+                  <div class="product-star-ating">
+                    <p style="text-align: center">
+                      <star-rating
+                        v-bind:increment="0.1"
+                        v-bind:max-rating="5"
+                        v-bind:star-size="12"
+                        v-bind:read-only="true"
+                        v-bind:show-rating="false"
+                        v-model="rating"
+                      >
+                      </star-rating>
+                    </p>
+                  </div>
+                </div>
+              </nuxt-link>
+            </b-col>
+
+            <b-col
+              sm="6"
+              md="4"
               v-for="(
                 product_category_random_data_show, idx
               ) in product_category_random_data[category.product_category_code]"
@@ -208,57 +307,60 @@
                   product_category_random_data_show.product_name
                 "
               >
-                <b-card-img
-                  v-if="product_category_random_data_show.product_image"
-                  :src="`http://141.98.19.44:6201/${product_category_random_data_show.product_image}`"
-                  width="100%"
-                  height="220px"
-                  alt="Image"
-                  class="rounded-0"
-                ></b-card-img>
-                <svg
-                  v-else
-                  width="100%"
-                  height="220px"
-                  role="img"
-                  aria-label="Placeholder: Kob Giftshop"
-                  preserveAspectRatio="xMidYMid slice"
-                  focusable="false"
-                >
-                  <title></title>
-                  <rect width="100%" height="100%" fill="#55595c"></rect>
-                  <text x="30%" y="50%" fill="#eceeef" dy=".3em">
-                    Kob Giftshop
-                  </text>
-                </svg>
-                <div class="product-name">
-                  <div class="text-overflow">
-                    {{ product_category_random_data_show.product_name }}
+                <div class="card-product">
+                  <b-card-img
+                    v-if="product_category_random_data_show.product_image"
+                    :src="`http://141.98.19.44:6201/${product_category_random_data_show.product_image}`"
+                    width="100%"
+                    height="220px"
+                    alt="Image"
+                    class="rounded-0"
+                  ></b-card-img>
+                  <svg
+                    v-else
+                    width="100%"
+                    height="220px"
+                    role="img"
+                    aria-label="Placeholder: Kob Giftshop"
+                    preserveAspectRatio="xMidYMid slice"
+                    focusable="false"
+                  >
+                    <title></title>
+                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                    <text x="30%" y="50%" fill="#eceeef" dy=".3em">
+                      Kob Giftshop
+                    </text>
+                  </svg>
+                  <div class="product-name">
+                    <div class="text-overflow">
+                      {{ product_category_random_data_show.product_name }}
+                    </div>
                   </div>
-                </div>
-                <div class="product-price">
-                  ฿{{ product_category_random_data_show.product_price }}
-                </div>
-                <div class="product-star-ating">
-                  <p style="text-align: center">
-                    <star-rating
-                      v-bind:increment="0.1"
-                      v-bind:max-rating="5"
-                      v-bind:star-size="12"
-                      v-bind:read-only="true"
-                      v-bind:show-rating="false"
-                      v-model="rating"
-                    >
-                    </star-rating>
-                  </p>
+                  <div class="product-price">
+                    ฿{{ product_category_random_data_show.product_price }}
+                  </div>
+                  <div class="product-star-ating">
+                    <p style="text-align: center">
+                      <star-rating
+                        v-bind:increment="0.1"
+                        v-bind:max-rating="5"
+                        v-bind:star-size="12"
+                        v-bind:read-only="true"
+                        v-bind:show-rating="false"
+                        v-model="rating"
+                      >
+                      </star-rating>
+                    </p>
+                  </div>
                 </div>
               </nuxt-link>
             </b-col>
           </b-row>
         </b-col>
         <b-col
-          class="card-product-hot grid-5-col d-none d-md-block"
-          :style="`width : 100%;height 100%; border-top: 4px solid ${category.product_category_color};`"
+          sm="4"
+          md="3"
+          class="card-product-hot grid-lg-5 d-block d-sm-none d-lg-block"
         >
           <div style="background-color: #adadad; margin: 0.6em">
             <h4 style="padding-top: 1em; text-align: center; color: #fff">
@@ -526,21 +628,8 @@ div {
   padding-bottom: 20px;
 }
 
-.card-product-blog {
-  border: 1px solid rgb(0 0 0 / 14%);
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .card-product-shop {
   padding: 1em 0 2em 0;
-}
-
-.card-product-hot {
-  border-right: 1px solid rgb(0 0 0 / 14%);
-  border-bottom: 1px solid rgb(0 0 0 / 14%);
-  padding-left: 0;
-  padding-right: 0;
 }
 
 ul {
@@ -552,25 +641,6 @@ ul {
   border-bottom: 1px solid rgb(0 0 0 / 14%);
   border-left: 1px solid rgb(0 0 0 / 14%);
   border-right: 1px solid rgb(0 0 0 / 14%);
-}
-
-#example-collapse {
-  padding-right: 1.5px;
-}
-
-#example-collapse a {
-  font-size: 12pt;
-  text-align: left;
-  color: #666666;
-  display: block;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-#example-collapse a:hover {
-  color: #fff;
-  background-color: #39b44f !important;
-  box-sizing: border-box;
 }
 
 .img-wrapper img {
