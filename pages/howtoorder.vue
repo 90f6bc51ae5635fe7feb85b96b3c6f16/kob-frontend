@@ -16,10 +16,10 @@
     <b-row style=" margin: 0 -2em 0 -1em;">
         <b-col class="title-product" style="font-size: 16pt;">วิธีการสั่งซื้อ</b-col>
     </b-row>
-    <b-row style=" margin: 0 -2em 0 -1em;">
+    <b-row style=" margin: 0 -2em 0 -1em; ">
         <b-col cols="12" style="margin-top: 1em;">
-            <b-row>
-                <v-card-text v-html="company.company_info_how_to_order" class="image-style-align-center"></v-card-text>
+            <b-row >
+                <v-card-text v-html="company.company_info_how_to_order" class="image-style-align-center" ></v-card-text>
             </b-row>
         </b-col>
     </b-row>
@@ -93,5 +93,25 @@ div {
     color: #fff;
     background-color: #39b44f !important;
     box-sizing: border-box;
+}
+
+/* responsive */
+@media only screen and (max-width:1200px) {
+    .title-product{
+        font-size: 20px;
+        margin-left: 10px;
+    }
+    .image-style-align-center{
+        margin-left:30px;
+        margin-right: 30px ;
+    }
+    .image-style-align-center img{
+        width: 100%;
+        height: auto;
+    }    
+    .image-style-align-center p {
+        font-size: 18px;
+    }
+    
 }
 </style>

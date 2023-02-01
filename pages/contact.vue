@@ -73,11 +73,11 @@
                     </div>
                 </b-col>
             </b-row>
-            <b-row>
+            <b-row >
                 <b-col cols="12" style="margin-top: 2em;">
-                    <v-card-text v-html="recruitment.company_info_recruitment" class="image-style-align-center"></v-card-text>
+                        <v-card-text v-html="recruitment.company_info_recruitment" class="image-style-align-center content-recruitment" ></v-card-text>
                 </b-col>
-                </b-row>
+            </b-row>
         </b-col>
     </b-row>
 </div>
@@ -100,7 +100,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 div {
     font-family: "Kanit", sans-serif;
 }
@@ -114,16 +114,6 @@ div {
     padding-bottom: 20px;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(0 0 0 / 14%);
-    border-left: 1px solid rgb(0 0 0 / 14%);
-    border-right: 1px solid rgb(0 0 0 / 14%);
-}
 
 #example-collapse {
     padding-right: 1.5px;
@@ -162,5 +152,19 @@ ul {
 .gmap_iframe {
     width: 100% !important;
     height: 400px !important;
+}
+
+/* responsive */
+@media  only screen and (max-width:1200px) {
+    .title-product{
+        margin-left: 30px;
+    }
+    .content-recruitment img{
+        width: 100%;
+    }
+    .content-recruitment p{
+        font-size: 18px;
+        margin-left: 20px;
+    }
 }
 </style>
