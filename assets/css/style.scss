@@ -1,6 +1,7 @@
 .kg-nav.navbar-dark .navbar-nav {
   .nav-link, .navbar-text {
     color: #fff;
+    font-size: 14px;
   }
   
   .nav-item.product-type {
@@ -33,6 +34,63 @@
   .search-box {
     display: none;
     width: 100%;
+  }
+}
+
+.kg-carousel-b {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.card-product {
+  border: 1px solid rgb(0 0 0 / 14%);
+}
+.card-product:not(:last-child) {
+  border-right: unset;
+}
+.card-product-blog {
+  .card-product:nth-child(3n) {
+    border-right: unset;
+  }
+  .card-product:nth-child(n + 4) {
+    border-bottom: unset;
+  }
+}
+.card-product:hover {
+  box-shadow: 0 0 5px rgba(33, 33, 33, 0.5);
+}
+
+.card-category {
+  position: relative;
+  font-weight: 500; 
+  color: #fff !important;
+
+  .card-img {
+    object-fit: cover;
+    aspect-ratio: 2.75;
+  }
+  .category-title {
+    font-size: 1.5em;
+  }
+  .category-detail {
+    font-size: 1.2em; 
+  }
+}
+.card-category.pattern-1 {
+  .category-text {
+    position: absolute;
+    top: 20%;
+    left: 18%;
+  }
+}
+.card-category.pattern-2 {
+  .category-text {
+    position: absolute;
+    text-align: right;
+    top: 20%;
+    right: 18%;
   }
 }
 
