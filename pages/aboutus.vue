@@ -95,4 +95,18 @@ div {
     background-color: #39b44f !important;
     box-sizing: border-box;
 }
+
+
+
+/* responsive */
+@media only screen and (max-width:1000px){
+    .title-product{
+        margin-left: 30px;
+    }
+    .image-style-align-center{
+        margin-left: 30px;
+        margin-right: 30px;
+        font-size: 16px;
+    }
+}
 </style>
