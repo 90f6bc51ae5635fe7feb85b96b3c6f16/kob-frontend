@@ -125,15 +125,33 @@
             <rect width="100%" height="100%" fill="#55595c"></rect>
             <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
           </svg>
-          <div class="card-product-shop">
+        </nuxt-link>
+        <div class="card-detail pt-2 pb-4">
+          <b-row class="no-gutters card-action">
+            <b-col class="btn rounded-0 btn-outline-success">
+              <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+            </b-col>
+            <b-col class="btn rounded-0 btn-outline-success">
+              <font-awesome-icon
+                :icon="['fa', 'cart-plus']"
+                style="color: #000"
+              />
+            </b-col>
+          </b-row>
+          <nuxt-link
+            :to="{
+              path: `/product/${product.product_code}`,
+            }"
+            style="text-decoration: none !important"
+          >
             <div class="product-name">
               <div class="text-overflow">
                 {{ product.product_name }}
               </div>
             </div>
             <div class="product-price">฿{{ product.product_price }}</div>
-          </div>
-        </nuxt-link>
+          </nuxt-link>
+        </div>
       </b-col>
     </b-row>
 
@@ -225,18 +243,13 @@
               ) in product_category_random_data[category.product_category_code]"
               :key="idx"
             >
-              <nuxt-link
-                :to="{
-                  path: `/product/${product_category_random_data_show.product_code}`,
-                }"
-                class="d-block"
-                style="text-decoration: none !important"
-                v-if="
-                  product_category_random_data_show &&
-                  product_category_random_data_show.product_name
-                "
-              >
-                <div class="card-product">
+              <div class="card-product">
+                <nuxt-link
+                  :to="{
+                    path: `/product/${product_category_random_data_show.product_code}`,
+                  }"
+                  style="text-decoration: none !important"
+                >
                   <b-card-img
                     v-if="product_category_random_data_show.product_image"
                     :src="`http://141.98.19.44:6201/${product_category_random_data_show.product_image}`"
@@ -260,96 +273,52 @@
                       Kob Giftshop
                     </text>
                   </svg>
-                  <div class="product-name">
-                    <div class="text-overflow">
-                      {{ product_category_random_data_show.product_name }}
-                    </div>
-                  </div>
-                  <div class="product-price">
-                    ฿{{ product_category_random_data_show.product_price }}
-                  </div>
-                  <div class="product-star-ating">
-                    <p style="text-align: center">
-                      <star-rating
-                        v-bind:increment="0.1"
-                        v-bind:max-rating="5"
-                        v-bind:star-size="12"
-                        v-bind:read-only="true"
-                        v-bind:show-rating="false"
-                        v-model="rating"
-                      >
-                      </star-rating>
-                    </p>
-                  </div>
-                </div>
-              </nuxt-link>
-            </b-col>
-
-            <b-col
-              sm="6"
-              md="4"
-              v-for="(
-                product_category_random_data_show, idx
-              ) in product_category_random_data[category.product_category_code]"
-              :key="idx"
-            >
-              <nuxt-link
-                :to="{
-                  path: `/product/${product_category_random_data_show.product_code}`,
-                }"
-                style="text-decoration: none !important"
-                v-if="
-                  product_category_random_data_show &&
-                  product_category_random_data_show.product_name
-                "
-              >
-                <div class="card-product">
-                  <b-card-img
-                    v-if="product_category_random_data_show.product_image"
-                    :src="`http://141.98.19.44:6201/${product_category_random_data_show.product_image}`"
-                    width="100%"
-                    height="220px"
-                    alt="Image"
-                    class="rounded-0"
-                  ></b-card-img>
-                  <svg
-                    v-else
-                    width="100%"
-                    height="220px"
-                    role="img"
-                    aria-label="Placeholder: Kob Giftshop"
-                    preserveAspectRatio="xMidYMid slice"
-                    focusable="false"
+                </nuxt-link>
+                <div class="card-detail">
+                  <b-row class="no-gutters card-action">
+                    <b-col class="btn rounded-0 btn-outline-success">
+                      <font-awesome-icon
+                        :icon="['fa', 'eye']"
+                        style="color: #000"
+                      />
+                    </b-col>
+                    <b-col class="btn rounded-0 btn-outline-success">
+                      <font-awesome-icon
+                        :icon="['fa', 'cart-plus']"
+                        style="color: #000"
+                      />
+                    </b-col>
+                  </b-row>
+                  <nuxt-link
+                    :to="{
+                      path: `/product/${product_category_random_data_show.product_code}`,
+                    }"
+                    style="text-decoration: none !important"
                   >
-                    <title></title>
-                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                    <text x="30%" y="50%" fill="#eceeef" dy=".3em">
-                      Kob Giftshop
-                    </text>
-                  </svg>
-                  <div class="product-name">
-                    <div class="text-overflow">
-                      {{ product_category_random_data_show.product_name }}
+                    <div class="product-name">
+                      <div class="text-overflow">
+                        {{ product_category_random_data_show.product_name }}
+                      </div>
                     </div>
-                  </div>
-                  <div class="product-price">
-                    ฿{{ product_category_random_data_show.product_price }}
-                  </div>
-                  <div class="product-star-ating">
-                    <p style="text-align: center">
-                      <star-rating
-                        v-bind:increment="0.1"
-                        v-bind:max-rating="5"
-                        v-bind:star-size="12"
-                        v-bind:read-only="true"
-                        v-bind:show-rating="false"
-                        v-model="rating"
-                      >
-                      </star-rating>
-                    </p>
-                  </div>
+                    <div class="product-price">
+                      ฿{{ product_category_random_data_show.product_price }}
+                    </div>
+                    <div class="product-star-ating">
+                      <p style="text-align: center">
+                        <star-rating
+                          v-bind:increment="0.1"
+                          v-bind:max-rating="5"
+                          v-bind:star-size="12"
+                          v-bind:read-only="true"
+                          v-bind:show-rating="false"
+                          v-model="rating"
+                        >
+                        </star-rating>
+                      </p>
+                    </div>
+                  </nuxt-link>
                 </div>
-              </nuxt-link>
+              </div>
             </b-col>
           </b-row>
         </b-col>
@@ -522,61 +491,6 @@ export default {
   border-radius: 50% !important;
 }
 
-.left {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 60%;
-  right: 50%;
-  /* transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); */
-  text-align: center;
-}
-
-.right {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  /* transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); */
-  text-align: center;
-}
-
-.left:hover .text {
-  background-color: #39b44f;
-}
-
-.right:hover .text {
-  background-color: #39b44f;
-}
-
-style .card-product:hover .image {
-  opacity: 0.3;
-}
-
-.card-product:hover .left {
-  opacity: 1;
-  background-color: green;
-  width: 50%;
-  border: 1px solid #eaecee;
-}
-
-.card-product:hover .right {
-  opacity: 1;
-  background-color: green;
-  width: 50%;
-  border: 1px solid #eaecee;
-}
-
-.text {
-  background-color: white;
-  color: white;
-  font-size: 16px;
-  padding: 5px 47.5px;
-}
-
 div {
   font-family: "Kanit", sans-serif;
 }
@@ -595,11 +509,6 @@ div {
   color: #999999;
 }
 
-.row-product {
-  padding-top: 30px;
-  margin: 0 -2.1em 0 -1em;
-}
-
 .product-name {
   text-align: center;
   color: #444444;
@@ -614,18 +523,6 @@ div {
   color: #222222;
   font-size: 12pt;
   /* font-family: "Myriad Pro"; */
-}
-
-.row-product-type {
-  text-align: center;
-  padding-top: 2em;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 20px;
-}
-
-.card-product-shop {
-  padding: 1em 0 2em 0;
 }
 
 ul {
