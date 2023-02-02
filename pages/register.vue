@@ -24,94 +24,94 @@
     </b-row>
     <b-row class="" style="margin: 0 -2.9em 0 -1.9em;">
 
-        <b-col cols="12">
-            <form action="" @submit.prevent="onSubmit">
-                <b-row>
-                    <b-col cols="6">
+        <b-col  cols="12">
+            <form  action="" @submit.prevent="onSubmit" >
+                <b-row class="row-form">
+                    <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 ชื่อ <span style="color: red;">*</span>
-                                <b-form-input v-model="firstname" type="text" class="" placeholder="ชื่อ" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกชื่อ');" oninput="setCustomValidity('');"></b-form-input>
+                                <b-form-input v-model="firstname" type="text" class="textbox" placeholder="ชื่อ" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกชื่อ');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
-                    <b-col cols="6">
+                    <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 นามสกุล <span style="color: red">*</span>
-                                <b-form-input v-model="lastname" type="text" class="" placeholder="นามสกุล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกนามสกุล');" oninput="setCustomValidity('');"></b-form-input>
+                                <b-form-input v-model="lastname" type="text" class="textbox" placeholder="นามสกุล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกนามสกุล');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                 </b-row>
-                <b-row>
-                    <b-col cols="6">
+                <b-row class="row-form">
+                    <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Email <span style="color: red">*</span>
-                                <b-form-input v-model="email" class="" type="email" placeholder="อีเมล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกอีเมล');" oninput="setCustomValidity('');"></b-form-input>
+                                <b-form-input v-model="email" class="textbox" type="email" placeholder="อีเมล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกอีเมล');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
-                    <b-col cols="6">
+                    <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Password <span style="color: red">*</span>
-                                <b-form-input v-model="password" type="password" placeholder="รหัสผ่าน" name="password" id="password" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="password" class="textbox" type="password" placeholder="รหัสผ่าน" name="password" id="password" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                 </b-row>
-                <b-row>
-                    <b-col cols="6">
+                <b-row class="row-form">
+                    <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Confirm Password <span style="color: red">*</span>
-                                <b-form-input v-model="confirmpassword" type="password" placeholder="ยืนยันรหัสผ่าน" name="confirmpassword" id="confirmpassword" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('ยืนยันรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="confirmpassword" class="textbox" type="password" placeholder="ยืนยันรหัสผ่าน" name="confirmpassword" id="confirmpassword" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('ยืนยันรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
                                 <span id="message"></span>
                             </template>
                         </b-form-group>
                     </b-col>
-                    <b-col cols="6">
+                    <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 หมายเลขโทรศัพท์ <span style="color: red">*</span>
-                                <b-form-input v-model="phone" type="number" class="" placeholder="หมายเลขโทรศัพท์" required pattern="[0-9]{10}" oninvalid="setCustomValidity('กรุณากรอกเบอร์โทรทัพท์ 0-9');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="phone" type="number" class="textbox"  placeholder="หมายเลขโทรศัพท์" required pattern="[0-9]{10}" oninvalid="setCustomValidity('กรุณากรอกเบอร์โทรทัพท์ 0-9');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
-                </b-row>
-                <b-row>
-                    <b-col cols="6">
+                </b-row >
+                <b-row class="row-form">
+                    <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 ที่อยู่ <span style="color: red">*</span>
-                                <b-form-input v-model="address" type="text" class="" placeholder="ที่อยู่" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกที่อยู่');" oninput="setCustomValidity('');"></b-form-input>
+                                <b-form-input v-model="address" type="text" class="textbox" placeholder="ที่อยู่" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกที่อยู่');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
-                    <b-col cols="6">
+                    <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 วันเกิด <span style="color: red">*</span>
-                                <b-form-input id="" v-model="dates" type="date" class="" placeholder="วันเกิด" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณาเลือกวันเดือนปีเกิด');" oninput="setCustomValidity('');"></b-form-input>
+                                <b-form-input id="" v-model="dates" type="date" class="textbox"  placeholder="วันเกิด" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณาเลือกวันเดือนปีเกิด');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col cols="4">
+                    <b-col >
                     </b-col>
-                    <b-col cols="2">
+                    <b-col >
                         <b-button type="submit" variant="success" name="submit" id="submit" size="md" style="width: 100%;">Save</b-button>
                     </b-col>
-                    <b-col cols="2">
+                    <b-col >
                         <b-button type="reset" variant="warning" size="md" style="width: 100%;">Reset</b-button>
                     </b-col>
-                    <b-col cols="4">
+                    <b-col >
                     </b-col>
                 </b-row>
             </form>
@@ -302,4 +302,22 @@ ul {
     font-weight: 500;
     padding-bottom: 20px;
 }
+
+
+/* responsive */
+@media only screen and (max-width:1000px) {
+    /* Mobile And Tablets */
+    .title-product{
+        margin-left: 10px;
+    }
+    .row-form{
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+    }
+    .textbox{
+        width: 90%;
+    }
+}
+
 </style>

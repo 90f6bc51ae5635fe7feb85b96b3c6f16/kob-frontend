@@ -84,19 +84,16 @@ div {
 
 .container {
     margin: 0 auto;
-    min-height: 40vh;
-    max-height: 40vh;
+    height: 370px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     margin-top: 5em;
     background-color: #fff;
-    box-sizing: border-box;
     box-shadow: 0 3px 10px 0 rgb(0 0 0 / 14%);
     border-radius: 0.25rem;
-    overflow: hidden;
-    width: 31.25rem;
+    width: 50%;
 }
 
 .form {
@@ -133,4 +130,22 @@ ul {
     box-sizing: border-box;
 }
 
+/*responsive  */
+@media only screen and (max-width: 600px){
+    /* Mobile Devices */
+    .container{
+        width: 90%;
+    }
+    .back-login{
+        margin-left: 20px;
+    }
+}
+
+
+@media only screen and (min-width: 601px) and (max-width:1024px){
+    /* Ipads Tablets */
+    .container{
+        width: 60%;
+    }
+}
 </style>

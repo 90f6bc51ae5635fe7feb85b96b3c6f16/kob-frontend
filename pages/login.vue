@@ -20,7 +20,7 @@
             </b-collapse>
         </div>
         <div class="container">
-            <form class="form" @submit="onSubmit" style="width: 30%;">
+            <form class="form" @submit="onSubmit" >
                 <div style="margin: 0 0 1em 0;">
                     <b-img src="~/assets/Logo.png" alt="Image" class="rounded"
                         style="width:100%; height: auto; margin: 0 0 0 0;"></b-img>
@@ -28,7 +28,7 @@
 
                 <h3 class="title">Log In</h3>
                 <div class="field">
-                    <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
+                    <b-form-group id="group" label="" label-for="input-1" description="" style="text-align: left;">
                         <template>
                             Email
                             <b-form-input v-model="email" class="input" type="text" placeholder="อีเมล"></b-form-input>
@@ -36,7 +36,7 @@
                     </b-form-group>
                 </div>
                 <div class="field">
-                    <b-form-group id="" label="" label-for="input-1" description="" style="text-align: left;">
+                    <b-form-group id="group" label="" label-for="input-1" description="" style="text-align: left;">
                         <template>
                             Password
                             <b-form-input v-model="password" class="input" type="password" placeholder="รหัสผ่าน">
@@ -177,5 +177,40 @@ ul {
     color: #fff;
     background-color: #39b44f !important;
     box-sizing: border-box;
+}
+
+
+
+
+/* responsive */
+@media only screen and (max-width:500px){
+    /* mobile devices */
+    .form{
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width:1024px) and (min-width:501px){
+    /* Ipads, Tablets */
+    .form{
+        width: 50%;
+    }
+    .title{
+        font-size: 40px;
+    }
+    #group{
+        font-size: 20px;
+    }
+    .input{
+        font-size: 20px;
+    }
+    .field{
+        font-size: 20px;
+    }
+}
+@media only screen and (min-width:1025px) {
+    .form{
+        width: 30%;
+    }
 }
 </style>
