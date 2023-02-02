@@ -28,25 +28,7 @@
               >
               </b-form-input>
               <template #append>
-                <!-- <b-dropdown
-                  text="ชื่อสินค้า"
-                  right
-                  variant="outline-secondary"
-                  disabled
-                >
-                  <input type="radio" value="ราคา" v-model="checkedNames" />
-                  <label for="jack">ราคา</label>
-                  <input type="radio" v-model="checkedNames" />
-                  <label for="john">ชื่อ</label>
-                </b-dropdown> -->
-                <b-button
-                  type="submit"
-                  style="
-                    background-color: #ffd000;
-                    border-color: #ffd000;
-                    border-radius: 0;
-                  "
-                >
+                <b-button type="submit" variant="warning">
                   <font-awesome-icon
                     :icon="['fas', 'search']"
                     style="font-size: 12px"
@@ -342,7 +324,7 @@
           <b-container fluid="lg" class="px-0">
             <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav class="pt-2 pt-lg-0">
-                <b-nav-item-dropdown
+                <!-- <b-nav-item-dropdown
                   class="
                     d-none d-lg-block
                     product-type
@@ -365,7 +347,7 @@
                     }"
                     >{{ category.product_category_name }}</b-dropdown-item
                   >
-                </b-nav-item-dropdown>
+                </b-nav-item-dropdown> -->
                 <b-nav-item class="py-0 py-lg-2" href="/">หน้าหลัก</b-nav-item>
                 <b-nav-item class="py-0 py-lg-2" href="/product"
                   >รายการสินค้า</b-nav-item
@@ -379,25 +361,12 @@
                 <b-nav-item class="py-0 py-lg-2" href="/contact"
                   >ติดต่อเรา</b-nav-item
                 >
-                <b-nav-item class="py-0 py-lg-2" href="/contact"
-                  >ล็อคอิน</b-nav-item
-                >
-                <b-nav-item class="py-0 py-lg-2" href="/contact"
-                  >สมัครสมาชิค</b-nav-item
-                >
               </b-navbar-nav>
               <!-- Right aligned nav items -->
               <b-navbar-nav class="ml-auto d-sm-block d-lg-none d-xl-block">
                 <b-nav-text
                   >โทรศัพท์ :
-                  <span
-                    style="
-                      background-color: #ffd000;
-                      color: #333333;
-                      text-align: center;
-                      padding: 0px 8px;
-                    "
-                  >
+                  <span class="bg-warning text-dark text-center px-2">
                     099-461-9241
                   </span>
                 </b-nav-text>
@@ -410,20 +379,6 @@
             </b-collapse>
           </b-container>
         </b-navbar>
-        <!-- <b-dropdown left no-caret>
-          <template slot="button-content">
-            <span class="flex-grow-1">รายการสินค้า</span>
-            <font-awesome-icon :icon="['fas', 'bars']" />
-          </template>
-          <b-dropdown-item
-            v-for="category in categorys"
-            :key="category.product_category_code"
-            :to="{
-              path: `/product/category/${category.product_category_code}`,
-            }"
-            >{{ category.product_category_name }}</b-dropdown-item
-          >
-        </b-dropdown> -->
       </div>
     </fixed-header>
   </div>
@@ -438,8 +393,6 @@ export default {
   props: ["modelValue"],
   data() {
     return {
-      showNav: false,
-      value: "",
       checkedNames: [],
       dataValue: [],
       keyword: "",
@@ -484,9 +437,6 @@ export default {
     async logout() {
       await this.$auth.logout();
       this.$router.push("/login");
-    },
-    scrollToTop() {
-      window.scrollTo(0, 0);
     },
     removeFromCart(product) {
       this.$swal

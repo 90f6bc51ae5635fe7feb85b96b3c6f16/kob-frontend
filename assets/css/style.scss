@@ -41,6 +41,17 @@ img.cover {
   }
 }
 
+.baner-promotion-item {
+  aspect-ratio: 32/15;
+}
+.list-group.category-list-group {
+  max-height: 194px;
+  overflow: scroll;
+}
+.hover-warning:hover {
+  background-color: #ffed9f;
+  color: #856c00;
+}
 .kg-carousel-b {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -144,6 +155,24 @@ img.cover {
   }
 }
 
+@media (min-width: 768px) {
+  .list-group.category-list-group {
+    max-height: 28vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .list-group.category-list-group {
+    max-height: 284.983px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .list-group.category-list-group {
+    max-height: 333.983px;
+  }
+}
+
 @media (max-width: 992px) {
   .kg-nav.navbar-dark .navbar-nav {
     .search-box {
@@ -152,7 +181,7 @@ img.cover {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .card-product-blog {
     border: unset;
   }

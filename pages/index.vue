@@ -1,31 +1,27 @@
 <template>
   <div>
-    <b-carousel
-      id="carousel-no-animation"
-      class="mt-4"
-      no-animation
-      indicators
-      img-width="1024"
-      img-height="480"
-    >
-      <nuxt-link
-        v-for="(promotion, idx) in promotions"
-        :key="idx"
-        :to="{ path: `/promotions/${promotion.promotion_code}` }"
-        class="link-text-color"
-      >
-        <b-carousel-slide
-          :caption="`${promotion.promotion_name}`"
-          :img-src="`${
-            promotion.promotion_image
-              ? `http://141.98.19.44:6201/${promotion.promotion_image}`
-              : `https://picsum.photos/1024/480/?image=12`
-          }`"
-        >
-        </b-carousel-slide>
-      </nuxt-link>
-    </b-carousel>
-
+    <b-row>
+      <b-col md="3" class="mt-4">
+        <b-card class="h-100" no-body border-variant="warning">
+          <b-card-header header-bg-variant="warning"
+            >รายการสินค้า</b-card-header
+          >
+          <b-list-group class="category-list-group" flush>
+            <b-list-group-item
+              v-for="(category, idx) in categorys"
+              class="hover-warning"
+              :key="idx"
+              :href="`/product/category/${category.product_category_code}`"
+            >
+              {{ category.product_category_name }}
+            </b-list-group-item>
+          </b-list-group>
+        </b-card>
+      </b-col>
+      <b-col md="9" class="mt-4">
+        <promotion-banner />
+      </b-col>
+    </b-row>
     <div class="kg-carousel-b">
       <client-only>
         <agile :options="options" ref="carousel">
@@ -412,8 +408,10 @@
 </template>
 
 <script>
-import "slick-carousel/slick/slick.css";
+import PromotionBanner from "@/components/PromotionBanner.vue";
+
 export default {
+  components: { PromotionBanner },
   name: "Homepage",
   data() {
     return {
@@ -469,7 +467,6 @@ export default {
       obj[key] = this.product_category_random_fetch.data;
       this.product_category_random.push(obj);
     });
-    console.log("this.product_category_random", this.product_category_random);
   },
   watch: {
     shoppingCart: {
@@ -501,19 +498,18 @@ export default {
       window.location.reload(true);
     },
   },
-  async asyncData({ $productService, $promotionService }) {
+  async asyncData({ $productService }) {
     const products = await $productService.product.getProductPage({
       product_page: 1,
     });
-    const promotions = await $promotionService.promotion.getPromotion();
-    var categorys = await $productService.product.getProductCategoryBy();
+
+    const categorys = await $productService.product.getProductCategoryBy();
     const brands = await $productService.product.getProductBandBy();
     const products_randoms = await $productService.product.getProductRandom();
 
     return {
       products: products.data || [],
       categorys: categorys.data || [],
-      promotions: promotions.data || [],
       products_randoms: products_randoms.data || [],
       brands: brands.data || [],
     };
