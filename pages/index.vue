@@ -1,31 +1,27 @@
 <template>
   <div>
-    <b-carousel
-      id="carousel-no-animation"
-      class="mt-4"
-      no-animation
-      indicators
-      img-width="1024"
-      img-height="480"
-    >
-      <nuxt-link
-        v-for="(promotion, idx) in promotions"
-        :key="idx"
-        :to="{ path: `/promotions/${promotion.promotion_code}` }"
-        class="link-text-color"
-      >
-        <b-carousel-slide
-          :caption="`${promotion.promotion_name}`"
-          :img-src="`${
-            promotion.promotion_image
-              ? `http://141.98.19.44:6201/${promotion.promotion_image}`
-              : `https://picsum.photos/1024/480/?image=12`
-          }`"
-        >
-        </b-carousel-slide>
-      </nuxt-link>
-    </b-carousel>
-
+    <b-row>
+      <b-col md="3" class="mt-4">
+        <b-card class="h-100" no-body border-variant="warning">
+          <b-card-header header-bg-variant="warning"
+            >รายการสินค้า</b-card-header
+          >
+          <b-list-group class="category-list-group" flush>
+            <b-list-group-item
+              v-for="(category, idx) in categorys"
+              class="hover-warning"
+              :key="idx"
+              :href="`/product/category/${category.product_category_code}`"
+            >
+              {{ category.product_category_name }}
+            </b-list-group-item>
+          </b-list-group>
+        </b-card>
+      </b-col>
+      <b-col md="9" class="mt-4">
+        <promotion-banner />
+      </b-col>
+    </b-row>
     <div class="kg-carousel-b">
       <client-only>
         <agile :options="options" ref="carousel">
@@ -36,7 +32,7 @@
           >
             <nuxt-link
               :to="{ path: `/product/${products_random.product_code}` }"
-              class="link-text-color"
+              class="text-dark"
             >
               <img
                 v-if="products_randoms.product_image"
@@ -101,56 +97,30 @@
 
     <div class="title-product-sub">ขายง่าย ขายดี กำไรงาม</div>
 
-    <b-row class="no-gutters mt-4">
+    <b-row
+      class="no-gutters mt-4 justify-content-around justify-content-lg-center"
+    >
       <b-col
-        v-for="product in products.slice(0, 5)"
-        :key="product.product_code"
-        class="card-product"
+        class="grid-5"
+        v-for="(product, idx) in products.slice(0, 5)"
+        :key="idx"
+        style="min-width: 220px"
       >
-        <nuxt-link :to="{ path: `/product/${product.product_code}` }">
-          <b-card-img
-            v-if="product.product_image"
-            :src="`http://141.98.19.44:6201/${product.product_image}`"
-            width="100%"
-            height="220px"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <svg
-            v-else
-            width="100%"
-            height="220px"
-            role="img"
-            aria-label="Placeholder: Kob Giftshop"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title></title>
-            <rect width="100%" height="100%" fill="#55595c"></rect>
-            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-          </svg>
-          <div class="card-product-shop">
-            <div class="product-name">
-              <div class="text-overflow">
-                {{ product.product_name }}
-              </div>
-            </div>
-            <div class="product-price">฿{{ product.product_price }}</div>
-          </div>
-        </nuxt-link>
+        <card-product :item="product" class="my-2 my-lg-0" />
       </b-col>
     </b-row>
 
     <client-only>
       <b-row
         class="no-gutters mt-5"
-        v-for="(category, idx) in categorys"
-        :key="idx"
+        v-for="(category, category_idx) in categorys"
+        :key="category_idx"
+        :style="`border-top: 4px solid ${category.product_category_color};`"
       >
         <b-col
-          md="12"
-          class="pt-4 grid-5-col d-none d-md-block"
-          :style="`border-top: 4px solid ${category.product_category_color};background-color: ${category.product_category_color}`"
+          md="3"
+          class="pt-4 grid-lg-5 d-none d-md-block"
+          :style="`background-color: ${category.product_category_color}`"
         >
           <div class="text-center mb-4">
             <b-img
@@ -179,9 +149,40 @@
           </div>
         </b-col>
         <b-col
-          class="card-product-blog"
-          :style="`border-top: 4px solid ${category.product_category_color};`"
+          cols="12"
+          class="p-2 d-block d-md-none"
+          :style="`background-color: ${category.product_category_color}`"
         >
+          <div class="d-flex">
+            <b-img
+              :src="`https://rvscs-develop.com/km-korat/${category.product_category_icon}`"
+              alt="Image"
+              class="rounded cover"
+              width="36"
+              height="36"
+            ></b-img>
+            <p class="ml-2 mb-0" style="font-size: 15pt; color: #fff">
+              {{ category.product_category_name }}
+            </p>
+            <b-dropdown
+              class="ml-auto bg-transparent drop-icon"
+              variant="light"
+              no-caret
+              right
+            >
+              <template slot="button-content">
+                <font-awesome-icon :icon="['fas', 'angle-left']" />
+                <font-awesome-icon :icon="['fas', 'angle-down']" />
+              </template>
+              <b-dropdown-item
+                v-for="(brand, brand_idx) in brands"
+                :key="brand_idx"
+                >{{ brand.product_brand_name }}</b-dropdown-item
+              >
+            </b-dropdown>
+          </div>
+        </b-col>
+        <b-col class="card-product-blog">
           <b-row
             class="no-gutters"
             v-for="(
@@ -192,73 +193,22 @@
             <b-col
               sm="6"
               md="4"
-              class="card-product"
               v-for="(
                 product_category_random_data_show, idx
               ) in product_category_random_data[category.product_category_code]"
               :key="idx"
             >
-              <nuxt-link
-                :to="{
-                  path: `/product/${product_category_random_data_show.product_code}`,
-                }"
-                style="text-decoration: none !important"
-                v-if="
-                  product_category_random_data_show &&
-                  product_category_random_data_show.product_name
-                "
-              >
-                <b-card-img
-                  v-if="product_category_random_data_show.product_image"
-                  :src="`http://141.98.19.44:6201/${product_category_random_data_show.product_image}`"
-                  width="100%"
-                  height="220px"
-                  alt="Image"
-                  class="rounded-0"
-                ></b-card-img>
-                <svg
-                  v-else
-                  width="100%"
-                  height="220px"
-                  role="img"
-                  aria-label="Placeholder: Kob Giftshop"
-                  preserveAspectRatio="xMidYMid slice"
-                  focusable="false"
-                >
-                  <title></title>
-                  <rect width="100%" height="100%" fill="#55595c"></rect>
-                  <text x="30%" y="50%" fill="#eceeef" dy=".3em">
-                    Kob Giftshop
-                  </text>
-                </svg>
-                <div class="product-name">
-                  <div class="text-overflow">
-                    {{ product_category_random_data_show.product_name }}
-                  </div>
-                </div>
-                <div class="product-price">
-                  ฿{{ product_category_random_data_show.product_price }}
-                </div>
-                <div class="product-star-ating">
-                  <p style="text-align: center">
-                    <star-rating
-                      v-bind:increment="0.1"
-                      v-bind:max-rating="5"
-                      v-bind:star-size="12"
-                      v-bind:read-only="true"
-                      v-bind:show-rating="false"
-                      v-model="rating"
-                    >
-                    </star-rating>
-                  </p>
-                </div>
-              </nuxt-link>
+              <card-product
+                :item="product_category_random_data_show"
+                :rating="true"
+              />
             </b-col>
           </b-row>
         </b-col>
         <b-col
-          class="card-product-hot grid-5-col d-none d-md-block"
-          :style="`width : 100%;height 100%; border-top: 4px solid ${category.product_category_color};`"
+          sm="4"
+          md="3"
+          class="card-product-hot grid-lg-5 d-block d-sm-none d-lg-block"
         >
           <div style="background-color: #adadad; margin: 0.6em">
             <h4 style="padding-top: 1em; text-align: center; color: #fff">
@@ -310,8 +260,11 @@
 </template>
 
 <script>
-import "slick-carousel/slick/slick.css";
+import CardProduct from "@/components/CardProduct.vue";
+import PromotionBanner from "@/components/PromotionBanner.vue";
+
 export default {
+  components: { CardProduct, PromotionBanner },
   name: "Homepage",
   data() {
     return {
@@ -343,7 +296,6 @@ export default {
           },
         ],
       },
-      rating: 4.5,
       shoppingCart: [],
       product_category_random_fetch: [],
       product_category_random: [],
@@ -367,7 +319,6 @@ export default {
       obj[key] = this.product_category_random_fetch.data;
       this.product_category_random.push(obj);
     });
-    console.log("this.product_category_random", this.product_category_random);
   },
   watch: {
     shoppingCart: {
@@ -399,19 +350,18 @@ export default {
       window.location.reload(true);
     },
   },
-  async asyncData({ $productService, $promotionService }) {
+  async asyncData({ $productService }) {
     const products = await $productService.product.getProductPage({
       product_page: 1,
     });
-    const promotions = await $promotionService.promotion.getPromotion();
-    var categorys = await $productService.product.getProductCategoryBy();
+
+    const categorys = await $productService.product.getProductCategoryBy();
     const brands = await $productService.product.getProductBandBy();
     const products_randoms = await $productService.product.getProductRandom();
 
     return {
       products: products.data || [],
       categorys: categorys.data || [],
-      promotions: promotions.data || [],
       products_randoms: products_randoms.data || [],
       brands: brands.data || [],
     };
@@ -422,61 +372,6 @@ export default {
 <style scoped>
 .rounded {
   border-radius: 50% !important;
-}
-
-.left {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 60%;
-  right: 50%;
-  /* transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); */
-  text-align: center;
-}
-
-.right {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  /* transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); */
-  text-align: center;
-}
-
-.left:hover .text {
-  background-color: #39b44f;
-}
-
-.right:hover .text {
-  background-color: #39b44f;
-}
-
-style .card-product:hover .image {
-  opacity: 0.3;
-}
-
-.card-product:hover .left {
-  opacity: 1;
-  background-color: green;
-  width: 50%;
-  border: 1px solid #eaecee;
-}
-
-.card-product:hover .right {
-  opacity: 1;
-  background-color: green;
-  width: 50%;
-  border: 1px solid #eaecee;
-}
-
-.text {
-  background-color: white;
-  color: white;
-  font-size: 16px;
-  padding: 5px 47.5px;
 }
 
 div {
@@ -497,52 +392,6 @@ div {
   color: #999999;
 }
 
-.row-product {
-  padding-top: 30px;
-  margin: 0 -2.1em 0 -1em;
-}
-
-.product-name {
-  text-align: center;
-  color: #444444;
-  font-size: 12pt;
-  /* font-family: "Myriad"; */
-  text-decoration: none !important;
-}
-
-.product-price {
-  font-weight: 500;
-  text-align: center;
-  color: #222222;
-  font-size: 12pt;
-  /* font-family: "Myriad Pro"; */
-}
-
-.row-product-type {
-  text-align: center;
-  padding-top: 2em;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 20px;
-}
-
-.card-product-blog {
-  border: 1px solid rgb(0 0 0 / 14%);
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.card-product-shop {
-  padding: 1em 0 2em 0;
-}
-
-.card-product-hot {
-  border-right: 1px solid rgb(0 0 0 / 14%);
-  border-bottom: 1px solid rgb(0 0 0 / 14%);
-  padding-left: 0;
-  padding-right: 0;
-}
-
 ul {
   list-style-type: none;
   margin: 0;
@@ -552,25 +401,6 @@ ul {
   border-bottom: 1px solid rgb(0 0 0 / 14%);
   border-left: 1px solid rgb(0 0 0 / 14%);
   border-right: 1px solid rgb(0 0 0 / 14%);
-}
-
-#example-collapse {
-  padding-right: 1.5px;
-}
-
-#example-collapse a {
-  font-size: 12pt;
-  text-align: left;
-  color: #666666;
-  display: block;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-#example-collapse a:hover {
-  color: #fff;
-  background-color: #39b44f !important;
-  box-sizing: border-box;
 }
 
 .img-wrapper img {
@@ -585,29 +415,5 @@ a.nuxt-link-active {
 /* exact link will show the primary color for only the exact matching link */
 a.nuxt-link-exact-active {
   color: #00c58e;
-}
-
-.vue-star-rating {
-  justify-content: center;
-}
-
-img.navber-show {
-  width: 1000px;
-}
-
-/* .home-hover-show:hover {
-    box-shadow: 0 0 20px rgba(33, 33, 33, .5);
-    border: 1px solid #ccc;
-} */
-
-.text-overflow {
-  padding: 0 1em 0 1em;
-  white-space: nowrap;
-  width: 220px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.link-text-color {
-  color: black;
 }
 </style>

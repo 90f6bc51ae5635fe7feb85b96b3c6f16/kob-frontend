@@ -57,15 +57,17 @@
 
     <div class="bg-info">
       <b-container class="py-4" fluid="lg">
-        <b-row align-h="center">
+        <b-row class="no-gutters" align-h="center">
           <p class="mt-auto mr-2 text-white" style="font-size: 14px">
             <b> KEEP IN TOUCH </b>
           </p>
-          <b-img class="m-2" src="~/assets/Twiter.png" alt="Image"></b-img>
-          <b-img class="m-2" src="~/assets/Fb.png" alt="Image"></b-img>
-          <b-img class="m-2" src="~/assets/Instagram.png" alt="Image"></b-img>
-          <b-img class="m-2" src="~/assets/Pinterest.png" alt="Image"></b-img>
-          <b-img class="m-2" src="~/assets/Vimeo.png" alt="Image"></b-img>
+          <b-row class="no-gutters" align-h="center">
+            <b-img class="m-2" src="~/assets/Twiter.png" alt="Image"></b-img>
+            <b-img class="m-2" src="~/assets/Fb.png" alt="Image"></b-img>
+            <b-img class="m-2" src="~/assets/Instagram.png" alt="Image"></b-img>
+            <b-img class="m-2" src="~/assets/Pinterest.png" alt="Image"></b-img>
+            <b-img class="m-2" src="~/assets/Vimeo.png" alt="Image"></b-img>
+          </b-row>
         </b-row>
       </b-container>
     </div>
@@ -99,7 +101,7 @@
         </b-col>
         <b-col cols="12" lg="8" class="pt-2">
           <b-row>
-            <b-col cols="4">
+            <b-col cols="12" sm="4">
               <h5 class="mb-4">COMPANY</h5>
               <p class="font-color">Discount Vouches</p>
               <p class="font-color">Spring Collection</p>
@@ -107,13 +109,13 @@
               <p class="font-color">Best Sellers</p>
               <p class="font-color">Special Deals</p>
             </b-col>
-            <b-col cols="4">
+            <b-col cols="12" sm="4">
               <h5 class="mb-4">POLICY INFO</h5>
               <p class="font-color">Orders & Returns</p>
               <p class="font-color">Help & FAQs</p>
               <p class="font-color">Store Locations</p>
             </b-col>
-            <b-col cols="4">
+            <b-col cols="12" sm="4">
               <h5 class="mb-4">MY ACCOUNT</h5>
               <p class="font-color">About Us</p>
               <p class="font-color">Delivery Information</p>
@@ -125,11 +127,9 @@
       </b-row>
     </b-container>
     <div
-      style="
-        background-color: #fff;
+      :style="`background-color: #fff;
         border-top: 1px solid #f0f0f0;
-        color: #808080;
-      "
+        color: #808080;`"
     >
       <b-container class="py-4" style="font-size: 12px">
         <b> © COPYRIGHT - KOB GIFTSHOP TEMPLATE BY REVELSOFT </b>
