@@ -12,6 +12,12 @@
             fluid
             alt="Cart logo: KOB GIFTSHOP"
           ></b-img>
+          <b-img
+            class="d-block d-md-none px-2"
+            src="~/assets/Logo.jpg"
+            fluid
+            alt="Cart logo: KOB GIFTSHOP"
+          ></b-img>
           <form
             class="flex-grow-1 ml-0 ml-md-4"
             :action="`/search/${keyword}`"
