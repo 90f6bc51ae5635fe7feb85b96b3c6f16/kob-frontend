@@ -165,7 +165,7 @@
               {{ category.product_category_name }}
             </p>
             <b-dropdown
-              class="ml-auto bg-transparent"
+              class="ml-auto bg-transparent drop-icon"
               variant="light"
               no-caret
               right

@@ -58,19 +58,19 @@ img.cover {
   margin-left: -8px;
   margin-right: -8px;
 }
-.b-dropdown {
+.b-dropdown.drop-icon {
   button {
     svg {
       display: none;
     }
   }
 }
-.b-dropdown:not(.show) {
+.b-dropdown.drop-icon:not(.show) {
   svg:first-child {
     display: inline-block;
   }
 }
-.b-dropdown.show {
+.b-dropdown.drop-icon.show {
   svg:last-child {
     display: inline-block;
   }
