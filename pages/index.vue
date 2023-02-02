@@ -32,7 +32,7 @@
           >
             <nuxt-link
               :to="{ path: `/product/${products_random.product_code}` }"
-              class="link-text-color"
+              class="text-dark"
             >
               <img
                 v-if="products_randoms.product_image"
@@ -97,61 +97,16 @@
 
     <div class="title-product-sub">ขายง่าย ขายดี กำไรงาม</div>
 
-    <b-row class="no-gutters mt-4">
+    <b-row
+      class="no-gutters mt-4 justify-content-around justify-content-lg-center"
+    >
       <b-col
-        v-for="product in products.slice(0, 5)"
-        :key="product.product_code"
-        class="card-product"
+        class="grid-5"
+        v-for="(product, idx) in products.slice(0, 5)"
+        :key="idx"
+        style="min-width: 220px"
       >
-        <nuxt-link :to="{ path: `/product/${product.product_code}` }">
-          <b-card-img
-            v-if="product.product_image"
-            :src="`http://141.98.19.44:6201/${product.product_image}`"
-            width="100%"
-            height="220px"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
-          <svg
-            v-else
-            width="100%"
-            height="220px"
-            role="img"
-            aria-label="Placeholder: Kob Giftshop"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title></title>
-            <rect width="100%" height="100%" fill="#55595c"></rect>
-            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-          </svg>
-        </nuxt-link>
-        <div class="card-detail pt-2 pb-4">
-          <b-row class="no-gutters card-action">
-            <b-col class="btn rounded-0 btn-outline-success">
-              <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-            </b-col>
-            <b-col class="btn rounded-0 btn-outline-success">
-              <font-awesome-icon
-                :icon="['fa', 'cart-plus']"
-                style="color: #000"
-              />
-            </b-col>
-          </b-row>
-          <nuxt-link
-            :to="{
-              path: `/product/${product.product_code}`,
-            }"
-            style="text-decoration: none !important"
-          >
-            <div class="product-name">
-              <div class="text-overflow">
-                {{ product.product_name }}
-              </div>
-            </div>
-            <div class="product-price">฿{{ product.product_price }}</div>
-          </nuxt-link>
-        </div>
+        <card-product :item="product" class="my-2 my-lg-0" />
       </b-col>
     </b-row>
 
@@ -243,82 +198,10 @@
               ) in product_category_random_data[category.product_category_code]"
               :key="idx"
             >
-              <div class="card-product">
-                <nuxt-link
-                  :to="{
-                    path: `/product/${product_category_random_data_show.product_code}`,
-                  }"
-                  style="text-decoration: none !important"
-                >
-                  <b-card-img
-                    v-if="product_category_random_data_show.product_image"
-                    :src="`http://141.98.19.44:6201/${product_category_random_data_show.product_image}`"
-                    width="100%"
-                    height="220px"
-                    alt="Image"
-                    class="rounded-0"
-                  ></b-card-img>
-                  <svg
-                    v-else
-                    width="100%"
-                    height="220px"
-                    role="img"
-                    aria-label="Placeholder: Kob Giftshop"
-                    preserveAspectRatio="xMidYMid slice"
-                    focusable="false"
-                  >
-                    <title></title>
-                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                    <text x="30%" y="50%" fill="#eceeef" dy=".3em">
-                      Kob Giftshop
-                    </text>
-                  </svg>
-                </nuxt-link>
-                <div class="card-detail">
-                  <b-row class="no-gutters card-action">
-                    <b-col class="btn rounded-0 btn-outline-success">
-                      <font-awesome-icon
-                        :icon="['fa', 'eye']"
-                        style="color: #000"
-                      />
-                    </b-col>
-                    <b-col class="btn rounded-0 btn-outline-success">
-                      <font-awesome-icon
-                        :icon="['fa', 'cart-plus']"
-                        style="color: #000"
-                      />
-                    </b-col>
-                  </b-row>
-                  <nuxt-link
-                    :to="{
-                      path: `/product/${product_category_random_data_show.product_code}`,
-                    }"
-                    style="text-decoration: none !important"
-                  >
-                    <div class="product-name">
-                      <div class="text-overflow">
-                        {{ product_category_random_data_show.product_name }}
-                      </div>
-                    </div>
-                    <div class="product-price">
-                      ฿{{ product_category_random_data_show.product_price }}
-                    </div>
-                    <div class="product-star-ating">
-                      <p style="text-align: center">
-                        <star-rating
-                          v-bind:increment="0.1"
-                          v-bind:max-rating="5"
-                          v-bind:star-size="12"
-                          v-bind:read-only="true"
-                          v-bind:show-rating="false"
-                          v-model="rating"
-                        >
-                        </star-rating>
-                      </p>
-                    </div>
-                  </nuxt-link>
-                </div>
-              </div>
+              <card-product
+                :item="product_category_random_data_show"
+                :rating="true"
+              />
             </b-col>
           </b-row>
         </b-col>
@@ -377,10 +260,11 @@
 </template>
 
 <script>
+import CardProduct from "@/components/CardProduct.vue";
 import PromotionBanner from "@/components/PromotionBanner.vue";
 
 export default {
-  components: { PromotionBanner },
+  components: { CardProduct, PromotionBanner },
   name: "Homepage",
   data() {
     return {
@@ -412,7 +296,6 @@ export default {
           },
         ],
       },
-      rating: 4.5,
       shoppingCart: [],
       product_category_random_fetch: [],
       product_category_random: [],
@@ -509,22 +392,6 @@ div {
   color: #999999;
 }
 
-.product-name {
-  text-align: center;
-  color: #444444;
-  font-size: 12pt;
-  /* font-family: "Myriad"; */
-  text-decoration: none !important;
-}
-
-.product-price {
-  font-weight: 500;
-  text-align: center;
-  color: #222222;
-  font-size: 12pt;
-  /* font-family: "Myriad Pro"; */
-}
-
 ul {
   list-style-type: none;
   margin: 0;
@@ -548,29 +415,5 @@ a.nuxt-link-active {
 /* exact link will show the primary color for only the exact matching link */
 a.nuxt-link-exact-active {
   color: #00c58e;
-}
-
-.vue-star-rating {
-  justify-content: center;
-}
-
-img.navber-show {
-  width: 1000px;
-}
-
-/* .home-hover-show:hover {
-    box-shadow: 0 0 20px rgba(33, 33, 33, .5);
-    border: 1px solid #ccc;
-} */
-
-.text-overflow {
-  padding: 0 1em 0 1em;
-  white-space: nowrap;
-  width: 220px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.link-text-color {
-  color: black;
 }
 </style>
