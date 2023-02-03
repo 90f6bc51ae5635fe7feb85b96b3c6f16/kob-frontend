@@ -1,26 +1,18 @@
 <template>
   <div class="card-product">
     <nuxt-link :to="{ path: `/product/${item.product_code}` }">
-      <b-card-img
-        v-if="item.product_image"
-        :src="`http://141.98.19.44:6201/${item.product_image}`"
+      <img
+        class="cover"
         width="100%"
         height="220px"
-        alt="Image"
-        class="rounded-0"
-      ></b-card-img>
-      <svg
-        v-else
-        width="100%"
-        height="220px"
-        role="img"
-        aria-label="Placeholder: Kob Giftshop"
-        preserveAspectRatio="xMidYMid slice"
-        focusable="false"
-      >
-        <rect width="100%" height="100%" fill="#55595c"></rect>
-        <text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-      </svg>
+        :src="`${
+          item.product_image
+            ? `http://141.98.19.44:6201/${item.product_image}`
+            : `https://placeimg.com/380/200/any?${Math.floor(
+                Math.random() * 50
+              )}`
+        }`"
+      />
     </nuxt-link>
     <div class="card-detail">
       <b-row class="no-gutters card-action">

@@ -139,7 +139,7 @@
             <div v-else class="text-center py-4">
               No item in your shopping cart.
             </div>
-            <b-dropdown-text style="width: 320px">
+            <b-dropdown-text class="mb-2" style="width: 320px">
               <b-row>
                 <b-col class="pr-2">
                   <b-button variant="primary" block squared href="/cart"

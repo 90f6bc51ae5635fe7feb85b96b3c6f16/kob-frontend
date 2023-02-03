@@ -32,33 +32,18 @@
           >
             <nuxt-link
               :to="{ path: `/product/${products_random.product_code}` }"
-              class="text-dark"
             >
-              <img
-                v-if="products_randoms.product_image"
-                :src="`${
-                  products_random.product_image
-                    ? `http://141.98.19.44:6201/${products_random.product_image}`
-                    : `https://placeimg.com/380/200/any?${idx}`
-                }`"
-                style="margin: 0.6rem"
-              />
-              <svg
-                v-else
-                width="100%"
-                height="220px"
-                role="img"
-                aria-label="Placeholder: Kob Giftshop"
-                preserveAspectRatio="xMidYMid slice"
-                focusable="false"
-              >
-                <title></title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="30%" y="50%" fill="#eceeef" dy=".3em">
-                  Kob Giftshop
-                </text>
-              </svg>
-              <div style="text-align: center">
+              <div class="text-dark text-center">
+                <img
+                  class="cover"
+                  width="100%"
+                  height="220px"
+                  :src="`${
+                    products_random.product_image
+                      ? `http://141.98.19.44:6201/${products_random.product_image}`
+                      : `https://placeimg.com/380/200/any?${idx}`
+                  }`"
+                />
                 {{ products_random.product_name }}
               </div>
             </nuxt-link>
