@@ -43,7 +43,9 @@ img.cover {
     width: 100%;
   }
 }
-
+.rounded {
+  border-radius: 50% !important;
+}
 .baner-promotion-item {
   aspect-ratio: 32/15;
 }
@@ -195,10 +197,34 @@ img.cover {
 }
 
 @media (min-width: 768px) {
+  .card-product-blog {
+    border-right: 1px solid rgb(0 0 0 / 14%);
+  }
+
+  .card-product-blog > .row > div:first-child, 
+  .card-product-blog > .row > div:nth-child(4n+4) {
+    .card-product {
+      border-left: 1px solid transparent;
+    }
+  }
+
+  .card-product-blog > .row > div:not(:last-child), 
+  .card-product-blog > .row > div:nth-child(3n+3) {
+    .card-product {
+      border-right: 1px solid transparent;
+    }
+  }
+
+  .card-product-blog > .row > div:nth-child(n+4) {
+    .card-product {
+      border-bottom: 1px solid transparent;
+    }
+  }
+
   .list-group.category-list-group {
     max-height: 28vw;
   }
-  
+
   .grid-md-5 {
     flex: 0 0 20%;
     max-width: 20%;
@@ -206,21 +232,13 @@ img.cover {
 }
 
 @media (min-width: 992px) {
-  .card-product-blog > .row > div:first-child, 
-  .card-product-blog > .row > div:nth-child(4n+4) {
-    .card-product {
-      border-left: 1px solid transparent;
-    }
+  .card-product-blog {
+    border-right: unset;
   }
-  .card-product-blog > .row > div:not(:last-child), 
-  .card-product-blog > .row > div:nth-child(3n+3) {
+
+  .product-bestseller > div:not(:last-child) {
     .card-product {
       border-right: 1px solid transparent;
-    }
-  }
-  .card-product-blog > .row > div:nth-child(n + 4) {
-    .card-product {
-      border-bottom: 1px solid transparent;
     }
   }
 

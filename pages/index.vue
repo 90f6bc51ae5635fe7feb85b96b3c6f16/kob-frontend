@@ -26,25 +26,23 @@
       <client-only>
         <agile :options="options" ref="carousel">
           <div
-            v-for="(products_random, idx) in products_randoms"
+            v-for="(product, idx) in product_randoms"
             :key="idx"
             class="img-wrapper px-2"
           >
-            <nuxt-link
-              :to="{ path: `/product/${products_random.product_code}` }"
-            >
+            <nuxt-link :to="{ path: `/product/${product.product_code}` }">
               <div class="text-dark text-center">
                 <img
                   class="cover"
                   width="100%"
                   height="220px"
                   :src="`${
-                    products_random.product_image
-                      ? `http://141.98.19.44:6201/${products_random.product_image}`
+                    product.product_image
+                      ? `http://141.98.19.44:6201/${product.product_image}`
                       : `https://placeimg.com/380/200/any?${idx}`
                   }`"
                 />
-                {{ products_random.product_name }}
+                {{ product.product_name }}
               </div>
             </nuxt-link>
           </div>
@@ -83,7 +81,12 @@
     <div class="title-product-sub">ขายง่าย ขายดี กำไรงาม</div>
 
     <b-row
-      class="no-gutters mt-4 justify-content-around justify-content-lg-center"
+      class="
+        no-gutters
+        mt-4
+        product-bestseller
+        justify-content-around justify-content-lg-center
+      "
     >
       <b-col
         class="grid-5"
@@ -168,25 +171,14 @@
           </div>
         </b-col>
         <b-col class="card-product-blog">
-          <b-row
-            class="no-gutters"
-            v-for="(
-              product_category_random_data, idx
-            ) in product_category_random"
-            :key="idx"
-          >
+          <b-row class="no-gutters">
             <b-col
               sm="6"
               md="4"
-              v-for="(
-                product_category_random_data_show, idx
-              ) in product_category_random_data[category.product_category_code]"
+              v-for="(product, idx) in category.product_randoms"
               :key="idx"
             >
-              <card-product
-                :item="product_category_random_data_show"
-                :rating="true"
-              />
+              <card-product :item="product" :rating="true" />
             </b-col>
           </b-row>
         </b-col>
@@ -281,83 +273,37 @@ export default {
           },
         ],
       },
-      shoppingCart: [],
-      product_category_random_fetch: [],
-      product_category_random: [],
     };
-  },
-  async mounted() {
-    this.shoppingCart = JSON.parse(
-      localStorage.getItem("shoppingCart") || "[]"
-    );
-    this.cate = await this.$productService.product.getProductCategoryBy();
-
-    await this.cate.data.forEach(async (item, index, arr) => {
-      this.product_category_random_fetch =
-        await this.$productService.product.getProductCategoryByCodeRandom({
-          category_code: item.product_category_code,
-        });
-
-      var key = item.product_category_code;
-      var obj = {};
-
-      obj[key] = this.product_category_random_fetch.data;
-      this.product_category_random.push(obj);
-    });
-  },
-  watch: {
-    shoppingCart: {
-      handler(newValue) {
-        localStorage.setItem("shoppingCart", JSON.stringify(newValue));
-      },
-      deep: true,
-    },
-  },
-  methods: {
-    addToCart(product) {
-      let exists = false;
-      // console.log("product", product);
-      for (const cartItem of this.shoppingCart) {
-        // console.log("cartItem.product_code", cartItem.product_code);
-        // console.log("this.shoppingCart", this.shoppingCart);
-        if (cartItem.product_code === product.product_code) {
-          cartItem.amount = cartItem.amount + 1;
-          exists = true;
-          break;
-        }
-      }
-      if (!exists) {
-        this.shoppingCart.push({
-          ...product,
-          amount: 1,
-        });
-      }
-      window.location.reload(true);
-    },
   },
   async asyncData({ $productService }) {
     const products = await $productService.product.getProductPage({
       product_page: 1,
     });
 
-    const categorys = await $productService.product.getProductCategoryBy();
     const brands = await $productService.product.getProductBandBy();
-    const products_randoms = await $productService.product.getProductRandom();
+    const categorys = await $productService.product.getProductCategoryBy();
+    const product_randoms = await $productService.product.getProductRandom();
+
+    for (let category of categorys.data) {
+      let products =
+        await $productService.product.getProductCategoryByCodeRandom({
+          category_code: category.product_category_code,
+        });
+
+      category.product_randoms = products.data;
+    }
 
     return {
-      products: products.data || [],
-      categorys: categorys.data || [],
-      products_randoms: products_randoms.data || [],
       brands: brands.data || [],
+      categorys: categorys.data || [],
+      products: products.data || [],
+      product_randoms: product_randoms.data || [],
     };
   },
 };
 </script>
 
 <style scoped>
-.rounded {
-  border-radius: 50% !important;
-}
 
 div {
   font-family: "Kanit", sans-serif;

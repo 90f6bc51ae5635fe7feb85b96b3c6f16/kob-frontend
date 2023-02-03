@@ -19,7 +19,10 @@
         <b-col class="btn rounded-0 btn-outline-success">
           <font-awesome-icon class="text-dark" :icon="['fa', 'eye']" />
         </b-col>
-        <b-col class="btn rounded-0 btn-outline-success">
+        <b-col
+          class="btn rounded-0 btn-outline-success"
+          @click="addCartItem(item)"
+        >
           <font-awesome-icon class="text-dark" :icon="['fa', 'cart-plus']" />
         </b-col>
       </b-row>
@@ -55,7 +58,9 @@ export default {
     },
   },
   methods: {
-    addToCart() {},
+    addCartItem(item) {
+      this.$store.commit("cart/add", item);
+    },
   },
 };
 </script>

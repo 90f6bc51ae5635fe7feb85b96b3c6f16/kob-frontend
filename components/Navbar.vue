@@ -63,16 +63,16 @@
                 class="text-dark"
               />
               <span class="text-dark" aria-label="Close">
-                {{ count_shop }}
+                {{ $store.state.cart.items.length }}
               </span>
             </template>
             <div
-              v-if="dataValue.length"
+              v-if="$store.state.cart.items.length"
               style="max-height: 430px; overflow: auto"
             >
               <b-dropdown-text
-                v-for="(product, index) in dataValue"
-                :key="'product' + index"
+                v-for="(product, index) in $store.state.cart.items"
+                :key="index"
               >
                 <button
                   class="close"
@@ -133,7 +133,7 @@
               </b-dropdown-text>
               <b-dropdown-text>
                 <div style="float: left">ORDER TOTAL</div>
-                <div style="text-align: right">฿{{ Sum }}</div>
+                <div style="text-align: right">฿{{ cartTotalPrice }}</div>
               </b-dropdown-text>
             </div>
             <div v-else class="text-center py-4">
@@ -315,7 +315,6 @@
 import FixedHeader from "vue-fixed-header";
 
 export default {
-  props: ["modelValue"],
   components: {
     FixedHeader,
   },
@@ -323,29 +322,18 @@ export default {
     loggedIn() {
       return this.$store.state.auth.loggedIn;
     },
-  },
-  watch: {
-    modelValue: {
-      deep: true,
-      handler(newValue) {
-        this.count_shop = 0;
-        this.Sum = 0;
-        localStorage.setItem("shoppingCart", JSON.stringify(newValue));
-        this.dataValue = newValue;
-        this.dataValue.forEach((element, index) => {
-          this.Sum += element.product_price * element.amount;
-          this.count_shop = index + 1;
-        });
-        this.refresh();
-      },
+    cartTotalPrice() {
+      let cart_total_price = 0;
+      this.$store.state.cart.items.forEach((item) => {
+        cart_total_price += item.product_price * item.amount;
+      });
+
+      return cart_total_price;
     },
   },
   data() {
     return {
-      dataValue: [],
       keyword: "",
-      Sum: 0,
-      count_shop: 0,
       categorys: [],
     };
   },
@@ -354,13 +342,8 @@ export default {
 
     this.categorys = categorys.data;
   },
-  async mounted() {
-    this.dataValue = JSON.parse(localStorage.getItem("shoppingCart") || "[]");
-
-    this.dataValue.forEach((element, index) => {
-      this.Sum += element.product_price * element.amount;
-      this.count_shop = index + 1;
-    });
+  mounted() {
+    this.$store.commit("cart/initialiseStore");
   },
   methods: {
     async logout() {
@@ -379,38 +362,16 @@ export default {
           confirmButtonText: "ตกลง",
           cancelButtonText: "ยกเลิก",
         })
-        .then((result) => {
-          if (result.value == true) {
-            this.$swal
-              .fire({
-                title: "success",
-                text: "ลบสำเร็จ",
-                type: "success",
-                showConfirmButton: false,
-                timer: 1500,
-              })
-              .then((e) => {
-                if (e.dismiss == "timer") {
-                  const shoppingCart = this.dataValue;
-                  const productIndex = shoppingCart.findIndex(
-                    (item) => item.product_code === product.product_code
-                  );
-                  shoppingCart.splice(productIndex, 1);
-                  this.dataValue = shoppingCart;
-                  this.Sum = 0;
-                  this.dataValue.forEach((element) => {
-                    this.Sum += element.product_price * element.amount;
-                  });
-                  localStorage.setItem(
-                    "shoppingCart",
-                    JSON.stringify(shoppingCart)
-                  );
-                  this.$emit("update:modelValue", shoppingCart);
-                  window.location.reload(true);
-                }
-              });
-          }
-        });
+        .then(
+          ({ value }) => value && this.$store.commit("cart/remove", product)
+          // this.$swal.fire({
+          //   title: "success",
+          //   text: "ลบสำเร็จ",
+          //   type: "success",
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });
+        );
     },
   },
 };
