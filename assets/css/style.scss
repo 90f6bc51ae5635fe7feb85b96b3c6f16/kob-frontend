@@ -2,6 +2,10 @@ img.cover {
   object-fit: cover;
 }
 
+.dropdown-menu {
+  border-radius: unset;
+}
+
 .kg-nav.navbar-dark .navbar-nav {
   .nav-link, .navbar-text {
     color: #fff;
@@ -22,7 +26,6 @@ img.cover {
     .dropdown-menu {
       min-width: 256px;
       margin-bottom: 8px;
-      border-radius: unset;
       padding: unset;
 
       .dropdown-item {
@@ -184,6 +187,11 @@ img.cover {
 .grid-5 {
   flex: 0 0 20%;
   max-width: 20%;
+}
+
+.btn-outline-light {
+  border: 1px solid #ced4da !important;
+  border-radius: 0px;
 }
 
 @media (min-width: 768px) {
