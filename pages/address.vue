@@ -22,77 +22,92 @@
         <b-row style="margin: 0 -2em 0 -1em;">
             <b-col class="title-product" style="font-size: 16pt;">ข้อมูลที่จัดส่ง</b-col>
         </b-row>
-        <b-row style="padding-top: 30px; margin: 0 -2em 0 -1.9em;">
-            <b-col cols="3">
-                <ul class="my" style="">
-                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                        <nuxt-link :to="{ path: `/profile` }">
-                            <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
-                            My Details
-                        </nuxt-link>
-                    </li>
-                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                        <nuxt-link :to="{ path: `/address` }">
-                            <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
-                            My address book
-                        </nuxt-link>
-                    </li>
-                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                        <nuxt-link :to="{ path: `/order` }">
-                            <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
-                            My Order
-                        </nuxt-link>
-                    </li>
-                </ul>
-            </b-col>
-            <b-col cols="9" style="border: 0.2px solid #e5e5e5">
-                <b-row>
-                    <b-col class="title-product">ที่อยู่ของฉัน</b-col>
-                    <b-col class="title-product">
-                        <div style="text-align: right">
-                            <!-- <b-button v-b-modal.modal-1>Launch demo modal</b-button> -->
-                            <button v-b-modal.modal-1 class="btn-success btn" style="border-radius: 0px">
-                                <font-awesome-icon :icon="['fas', 'plus']" style="color: #fff" />
-                                เพิ่มที่อยู่
-                            </button>
+        <b-row class="content" style="padding-top: 30px; margin: 0 -2em 0 -1.9em;">
+            <b-col class="col-content">
+                <b-row class="row-button">
+                    <ul class="my" style="">
+                        <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                            <nuxt-link :to="{ path: `/profile` }">
+                                <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
+                                My Details
+                            </nuxt-link>
+                        </li>
+                        <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                            <nuxt-link :to="{ path: `/address` }">
+                                <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
+                                My address book
+                            </nuxt-link>
+                        </li>
+                        <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                            <nuxt-link :to="{ path: `/order` }">
+                                <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
+                                My Order
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </b-row>
+                <b-row class="row-content">
+                    <b-col class="content">
+                        <b-row class="title-content">
+                            <b-col class="title-product">ที่อยู่ของฉัน</b-col>
+                            <b-col class="title-product">
+                                <div style="text-align: right">
+                                    <!-- <b-button v-b-modal.modal-1>Launch demo modal</b-button> -->
+                                    <button v-b-modal.modal-1 class="btn-success btn" style="border-radius: 0px">
+                                        <font-awesome-icon :icon="['fas', 'plus']" style="color: #fff" />
+                                        เพิ่มที่อยู่
+                                    </button>
+                                </div>
+                            </b-col>
+                        </b-row>
+                        <div style="padding: 10px" v-for="(address_, idx) in address" :key="'B' + idx">
+                            <b-row class="row-name">
+                                <b-col cols="3">ชื่อ-นามสกุล</b-col>
+                                <b-col cols="5"> {{ address_.customer_name }}</b-col>
+                                <b-col cols="1" ></b-col>
+                                <b-col cols="3" ></b-col>
+                            </b-row>
+                            <b-row class="row-tel" style="">
+                                <b-col cols="3">โทรศัพท์</b-col>
+                                <b-col cols="5">{{ address_.customer_tel }}</b-col>
+                                <b-col cols="1"></b-col>
+                                <b-col cols="3"></b-col>
+                            </b-row>
+                            <b-row class="row-address" style="">
+                                <b-col cols="3">ที่อยู่</b-col>
+                                <b-col cols="9">{{ address_.customer_address }} {{ address_.customer_zipcode }}</b-col>
+                                <!-- <b-col cols="1"> -->
+                                    <!-- <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px"
+                                        v-b-modal.modal-2 @click="setAddress(address_)">
+                                        แก้ไข
+                                    </button> -->
+                                <!-- </b-col> -->
+                                <!-- <b-col cols="3"> -->
+                                    <!-- <button class="btn-success btn" style="border-radius: 0px">
+                                        ตั้งเป็นค่าตั้งต้น
+                                    </button> -->
+                                    <!-- <button class="btn-success btn" style="border-radius: 0px"
+                                        @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address == 1">
+                                        ตั้งเป็นค่าตั้งต้น
+                                    </button> -->
+                                    <!-- <button class="btn-secondary btn" style="border-radius: 0px"
+                                        @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address != 1">
+                                        ตั้งเป็นค่าตั้งต้น
+                                    </button> -->
+                                <!-- </b-col> -->
+                            </b-row>
+                            <b-row class="button">
+                                <button class="btn-secondary btn" style="border-radius: 0px; "
+                                        v-b-modal.modal-2 @click="setAddress(address_)">
+                                        แก้ไข
+                                </button>
+                                <button class="btn-success btn" style="border-radius: 0px; margin-left: 15px">
+                                        ตั้งเป็นค่าตั้งต้น
+                                </button>
+                            </b-row>
                         </div>
                     </b-col>
                 </b-row>
-                <div style="padding: 10px" v-for="(address_, idx) in address" :key="'B' + idx">
-                    <b-row>
-                        <b-col cols="3">ชื่อ-นามสกุล</b-col>
-                        <b-col cols="5"> {{ address_.customer_name }}</b-col>
-                        <b-col cols="1"></b-col>
-                        <b-col cols="3"></b-col>
-                    </b-row>
-                    <b-row style="">
-                        <b-col cols="3">โทรศัพท์</b-col>
-                        <b-col cols="5">{{ address_.customer_tel }}</b-col>
-                        <b-col cols="1"></b-col>
-                        <b-col cols="3"></b-col>
-                    </b-row>
-                    <b-row style="">
-                        <b-col cols="3">ที่อยู่</b-col>
-                        <b-col cols="5">{{ address_.customer_address }} {{ address_.customer_zipcode }}</b-col>
-                        <b-col cols="1">
-                            <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px"
-                                v-b-modal.modal-2 @click="setAddress(address_)">
-                                แก้ไข
-                            </button>
-                        </b-col>
-                        <b-col cols="3">
-                            <button class="btn-success btn" style="border-radius: 0px"
-                                @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address == 1">
-                                ตั้งเป็นค่าตั้งต้น
-                            </button>
-                            <button class="btn-secondary btn" style="border-radius: 0px"
-                                @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address != 1">
-                                ตั้งเป็นค่าตั้งต้น
-                            </button>
-                        </b-col>
-                    </b-row>
-                </div>
-
             </b-col>
         </b-row>
         <b-modal id="modal-1" title="เพิ่มที่อยู่" @ok="handleSubmit" centered>
@@ -366,6 +381,7 @@ div {
     width: 100%;
     background-color: transparent;
     border: 1px solid #adadad;
+    height: 155px;
 }
 
 li a {
@@ -458,4 +474,65 @@ li a:hover:not(.active) {
     border-bottom: 1px solid #e4e4e4;
     padding-bottom: 20px;
 }
+
+
+.col-content{
+    display: flex;
+    flex-direction: row;
+}
+.row-button{
+    margin-right: 40px;
+    width: 28%;
+}
+.row-content{
+    width: 100%;
+    border: 2px solid #e5e5e5;
+}
+.button{
+    display: flex;
+    justify-content: end;
+}
+
+
+/* responsive */
+@media only screen and (max-width:496px){
+    /* Mobile Devices */
+    .col-content{
+        display: flex;
+        flex-direction: column;
+    }
+    .row-button{
+        margin: 0;
+        width: 95%;
+        margin-left: 7px;
+    }
+    .row-content{
+        margin: 10px 0px 0px 7px;
+        width: 95%;
+    }
+    .table-hearder{
+        text-align: left;
+    }
+    
+}
+@media only screen and (min-width: 497px) and (max-width:671px) {
+    .row-button{
+        margin-left: 7px;
+        width: 70%;
+    }
+    .row-content{
+        margin-right: 10px;
+    }
+}
+@media only screen and (min-width: 672px) and (max-width:1024px){
+    .row-button{
+        margin-left: 7px;
+        width: 40%;
+    }
+    .row-content{
+        margin-right: 10px;
+    }
+    
+}
+
 </style>

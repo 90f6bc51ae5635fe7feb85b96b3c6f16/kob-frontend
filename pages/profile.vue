@@ -22,68 +22,70 @@
     <b-row style="margin: 0 -2em 0 -1em;">
         <b-col class="title-product" style="font-size: 16pt;">ข้อมูลผู้ใช้</b-col>
     </b-row>
-    <b-row style="padding-top: 30px; margin: 0 -3em 0 -1.9em;">
-        <b-col cols="3">
-            <ul class="my" style="">
-                <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                    <nuxt-link :to="{ path: `/profile` }">
-                        <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
-                        My Details
-                    </nuxt-link>
-                </li>
-                <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                    <nuxt-link :to="{ path: `/address` }">
-                        <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
-                        My address book
-                    </nuxt-link>
-                </li>
-                <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                    <nuxt-link :to="{ path: `/order` }">
-                        <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
-                        My Order
-                    </nuxt-link>
-                </li>
-            </ul>
-        </b-col>
-        <b-col cols="9" style="">
-            <b-form>
-                <b-row>
-                    <b-col cols="6">
-                        <b-form-group id="input-group-1" label="First Name:" label-for="input-1" description="">
-                            <b-form-input id="input-1" v-model="form.email" placeholder="ชื่อ" required></b-form-input>
-                        </b-form-group>
-                    </b-col>
-                    <b-col cols="6">
-                        <b-form-group id="input-group-2" label="Last Name:" label-for="input-2">
-                            <b-form-input id="input-2" v-model="form.name" placeholder="นาสกุล" required></b-form-input>
-                        </b-form-group>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col cols="6">
-                        <b-form-group id="input-group-2" label="BIRTH DATE:" label-for="input-2">
-                            <b-form-datepicker id="example-datepicker" v-model="value" class="mb-2" placeholder="วันเกิด"></b-form-datepicker>
-                        </b-form-group>
-                    </b-col>
-                    <b-col cols="6">
-                        <b-form-group id="input-group-1" label="Email:" label-for="input-1" description="We'll never share your email with anyone else.">
-                            <b-form-input id="input-1" v-model="form.email" type="email" placeholder="อีเมล" required></b-form-input>
-                        </b-form-group>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col cols="6">
-                        <b-form-group id="input-group-2" label="PHONE NUMBER:" label-for="input-2">
-                            <b-form-input id="input-1" v-model="form.email" type="email" placeholder="เบอร์โทรศัพท์" required></b-form-input>
-                        </b-form-group>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col cols="6">
-                        <b-button variant="primary" size="md" style="padding-left: 40px; padding-right: 40px">Save</b-button>
-                    </b-col>
-                </b-row>
-            </b-form>
+    <b-row class="content" style="padding-top: 30px; margin: 0 -3em 0 -1.9em;">
+        <b-col class="col-content">
+            <b-row class="row-button" >
+                <ul class="my" style="">
+                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                        <nuxt-link :to="{ path: `/profile` }">
+                            <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
+                            My Details
+                        </nuxt-link>
+                    </li>
+                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                        <nuxt-link :to="{ path: `/address` }">
+                            <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
+                            My address book
+                        </nuxt-link>
+                    </li>
+                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                        <nuxt-link :to="{ path: `/order` }">
+                            <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
+                            My Order
+                        </nuxt-link>
+                    </li>
+                </ul>
+            </b-row>
+            <b-row class="row-content">
+                <b-form class="form">
+                    <b-row class="row-form">
+                        <b-col class="col-form" >
+                            <b-form-group id="input-group-1" label="First Name:" label-for="input-1" description="">
+                                <b-form-input id="input-1" v-model="form.email" placeholder="ชื่อ" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        <b-col class="col-form" >
+                            <b-form-group id="input-group-2" label="Last Name:" label-for="input-2">
+                                <b-form-input id="input-2" v-model="form.name" placeholder="นาสกุล" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-row class="row-form">
+                        <b-col class="col-form" >
+                            <b-form-group id="input-group-2" label="BIRTH DATE:" label-for="input-2">
+                                <b-form-datepicker id="example-datepicker" v-model="value" class="mb-2" placeholder="วันเกิด"></b-form-datepicker>
+                            </b-form-group>
+                        </b-col>
+                        <b-col class="col-form" >
+                            <b-form-group id="input-group-1" label="Email:" label-for="input-1" description="We'll never share your email with anyone else.">
+                                <b-form-input id="input-1" v-model="form.email" type="email" placeholder="อีเมล" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-row class="row-form" >
+                        <b-col class="col-form " >
+                            <b-form-group class="input-phone" id="input-group-2" label="PHONE NUMBER:" label-for="input-2">
+                                <b-form-input id="input-1" v-model="form.email" type="email" placeholder="เบอร์โทรศัพท์" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-row class="row-form">
+                        <b-col class="col-form" >
+                            <b-button variant="primary" size="md" style="padding-left: 40px; padding-right: 40px">Save</b-button>
+                        </b-col>
+                    </b-row>
+                </b-form>
+            </b-row>
         </b-col>
     </b-row>
 </div>
@@ -145,6 +147,7 @@ div {
     width: 100%;
     background-color: transparent;
     border: 1px solid #adadad;
+    height: 155px;
 }
 
 li a {
@@ -235,4 +238,70 @@ li a:hover:not(.active) {
     border-bottom: 1px solid #e4e4e4;
     padding-bottom: 20px;
 }
+
+
+.col-content{
+    display: flex;
+    flex-direction: row;
+}
+.row-button{
+    margin-right: 40px;
+    width: 28%;
+}
+.row-content{
+    width: 100%;
+}
+.input-phone{
+    width: 47%;
+}
+
+
+/* responsive */
+@media only screen and (max-width:480px){
+    /* Mobile Dives */
+    .col-content{
+        display: flex;
+        flex-direction: column;
+    }
+    .row-button{
+        margin: 0;
+        width: 90%;
+        margin-left: 7px;
+    }
+    .row-content{
+        margin: 10px 0px 0px 7px;
+    }
+    .input-phone{
+        width: 100%;
+    }
+    .form{
+        width: 90%;
+    }
+    .row-form{
+        display: flex;
+        flex-direction: column;
+    }
+    .my {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: transparent;
+        border: 1px solid #adadad;
+        height: 155px;
+    }
+}
+@media only screen and (min-width: 481px) and (max-width:629px) {
+    .row-button{
+        margin-left: 7px;
+        width: 60%;
+    }
+}
+@media only screen and (min-width: 630px) and (max-width:1024px){
+    .row-button{
+        margin-left: 7px;
+        width: 40%;
+    }
+}
+
 </style>
