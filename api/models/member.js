@@ -4,11 +4,14 @@ import dbconfig from "../../config/database.js";
 let memberModel = {};
 
 memberModel.getLogin = (email, password, callback) => {
-  const conn = mysql.createConnection(dbconfig.connection);//CREAMOS LA CONECCION
+  const conn = mysql.createConnection(dbconfig.connection_sale);//CREAMOS LA CONECCION
   if (conn) {
-    var sql = `SELECT * FROM tb_member
-      WHERE member_email = '`+ email + `' AND member_password = '` + password + `'
+    var sql = `SELECT * FROM tb_customer 
+      WHERE customer_username = '`+ email + `' 
+      AND customer_password = '` + password + `' 
       `
+    console.log("sql", sql);
+
     conn.query(sql,
       (err, rows) => {
         // console.log("err",err);

@@ -20,7 +20,7 @@
             </b-collapse>
         </div>
         <div class="container">
-            <form class="form" @submit="onSubmit" >
+            <form class="form" @submit="onSubmit">
                 <div style="margin: 0 0 1em 0;">
                     <b-img src="~/assets/Logo.png" alt="Image" class="rounded"
                         style="width:100%; height: auto; margin: 0 0 0 0;"></b-img>
@@ -104,6 +104,7 @@ export default {
                 },
             }
             try {
+
                 await this.$auth.loginWith('local', payload)
                     .then(async (response) => {
 
@@ -116,6 +117,7 @@ export default {
 
                     })
                     .catch((error) => {
+                        console.log('error', error);
                         this.$swal.fire({
                             type: 'error',
                             title: 'เกิดข้อผิดพลาด',
@@ -123,6 +125,8 @@ export default {
                         })
                     });
             } catch (error) {
+                console.log('error', error);
+                
                 this.error = error
             }
         },
@@ -183,33 +187,40 @@ ul {
 
 
 /* responsive */
-@media only screen and (max-width:500px){
+@media only screen and (max-width:500px) {
+
     /* mobile devices */
-    .form{
+    .form {
         width: 90%;
     }
 }
 
-@media only screen and (max-width:1024px) and (min-width:501px){
+@media only screen and (max-width:1024px) and (min-width:501px) {
+
     /* Ipads, Tablets */
-    .form{
+    .form {
         width: 50%;
     }
-    .title{
+
+    .title {
         font-size: 40px;
     }
-    #group{
+
+    #group {
         font-size: 20px;
     }
-    .input{
+
+    .input {
         font-size: 20px;
     }
-    .field{
+
+    .field {
         font-size: 20px;
     }
 }
+
 @media only screen and (min-width:1025px) {
-    .form{
+    .form {
         width: 30%;
     }
 }

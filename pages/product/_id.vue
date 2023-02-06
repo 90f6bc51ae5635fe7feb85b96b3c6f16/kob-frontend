@@ -340,6 +340,7 @@ export default {
         const productCodes = await $productService.product.getProductByCode({
             product_code: params.id
         });
+        console.log('productCodes',productCodes);
         let group_child = [];
         let images = [];
         let obj = {};
