@@ -19,14 +19,15 @@
                 </div>
             </b-collapse>
         </div>
-        <b-row style=" margin: 0 -2em 0 -1em;">
+        <b-row style="">
             <b-col class="title-product" style="font-size: 16pt;">MY ORDER</b-col>
         </b-row>
-        <b-row style="padding-top: 30px; margin: 0 -2em 0 -1em;" v-for="(order, index) in orders"
-            :key="'order' + index">
+        <b-row style="padding-top: 30px;" v-for="(order, index) in orders" :key="'order' + index">
             <b-col cols="12" style="border: 0.2px solid #e5e5e5">
                 <b-row>
-                    <b-col class="title-product">{{ order.order_code }} {{ new Date(order.order_date).toLocaleString() }}</b-col>
+                    <b-col class="title-product">{{ order.order_code }} {{
+                        new Date(order.order_date).toLocaleString()
+                    }}</b-col>
                     <b-col class="title-product">
                         <div style="text-align: right">
                             <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"><span
@@ -73,27 +74,21 @@
                 <div style="padding: 10px; border-bottom: 1px solid #ccc !important; margin: 0 -1em 0 -1em;"
                     v-for="(product, index) in order.order_list" :key="'product' + index">
                     <b-row>
-                        <b-col cols="1">
+                        <b-col md="1" sm="12" style="padding: 1em;">
                             <div v-if="product.product_image" style="">
                                 <img style="width: 100px; height: 90px"
                                     :src="`http://141.98.19.44:6201/${product.product_image}`" alt="" />
                             </div>
                             <div v-else style="">
-                                <svg class="" width="100px" height="90px" role="img"
-                                    aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice"
-                                    focusable="false">
-                                    <title></title>
-                                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                                    <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob
-                                        Giftshop</text>
-                                </svg>
+                                <img style="width: 100px; height: 90px"
+                                    :src="`https://placeimg.com/380/200/any?${index}`" alt="" />
                             </div>
                         </b-col>
-                        <b-col cols="10" style="margin: 0 0 0 1em;" class="d-flex align-items-center justify-content">
+                        <b-col md="10" sm="10" style="" class="d-flex align-items-center justify-content">
                             {{ product.product_name }}<br />
                             ฿{{ product.product_price }} x {{ product.order_list_qty }}
                         </b-col>
-                        <b-col cols="1" style="margin: 2em 0 0 -1.5em;"> ฿{{
+                        <b-col md="1" sm="2" class="d-flex align-items-center justify-content"> ฿{{
                             product.product_price *
                                 product.order_list_qty
                         }}
@@ -135,7 +130,7 @@
                         <div
                             v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'">
                             <v-card-text v-html="company.company_info_payment_method"
-                                class="image-style-align-center"></v-card-text>
+                                class="image-style-align-center w-96"></v-card-text>
 
                             <!-- <b-img src="~/assets/qr_pp.png" alt="Image" class="rounded" width="80" height="80"
                                 style="margin-top: 2;float: left;"></b-img>
@@ -536,7 +531,7 @@ export default {
 
         var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
-        const orders = await $orderService.order.getOrderByCode({ customer_code: user.member_code });
+        const orders = await $orderService.order.getOrderByCode({ customer_code: user.customer_code });
         const company = await $companyService.company.getCompany();
 
         for (var i = 0; i < orders.data.length; i++) {
@@ -631,5 +626,21 @@ ul {
 
 #modal-2___BV_modal_outer_ {
     z-index: 999999999 !important;
+}
+
+.col-fliter {
+    margin: -1em -2em auto -1em
+}
+
+.col-product {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -2em 0 0
+}
+
+@media only screen and (max-width: 600px) {
+    img {
+        width: 100%;
+    }
 }
 </style>

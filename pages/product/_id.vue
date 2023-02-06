@@ -1,90 +1,93 @@
 <template>
-<div>
-    <div class="" style="margin: 0 -2em 0 -1em;">
-        <b-collapse id="example-collapse" style="
+    <div>
+        <div class="" style="margin: 0 -2em 0 -1em;">
+            <b-collapse id="example-collapse" style="
               width: 100%;
               margin: 0 0 0 0;
               max-height: 250px;
               overflow: auto;
 
             ">
-            <div v-for="category in categorys" :key="category.product_category_code">
-                <ul>
-                    <li>
-                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                            {{category.product_category_name}}
-                        </nuxt-link>
-                    </li>
-                </ul>
+                <div v-for="category in categorys" :key="category.product_category_code">
+                    <ul>
+                        <li>
+                            <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                                {{ category.product_category_name }}
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </div>
+            </b-collapse>
+        </div>
+        <div class="title-product">
+            <div style="float:left; margin: 0 0 0 0;">
+                <button @click="" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt;" />
+                </button>
+                <button @click="" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt;" />
+                </button>
             </div>
-        </b-collapse>
-    </div>
-    <div class="title-product">
-        <div style="float:left; margin: 0 0 0 0;">
-            <button @click="" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
-                <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt;" />
-            </button>
-            <button @click="" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
-                <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt;" />
-            </button>
-        </div>
-        <div div style="text-align: right; margin: 5px 0 0 0;">
-            <div style="text-align: right; color: #444444; font-size: 12pt;">HOME / SHOP /
-                <span style="color: #888888; font-size: 12pt;">
-                    SIMPLE PRODUCT
-                </span>
+            <div div style="text-align: right; margin: 5px 0 0 0;">
+                <div style="text-align: right; color: #444444; font-size: 12pt;">HOME / SHOP /
+                    <span style="color: #888888; font-size: 12pt;">
+                        SIMPLE PRODUCT
+                    </span>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="photos" style="margin: 2em 0 0 -1em;" v-for="(product_mother,index) in product_mothers" :key="product_mother.product_code">
-        <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
-        <div v-if="product_mother.product_image" style="border: 1px solid #e4e4e4;">
-            <carousel style="border: 1px solid #e4e4e4;" :starting-image="0" :images="images">
-            </carousel>
-        </div>
-        <div v-else style="border: 1px solid #e4e4e4;">
-            <svg class="" width="100%" height="550" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <title></title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="30%" y="50%" fill="#eceeef" dy=".3em" style="font-size: 30pt;">Kob Giftshop</text>
-            </svg>
         </div>
 
-        <div>
-            <div style="text-align: left">
-                <div style="color: #232323; font-size: 28pt;">{{product_mother.product_name}}</div>
+        <div class="photos" style="margin: 2em 0 0 -1em;" v-for="(product_mother, index) in product_mothers"
+            :key="product_mother.product_code">
+            <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
+            <div v-if="product_mother.product_image" style="border: 1px solid #e4e4e4;">
+                <carousel style="border: 1px solid #e4e4e4;" :starting-image="0" :images="images">
+                </carousel>
             </div>
-            <div class="product-star-ating">
-                <div style="float:left; margin: -2px 5px 0 0;">
-                    <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                    </star-rating>
+            <div v-else style="border: 1px solid #e4e4e4;">
+                <svg class="" width="100%" height="550" role="img" aria-label="Placeholder: Kob Giftshop"
+                    preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <title></title>
+                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                    <text x="30%" y="50%" fill="#eceeef" dy=".3em" style="font-size: 30pt;">Kob Giftshop</text>
+                </svg>
+            </div>
+
+            <div>
+                <div style="text-align: left">
+                    <div style="color: #232323; font-size: 28pt;">{{ product_mother.product_name }}</div>
                 </div>
-                <div style="text-align:right; margin: 0 0 0 0;">
-                    <p style="text-align:center; float:left; margin: 0 0 0 0; color: #777777; font-size: 12pt;">
-                        (5 Customers reviews)
-                    </p>
-                </div>
-            </div><br />
-            <div style="text-align: left; display: flex">
-                <div style="
+                <div class="product-star-ating">
+                    <div style="float:left; margin: -2px 5px 0 0;">
+                        <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12"
+                            v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
+                        </star-rating>
+                    </div>
+                    <div style="text-align:right; margin: 0 0 0 0;">
+                        <p style="text-align:center; float:left; margin: 0 0 0 0; color: #777777; font-size: 12pt;">
+                            (5 Customers reviews)
+                        </p>
+                    </div>
+                </div><br />
+                <div style="text-align: left; display: flex">
+                    <div style="
               text-decoration: line-through;
               padding-right: 10px;
               color: #999999;
               font-size: 18pt;
             ">
-                    ฿200.00
+                        ฿200.00
+                    </div>
+                    <div style="color: #222222; font-size: 18pt;">
+                        ฿{{ product_mother.product_price }}
+                    </div>
                 </div>
-                <div style="color: #222222; font-size: 18pt;">
-                    ฿{{product_mother.product_price}}
+                <div style="text-align: left; display: flex; padding-bottom: 10px">
+                    <div style="color: #777777; font-size: 12pt;">
+                        {{ product_mother.product_detail }}
+                    </div>
                 </div>
-            </div>
-            <div style="text-align: left; display: flex; padding-bottom: 10px">
-                <div style="color: #777777; font-size: 12pt;">
-                    {{product_mother.product_detail}}
-                </div>
-            </div>
-            <div style="
+                <div style="
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -93,13 +96,14 @@
             border: 1px solid #e4e4e4;
             background-color: #f5fffa;
           " v-if="product_childs != ''">
-                <div v-for="product_child in product_childs" :key="product_child.product_code">
-                    <div class="dotted" style="color: #777777; font-size: 12pt;">
-                        จำนวนชิ้น : <span style="color: #222222;">{{product_child.product_unit_name}} ชิ้น</span> ราคา : <span style="color: #222222;">{{product_child.product_price}} บาท</span>
+                    <div v-for="product_child in product_childs" :key="product_child.product_code">
+                        <div class="dotted" style="color: #777777; font-size: 12pt;">
+                            จำนวนชิ้น : <span style="color: #222222;">{{ product_child.product_unit_name }} ชิ้น</span>
+                            ราคา : <span style="color: #222222;">{{ product_child.product_price }} บาท</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div style="
+                <div style="
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -107,38 +111,32 @@
             border: 1px solid #e4e4e4;
             background-color: #f5fffa;
           ">
-                <div class="dotted" style="color: #777777; font-size: 12pt;">
-                    Free Shipping On order <span style="color: #222222;">over $99</span>
+                    <div class="dotted" style="color: #777777; font-size: 12pt;">
+                        Free Shipping On order <span style="color: #222222;">over $99</span>
+                    </div>
+                    <div class="dotted" style="color: #8aa47b; font-size: 12pt;">
+                        {{ product_mother.product_delivery_time }} วัน
+                    </div>
+                    <div class="dotted" style="color: #777777; font-size: 12pt;">
+                        Gift-wrap available
+                    </div>
                 </div>
-                <div class="dotted" style="color: #8aa47b; font-size: 12pt;">
-                    {{product_mother.product_delivery_time}} วัน
-                </div>
-                <div class="dotted" style="color: #777777; font-size: 12pt;">
-                    Gift-wrap available
-                </div>
-            </div>
-            <div style="
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            padding-top: 20px;
-            width: 20%;
-          ">
-                <div class="quantity">
-                    <b-input-group>
-                        <b-input-group-prepend>
-                            <b-btn variant="info" @click="decrement()">-</b-btn>
-                        </b-input-group-prepend>
+                <div class="qty-button">
+                    <div class="quantity">
+                        <b-input-group>
+                            <b-input-group-prepend>
+                                <b-btn variant="info" @click="decrement()">-</b-btn>
+                            </b-input-group-prepend>
 
-                        <b-form-input min="0.00" :value="quantity"></b-form-input>
+                            <b-form-input min="0.00" :value="quantity"></b-form-input>
 
-                        <b-input-group-append>
-                            <b-btn variant="info" @click="increment()">+</b-btn>
-                        </b-input-group-append>
-                    </b-input-group>
+                            <b-input-group-append>
+                                <b-btn variant="info" @click="increment()">+</b-btn>
+                            </b-input-group-append>
+                        </b-input-group>
+                    </div>
                 </div>
-            </div>
-            <div style="
+                <div style="
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -147,15 +145,15 @@
             border-bottom: 1px solid #e4e4e4;
             margin: 0 -2em 0 0;
           ">
-                <div style="width: 35%">
-                    <b-button variant="dark" class="mb-2" @click="addToCart(product_mother)">
-                        ADD TO CART
-                        <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #fff" />
-                    </b-button>
+                    <div style="width: 35%">
+                        <b-button variant="dark" class="mb-2" @click="addToCart(product_mother)">
+                            ADD TO CART
+                            <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #fff" />
+                        </b-button>
+                    </div>
                 </div>
-            </div>
 
-            <div style="
+                <div style="
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -164,224 +162,162 @@
             border-bottom: 1px solid #e4e4e4;
             margin: 0 -2em 0 0;
           ">
-                <div style="color: #222222; font-size: 12pt;" class="">
-                    SKU :
-                    <span style="color: #777777; font-size: 12pt;">
-                        {{product_mother.product_code}}
-                    </span>
-                </div>
-                <div v-for="category in categorys" :key="category.product_category_code">
-                    <div style="color: #222222; font-size: 12pt;" class="" v-if="product_mother.product_category_code == category.product_category_code">
-                        Category :
+                    <div style="color: #222222; font-size: 12pt;" class="">
+                        SKU :
                         <span style="color: #777777; font-size: 12pt;">
-                            {{category.product_category_name}}
+                            {{ product_mother.product_code }}
+                        </span>
+                    </div>
+                    <div v-for="category in categorys" :key="category.product_category_code">
+                        <div style="color: #222222; font-size: 12pt;" class=""
+                            v-if="product_mother.product_category_code == category.product_category_code">
+                            Category :
+                            <span style="color: #777777; font-size: 12pt;">
+                                {{ category.product_category_name }}
+                            </span>
+                        </div>
+                    </div>
+                    <div style="color: #222222; font-size: 12pt;" class="">
+                        Tags :
+                        <span style="color: #777777; font-size: 12pt;">
+                            {{ product_mother.product_tag }}
                         </span>
                     </div>
                 </div>
-                <div style="color: #222222; font-size: 12pt;" class="">
-                    Tags :
-                    <span style="color: #777777; font-size: 12pt;">
-                        {{product_mother.product_tag}}
-                    </span>
-                </div>
             </div>
         </div>
-    </div>
-    <div style="padding-bottom: 30px; margin: 0 -2em 0 -1em;">
-        <b-card no-body>
-            <b-tabs pills card vertical nav-wrapper-class="w-25">
-                <b-tab title="DESCRIPTION" active>
-                    <div v-for="(product_mother,index) in product_mothers" :key="product_mother.product_code">
-                        <b-card-text>{{product_mother.product_description}}</b-card-text>
-                    </div>
-                </b-tab>
-                <b-tab title="ADDITIONAL INFORMATION">
-                    <b-card-text>
-                        <div style="
+        <div style="padding-bottom: 30px; margin: 0 -2em 0 -1em;">
+            <b-card no-body>
+                <b-tabs pills card nav-wrapper-class="">
+                    <b-tab title="DESCRIPTION" active>
+                        <div v-for="(product_mother, index) in product_mothers" :key="product_mother.product_code">
+                            <b-card-text>{{ product_mother.product_description }}</b-card-text>
+                        </div>
+                    </b-tab>
+                    <b-tab title="ADDITIONAL INFORMATION">
+                        <b-card-text>
+                            <div style="
                   text-align: left;
                   display: flex;
                   flex-direction: column;
                   padding-top: 20px;
                   padding-bottom: 10px;
                 ">
-                            <div v-for="(product_mother,index) in product_mothers" :key="product_mother.product_code">
-                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Weight : </div>
-                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">1.5 kg</div>
-                                </div>
-                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Dimensions : </div>
-                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">90 x 60 x 90 cm</div>
-                                </div>
-                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Composition : </div>
-                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">100% Cotton</div>
-                                </div>
-                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Colour : </div>
-                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">Blue, Gray, Red</div>
-                                </div>
-                                <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                                    <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class=""> Size : </div>
-                                    <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">Extra Smail, Large, Medium, Small</div>
+                                <div v-for="(product_mother, index) in product_mothers"
+                                    :key="product_mother.product_code">
+                                    <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                        <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class="">
+                                            Weight : </div>
+                                        <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">1.5 kg
+                                        </div>
+                                    </div>
+                                    <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                        <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class="">
+                                            Dimensions : </div>
+                                        <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">90 x 60
+                                            x 90 cm</div>
+                                    </div>
+                                    <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                        <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class="">
+                                            Composition : </div>
+                                        <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">100%
+                                            Cotton</div>
+                                    </div>
+                                    <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                        <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class="">
+                                            Colour : </div>
+                                        <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">Blue,
+                                            Gray, Red</div>
+                                    </div>
+                                    <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
+                                        <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class="">
+                                            Size : </div>
+                                        <div style="align: right; width: 80%; color: #777777; font-size: 12pt;">Extra
+                                            Smail, Large, Medium, Small</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </b-card-text>
-                </b-tab>
-            </b-tabs>
-        </b-card>
-    </div>
+                        </b-card-text>
+                    </b-tab>
+                </b-tabs>
+            </b-card>
+        </div>
 
-    <b-row>
-        <b-col class="related-product">
-            <div style="font-size: 18pt; color: #222222;">
-                RELATED PRODUCTS
-            </div>
-        </b-col>
-        <b-col class="related-product">
-            <div style="text-align: right" class="awesome-product">
-                <button @click="$refs.carousel.goToPrev()" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
-                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt;" />
-                </button>
-                <button @click="$refs.carousel.goToNext()" class="btn" style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
-                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt;" />
-                </button>
-            </div>
-        </b-col>
-    </b-row>
-    <!-- เฉพาะสิ้นค้าประเภทเดียวกัน -->
-    <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
-        <client-only>
-            <agile :options="options" ref="carousel">
-                <div v-for="product in products" :key="product.product_code">
-                    <b-col class="card-product">
-                        <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
-                            <div v-if="product.product_image">
-                                <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" alt="Image" width="100%" height="230px" class="rounded-0"></b-card-img>
-                            </div>
-                            <div v-else>
-                                <svg class="" width="100%" height="230px" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                    <title></title>
-                                    <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                                </svg>
-                            </div>
-                            <div class="product-name">
-                                <div class="text-overflow">
-                                    {{product.product_name}}
+        <b-row>
+            <b-col class="related-product" md="6" sm="12">
+                <div style="font-size: 18pt; color: #222222;">
+                    RELATED PRODUCTS
+                </div>
+            </b-col> 
+            <b-col class="related-product"  md="6" sm="12">
+                <div style="text-align: right" class="awesome-product">
+                    <button @click="$refs.carousel.goToPrev()" class="btn"
+                        style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                        <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt;" />
+                    </button>
+                    <button @click="$refs.carousel.goToNext()" class="btn"
+                        style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important;">
+                        <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt;" />
+                    </button>
+                </div>
+            </b-col>
+        </b-row>
+        <!-- เฉพาะสิ้นค้าประเภทเดียวกัน -->
+        <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
+            <client-only>
+                <agile :options="options" ref="carousel">
+                    <div v-for="product in products" :key="product.product_code">
+                        <b-col class="card-product">
+                            <nuxt-link :to="{ path: `/product/${product.product_code}` }"
+                                style="text-decoration: none !important">
+                                <div v-if="product.product_image">
+                                    <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" alt="Image"
+                                        width="100%" height="230px" class="rounded-0"></b-card-img>
                                 </div>
-                            </div>
-                        </nuxt-link>
-                        <div class="product-price">
-                            ${{product.product_price}}
-                        </div>
-                        <div class="product-star-ating" style="padding: 0 0 1em 0;">
-                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                            </star-rating>
-                        </div>
-                        <div class="left">
-                            <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
-                                <button @click="" class="text btn btn-outline-success border-0 border-radius-0">
-                                    <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                                </button>
+                                <div v-else>
+                                    <svg class="" width="100%" height="230px" role="img"
+                                        aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice"
+                                        focusable="false">
+                                        <title></title>
+                                        <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%"
+                                            fill="#eceeef" dy=".3em">Kob Giftshop</text>
+                                    </svg>
+                                </div>
+                                <div class="product-name">
+                                    <div class="text-overflow">
+                                        {{ product.product_name }}
+                                    </div>
+                                </div>
                             </nuxt-link>
-                        </div>
-                        <div class="right">
-                            <button @click="addToCart(product)" class="text btn btn-outline-success border-0 radius-0">
-                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                            </button>
-                        </div>
-                    </b-col>
-                </div>
-            </agile>
-        </client-only>
-    </div>
-    <!-- สิ้นค้าประเภทเดียวกัน และ สุ่มเพิ่ม -->
-    <!-- <div class="carousel-wrapper" style="margin: 0 -2em 0 -1em;">
-        <client-only>
-            <agile :options="options" ref="carousel">
-                <div v-for="datadb in datadbs" :key="datadb.product_code">
-                    <div v-for="code in codes" :key="code.product_code">
-                        <div v-if="code.product_category_code == datadb.product_category_code">
-                            <div class="img-wrapper">
-                                <b-col class="card-product">
-                                    <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
-                                        <div v-if="datadb.product_image">
-                                            <b-card-img :src="`http://141.98.19.44:6201/${datadb.product_image}`" alt="Image" class="rounded-0"></b-card-img>
-                                        </div>
-                                        <div v-else>
-                                            <svg class="" width="100%" height="230" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                                <title></title>
-                                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                                            </svg>
-                                        </div>
-                                        <div class="product-name">
-                                            {{datadb.product_name}}
-                                        </div>
-                                        <div class="product-price">
-                                            {{datadb.product_price}}
-                                        </div>
-                                        <div class="product-star-ating" style="padding: 0 0 1em 0;">
-                                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                            </star-rating>
-                                        </div>
-                                        <div class="left">
-                                            <div class="text">
-                                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                                            </div>
-                                        </div>
-                                        <div class="right">
-                                            <div class="text">
-                                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                                            </div>
-                                        </div>
-                                    </nuxt-link>
-                                </b-col>
+                            <div class="product-price">
+                                ${{ product.product_price }}
                             </div>
-                        </div>
-                        <div v-else>
-                            <div class="img-wrapper">
-                                <b-col class="card-product">
-                                    <nuxt-link :to="{ path: `/product/${datadb.product_code}` }" style="text-decoration: none !important;">
-                                        <div v-if="datadb.product_image">
-                                            <b-card-img :src="`http://141.98.19.44:6201/${datadb.product_image}`" alt="Image" class="rounded-0"></b-card-img>
-                                        </div>
-                                        <div v-else>
-                                            <svg class="" width="100%" height="230" role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                                <title></title>
-                                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                                            </svg>
-                                        </div>
-                                        <div class="product-name">
-                                            {{datadb.product_name}}
-                                        </div>
-                                        <div class="product-price">
-                                            {{datadb.product_price}}
-                                        </div>
-                                        <div class="product-star-ating" style="padding: 0 0 1em 0;">
-                                            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true" v-bind:show-rating="false" v-model:rating="rating">
-                                            </star-rating>
-                                        </div>
-                                        <div class="left">
-                                            <div class="text">
-                                                <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                                            </div>
-                                        </div>
-                                        <div class="right">
-                                            <div class="text">
-                                                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                                            </div>
-                                        </div>
-                                    </nuxt-link>
-                                </b-col>
+                            <div class="product-star-ating" style="padding: 0 0 1em 0;">
+                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12"
+                                    v-bind:read-only="true" v-bind:show-rating="false" :rating="rating">
+                                </star-rating>
                             </div>
-                        </div>
+                            <div class="left">
+                                <nuxt-link :to="{ path: `/product/${product.product_code}` }"
+                                    style="text-decoration: none !important">
+                                    <button class="text btn btn-outline-success border-0 border-radius-0">
+                                        <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
+                                    </button>
+                                </nuxt-link>
+                            </div>
+                            <div class="right">
+                                <button @click="addToCart(product)"
+                                    class="text btn btn-outline-success border-0 radius-0">
+                                    <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
+                                </button>
+                            </div>
+                        </b-col>
                     </div>
-                </div>
-            </agile>
-        </client-only>
-    </div> -->
-</div>
+                </agile>
+            </client-only>
+        </div>
+
+    </div>
 </template>
 
 <script>
@@ -527,6 +463,26 @@ export default {
                 slidesToShow: 5,
                 navButtons: false,
                 dots: false,
+                responsive: [
+                    {
+                        breakpoint: 960,
+                        settings: {
+                            slidesToShow: 3,
+                        },
+                    },
+                    {
+                        breakpoint: 520,
+                        settings: {
+                            slidesToShow: 2,
+                        },
+                    },
+                    {
+                        breakpoint: 320,
+                        settings: {
+                            slidesToShow: 1,
+                        },
+                    },
+                ],
             },
             rating: 4.4,
             obj_item: {},
@@ -769,5 +725,37 @@ ul {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.qty-button {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    width: 20%;
+}
+
+@media only screen and (max-width: 600px) {
+    .photos {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-gap: 2em;
+        text-align: center;
+        /* padding-bottom: 20px; */
+        padding: 20px;
+    }
+
+    .title-product {
+        margin: auto;
+    }
+
+    .qty-button {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+        width: 100%;
+    }
 }
 </style>
