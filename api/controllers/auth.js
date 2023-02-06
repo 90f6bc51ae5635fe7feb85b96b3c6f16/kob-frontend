@@ -1,17 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-import  memberModel  from "../models/member.js";
+import memberModel from "../models/member.js";
 const router = express.Router();
 
 app.use(cors());
 app.use(express.json());
 
-const user = {
-  id: 1,
-  username: '',
-  email: '',
-  name: ''
+var user = {
+
 };
 router.get('/me', (req, res) => {
   return res.json({
@@ -39,9 +36,12 @@ router.get('/me', (req, res) => {
 //   }
 // });
 
-router.post('/login', function (req, res, ) {
+router.post('/login', function (req, res,) {
   const { email, password } = req.body;
-  memberModel.getLogin(email,password,(err, data) => {
+  memberModel.getLogin(email, password, (err, data) => {
+    var result = JSON.parse(JSON.stringify(data))
+
+    user = result
     res.status(200).json(data);
   });
 })
