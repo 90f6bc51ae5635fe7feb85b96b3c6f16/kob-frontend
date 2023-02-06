@@ -41,7 +41,7 @@ router.post('/login', function (req, res,) {
   memberModel.getLogin(email, password, (err, data) => {
     var result = JSON.parse(JSON.stringify(data))
 
-    user = result
+    user = result[0]
     res.status(200).json(data);
   });
 })
