@@ -107,7 +107,7 @@ export default {
 
                 await this.$auth.loginWith('local', payload)
                     .then(async (response) => {
-
+                        console.log('response.data', response.data);
                         await this.$cookies.set('user', response.data[0], {
 
                             domain: "km-korat.com",
@@ -126,7 +126,7 @@ export default {
                     });
             } catch (error) {
                 console.log('error', error);
-                
+
                 this.error = error
             }
         },

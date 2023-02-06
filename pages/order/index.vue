@@ -526,24 +526,27 @@ export default {
         $orderService,
         $cookies,
         $companyService,
+        store
     }) {
-        var user = await $cookies.get('user')
-
+        var user = store.state.auth.user
+        console.log('userrrr', user.customer_code);
         var order_data = []
         const categorys = await $productService.product.getProductCategoryBy();
         const orders = await $orderService.order.getOrderByCode({ customer_code: user.customer_code });
         const company = await $companyService.company.getCompany();
+        if (orders.data != '' && orders.data != undefined) {
+            for (var i = 0; i < orders.data.length; i++) {
+                const orders_list = await $orderService.order.getOrderListByOrderCode({ order_code: orders.data[i].order_code });
 
-        for (var i = 0; i < orders.data.length; i++) {
-            const orders_list = await $orderService.order.getOrderListByOrderCode({ order_code: orders.data[i].order_code });
+                await order_data.push({
+                    ...orders.data[i],
+                    order_list: orders_list.data
+                }
+                )
 
-            await order_data.push({
-                ...orders.data[i],
-                order_list: orders_list.data
             }
-            )
-
         }
+
 
         console.log(order_data);
         return {
