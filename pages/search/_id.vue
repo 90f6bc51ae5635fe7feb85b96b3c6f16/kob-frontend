@@ -60,7 +60,7 @@
     </b-row>
 
     <b-row style="padding-top: 30px">
-        <b-col cols="3" style="margin: 0 0 0 -1em">
+        <b-col sm="12" md="3" class="col-fliter">
             <ul class="w3-ul" style="border: 0.2px solid #e5e5e5l">
                 <li style="
               font-weight: 500;
@@ -192,8 +192,8 @@
                 <b-col style="font-weight: 500; padding: 15px; font-size: 13pt; text-align: center;"><button type="submit" class="btn btn-danger" style=" width: 80%;" @click="reset_filter()">ลบตัวกรองสินค้าทั้งหมด</button></b-col>
             </b-row>
         </b-col>
-        <b-col cols="" style="display: flex; flex-wrap: wrap; margin: 0 -2em 0 0">
-            <b-col class="card-product" cols="3" v-for="(product,idx) in search_products" :key="'D'+idx">
+        <b-col class="col-product">
+            <b-col class="card-product" sm="12" md="3" v-for="(product,idx) in search_products" :key="'D'+idx">
                 <nuxt-link :to="{ path: `/product/${product.product_code}` }" style="text-decoration: none !important">
                     <div v-if="product.product_image">
                         <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
@@ -1305,6 +1305,40 @@ export default {
 </script>
 
 <style scoped>
+.col-fliter {
+    margin: -1em -2em auto -1em
+}
+
+.col-product {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -2em 0 0
+}
+
+@media only screen and (max-width: 600px) {
+    .col-product {
+        display: block;
+        flex-wrap: wrap;
+        margin: 0 -2em 0 0
+    }
+
+    .col-fliter {
+        margin: auto
+    }
+    .title-product{
+        padding: 0px 25px 0px 10px;
+    }
+}
+
+@media only screen  and (min-width: 601px) and (max-width: 1024px){
+    .title-product{
+        padding: 0px 10px 0px 10px;
+    }
+    .row-content{
+        padding: 0px 10px 0px 10px;
+    }
+}
+
 .left {
     transition: 0.5s ease;
     opacity: 0;
@@ -1454,7 +1488,6 @@ ul {
     background-color: #39b44f !important;
     box-sizing: border-box;
 }
-
 .divCheckbox {
     display: none !important;
 }

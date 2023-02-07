@@ -22,7 +22,7 @@
         <div class="container">
             <form class="form" @submit="onSubmit" >
                 <div style="margin: 0 0 1em 0;">
-                    <b-img src="~/assets/Logo.png" alt="Image" class="rounded"
+                    <b-img src="~/assets/Logo.png" alt="Image" 
                         style="width:100%; height: auto; margin: 0 0 0 0;"></b-img>
                 </div>
 

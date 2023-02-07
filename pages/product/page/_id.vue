@@ -24,7 +24,7 @@
             </b-col>
         </b-row>
 
-        <b-row style="padding-top: 30px">
+        <b-row class="row-content" style="padding-top: 30px">
             <b-col sm="12" md="3" class="col-fliter">
                 <ul class="w3-ul" style="border: 0.2px solid #e5e5e5l">
                     <li style="
@@ -1653,6 +1653,18 @@ export default {
 
     .col-fliter {
         margin: auto
+    }
+    .title-product{
+        padding: 0px 5px 0px 5px;
+    }
+}
+
+@media only screen  and (min-width: 601px) and (max-width: 1024px){
+    .title-product{
+        padding: 0px 5px 0px 5px;
+    }
+    .row-content{
+        padding: 0px 10px 0px 5px;
     }
 }
 
