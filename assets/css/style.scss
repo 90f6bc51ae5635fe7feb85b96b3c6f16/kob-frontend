@@ -196,6 +196,18 @@ img.cover {
   border-radius: 0px;
 }
 
+.table thead th {
+  border-bottom: 1px solid #dee2e6;
+}
+
+table .cart-item-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-left: 12px;
+}
+
 @media (min-width: 768px) {
   .card-product-blog {
     border-right: 1px solid rgb(0 0 0 / 14%);

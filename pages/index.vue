@@ -94,7 +94,7 @@
         :key="idx"
         style="min-width: 220px"
       >
-        <card-product :item="product" class="my-2 my-lg-0" />
+        <card-product :item="product"/>
       </b-col>
     </b-row>
 
