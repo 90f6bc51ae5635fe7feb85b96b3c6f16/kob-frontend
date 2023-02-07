@@ -162,7 +162,7 @@
                 </b-row>
             </b-col>
             <b-col class="col-product">
-                <b-col class="card-product" cols="3" v-for="(product, idx) in category_products" :key="'E' + idx">
+                <b-col class="card-product" sm="12" md="3" v-for="(product, idx) in category_products" :key="'E' + idx">
                     <nuxt-link :to="{ path: `/product/${product.product_code}` }"
                         style="text-decoration: none !important">
                         <div v-if="product.product_image">
@@ -1672,6 +1672,17 @@ export default {
 
     .col-fliter {
         margin: auto
+    }
+    .title-product{
+        padding: 0px 5px 0px 5px;
+    }
+}
+@media only screen  and (min-width: 601px) and (max-width: 1024px){
+    .title-product{
+        padding: 0px 5px 0px 5px;
+    }
+    .row-content{
+        padding: 0px 10px 0px 5px;
     }
 }
 
