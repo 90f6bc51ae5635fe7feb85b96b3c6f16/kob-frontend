@@ -20,10 +20,10 @@
             </b-collapse>
         </div>
         <b-row>
-            <b-col class="title-product">
+            <b-col md="6" sm="12" class="title-product">
                 <h4><b>YOUR CART</b></h4>
             </b-col>
-            <b-col class="title-product">
+            <b-col md="6" sm="12" class="title-product">
                 <div style="text-align: right; color: #e4e4e4;">
                     <p style="font-size: 13pt;">
                         <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #e4e4e4;" />
@@ -32,56 +32,73 @@
                 </div>
             </b-col>
         </b-row>
-        <table class="table" style="border: 1px solid #ccc !important">
-            <thead>
-                <tr style="background-color: #f2f2f2;">
-                    <th width="50%">PRODUCT</th>
-                    <th style="text-align: center">PRICE</th>
-                    <th style="text-align: center">QUANTITY</th>
-                    <th style="text-align: center">TOTAL</th>
-                    <th style="text-align: center"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(product, index) in dataValue" :key="'product' + index">
-                    <td>
-                        <div v-if="product.product_image" style="">
-                            <img style="width: 100px; height: 90px"
-                                :src="`http://141.98.19.44:6201/${product.product_image}`" alt="" />
-                            <span style="margin: 0 0 0 1em;">{{ product.product_name }}</span>
-                        </div>
-                        <div v-else style="">
-                            <svg class="" width="100px" height="90px" role="img" aria-label="Placeholder: Kob Giftshop"
-                                preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title></title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect>
-                                <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob
-                                    Giftshop</text>
-                            </svg>
-                            <span style="margin: 0 0 0 1em;">{{ product.product_name }}</span>
-                        </div>
+        <b-row style="overflow-x:auto;">
+            <table class="table" style="border: 1px solid #ccc !important">
+                <thead>
+                    <tr style="background-color: #f2f2f2;">
+                        <th width="50%">PRODUCT</th>
+                        <th style="text-align: center">PRICE</th>
+                        <th style="text-align: center">QUANTITY</th>
+                        <th style="text-align: center">TOTAL</th>
+                        <th style="text-align: center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(product, index) in dataValue" :key="'product' + index">
+                        <td>
+                            <div v-if="product.product_image" style="">
+                                <img style="width: 100px; height: 90px"
+                                    :src="`http://141.98.19.44:6201/${product.product_image}`" alt="" />
+                                <span style="margin: 0 0 0 1em;">{{ product.product_name }}</span>
+                            </div>
+                            <div v-else style="">
+                                <svg class="" width="100px" height="90px" role="img"
+                                    aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice"
+                                    focusable="false">
+                                    <title></title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="3%" y="50%" style="font-size: 12pt;" fill="#eceeef" dy=".3em">Kob
+                                        Giftshop</text>
+                                </svg>
+                                <span style="margin: 0 0 0 1em;">{{ product.product_name }}</span>
+                            </div>
 
-                    </td>
-                    <td style="text-align: center; vertical-align: middle">
-                        {{ product.product_price }}
-                    </td>
-                    <td style="text-align: center; vertical-align: middle">
-                        <b-button type="" variant="success" @click="removeFromCart(product)">-</b-button>
-                        <input type="number" :value="product.amount" style="text-align: center; width: 40%;" disabled />
-                        <b-button type="" variant="success" @click="addFromCart(product)">+</b-button>
-                    </td>
-                    <td style=" text-align: center; vertical-align: middle">
-                        {{ product.product_price * product.amount }}
-                    </td>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle">
+                            {{ product.product_price }}
+                        </td>
+                        <td style="text-align: center; vertical-align: middle">
+                            <b-button type="" variant="success" @click="removeFromCart(product)"
+                                class="btn-custom">-</b-button>
+                            <input type="number" :value="product.amount" style="text-align: center;" disabled
+                                class="btn-custom" />
+                            <b-button type="" variant="success" @click="addFromCart(product)"
+                                class="btn-custom">+</b-button>
+                        </td>
+                        <td style=" text-align: center; vertical-align: middle">
+                            {{ product.product_price * product.amount }}
+                        </td>
 
-                    <td style="text-align: center; vertical-align: middle">
-                        <button class="btn" style="" @click="delFromCart(product)">
-                            <font-awesome-icon :icon="['fas', 'circle-xmark']" style="color: #red" />
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        <td style="text-align: center; vertical-align: middle">
+                            <button class="btn" style="" @click="delFromCart(product)">
+                                <font-awesome-icon :icon="['fas', 'circle-xmark']" style="color: #red" />
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </b-row>
+        <b-row style="padding : 10px;">
+            <b-alert show variant="success" v-for="show in promotion_receiveds" :key="show.promotion_code"
+                style="width : 100%">
+                {{ show.promotion_received_name }}
+            </b-alert>
+            <b-alert show variant="success" v-for="show in promotion_suggests" :key="show.promotion_code"
+                style="width : 100%">
+                <h5>{{ show.promotion_name }}</h5>
+                <h5>{{ show.promotion_suggest_name }}</h5>
+            </b-alert>
+        </b-row>
         <b-row>
             <b-col class="title-product">
                 <input type="text" value="" placeholder="Coupon Code" style="height: 100%;
@@ -112,8 +129,8 @@
             </b-col>
         </b-row>
         <b-row>
-            <b-col class="title-product"> </b-col>
-            <b-col class="title-product">
+            <b-col md="6" sm="12" class="title-product"> </b-col>
+            <b-col md="6" sm="12" class="title-product ">
                 <div style="text-align: left; color: #000;">
                     <h5>CART TOTALS</h5>
                     <table class="table table-bordered" style="border: 1px solid #ccc !important;">
@@ -124,8 +141,8 @@
                                     unchecked-value="0">
                                     ขอใบกำกับภาษี(กรุณาติดต่อทางร้าน)
                                 </b-form-checkbox>
-                                <b-form-textarea  v-model="order_invoice_address" placeholder="ข้อมูลใบกำกับภาษี" rows="5"
-                                max-rows="5"></b-form-textarea>
+                                <b-form-textarea v-model="order_invoice_address" placeholder="ข้อมูลใบกำกับภาษี"
+                                    rows="5" max-rows="5"></b-form-textarea>
                             </td>
                         </tr>
                         <tr>
@@ -218,14 +235,20 @@ export default {
             selected: null,
             user: "",
             customer_code: '',
-            order_invoice_address : '',
+            order_invoice_address: '',
             selected_address: {},
-
+            cart: this.$store.state.cart,
+            promotions: [],
+            promotions_show: [],
+            promotion_receiveds: [],
+            promotion_suggests: [],
         };
     },
-    mounted() {
+    async mounted() {
+
         this.user = this.$cookies.get('user');
         this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
+
         this.dataValue.forEach(element => {
             this.Sum += element.product_price * element.amount;
             this.count_shop += element.amount;
@@ -236,8 +259,7 @@ export default {
                 this.selected_address = address
             }
         })
-        // this.$bvModal.show('modal-1')
-
+        this.updatePromotion()
     },
     computed: {
 
@@ -262,6 +284,60 @@ export default {
 
     },
     methods: {
+        async updatePromotion() {
+            this.cart = this.$store.state.cart
+            let obj = {};
+            let cart_api = []
+            for (var cart of this.cart.items) {
+                let objToAdd1 = {
+                    "receipt_list_code": "",
+                    "product_code": cart.product_code,
+                    "product_group_code": cart.product_group_code != null ? cart.product_group_code : '',
+                    "sale_scale_type": "retail", //
+                    "receipt_list_name": cart.product_name, //
+                    "receipt_list_qty": cart.amount, //
+                    "receipt_list_price": cart.product_price, //
+                    "receipt_list_discount_price": "", //
+                    "receipt_list_total_price": parseFloat(cart.product_price) * parseFloat(cart.amount), //
+                    "product_price": cart.product_price, //
+                    "promotions": [],  //
+                    "require_fetch_price": true,
+                    "product_group_scales": []
+                }
+                obj = {
+                    ...obj,
+                    ...objToAdd1
+                };
+                cart_api.push(obj);
+            }
+            console.log('cart_api', cart_api);
+
+            if (this.promotions[0].promotion_code != '' && this.promotions[0].promotion_code != undefined) {
+
+                await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/check-promotion', {
+                    promotions: this.promotions,
+                    carts: cart_api
+                })
+                    .then((response) => {
+                        if (response.data != '') {
+                            this.promotions_show = response.data
+                            this.promotion_receiveds = this.promotions_show.promotion_receiveds
+                            this.promotion_suggests = this.promotions_show.promotion_suggests
+
+                            console.log('this.promotions_show', response.data);
+                        }else{
+                            this.promotions_show = []
+                            this.promotion_receiveds = []
+                            this.promotion_suggests = []
+                        }
+
+                    })
+                    .catch((error) => {
+                        console.log("err", error);
+                    });
+
+            }
+        },
         gotoOrderPage() {
             this.$bvModal.hide('modal-1')
             this.$router.push("/order");
@@ -286,7 +362,7 @@ export default {
                 console.log('now_date', now_date);
 
                 await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/order-insert/', {
-                    customer_code: this.user.member_code,
+                    customer_code: this.user.customer_code,
                     sale_station_code: '',
                     user_code: '',
                     order_date: now_date + ' ' + now_time,
@@ -362,6 +438,7 @@ export default {
             // console.log("this.dataValue", this.dataValue);
             localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
             this.$emit('update:modelValue', shoppingCart)
+            this.updatePromotion()
         },
         addFromCart(product) {
             const shoppingCart = this.dataValue;
@@ -377,6 +454,7 @@ export default {
 
             localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
             this.$emit('update:modelValue', shoppingCart)
+            this.updatePromotion()
         },
 
         delFromCart(product) {
@@ -419,20 +497,63 @@ export default {
     async asyncData({
         $userService,
         $productService,
+        $promotionService,
         $cookies,
-    }) {
+    },) {
+
         const categorys = await $productService.product.getProductCategoryBy();
         const address = await $userService.user.getMemberAddress(await $cookies.get('user'));
+        const promotions_temp = await $promotionService.promotion.getPromotionActive();
+        const promotions = JSON.parse(promotions_temp.data)
         return {
             address: address.data ? address.data : [],
             categorys: categorys.data ? categorys.data : [],
-
+            promotions: promotions.data ? promotions.data : []
         };
     },
+    fetchOnServer: false,
+    // async fetch() {
+    //     if (this.promotions[0].promotion_code != '' && this.promotions[0].promotion_code != undefined) {
+    //         const requestOptions = {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify({
+    //                 promotions: this.promotions
+    //             })
+    //         };
+
+    //         await fetch('http://127.0.0.1:6901/api/check-promotion', requestOptions)
+    //             .then(response => {
+    //                 // response.json()
+    //                 console.log('ssssssssssssssssssssssssssssssssssssssssssss', response.json());
+    //             })
+    //             .then(data => (this.postId = data))
+    //             .catch(error => {
+    //                 console.error('Panic at the disco:', error);
+    //             })
+    //         console.log('postId', this.postId);
+    //     }
+    // },
+
 };
+
+
 </script>
 
 <style scoped>
+@media only screen and (max-width: 600px) {
+    .btn-custom {
+        width: 100%;
+    }
+
+}
+
+
+
+.table {
+    overflow-x: auto;
+}
+
 #preview {
     display: flex;
     justify-content: center;
@@ -456,6 +577,7 @@ div {
     /* border-bottom: 1px solid #e4e4e4; */
     padding-bottom: 10px;
     margin: 0 -2em 0 -1em;
+
 }
 
 .tdClass {
@@ -463,6 +585,7 @@ div {
 }
 
 table.table {
+
     margin: 0 0 0 0.7em;
 }
 

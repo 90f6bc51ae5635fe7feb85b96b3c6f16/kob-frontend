@@ -236,7 +236,7 @@ export default {
             try {
 
                 await this.$axios.post('https://rvscs-develop.com/km-korat-web/api//member-update-default-address/', {
-                    customer_code: this.user.member_code,
+                    customer_code: this.user.customer_code,
                     customer_address_id: customer_address_id,
 
                 })
@@ -274,7 +274,7 @@ export default {
             try {
 
                 await this.$axios.post('https://rvscs-develop.com/km-korat-web/api//member-update-address/', {
-                    customer_code: this.user.member_code,
+                    customer_code: this.user.customer_code,
                     customer_name: this.customer_name,
                     customer_tel: this.customer_tel,
                     customer_address: this.customer_address,
@@ -316,7 +316,7 @@ export default {
             try {
 
                 await this.$axios.post('https://rvscs-develop.com/km-korat-web/api//member-insert-address/', {
-                    customer_code: this.user.member_code,
+                    customer_code: this.user.customer_code,
                     customer_name: this.customer_name,
                     customer_tel: this.customer_tel,
                     customer_address: this.customer_address,

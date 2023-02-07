@@ -148,7 +148,7 @@ export default {
           login: {
             method: 'post',
             url: 'login',
-            propertyName: 'data.token',
+            // propertyName: 'data.token',
           },
           user: {
             method: 'get',
