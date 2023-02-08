@@ -30,7 +30,7 @@ export const mutations = {
   reduceQty(state, item) {
     let product_idx = state.items.findIndex(val => val.product_code === item.product_code)
 
-    if (product_idx && state.items[product_idx].amount > 1) {
+    if (product_idx !== -1 && state.items[product_idx].amount > 1) {
       state.items[product_idx].amount -= 1
 
       localStorage.setItem("shoppingCart", JSON.stringify(state.items));
@@ -39,7 +39,7 @@ export const mutations = {
   updateQty(state, item, qty) {
     let product_idx = state.items.findIndex(val => val.product_code === item.product_code)
 
-    if (product_idx) {
+    if (product_idx !== -1) {
       state.items[product_idx].amount = qty
 
       localStorage.setItem("shoppingCart", JSON.stringify(state.items));
