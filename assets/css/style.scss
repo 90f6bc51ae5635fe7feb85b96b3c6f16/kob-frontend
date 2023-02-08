@@ -12,6 +12,20 @@
   opacity: 1;
 }
 
+.manu-sidebar {
+  position: fixed;
+  left: calc(50vw + 590px);
+  top: calc(50vh - 107.5px);
+  max-width: 50px;
+  font-size: 24px;
+  text-align: center;
+
+  img { 
+    width: 50px;
+    height: 50px;
+  }
+}
+
 .btn-ic-close:hover {
   background-color: #d1d1d1;
   color: #fff;
@@ -70,7 +84,7 @@
 }
 .list-group.category-list-group {
   max-height: 194px;
-  overflow: scroll;
+  overflow-y: auto;
 }
 .hover-warning:hover {
   background-color: #ffed9f;
@@ -264,9 +278,22 @@ table .cart-item-name {
   }
 }
 
+
 @media (min-width: 1200px) {
   .list-group.category-list-group {
     max-height: 348.983px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .manu-sidebar {
+    left: unset;
+    right: 10px;
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
   }
 }
 

@@ -94,7 +94,7 @@
         :key="idx"
         style="min-width: 220px"
       >
-        <card-product :item="product"/>
+        <card-product :item="product" />
       </b-col>
     </b-row>
 
@@ -276,35 +276,45 @@ export default {
     };
   },
   async asyncData({ $productService }) {
-    const products = await $productService.product.getProductPage({
-      product_page: 1,
-    });
+    try {
+      const products = await $productService.product.getProductPage({
+        product_page: 1,
+      });
 
-    const brands = await $productService.product.getProductBandBy();
-    const categorys = await $productService.product.getProductCategoryBy();
-    const product_randoms = await $productService.product.getProductRandom();
+      const brands = await $productService.product.getProductBandBy();
+      const categorys = await $productService.product.getProductCategoryBy();
+      const product_randoms = await $productService.product.getProductRandom();
 
-    for (let category of categorys.data) {
-      let products =
-        await $productService.product.getProductCategoryByCodeRandom({
-          category_code: category.product_category_code,
-        });
+      for (let category of categorys.data) {
+        let products =
+          await $productService.product.getProductCategoryByCodeRandom({
+            category_code: category.product_category_code,
+          });
 
-      category.product_randoms = products.data;
+        category.product_randoms = products.data;
+      }
+
+      return {
+        brands: brands.data || [],
+        categorys: categorys.data || [],
+        products: products.data || [],
+        product_randoms: product_randoms.data || [],
+      };
+    } catch (error) {
+      //handle error state redirect to error page
+      console.log(error);
+      return {
+        brands: [],
+        categorys: [],
+        products: [],
+        product_randoms: [],
+      };
     }
-
-    return {
-      brands: brands.data || [],
-      categorys: categorys.data || [],
-      products: products.data || [],
-      product_randoms: product_randoms.data || [],
-    };
   },
 };
 </script>
 
 <style scoped>
-
 div {
   font-family: "Kanit", sans-serif;
 }

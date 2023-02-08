@@ -3,14 +3,11 @@
     <Navbar />
     <b-container fluid="lg" class="px-lg-0">
       <Nuxt />
+      <SideBar />
     </b-container>
     <Footer />
   </div>
 </template>
-
-<script>
-export default {};
-</script>
 
 <style>
 html {
