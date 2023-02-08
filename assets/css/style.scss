@@ -233,6 +233,10 @@ table .cart-item-name {
   margin-left: 12px;
 }
 
+figure.image > img{
+  max-width: 100%;
+}
+
 @media (min-width: 768px) {
   .card-product-blog {
     border-right: 1px solid rgb(0 0 0 / 14%);

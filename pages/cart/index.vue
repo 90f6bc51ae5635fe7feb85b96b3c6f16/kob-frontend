@@ -259,7 +259,7 @@
 <script>
 export default {
   name: "Homepage",
-  // middleware: "auth",
+  middleware: "auth",
   computed: {
     cartSubTotalPrice() {
       let total_price = 0;
@@ -299,23 +299,34 @@ export default {
     $promotionService,
     $cookies,
   }) {
-    const categorys = await $productService.product.getProductCategoryBy();
-    const address = await $userService.user.getMemberAddress(
-      await $cookies.get("user")
-    );
-    const promotions_temp =
-      await $promotionService.promotion.getPromotionActive();
+    try {
+      const categorys = await $productService.product.getProductCategoryBy();
+      const address = await $userService.user.getMemberAddress(
+        await $cookies.get("user")
+      );
+      const promotions_temp =
+        await $promotionService.promotion.getPromotionActive();
 
-    const promotions = JSON.parse(promotions_temp.data);
+      const promotions = JSON.parse(promotions_temp.data);
 
-    return {
-      address: address.data ? address.data : [],
-      categorys: categorys.data ? categorys.data : [],
-      promotions: promotions.data ? promotions.data : [],
-    };
+      return {
+        address: address.data ? address.data : [],
+        categorys: categorys.data ? categorys.data : [],
+        promotions: promotions.data ? promotions.data : [],
+      };
+    } catch (error) {
+      //handle error state redirect to error page
+      console.log(error);
+      return {
+        address: [],
+        categorys: [],
+        promotions: [],
+      };
+    }
   },
-  async mounted() {
+  mounted() {
     this.user = this.$cookies.get("user");
+
     this.address.map((address) => {
       if (address.customer_default_address == 1) {
         this.selected = address.customer_address_id;
@@ -476,12 +487,6 @@ export default {
 </script>
 
 <style scoped>
-@media only screen and (max-width: 600px) {
-  .btn-custom {
-    width: 100%;
-  }
-}
-
 #preview {
   display: flex;
   justify-content: center;
@@ -503,12 +508,6 @@ div {
   font-size: 1em;
   font-weight: 500;
   padding-bottom: 10px;
-}
-
-.update-totals-button:hover {
-  box-shadow: 0 0 10px rgba(33, 33, 33, 0.5);
-  border: 2px solid #ccc;
-  border-style: outset;
 }
 
 ul {

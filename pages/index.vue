@@ -285,6 +285,8 @@ export default {
       const categorys = await $productService.product.getProductCategoryBy();
       const product_randoms = await $productService.product.getProductRandom();
 
+      //warning! http request loop will drop performance so much, this affect to SEO.
+      //solution => new service in server to get full detail instead (loop in service).
       for (let category of categorys.data) {
         let products =
           await $productService.product.getProductCategoryByCodeRandom({

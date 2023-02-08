@@ -1,649 +1,662 @@
 <template>
-    <div>
-        <div class="" style="margin: 0 -2em 0 -1em;">
-            <b-collapse id="example-collapse" style="
-              width: 100%;
-              margin: 0 0 0 0;
-              max-height: 250px;
-              overflow: auto;
+  <div>
+    <b-row>
+      <b-col class="title-product" style="font-size: 16pt">MY ORDER</b-col>
+    </b-row>
+    <div
+      class="mt-4"
+      v-for="(order, index) in orders"
+      :key="index"
+      style="border: 1px solid #e5e5e5"
+    >
+      <b-row>
+        <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
+          <div class="p-3">
+            {{ order.order_code.toUpperCase() }}
+            {{ new Date(order.order_date).toLocaleString() }}
+          </div>
+        </b-col>
+        <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
+          <div class="p-3 text-md-right">
+            <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"
+              ><span style="color: #39b44f"
+                >{{ status[order.order_status] }}
+              </span></a
+            >
+            |
+            <span
+              style="color: #39b44f"
+              v-if="order.order_shipping || order.order_track_number"
+            >
+              <a
+                v-if="order.order_shipping == 'thailand-post'"
+                :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
+                target="_blank"
+              >
+                {{ order.order_shipping }}
+                {{ order.order_track_number }}
+              </a>
+              <a
+                v-if="order.order_shipping == 'flash'"
+                :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
+                target="_blank"
+              >
+                {{ order.order_shipping }}
+                {{ order.order_track_number }}
+              </a>
+              <a
+                v-if="order.order_shipping == 'kerry'"
+                :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
+                target="_blank"
+              >
+                {{ order.order_shipping }}
+                {{ order.order_track_number }}
+              </a>
 
-            ">
-                <div v-for="category in categorys" :key="category.product_category_code">
-                    <ul>
-                        <li>
-                            <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                                {{ category.product_category_name }}
-                            </nuxt-link>
-                        </li>
-                    </ul>
+              <a v-else>
+                {{ order.order_shipping }}
+                {{ order.order_track_number }}
+              </a>
+            </span>
+            <span style="color: #39b44f" v-else></span>
+          </div>
+        </b-col>
+      </b-row>
+      <div
+        v-for="(order_list, index) in order.order_lists"
+        :key="index"
+        style="border-bottom: 1px solid #ccc"
+      >
+        <b-row>
+          <b-col sm="8">
+            <div class="d-flex p-3">
+              <img
+                class="cover"
+                width="90"
+                height="90"
+                :src="`${
+                  order_list.product_image
+                    ? `http://141.98.19.44:6201/${order_list.product_image}`
+                    : `https://placeimg.com/380/200/any?${Math.floor(
+                        Math.random() * 50
+                      )}`
+                }`"
+                alt="product"
+              />
+              <span class="ml-4">
+                <div>{{ order_list.order_list_name }}</div>
+                <div>
+                  ฿{{ order_list.order_list_price }} x
+                  {{ order_list.order_list_qty }}
                 </div>
-            </b-collapse>
+              </span>
+            </div>
+          </b-col>
+          <b-col sm="4">
+            <div class="p-sm-3 pt-0 pb-3 px-3 text-right">
+              ฿{{ order_list.order_list_total_price }}
+            </div>
+          </b-col>
+        </b-row>
+      </div>
+
+      <div class="text-right pr-3">
+        <div>
+          ยอดคำสั่งซื้อทั้งหมด :
+          <span style="font-size: 1.8em">฿{{ order.order_product_price }}</span>
         </div>
-        <b-row style="">
-            <b-col class="title-product" style="font-size: 16pt;">MY ORDER</b-col>
-        </b-row>
-        <b-row style="padding-top: 30px;" v-for="(order, index) in orders" :key="'order' + index">
-            <b-col cols="12" style="border: 0.2px solid #e5e5e5">
-                <b-row>
-                    <b-col class="title-product">{{ order.order_code }} {{
-                        new Date(order.order_date).toLocaleString()
-                    }}</b-col>
-                    <b-col class="title-product">
-                        <div style="text-align: right">
-                            <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"><span
-                                    style="color: #39b44f">{{ status[order.order_status] }} </span></a>
-                            <!-- <font-awesome-icon :icon="['fas', 'question']" style="color: #000" /> -->
-                            |
-                            <span style="color: #39b44f" v-if="order.order_shipping || order.order_track_number">
-                                <a v-if="order.order_shipping == 'thailand-post'"
-                                    :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
-                                    target="_blank">
-                                    {{
-                                        order.order_shipping
-                                    }}
-                                    {{ order.order_track_number }}
-                                </a>
-                                <a v-if="order.order_shipping == 'flash'"
-                                    :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
-                                    target="_blank">
-                                    {{
-                                        order.order_shipping
-                                    }}
-                                    {{ order.order_track_number }}
-                                </a>
-                                <a v-if="order.order_shipping == 'kerry'"
-                                    :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
-                                    target="_blank">
-                                    {{
-                                        order.order_shipping
-                                    }}
-                                    {{ order.order_track_number }}
-                                </a>
-
-                                <a v-else>
-                                    {{
-                                        order.order_shipping
-                                    }}
-                                    {{ order.order_track_number }}
-                                </a>
-                            </span>
-                            <span style="color: #39b44f" v-else></span>
-                        </div>
-                    </b-col>
-                </b-row>
-                <div style="padding: 10px; border-bottom: 1px solid #ccc !important; margin: 0 -1em 0 -1em;"
-                    v-for="(product, index) in order.order_list" :key="'product' + index">
-                    <b-row>
-                        <b-col md="1" sm="12" style="padding: 1em;">
-                            <div v-if="product.product_image" style="">
-                                <img style="width: 100px; height: 90px"
-                                    :src="`http://141.98.19.44:6201/${product.product_image}`" alt="" />
-                            </div>
-                            <div v-else style="">
-                                <img style="width: 100px; height: 90px"
-                                    :src="`https://placeimg.com/380/200/any?${index}`" alt="" />
-                            </div>
-                        </b-col>
-                        <b-col md="10" sm="10" style="" class="d-flex align-items-center justify-content">
-                            {{ product.product_name }}<br />
-                            ฿{{ product.product_price }} x {{ product.order_list_qty }}
-                        </b-col>
-                        <b-col md="1" sm="2" class="d-flex align-items-center justify-content"> ฿{{
-                            product.product_price *
-                                product.order_list_qty
-                        }}
-                        </b-col>
-                    </b-row>
-                </div>
-                <b-row style="padding-top: 30px">
-                    <b-col class="title-product"></b-col>
-                    <b-col class="title-product">
-                        <div style="text-align: right">
-                            <span style="color: #000">ยอดคำสั่งซื้อทั้งหมด : </span>
-                            <span style="color: #000; font-size: 1.8em">฿{{ order.order_product_price }}</span>
-                        </div>
-                        <div style="text-align: right" v-if="order.order_predict_price">
-                            <span style="color: #000">ค่าขนส่ง : </span>
-                            <span style="color: #000; font-size: 1.8em">฿{{
-                                order.order_predict_price -
-                                    order.order_product_price
-                            }}</span>
-                        </div>
-                        <div style="text-align: right" v-if="order.order_predict_price">
-                            <span style="color: #000">ยอดคำสั่งซื้อรวมค่าขนส่ง : </span>
-                            <span style="color: #000; font-size: 1.8em">฿{{ order.order_predict_price }}</span>
-                        </div>
-
-                        <div style="text-align: right" v-if="order.order_box_qty">
-                            <span style="color: #000">จำนวนลัง : {{ order.order_box_qty }}</span>
-                        </div>
-                        <div style="text-align: right" v-if="order.order_vat">
-                            <span style="color: green;">ขอใบกำกับภาษี</span>
-                            <span style="color: green;">{{ order_invoice_address }}</span>
-
-                        </div>
-                    </b-col>
-
-                </b-row>
-                <b-row>
-                    <b-col class="title-product">
-                        <div
-                            v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'">
-                            <v-card-text v-html="company.company_info_payment_method"
-                                class="image-style-align-center w-96"></v-card-text>
-
-                            <!-- <b-img src="~/assets/qr_pp.png" alt="Image" class="rounded" width="80" height="80"
-                                style="margin-top: 2;float: left;"></b-img>
-                            &nbsp; ธนาคารกสิกรไทย <br>
-                            &nbsp; 417-417-9525 <br>
-                            &nbsp; วรายุทธ โชโตวงษ์ -->
-                        </div>
-                    </b-col>
-                    <b-col class="title-product">
-
-                        <div style="text-align: right">
-                            <!-- <button class="btn-success btn" style="border-radius: 0px"
-                                v-if="order.status == request_check_confirm">
-                                ยืนยันคำสั่งซื้อ
-                            </button> -->
-
-
-                            <button class="btn-success btn" style="border-radius: 0px"
-                                v-if="order.order_status == 'request_check_confirm' || order.order_status == 'request_check_slip'"
-                                v-b-modal.modal-1 @click="setOrderCode(order.order_code, order)">
-                                แนบเอกสารการโอน
-                            </button>
-                            <button class="btn-danger btn" style="border-radius: 0px"
-                                v-if="order.order_status != 'success' && order.order_status != 'customer_request_cancel' && order.order_status != 'cancel'"
-                                @click="setOrderCode(order.order_code, order), showCancelOrder()">
-                                ยกเลิกออร์เดอร์
-                            </button>
-                            <!-- <button class="btn-success btn" style="border-radius: 0px">
-                                ซื้ออีกครั้ง
-                            </button> -->
-                            <button class="btn-primary btn" style="border-radius: 0px" @click="gotoContact">
-                                ติดต่อผู้ขาย
-                            </button>
-                        </div>
-                    </b-col>
-                </b-row>
-            </b-col>
-        </b-row>
-        <b-modal id="modal-1" title="แจ้งหลักฐานการโอน" @ok="handleSubmit('request_check_slip')" centered>
-            <div id="preview" v-if="url != 'https://rvscs-develop.com/km-korat-web/slip/'">
-                <img v-if="url" :src="url" />
-            </div>
-            <b-form-file v-model="file" ref="file-input" class="mb-2" @change="onFileChange" required
-                style="margin-top :10px;"></b-form-file>
-            <div style="padding-bottom: 10px">
-                <b-form-input v-model="order_slip_date" placeholder="วันที่" required></b-form-input>
-            </div>
-            <div style="padding-bottom: 10px">
-                <b-form-input v-model="order_slip_time" placeholder="เวลา" required></b-form-input>
-            </div>
-        </b-modal>
-
-        <b-modal id="modal-2" title="ประวัติทำรายการ" centered scrollable style="z-index:9999999 !important;">
-            <div style="
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-            border: 1px solid #e4e4e4;
-            background-color: #f5fffa;
-          ">
-                <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_code">
-                    {{ new Date(order_selected.adddate) }} <br><span style="color:green;">สร้างคำสั่งซื้อ {{
-                        order_selected.order_code
-                    }} <br>ที่อยู่ : {{ order_selected.order_name }} {{ order_selected.order_address }}
-
-                    </span>
-                </div>
-                <div class="dotted" style="color: #212529; font-size: 12pt;"
-                    v-if="order_selected.order_status == 'cancel'">
-                    {{ new Date(order_selected.lastupdate) }} <br><span style="color:green;">ยกเลิกคำสั่งซื้อ</span>
-                </div>
-                <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_predict_price">
-                    {{ new Date(order_selected.order_predict_price_date) }} <br><span
-                        style="color:green;">ประเมินราคาเสร็จสิ้น {{
-                            order_selected.order_predict_price
-                        }} บาท</span>
-                </div>
-                <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_slip">
-                    {{ new Date(order_selected.order_slip_lastupdate) }} <br><span
-                        style="color:green;">แนบหลักฐานชำระเงิน</span>
-                    <div id="preview">
-                        <img v-if="url" :src="url" />
-                    </div>
-                </div>
-                <div class="dotted" style="color: #212529; font-size: 12pt;" v-if="order_selected.order_track_number">
-                    {{ new Date(order_selected.order_track_date) }} <br><span style="color:green;">จัดส่งสินค้าแล้ว {{
-                        order_selected.order_shipping
-                    }}
-                        {{ order_selected.order_track_number }}</span>
-                </div>
-                <div class="dotted" style="color: #212529; font-size: 12pt;"
-                    v-if="order_selected.order_payment_return_slip">
-                    {{ new Date(order_selected.lastupdate) }} <br><span style="color:green;">โอนคืนลูกค้า
-                    </span>
-                    <div id="preview">
-                        <img v-if="url_payment" :src="url_payment" />
-                    </div>
-                </div>
-            </div>
-
-        </b-modal>
-        <b-modal id="modal-cancel" title="แจ้งยกเลิกรายการ" centered no-close-on-esc no-close-on-backdrop
-            hide-header-close hide-footer>
-
-            <div style="padding-bottom: 10px">
-                <b-form-input v-model="order_customer_cancel_user_remark" placeholder="หมายเหตุ" required>
-                </b-form-input>
-            </div>
-            <b-button class="mt-3 btn-danger" block @click="confirmCancelOrder()">ยกเลิกรายการ</b-button>
-            <b-button class="mt-3 " block @click="this.$bvModal.hide('modal-cancel')">ปิด</b-button>
-        </b-modal>
+        <div v-if="order.order_predict_price">
+          ค่าขนส่ง :
+          <span style="font-size: 1.8em"
+            >฿{{ order.order_predict_price - order.order_product_price }}</span
+          >
+        </div>
+        <div v-if="order.order_predict_price">
+          ยอดคำสั่งซื้อรวมค่าขนส่ง :
+          <span style="font-size: 1.8em">฿{{ order.order_predict_price }}</span>
+        </div>
+        <div v-if="order.order_box_qty">
+          จำนวนลัง : {{ order.order_box_qty }}
+        </div>
+        <div v-if="order.order_vat" style="color: green">
+          ขอใบกำกับภาษี {{ order.order_invoice_address }}
+        </div>
+      </div>
+      <div
+        class="p-3"
+        style="max-width: 100%"
+        v-if="
+          order.order_status == 'request_check_confirm' ||
+          order.order_status == 'request_check_slip'
+        "
+        v-html="company.company_info_payment_method"
+      ></div>
+      <div class="px-3 pb-3 text-right">
+        <b-button
+          v-if="
+            order.order_status == 'request_check_confirm' ||
+            order.order_status == 'request_check_slip'
+          "
+          variant="success"
+          squared
+          v-b-modal.modal-1
+          @click="setOrderCode(order.order_code, order)"
+        >
+          แนบเอกสารการโอน
+        </b-button>
+        <b-button
+          variant="danger"
+          squared
+          v-if="
+            order.order_status != 'success' &&
+            order.order_status != 'customer_request_cancel' &&
+            order.order_status != 'cancel'
+          "
+          @click="setOrderCode(order.order_code, order), showCancelOrder()"
+        >
+          ยกเลิกออร์เดอร์
+        </b-button>
+        <b-button variant="primary" squared @click="gotoContact">
+          ติดต่อผู้ขาย
+        </b-button>
+      </div>
     </div>
 
+    <b-modal
+      id="modal-1"
+      title="แจ้งหลักฐานการโอน"
+      @ok="handleSubmit('request_check_slip')"
+      centered
+    >
+      <div
+        id="preview"
+        v-if="url != 'https://rvscs-develop.com/km-korat-web/slip/'"
+      >
+        <img v-if="url" :src="url" />
+      </div>
+      <b-form-file
+        v-model="file"
+        ref="file-input"
+        class="mb-2"
+        @change="onFileChange"
+        required
+        style="margin-top: 10px"
+      ></b-form-file>
+      <div style="padding-bottom: 10px">
+        <b-form-input
+          v-model="order_slip_date"
+          placeholder="วันที่"
+          required
+        ></b-form-input>
+      </div>
+      <div style="padding-bottom: 10px">
+        <b-form-input
+          v-model="order_slip_time"
+          placeholder="เวลา"
+          required
+        ></b-form-input>
+      </div>
+    </b-modal>
+
+    <b-modal
+      id="modal-2"
+      title="ประวัติทำรายการ"
+      centered
+      scrollable
+      style="z-index: 9999999 !important"
+    >
+      <div
+        style="
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
+          border: 1px solid #e4e4e4;
+          background-color: #f5fffa;
+        "
+      >
+        <div
+          class="dotted"
+          style="color: #212529; font-size: 12pt"
+          v-if="order_selected.order_code"
+        >
+          {{ new Date(order_selected.adddate) }} <br /><span
+            style="color: green"
+            >สร้างคำสั่งซื้อ {{ order_selected.order_code }} <br />ที่อยู่ :
+            {{ order_selected.order_name }} {{ order_selected.order_address }}
+          </span>
+        </div>
+        <div
+          class="dotted"
+          style="color: #212529; font-size: 12pt"
+          v-if="order_selected.order_status == 'cancel'"
+        >
+          {{ new Date(order_selected.lastupdate) }} <br /><span
+            style="color: green"
+            >ยกเลิกคำสั่งซื้อ</span
+          >
+        </div>
+        <div
+          class="dotted"
+          style="color: #212529; font-size: 12pt"
+          v-if="order_selected.order_predict_price"
+        >
+          {{ new Date(order_selected.order_predict_price_date) }} <br /><span
+            style="color: green"
+            >ประเมินราคาเสร็จสิ้น
+            {{ order_selected.order_predict_price }} บาท</span
+          >
+        </div>
+        <div
+          class="dotted"
+          style="color: #212529; font-size: 12pt"
+          v-if="order_selected.order_slip"
+        >
+          {{ new Date(order_selected.order_slip_lastupdate) }} <br /><span
+            style="color: green"
+            >แนบหลักฐานชำระเงิน</span
+          >
+          <div id="preview">
+            <img v-if="url" :src="url" />
+          </div>
+        </div>
+        <div
+          class="dotted"
+          style="color: #212529; font-size: 12pt"
+          v-if="order_selected.order_track_number"
+        >
+          {{ new Date(order_selected.order_track_date) }} <br /><span
+            style="color: green"
+            >จัดส่งสินค้าแล้ว {{ order_selected.order_shipping }}
+            {{ order_selected.order_track_number }}</span
+          >
+        </div>
+        <div
+          class="dotted"
+          style="color: #212529; font-size: 12pt"
+          v-if="order_selected.order_payment_return_slip"
+        >
+          {{ new Date(order_selected.lastupdate) }} <br /><span
+            style="color: green"
+            >โอนคืนลูกค้า
+          </span>
+          <div id="preview">
+            <img v-if="url_payment" :src="url_payment" />
+          </div>
+        </div>
+      </div>
+    </b-modal>
+
+    <b-modal
+      id="modal-cancel"
+      title="แจ้งยกเลิกรายการ"
+      centered
+      no-close-on-esc
+      no-close-on-backdrop
+      hide-header-close
+      hide-footer
+    >
+      <div style="padding-bottom: 10px">
+        <b-form-input
+          v-model="order_customer_cancel_user_remark"
+          placeholder="หมายเหตุ"
+          required
+        >
+        </b-form-input>
+      </div>
+      <b-button class="mt-3 btn-danger" block @click="confirmCancelOrder()"
+        >ยกเลิกรายการ</b-button
+      >
+      <b-button class="mt-3" block @click="this.$bvModal.hide('modal-cancel')"
+        >ปิด</b-button
+      >
+    </b-modal>
+  </div>
 </template>
 
 <script>
-import { call } from "file-loader";
-import "slick-carousel/slick/slick.css";
 export default {
-    name: "Homepage",
-    middleware: 'auth',
-    props: ['modelValue'],
-    data() {
-        return {
-            form: {
-                email: "",
-                name: "",
-                food: null,
-                checked: [],
-            },
-            status: {
-                request_check_price: 'รอประเมินราคา',
-                request_check_confirm: 'รอยืนยันคำสั่งซื้อ',
-                request_check_slip: 'รอตรวจสอบหลักฐาน',
-                request_check_track: 'รอระบุเลขขนส่ง',
-                cancel: 'ยกเลิกออเดอร์',
-                success: 'จัดส่งสำเร็จ',
-                customer_request_cancel: 'ลูกค้าขอยกเลิกออเดอร์',
-                payment_failed: 'ชำระเงินไม่สำเร็จ',
-            },
-            dataValue: [],
-            Sum: 0,
-            count_shop: 0,
-            show: true,
-            fields: [{
-                key: "name",
-                label: "PRODUCT",
-            },
-            {
-                key: "price",
-                label: "PRICE",
-            },
-            {
-                key: "qty",
-                label: "QUANTITY",
-                thClass: "red",
-            },
-            {
-                key: "manage",
-                label: "",
-                thClass: "red",
-            },
-            ],
-            selected: null,
-            order_slip_date: '',
-            order_slip_time: '',
-            order_customer_cancel_user_remark: '',
-            url: '',
-            order_code: '',
-            file: null,
-            order_selected: '',
-        };
-    },
-    mounted() {
-        this.dataValue = JSON.parse(localStorage.getItem('shoppingCart') || "[]");
-        this.dataValue.forEach(element => {
-            this.Sum += element.product_price * element.amount;
-            this.count_shop += element.amount;
+  name: "Homepage",
+  middleware: "auth",
+  data() {
+    return {
+      form: {
+        email: "",
+        name: "",
+        food: null,
+        checked: [],
+      },
+      status: {
+        request_check_price: "รอประเมินราคา",
+        request_check_confirm: "รอยืนยันคำสั่งซื้อ",
+        request_check_slip: "รอตรวจสอบหลักฐาน",
+        request_check_track: "รอระบุเลขขนส่ง",
+        cancel: "ยกเลิกออเดอร์",
+        success: "จัดส่งสำเร็จ",
+        customer_request_cancel: "ลูกค้าขอยกเลิกออเดอร์",
+        payment_failed: "ชำระเงินไม่สำเร็จ",
+      },
+      order_code: "",
+      order_slip_date: "",
+      order_slip_time: "",
+      order_customer_cancel_user_remark: "",
+      order_selected: "",
+      url: "",
+      file: null,
+    };
+  },
+  async asyncData({ $productService, $orderService, $companyService, store }) {
+    try {
+      const user = store.state.auth.user;
+
+      const categorys = await $productService.product.getProductCategoryBy();
+      const company = await $companyService.company
+        .getCompany()
+        .then((res) => res.data[0]);
+
+      //warning! data leak to another user.
+      //solution => change to use customer_code form JWT token.
+      const orders = await $orderService.order.getOrderBy({
+        customer_code: user.customer_code,
+      });
+
+      //warning! http request loop will drop performance so much, this affect to SEO.
+      //solution => new service in server to get full detail instead (loop in service).
+      for (let order of orders.data) {
+        const order_lists = await $orderService.order.getOrderListBy({
+          order_code: order.order_code,
         });
-        // console.log("modelValue", this.modelValue);
-    },
-    watch: {
-        modelValue: {
-            deep: true,
-            handler(newValue) {
-                this.count_shop = 0;
-                this.Sum = 0;
-                localStorage.setItem('shoppingCart', JSON.stringify(newValue));
-                console.log("newValue", newValue);
-                this.dataValue = newValue;
-                this.dataValue.forEach(element => {
-                    this.Sum += element.product_price * element.amount;
-                    this.count_shop += element.amount;
+
+        order.order_lists = order_lists.data;
+      }
+
+      return {
+        categorys: categorys.data || [],
+        company,
+        orders: orders.data || [],
+      };
+    } catch (error) {
+      //handle error state redirect to error page
+      console.log(error);
+      return {
+        categorys: [],
+        company: {},
+        orders: [],
+      };
+    }
+  },
+  methods: {
+    async handleSubmit(status) {
+      this.order_status = status;
+
+      try {
+        if (status == "customer_request_cancel") {
+          await this.$axios
+            .post(
+              "https://rvscs-develop.com/km-korat-web/api/order-status-update",
+              {
+                order_status: this.order_status,
+                order_code: this.order_code,
+                order_customer_cancel_user_remark:
+                  this.order_customer_cancel_user_remark,
+              }
+            )
+            .then((response) => {
+              console.log("true", response);
+              if (response.data == "error") {
+                // console.log("Email");
+                this.$swal.fire({
+                  type: "error",
+                  title: "ไม่สามารถเพิ่มข้อมูล",
+                  text: "ไม่สามารถเพิ่มข้อมูล",
                 });
-                console.log("2", this.dataValue);
-            },
-        },
-    },
-    methods: {
-        confirmCancelOrder() {
-            this.$swal.fire({
-                title: 'คุณแน่ใจไหม ?',
-                text: "คุณจะไม่สามารถย้อนกลับได้ !",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'ตกลง',
-                cancelButtonText: 'ยกเลิก'
-            }).then((result) => {
-                if (result.value == true) {
-                    this.$bvModal.hide('modal-cancel')
-                    this.handleSubmit('customer_request_cancel')
-                }
+                setTimeout(() => {
+                  this.$router.push("/order");
+                }, 2000);
+              } else {
+                this.$swal.fire({
+                  type: "success",
+                  title: "สำเร็จ",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                setTimeout(() => {
+                  this.$router.go();
+                }, 2000);
+              }
             })
-        },
-        showCancelOrder() {
-            this.$bvModal.show('modal-cancel')
-        },
-        setOrderCode(value, order) {
-            this.order_code = value;
-            this.url = 'https://rvscs-develop.com/km-korat-web/slip/' + order.order_slip
-            this.url_payment = "http://141.98.19.44:6201/" + order.order_payment_return_slip
-            this.order_slip_date = order.order_slip_date
-            this.order_slip_time = order.order_slip_time
-            this.order_selected = order
-        },
-        async handleSubmit(status) {
-            this.order_status = status;
-            try {
-                if (status == 'customer_request_cancel') {
-                    await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/order-status-update', {
-                        order_status: this.order_status,
-                        order_code: this.order_code,
-                        order_customer_cancel_user_remark: this.order_customer_cancel_user_remark,
-
-                    })
-                        .then((response) => {
-                            console.log("true", response);
-                            if (response.data == "error") {
-                                // console.log("Email");
-                                this.$swal.fire({
-                                    type: 'error',
-                                    title: 'ไม่สามารถเพิ่มข้อมูล',
-                                    text: 'ไม่สามารถเพิ่มข้อมูล',
-                                })
-                                setTimeout(() => { this.$router.push("/order"); }, 2000);
-
-                            } else {
-                                this.$swal.fire({
-                                    type: 'success',
-                                    title: 'สำเร็จ',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                                setTimeout(() => { this.$router.go(); }, 2000);
-                            }
-                        })
-                        .catch((error) => {
-                            console.log("err", error);
-                        });
-                    setTimeout(() => { this.$router.go(); }, 2000);
-                } else {
-                    if (this.file != null && this.file != '' && this.order_slip_date != '' && this.order_slip_time != '' && this.order_code != '') {
-
-                        var formData = new FormData()
-                        formData.append('photo', this.file)
-                        formData.append('order_status', this.order_status)
-                        formData.append('order_slip_date', this.order_slip_date)
-                        formData.append('order_slip_time', this.order_slip_time)
-                        formData.append('order_code', this.order_code)
-
-                        await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/upload-slip', formData, {
-                            headers: {
-                                "Content-Type": "multipart/form-data",
-                            },
-                        })
-                            .then(async (response) => {
-                                console.log("true", response);
-                                if (response.data == "error") {
-                                    // console.log("Email");
-                                    this.$swal.fire({
-                                        type: 'error',
-                                        title: 'ไม่สามารถเพิ่มข้อมูล',
-                                        text: 'ไม่สามารถเพิ่มข้อมูล',
-                                    })
-                                    // setTimeout(() => { this.$router.push("/order"); }, 2000);
-
-                                } else {
-
-                                    this.order_slip = response.data.filename
-                                    if (this.order_slip != '') {
-
-                                        await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/order-slip-update', {
-                                            order_status: this.order_status,
-                                            order_slip_date: this.order_slip_date,
-                                            order_slip_time: this.order_slip_time,
-                                            order_slip: this.order_slip,
-                                            order_code: this.order_code,
-
-                                        })
-                                            .then((response) => {
-                                                console.log("true", response);
-                                                if (response.data == "error") {
-                                                    // console.log("Email");
-                                                    this.$swal.fire({
-                                                        type: 'error',
-                                                        title: 'ไม่สามารถเพิ่มข้อมูล',
-                                                        text: 'ไม่สามารถเพิ่มข้อมูล',
-                                                    })
-                                                    setTimeout(() => { this.$router.push("/order"); }, 2000);
-
-                                                } else {
-                                                    this.$swal.fire({
-                                                        type: 'success',
-                                                        title: 'สำเร็จ',
-                                                        showConfirmButton: false,
-                                                        timer: 1500
-                                                    })
-                                                    setTimeout(() => { this.$router.go(); }, 2000);
-                                                }
-                                            })
-                                            .catch((error) => {
-                                                console.log("err", error);
-                                            });
-                                        setTimeout(() => { this.$router.go(); }, 2000);
-                                    }
-
-                                }
-                            })
-                            .catch((error) => {
-                                console.log("err", error);
-                            });
-                    } else {
-                        this.$swal.fire({
-                            type: 'error',
-                            title: 'ไม่สามารถเพิ่มข้อมูล',
-                            text: 'ไม่สามารถเพิ่มข้อมูล',
-                        })
-                    }
-                }
-
-            } catch (error) {
-                // console.log("err");
-                this.error = error;
-
-            }
-
-        },
-        gotoContact() {
-            this.$router.push("/contact")
-        },
-        async logout() {
-            await this.$auth.logout();
-            this.$router.push("/login");
-        },
-        scrollToTop() {
-            window.scrollTo(0, 0);
-        },
-        removeFromCart(product) {
-            const shoppingCart = this.dataValue;
-            const productIndex = shoppingCart.findIndex(item => item.product_code === product.product_code);
-            shoppingCart[productIndex].amount -= 1;
-
-            if (shoppingCart[productIndex].amount < 1) {
-                shoppingCart.splice(productIndex, 1);
-            }
-            this.dataValue = shoppingCart;
-            this.count_shop -= 1;
-            this.Sum = 0;
-            this.dataValue.forEach(element => {
-                this.Sum += element.product_price * element.amount;
+            .catch((error) => {
+              console.log("err", error);
             });
-            // console.log("this.dataValue", this.dataValue);
-            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-            this.$emit('update:modelValue', shoppingCart)
-        },
-        onFileChange(e) {
-            const file = e.target.files[0];
-            console.log('file', file);
-            if (file != null) {
-                this.url = URL.createObjectURL(file);
-                console.log(' this.url', this.url);
+          setTimeout(() => {
+            this.$router.go();
+          }, 2000);
+        } else {
+          if (
+            this.file != null &&
+            this.file != "" &&
+            this.order_slip_date != "" &&
+            this.order_slip_time != "" &&
+            this.order_code != ""
+          ) {
+            var formData = new FormData();
+            formData.append("photo", this.file);
+            formData.append("order_status", this.order_status);
+            formData.append("order_slip_date", this.order_slip_date);
+            formData.append("order_slip_time", this.order_slip_time);
+            formData.append("order_code", this.order_code);
 
-            } else {
-                this.url = null
-            }
-        }
-    },
-    async asyncData({
-        $productService,
-        $orderService,
-        $cookies,
-        $companyService,
-        store
-    }) {
-        var user = store.state.auth.user
-        console.log('userrrr', user.customer_code);
-        var order_data = []
-        const categorys = await $productService.product.getProductCategoryBy();
-        const orders = await $orderService.order.getOrderByCode({ customer_code: user.customer_code });
-        const company = await $companyService.company.getCompany();
-        if (orders.data != '' && orders.data != undefined) {
-            for (var i = 0; i < orders.data.length; i++) {
-                const orders_list = await $orderService.order.getOrderListByOrderCode({ order_code: orders.data[i].order_code });
-
-                await order_data.push({
-                    ...orders.data[i],
-                    order_list: orders_list.data
+            await this.$axios
+              .post(
+                "https://rvscs-develop.com/km-korat-web/api/upload-slip",
+                formData,
+                {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
                 }
-                )
-
-            }
+              )
+              .then(async (response) => {
+                console.log("true", response);
+                if (response.data == "error") {
+                  // console.log("Email");
+                  this.$swal.fire({
+                    type: "error",
+                    title: "ไม่สามารถเพิ่มข้อมูล",
+                    text: "ไม่สามารถเพิ่มข้อมูล",
+                  });
+                  // setTimeout(() => { this.$router.push("/order"); }, 2000);
+                } else {
+                  this.order_slip = response.data.filename;
+                  if (this.order_slip != "") {
+                    await this.$axios
+                      .post(
+                        "https://rvscs-develop.com/km-korat-web/api/order-slip-update",
+                        {
+                          order_status: this.order_status,
+                          order_slip_date: this.order_slip_date,
+                          order_slip_time: this.order_slip_time,
+                          order_slip: this.order_slip,
+                          order_code: this.order_code,
+                        }
+                      )
+                      .then((response) => {
+                        console.log("true", response);
+                        if (response.data == "error") {
+                          // console.log("Email");
+                          this.$swal.fire({
+                            type: "error",
+                            title: "ไม่สามารถเพิ่มข้อมูล",
+                            text: "ไม่สามารถเพิ่มข้อมูล",
+                          });
+                          setTimeout(() => {
+                            this.$router.push("/order");
+                          }, 2000);
+                        } else {
+                          this.$swal.fire({
+                            type: "success",
+                            title: "สำเร็จ",
+                            showConfirmButton: false,
+                            timer: 1500,
+                          });
+                          setTimeout(() => {
+                            this.$router.go();
+                          }, 2000);
+                        }
+                      })
+                      .catch((error) => {
+                        console.log("err", error);
+                      });
+                    setTimeout(() => {
+                      this.$router.go();
+                    }, 2000);
+                  }
+                }
+              })
+              .catch((error) => {
+                console.log("err", error);
+              });
+          } else {
+            this.$swal.fire({
+              type: "error",
+              title: "ไม่สามารถเพิ่มข้อมูล",
+              text: "ไม่สามารถเพิ่มข้อมูล",
+            });
+          }
         }
-
-
-        console.log(order_data);
-        return {
-            categorys: categorys.data ? categorys.data : [],
-            orders: order_data ? order_data : [],
-            company: company.data ? company.data[0] : [],
-
-        };
+      } catch (error) {
+        //handle error state redirect to error page
+        this.error = error;
+      }
     },
+    confirmCancelOrder() {
+      this.$swal
+        .fire({
+          title: "คุณแน่ใจไหม ?",
+          text: "คุณจะไม่สามารถย้อนกลับได้ !",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "ตกลง",
+          cancelButtonText: "ยกเลิก",
+        })
+        .then((result) => {
+          if (result.value == true) {
+            this.$bvModal.hide("modal-cancel");
+            this.handleSubmit("customer_request_cancel");
+          }
+        });
+    },
+    showCancelOrder() {
+      this.$bvModal.show("modal-cancel");
+    },
+    setOrderCode(value, order) {
+      this.order_code = value;
+      this.url =
+        "https://rvscs-develop.com/km-korat-web/slip/" + order.order_slip;
+      this.url_payment =
+        "http://141.98.19.44:6201/" + order.order_payment_return_slip;
+      this.order_slip_date = order.order_slip_date;
+      this.order_slip_time = order.order_slip_time;
+      this.order_selected = order;
+    },
+    gotoContact() {
+      this.$router.push("/contact");
+    },
+    onFileChange(e) {
+      const file = e.target.files[0];
+      console.log("file", file);
+      if (file != null) {
+        this.url = URL.createObjectURL(file);
+        console.log(" this.url", this.url);
+      } else {
+        this.url = null;
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
 a {
-    color: #39b44f;
+  color: #39b44f;
 }
 
 div {
-    font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
 }
 
 #preview {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #preview img {
-    max-width: 100%;
-    max-height: 200px;
+  max-width: 100%;
+  max-height: 200px;
 }
 
 .title-product {
-    padding-top: 1em;
-    font-family: "Kanit";
-    font-size: 1em;
-    font-weight: 500;
-    border-bottom: 1px solid #e4e4e4;
-    padding-bottom: 20px;
+  padding-top: 1em;
+  font-family: "Kanit";
+  font-size: 1em;
+  font-weight: 500;
+  border-bottom: 1px solid #e4e4e4;
+  padding-bottom: 20px;
 }
 
 .tdClass {
-    width: 50%;
+  width: 50%;
 }
 
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(0 0 0 / 14%);
-    border-left: 1px solid rgb(0 0 0 / 14%);
-    border-right: 1px solid rgb(0 0 0 / 14%);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 1px solid rgb(0 0 0 / 14%);
+  border-left: 1px solid rgb(0 0 0 / 14%);
+  border-right: 1px solid rgb(0 0 0 / 14%);
 }
 
 #example-collapse {
-    padding-right: 1.5px;
+  padding-right: 1.5px;
 }
 
 #example-collapse a {
-    font-size: 12pt;
-    text-align: center;
-    color: #666666;
-    display: block;
-    padding: 8px 16px;
-    text-decoration: none;
+  font-size: 12pt;
+  text-align: center;
+  color: #666666;
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
 }
 
 #example-collapse a:hover {
-    color: #fff;
-    background-color: #39b44f !important;
-    box-sizing: border-box;
+  color: #fff;
+  background-color: #39b44f !important;
+  box-sizing: border-box;
 }
 
 .dotted:before {
-    content: "• ";
-    color: green;
+  content: "• ";
+  color: green;
 }
 
 #modal-2___BV_modal_outer_ {
-    z-index: 999999999 !important;
+  z-index: 999999999 !important;
 }
 
 .col-fliter {
-    margin: -1em -2em auto -1em
+  margin: -1em -2em auto -1em;
 }
 
 .col-product {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -2em 0 0
-}
-
-@media only screen and (max-width: 600px) {
-    img {
-        width: 100%;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -2em 0 0;
 }
 </style>
