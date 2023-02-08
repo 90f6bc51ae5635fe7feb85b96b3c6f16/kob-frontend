@@ -73,67 +73,48 @@
               <b-dropdown-text
                 v-for="(product, index) in $store.state.cart.items"
                 :key="index"
+                class="py-2"
+                style="border-bottom: 1px solid #eee"
               >
-                <button
-                  class="close"
-                  aria-label="Close"
-                  @click="removeFromCart(product)"
-                ></button>
-                <div class="manu-shop" style="height: 100px">
-                  <div style="float: left">
-                    <div
-                      v-if="product.product_image"
-                      style="border: 0.5px solid grey"
+                <div class="d-flex">
+                  <div class="cart-item-img">
+                    <img
+                      class="cover"
+                      width="80px"
+                      height="80px"
+                      :src="`${
+                        product.product_image
+                          ? `http://141.98.19.44:6201/${product.product_image}`
+                          : `https://placeimg.com/380/200/any?${Math.floor(
+                              Math.random() * 50
+                            )}`
+                      }`"
+                      alt="product"
+                    />
+                    <button
+                      class="btn-ic-close"
+                      aria-label="Close"
+                      @click="removeFromCart(product)"
                     >
-                      <img
-                        style="width: 100px; height: 90px"
-                        :src="`http://141.98.19.44:6201/${product.product_image}`"
-                        alt=""
-                      />
-                    </div>
-                    <div v-else style="border: 0.5px solid grey">
-                      <svg
-                        width="100px"
-                        height="90px"
-                        role="img"
-                        aria-label="Placeholder: Kob Giftshop"
-                        preserveAspectRatio="xMidYMid slice"
-                        focusable="false"
-                      >
-                        <title></title>
-                        <rect width="100%" height="100%" fill="#55595c"></rect>
-                        <text
-                          x="3%"
-                          y="50%"
-                          style="font-size: 12pt"
-                          fill="#eceeef"
-                          dy=".3em"
-                        >
-                          Kob Giftshop
-                        </text>
-                      </svg>
-                    </div>
+                      x
+                    </button>
                   </div>
-                  <div
-                    style="
-                      text-align: left;
-                      padding-top: 1em;
-                      margin: 0 0 0 120px;
-                    "
-                  >
-                    <div class="text-overflow">
+                  <div class="pl-3">
+                    <div class="line-clamp-2">
+                      {{ product.product_name }}
+                      {{ product.product_name }}
+                      {{ product.product_name }}
                       {{ product.product_name }}
                     </div>
-                    <div class="text-overflow">
-                      ฿{{ product.product_price
-                      }}<span> X {{ product.amount }}</span>
+                    <div class="line-clamp-1">
+                      ฿{{ product.product_price }} X {{ product.amount }}
                     </div>
                   </div>
                 </div>
               </b-dropdown-text>
-              <b-dropdown-text>
+              <b-dropdown-text class="my-2">
                 <div style="float: left">ORDER TOTAL</div>
-                <div style="text-align: right">฿{{ cartTotalPrice }}</div>
+                <div class="text-right">฿{{ cartTotalPrice }}</div>
               </b-dropdown-text>
             </div>
             <div v-else class="text-center py-4">
@@ -397,60 +378,6 @@ a {
 
 .font-navbar {
   font-family: "Kanit", sans-serif;
-}
-
-.manu-shop {
-  /* padding-top: 1em; */
-  /* font-family: "Kanit"; */
-  /* font-size: 1em; */
-  /* font-weight: 60%; */
-  border-bottom: 1px solid #e4e4e4;
-  /* padding-bottom: 20px; */
-}
-
-.close {
-  float: left !important;
-  vertical-align: middle;
-  color: inherit;
-  border-radius: 50%;
-  background-color: #fff;
-  position: relative;
-  width: 20px;
-  height: 20px;
-  opacity: 1;
-  border: 1px solid rgba(128, 128, 128, 0.5);
-  margin: 0 -3em 0 0 !important;
-}
-
-.close:focus,
-.close:hover {
-  opacity: 1;
-  background: rgba(128, 128, 128, 0.5);
-  color: #fff;
-}
-
-.close:active {
-  background: rgba(128, 128, 128, 0.9);
-}
-
-/* tines of the X */
-.close::before,
-.close::after {
-  content: " ";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 10px;
-  width: 1px;
-  background-color: currentColor;
-}
-
-.close::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.close::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .fix-navbar.vue-fixed-header--isFixed {

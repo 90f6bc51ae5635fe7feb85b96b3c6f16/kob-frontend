@@ -42,7 +42,9 @@
                   }`"
                   alt="product"
                 />
-                <span class="cart-item-name">{{ product.product_name }}</span>
+                <span class="cart-item-name line-clamp-3">
+                  {{ product.product_name }}
+                </span>
               </div>
             </td>
             <td class="align-middle text-center">

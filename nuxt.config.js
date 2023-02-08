@@ -62,6 +62,7 @@ export default {
     "slick-carousel/slick/slick-theme.css",
     "@fortawesome/fontawesome-svg-core/styles.css",
     '~/assets/css/_custom.scss',
+    '~/assets/css/standard.scss',
     '~/assets/css/style.scss',
   ],
 
