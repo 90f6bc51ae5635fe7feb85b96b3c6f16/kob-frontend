@@ -11,7 +11,7 @@
               height="48px"
             ></b-img>
             <div style="font-weight: 500">FREE SHIPPING</div>
-            <div class="font-color">
+            <div class="text-secondary">
               Free Shipping on World wide Order Over $99.
             </div>
           </b-col>
@@ -23,7 +23,7 @@
               height="48px"
             ></b-img>
             <div style="font-weight: 500">FREE SHIPPING</div>
-            <div class="font-color">
+            <div class="text-secondary">
               Free Shipping on World wide Order Over $99.
             </div>
           </b-col>
@@ -35,7 +35,7 @@
               height="48px"
             ></b-img>
             <div style="font-weight: 500">FREE SHIPPING</div>
-            <div class="font-color">
+            <div class="text-secondary">
               Free Shipping on World wide Order Over $99.
             </div>
           </b-col>
@@ -47,7 +47,7 @@
               height="48px"
             ></b-img>
             <div style="font-weight: 500">FREE SHIPPING</div>
-            <div class="font-color">
+            <div class="text-secondary">
               Free Shipping on World wide Order Over $99.
             </div>
           </b-col>
@@ -55,7 +55,7 @@
       </b-container>
     </div>
 
-    <div class="bg-info">
+    <div class="bg-success">
       <b-container class="py-4" fluid="lg">
         <b-row class="no-gutters" align-h="center">
           <p class="mt-auto mr-2 text-white" style="font-size: 14px">
@@ -80,7 +80,7 @@
             alt="Image"
             style="margin: 5px"
           ></b-img>
-          <p class="font-color pt-4">
+          <p class="text-secondary pt-4">
             กิ๊ฟช็อป ของขวัญ ของใช้ เครื่องสำอางค์ อยากได้อะไรขอให้ถามนะจ๊ะ
             ขายปลีก-ส่ง กิฟช็อป หวี กระจก ยางมัดผม โบว์ ผ้าเช็ดหน้า ของขวัญ
             ของชำร่วย งานบวช งานแต่ง งานศพ ยาหม่อง ยาดม ถุงเท้า ถุงมือ แฟชั่น
@@ -90,88 +90,51 @@
           </p>
           <p>
             ที่อยู่ :
-            <span class="font-color"
+            <span class="text-secondary"
               >ถนนจันทร์ ตำบลในเมือง อำเภอเมืองนครราชสีมา จังหวัดนครราชสีมา
               30000</span
             >
           </p>
-          <p>เบอร์โทรศัพท์ : <span class="font-color">099-461-9241</span></p>
-          <p>ไอดีไลน์ : <span class="font-color">@kob0994619241</span></p>
-          <p>อีเมล : <span class="font-color">katai_ee@hotmail.com</span></p>
+          <p>
+            เบอร์โทรศัพท์ : <span class="text-secondary">099-461-9241</span>
+          </p>
+          <p>ไอดีไลน์ : <span class="text-secondary">@kob0994619241</span></p>
+          <p>
+            อีเมล : <span class="text-secondary">katai_ee@hotmail.com</span>
+          </p>
         </b-col>
         <b-col cols="12" lg="8" class="pt-2">
           <b-row>
             <b-col cols="12" sm="4">
               <h5 class="mb-4">COMPANY</h5>
-              <p class="font-color">Discount Vouches</p>
-              <p class="font-color">Spring Collection</p>
-              <p class="font-color">Trending</p>
-              <p class="font-color">Best Sellers</p>
-              <p class="font-color">Special Deals</p>
+              <p class="text-secondary">Discount Vouches</p>
+              <p class="text-secondary">Spring Collection</p>
+              <p class="text-secondary">Trending</p>
+              <p class="text-secondary">Best Sellers</p>
+              <p class="text-secondary">Special Deals</p>
             </b-col>
             <b-col cols="12" sm="4">
               <h5 class="mb-4">POLICY INFO</h5>
-              <p class="font-color">Orders & Returns</p>
-              <p class="font-color">Help & FAQs</p>
-              <p class="font-color">Store Locations</p>
+              <p class="text-secondary">Orders & Returns</p>
+              <p class="text-secondary">Help & FAQs</p>
+              <p class="text-secondary">Store Locations</p>
             </b-col>
             <b-col cols="12" sm="4">
               <h5 class="mb-4">MY ACCOUNT</h5>
-              <p class="font-color">About Us</p>
-              <p class="font-color">Delivery Information</p>
-              <p class="font-color">Privacy Policy</p>
-              <p class="font-color">Terms & Conditions</p>
+              <p class="text-secondary">About Us</p>
+              <p class="text-secondary">Delivery Information</p>
+              <p class="text-secondary">Privacy Policy</p>
+              <p class="text-secondary">Terms & Conditions</p>
             </b-col>
           </b-row>
         </b-col>
       </b-row>
     </b-container>
-    <div
-      :style="`background-color: #fff;
-        border-top: 1px solid #f0f0f0;
-        color: #808080;`"
-    >
-      <b-container class="py-4" style="font-size: 12px">
-        <b> © COPYRIGHT - KOB GIFTSHOP TEMPLATE BY REVELSOFT </b>
+    <hr class="my-0" />
+    <div class="bg-white">
+      <b-container class="py-4 text-secondary" style="font-size: 12px">
+        © COPYRIGHT - KOB GIFTSHOP TEMPLATE BY REVELSOFT
       </b-container>
     </div>
   </div>
 </template>
-
-<script>
-import { mapState } from "vuex";
-export default {
-  data() {
-    return {
-      showNav: false,
-    };
-  },
-  methods: {
-    async logout() {
-      await this.$auth.logout();
-      this.$router.push("/login");
-    },
-  },
-  computed: {
-    ...mapState("auth", ["loggedIn"]),
-  },
-};
-</script>
-
-<style scoped>
-.navbar-dark {
-  color: #fff;
-}
-
-a {
-  font-family: "Kanit";
-}
-
-.bg-info {
-  background-color: #39b54a !important;
-}
-
-.font-color {
-  color: #808080;
-}
-</style>

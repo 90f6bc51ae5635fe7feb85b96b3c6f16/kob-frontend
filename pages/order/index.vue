@@ -345,11 +345,9 @@ export default {
       file: null,
     };
   },
-  async asyncData({ $productService, $orderService, $companyService, store }) {
+  async asyncData({ $orderService, $companyService, store }) {
     try {
       const user = store.state.auth.user;
-
-      const categorys = await $productService.product.getProductCategoryBy();
       const company = await $companyService.company
         .getCompany()
         .then((res) => res.data[0]);
@@ -371,7 +369,6 @@ export default {
       }
 
       return {
-        categorys: categorys.data || [],
         company,
         orders: orders.data || [],
       };
@@ -379,7 +376,6 @@ export default {
       //handle error state redirect to error page
       console.log(error);
       return {
-        categorys: [],
         company: {},
         orders: [],
       };
@@ -583,10 +579,6 @@ a {
   color: #39b44f;
 }
 
-div {
-  font-family: "Kanit", sans-serif;
-}
-
 #preview {
   display: flex;
   justify-content: center;
@@ -607,10 +599,6 @@ div {
   padding-bottom: 20px;
 }
 
-.tdClass {
-  width: 50%;
-}
-
 ul {
   list-style-type: none;
   margin: 0;
@@ -622,25 +610,6 @@ ul {
   border-right: 1px solid rgb(0 0 0 / 14%);
 }
 
-#example-collapse {
-  padding-right: 1.5px;
-}
-
-#example-collapse a {
-  font-size: 12pt;
-  text-align: center;
-  color: #666666;
-  display: block;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-#example-collapse a:hover {
-  color: #fff;
-  background-color: #39b44f !important;
-  box-sizing: border-box;
-}
-
 .dotted:before {
   content: "• ";
   color: green;
@@ -648,15 +617,5 @@ ul {
 
 #modal-2___BV_modal_outer_ {
   z-index: 999999999 !important;
-}
-
-.col-fliter {
-  margin: -1em -2em auto -1em;
-}
-
-.col-product {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -2em 0 0;
 }
 </style>
