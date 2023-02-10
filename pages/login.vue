@@ -1,227 +1,120 @@
 <template>
-    <div>
-        <div class="" style="margin: 0 -2em 0 -1em;">
-            <b-collapse id="example-collapse" style="
-              width: 100%;
-              margin: 0 0 0 0;
-              max-height: 250px;
-              overflow: auto;
-
-            ">
-                <div v-for="category in categorys" :key="category.product_category_code">
-                    <ul>
-                        <li>
-                            <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                                {{ category.product_category_name }}
-                            </nuxt-link>
-                        </li>
-                    </ul>
-                </div>
-            </b-collapse>
-        </div>
-        <div class="container">
-            <form class="form" @submit="onSubmit">
-                <div style="margin: 0 0 1em 0;">
-                    <b-img src="~/assets/Logo.png" alt="Image" 
-                        style="width:100%; height: auto; margin: 0 0 0 0;"></b-img>
-                </div>
-
-                <h3 class="title">Log In</h3>
-                <div class="field">
-                    <b-form-group id="group" label="" label-for="input-1" description="" style="text-align: left;">
-                        <template>
-                            Email
-                            <b-form-input v-model="email" class="input" type="text" placeholder="อีเมล"></b-form-input>
-                        </template>
-                    </b-form-group>
-                </div>
-                <div class="field">
-                    <b-form-group id="group" label="" label-for="input-1" description="" style="text-align: left;">
-                        <template>
-                            Password
-                            <b-form-input v-model="password" class="input" type="password" placeholder="รหัสผ่าน">
-                            </b-form-input>
-                        </template>
-                    </b-form-group>
-                </div>
-                <div class="field">
-                    <b-button type="submit" variant="success" size="md" style="width: 100%;">Login</b-button>
-                </div>
-                <div class="field" style="margin-top: 0.5em; text-align: left;">
-                    <input type="checkbox" checked="checked" name="remember"> Remember Me
-                </div>
-                <div class="field">
-                    <div style="float:left;">
-                        <a href="/register" variant="primary" size="md" style="">Register</a>
-                    </div>
-                    <div style="float: right;">
-                        <span class="" style="text-align: right;">Forgot <a href="/resetpassword">password ?</a></span>
-                    </div>
-                </div>
-                <div class="field" style="margin-top: 5em;">
-                    <div v-show="error" class="notification is-danger">
-                        <p>Invalid password</p>
-                    </div>
-                </div>
-            </form>
-        </div>
-
+  <form class="form-login" @submit="onSubmit">
+    <b-img class="w-100 h-auto" src="~/assets/Logo.png" alt="Image"></b-img>
+    <div class="text-center mt-4">
+      <h3>Log In</h3>
     </div>
+    <b-form-group label="Email" label-for="input-email">
+      <b-form-input
+        id="input-email"
+        type="text"
+        v-model="email"
+        placeholder="อีเมล"
+      ></b-form-input>
+    </b-form-group>
+    <b-form-group label="Password" label-for="input-password">
+      <b-form-input
+        id="input-password"
+        v-model="password"
+        type="password"
+        placeholder="รหัสผ่าน"
+      >
+      </b-form-input>
+    </b-form-group>
+    <b-alert class="mt-2" :show="is_error" variant="danger"
+      >Invalid password</b-alert
+    >
+    <b-button type="submit" variant="success" block squared>Login</b-button>
+    <b-form-checkbox class="mt-2" v-model="is_remember_me"
+      >Remember Me</b-form-checkbox
+    >
+    <div class="d-flex justify-content-between">
+      <a href="/register" variant="primary" size="md" style="">Register</a>
+      <span> Forgot <a href="/resetpassword">password ?</a> </span>
+    </div>
+  </form>
 </template>
 
 <script>
 export default {
-    middleware: 'isLoggedIn',
-    async asyncData({
-        $productService,
-        // $userService,
-        // query
-    }) {
-        const categorys = await $productService.product.getProductCategoryBy();
-        // const login_data = await $userService.user.getLogin({
-        //   email_data: query.email,
-        //   password_data: query.password,
-        // });
-        return {
-            categorys: categorys.data ? categorys.data : [],
-        };
+  layout: "empty",
+  data() {
+    return {
+      is_error: false,
+      is_remember_me: false,
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    async onSubmit(e) {
+      e.preventDefault();
+
+      try {
+        this.is_error = false;
+
+        await this.$auth
+          .loginWith("local", {
+            data: {
+              email: this.email,
+              password: this.password,
+            },
+          })
+          .then(async (response) => {
+            await this.$cookies.set(
+              "user",
+              response.data[0],
+              {
+                domain: "km-korat.com",
+                maxAge: 60 * 60 * 24 * 7,
+                secure: true,
+              },
+              this.$router.push("/")
+            );
+          })
+          .catch((e) => {
+            this.$swal.fire({
+              type: "error",
+              title: "เกิดข้อผิดพลาด",
+              text: "กรุณาใช้อีเมลและรหัสผ่านใหม่",
+            });
+          });
+      } catch (error) {
+        console.log("error", error);
+
+        this.is_error = true;
+      }
     },
-    data() {
-        return {
-            email: '',
-            password: '',
-            error: '',
-        }
-    },
-    methods: {
-        async onSubmit(e) {
-            e.preventDefault()
-
-            const payload = {
-                data: {
-                    email: this.email,
-                    password: this.password,
-                },
-            }
-            try {
-
-                await this.$auth.loginWith('local', payload)
-                    .then(async (response) => {
-                        console.log('response.data', response.data);
-                        await this.$cookies.set('user', response.data[0], {
-
-                            domain: "km-korat.com",
-                            maxAge: 60 * 60 * 24 * 7,
-                            secure: true
-                        }, this.$router.push("/"));
-
-                    })
-                    .catch((error) => {
-                        console.log('error', error);
-                        this.$swal.fire({
-                            type: 'error',
-                            title: 'เกิดข้อผิดพลาด',
-                            text: 'กรุณาใช้อีเมลและรหัสผ่านใหม่',
-                        })
-                    });
-            } catch (error) {
-                console.log('error', error);
-
-                this.error = error
-            }
-        },
-    },
-}
+  },
+};
 </script>
 
 <style scoped>
-div {
-    font-family: 'Kanit', sans-serif;
+.form-login {
+  width: 240px;
+  margin: auto;
+  margin-top: 10em;
+  margin-bottom: 13em;
 }
-
-.container {
-
-    margin: 10em 0 13em 0;
-    /* min-height: 100vh; */
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    text-align: center;
-}
-
-.form {
-    width: 240px;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(0 0 0 / 14%);
-    border-left: 1px solid rgb(0 0 0 / 14%);
-    border-right: 1px solid rgb(0 0 0 / 14%);
-}
-
-#example-collapse {
-    padding-right: 1.5px;
-}
-
-#example-collapse a {
-    font-size: 12pt;
-    text-align: center;
-    color: #666666;
-    display: block;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-#example-collapse a:hover {
-    color: #fff;
-    background-color: #39b44f !important;
-    box-sizing: border-box;
-}
-
-
-
 
 /* responsive */
-@media only screen and (max-width:500px) {
-
-    /* mobile devices */
-    .form {
-        width: 90%;
-    }
+@media only screen and (max-width: 500px) {
+  /* mobile devices */
+  .form-login {
+    width: 90%;
+  }
 }
 
-@media only screen and (max-width:1024px) and (min-width:501px) {
-
-    /* Ipads, Tablets */
-    .form {
-        width: 50%;
-    }
-
-    .title {
-        font-size: 40px;
-    }
-
-    #group {
-        font-size: 20px;
-    }
-
-    .input {
-        font-size: 20px;
-    }
-
-    .field {
-        font-size: 20px;
-    }
+@media only screen and (max-width: 1024px) and (min-width: 501px) {
+  /* Ipads, Tablets */
+  .form-login {
+    width: 50%;
+  }
 }
 
-@media only screen and (min-width:1025px) {
-    .form {
-        width: 30%;
-    }
+@media only screen and (min-width: 1025px) {
+  .form-login {
+    width: 30%;
+  }
 }
 </style>
