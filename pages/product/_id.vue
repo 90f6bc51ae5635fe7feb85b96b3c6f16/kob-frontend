@@ -195,7 +195,7 @@
                         </div>
                     </b-tab>
                     <b-tab title="ADDITIONAL INFORMATION">
-                        <b-card-text>
+                        <b-card-text >
                             <div style="
                   text-align: left;
                   display: flex;
@@ -204,7 +204,7 @@
                   padding-bottom: 10px;
                 ">
                                 <div v-for="(product_mother, index) in product_mothers"
-                                    :key="product_mother.product_code">
+                                    :key="product_mother.product_code" class="additionnal">
                                     <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
                                         <div style="float: left; width: 20%; color: #444444; font-size: 12pt;" class="">
                                             Weight : </div>
@@ -268,49 +268,7 @@
                 <agile :options="options" ref="carousel">
                     <div v-for="product in products" :key="product.product_code">
                         <b-col class="card-product">
-                            <nuxt-link :to="{ path: `/product/${product.product_code}` }"
-                                style="text-decoration: none !important">
-                                <div v-if="product.product_image">
-                                    <b-card-img :src="`http://141.98.19.44:6201/${product.product_image}`" alt="Image"
-                                        width="100%" height="230px" class="rounded-0"></b-card-img>
-                                </div>
-                                <div v-else>
-                                    <svg class="" width="100%" height="230px" role="img"
-                                        aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice"
-                                        focusable="false">
-                                        <title></title>
-                                        <rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%"
-                                            fill="#eceeef" dy=".3em">Kob Giftshop</text>
-                                    </svg>
-                                </div>
-                                <div class="product-name">
-                                    <div class="text-overflow">
-                                        {{ product.product_name }}
-                                    </div>
-                                </div>
-                            </nuxt-link>
-                            <div class="product-price">
-                                ${{ product.product_price }}
-                            </div>
-                            <div class="product-star-ating" style="padding: 0 0 1em 0;">
-                                <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12"
-                                    v-bind:read-only="true" v-bind:show-rating="false" :rating="rating">
-                                </star-rating>
-                            </div>
-                            <div class="left">
-                                <nuxt-link :to="{ path: `/product/${product.product_code}` }"
-                                    style="text-decoration: none !important">
-                                    <button class="text btn btn-outline-success border-0 border-radius-0">
-                                        <font-awesome-icon :icon="['fa', 'eye']" style="color: #000" />
-                                    </button>
-                                </nuxt-link>
-                            </div>
-                            <div class="right">
-                                <button @click="addToCart(product)"
-                                    class="text btn btn-outline-success border-0 radius-0">
-                                    <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #000" />
-                                </button>
-                            </div>
+                            <card-product :item="product" :rating="true"/>
                         </b-col>
                     </div>
                 </agile>
@@ -321,10 +279,12 @@
 </template>
 
 <script>
+import CardProduct from '../../components/CardProduct.vue';
 import Carousel from "../../plugins/vue-carousel/Carousel.vue";
 export default {
     components: {
         Carousel,
+        CardProduct,
     },
     async asyncData({
         $productService,
@@ -750,6 +710,9 @@ ul {
     .title-product {
         margin: auto;
     }
+    .related-product{
+        padding-left: 2em;
+    }
 
     .qty-button {
         text-align: left;
@@ -757,6 +720,17 @@ ul {
         flex-direction: column;
         padding-top: 20px;
         width: 100%;
+    }
+}
+@media only screen and (min-width: 601px) and (max-width: 1024px){
+    .title-product{
+        margin: 0px 3px 0px 1px;
+    }
+    .related-product{
+        padding-left: 2em;
+    }
+    .qty-button{
+        width: 30%;
     }
 }
 </style>

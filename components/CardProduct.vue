@@ -16,11 +16,13 @@
     </nuxt-link>
     <div class="card-detail">
       <b-row class="no-gutters card-action">
-        <b-col class="btn rounded-0 btn-outline-success">
-          <font-awesome-icon class="text-dark" :icon="['fa', 'eye']" />
-        </b-col>
+        <nuxt-link :to="{ path: `/product/${item.product_code}` }" class="col-6">
+          <b-col class="btn rounded-0 btn-outline-success">
+            <font-awesome-icon class="text-dark" :icon="['fa', 'eye']" />
+          </b-col>
+        </nuxt-link>
         <b-col
-          class="btn rounded-0 btn-outline-success"
+          class="btn rounded-0 btn-outline-success col-6"
           @click="addCartItem(item)"
         >
           <font-awesome-icon class="text-dark" :icon="['fa', 'cart-plus']" />
