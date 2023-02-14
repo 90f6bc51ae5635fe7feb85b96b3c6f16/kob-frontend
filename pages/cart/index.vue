@@ -403,7 +403,7 @@ export default {
               this.selected_address.customer_tel,
             order_predict_price: "",
             order_product_price: this.Sum,
-            order_discount_price: "",
+            order_discount_price: this.discount,
             order_status: "request_check_price",
             order_shipping: "",
             order_slip: "",
