@@ -109,13 +109,14 @@
         <p class="text-muted">{{ showingResult }}</p>
         <b-row
           no-gutters
-          class="justify-content-around justify-content-lg-start"
+          class="product-list justify-content-around justify-content-lg-start"
           style="min-height: 240px"
         >
           <b-col
             cols="6"
             sm="4"
             md="3"
+            class="pt-sm-2 py-md-0"
             style="min-width: 210px"
             v-for="(product, idx) in products"
             :key="idx"

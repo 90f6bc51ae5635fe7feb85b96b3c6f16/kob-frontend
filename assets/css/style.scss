@@ -280,20 +280,20 @@ figure.image > img{
   .card-product-blog > .row > div:first-child, 
   .card-product-blog > .row > div:nth-child(4n+4) {
     .card-product {
-      border-left: 1px solid transparent;
+      border-left: 0px solid transparent;
     }
   }
 
   .card-product-blog > .row > div:not(:last-child), 
   .card-product-blog > .row > div:nth-child(3n+3) {
     .card-product {
-      border-right: 1px solid transparent;
+      border-right: 0px solid transparent;
     }
   }
 
   .card-product-blog > .row > div:nth-child(n+4) {
     .card-product {
-      border-bottom: 1px solid transparent;
+      border-bottom: 0px solid transparent;
     }
   }
 
@@ -309,18 +309,30 @@ figure.image > img{
 
   .product-bestseller > div:not(:last-child) {
     .card-product {
-      border-right: 1px solid transparent;
+      border-right: 0px solid transparent;
     }
   }
 
   .list-group.category-list-group {
     max-height: 284.983px;
   }
-  
 }
 
+@media (min-width: 992px) and (max-width: 1200px) {
+  .product-list > div:not(:nth-child(3n+3)):not(:last-child) {
+    .card-product {
+      border-right: 0px solid transparent;
+    }
+  }
+}
 
 @media (min-width: 1200px) {
+  .product-list > div:not(:nth-child(4n+4)):not(:last-child) {
+    .card-product {
+      border-right: 0px solid transparent;
+    }
+  }
+
   .list-group.category-list-group {
     max-height: 348.983px;
   }
