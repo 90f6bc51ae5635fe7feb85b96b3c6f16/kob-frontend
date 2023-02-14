@@ -16,7 +16,10 @@
     </nuxt-link>
     <div class="card-detail">
       <b-row class="no-gutters card-action">
-        <nuxt-link :to="{ path: `/product/${item.product_code}` }" class="col-6">
+        <nuxt-link
+          :to="{ path: `/product/${item.product_code}` }"
+          class="col-6"
+        >
           <b-col class="btn rounded-0 btn-outline-success">
             <font-awesome-icon class="text-dark" :icon="['fa', 'eye']" />
           </b-col>
@@ -29,19 +32,21 @@
         </b-col>
       </b-row>
       <nuxt-link :to="{ path: `/product/${item.product_code}` }">
-        <div class="product-name text-overflow">{{ item.product_name }}</div>
-        <div class="product-price">฿{{ item.product_price }}</div>
-        <star-rating
-          v-if="rating"
-          class="justify-content-center"
-          v-bind:increment="0.1"
-          v-bind:max-rating="5"
-          v-bind:star-size="12"
-          v-bind:read-only="true"
-          v-bind:show-rating="false"
-          v-model="item.rating"
-        >
-        </star-rating>
+        <div class="card-detail-text">
+          <div class="product-name">{{ item.product_name }}</div>
+          <div class="product-price">฿{{ item.product_price }}</div>
+          <star-rating
+            v-if="rating"
+            class="justify-content-center"
+            v-bind:increment="0.1"
+            v-bind:max-rating="5"
+            v-bind:star-size="12"
+            v-bind:read-only="true"
+            v-bind:show-rating="false"
+            v-model="item.rating"
+          >
+          </star-rating>
+        </div>
       </nuxt-link>
     </div>
   </div>
