@@ -98,6 +98,22 @@ body {
     width: 100%;
   }
 }
+.kg-pageination {
+  .page-item .page-link {
+    color: #000;
+    margin-left: 10px;
+  }
+  .page-item.active .page-link {
+    color: #fff;
+    background-color: #222222;
+    border-color: #222222;
+  }
+
+  .page-link:focus {
+    box-shadow: 0 0 0 0.2rem #ccc9c959;
+  }
+}
+
 .rounded {
   border-radius: 50% !important;
 }

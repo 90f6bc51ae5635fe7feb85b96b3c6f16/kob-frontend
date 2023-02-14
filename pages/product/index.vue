@@ -52,7 +52,7 @@
             :key="idx"
             class="mt-3"
             v-model="brand.selected"
-            @change="filterBrand()"
+            @change="gotoPageUrl"
           >
             {{ brand.product_brand_name }}
           </b-form-checkbox>
@@ -119,43 +119,25 @@
             <card-product :item="product" :rating="true" />
           </b-col>
         </b-row>
+
+        <b-pagination
+          v-model="current_page"
+          class="kg-pageination mt-5"
+          :total-rows="counts.length"
+          :per-page="20"
+          first-number
+          last-number
+          align="center"
+          @change="(e) => gotoPageUrl({ page: e })"
+        ></b-pagination>
       </b-col>
     </b-row>
-    <product-pagination
-      :counts="counts"
-      :keyword="keyword"
-      :min="min"
-      :max="max"
-      :brand="brand"
-    />
   </div>
 </template>
 
 <script>
-import ProductPagination from "@/components/ProductPagination.vue";
-
 export default {
-  components: {
-    ProductPagination,
-  },
   computed: {
-    productPageUrl() {
-      let params = [];
-      let { category } = this.$route.query;
-      let selected_brands = this.brands.filter((val) => val.selected);
-
-      if (category) params.push(`category=${category}`);
-      if (selected_brands.length)
-        params.push(
-          `brand=${selected_brands
-            .map((item) => item.product_brand_code)
-            .join(",")}`
-        );
-      if (this.min) params.push(`min=${this.min}`);
-      if (this.max) params.push(`max=${this.max}`);
-
-      return `/product${params.length ? `?${params.join("&")}` : ""}`;
-    },
     selectedCategory() {
       let category = this.categorys.find(
         (val) => val.product_category_code === this.$route.query.category
@@ -169,19 +151,19 @@ export default {
       keyword: "",
       min: "",
       max: "",
-      page_no: 1,
+      current_page: 1,
       total_page: 1,
     };
   },
   async asyncData({ $productService, query }) {
     try {
-      const { brand, category, keyword, min, max } = query;
+      const { brand, category, keyword, min, max, page = 1 } = query;
 
       //should merge to 1 request ==>
       const products = await $productService.product.getProductPage({
         category,
         keyword,
-        product_page: 1,
+        product_page: page,
         page_min: min,
         page_max: max,
         page_brand: brand,
@@ -212,6 +194,7 @@ export default {
         categorys: categorys.data ? categorys.data : [],
         counts: counts.data ? counts.data : [],
         products: products.data ? products.data : [],
+        current_page: page,
         min,
         max,
         keyword,
@@ -229,9 +212,6 @@ export default {
     }
   },
   methods: {
-    filterBrand() {
-      window.location.href = this.productPageUrl;
-    },
     filterPrice() {
       document.getElementById("demo").innerHTML = "";
 
@@ -239,8 +219,30 @@ export default {
         document.getElementById("demo").innerHTML =
           "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
       } else {
-        window.location.href = this.productPageUrl;
+        this.gotoPageUrl();
       }
+    },
+    gotoPageUrl({ page }) {
+      let params = [];
+
+      let { category } = this.$route.query;
+      let current_page = page || this.current_page;
+      let selected_brands = this.brands.filter((val) => val.selected);
+
+      if (current_page > 1) params.push(`page=${current_page}`);
+      if (category) params.push(`category=${category}`);
+      if (selected_brands.length)
+        params.push(
+          `brand=${selected_brands
+            .map((item) => item.product_brand_code)
+            .join(",")}`
+        );
+      if (this.min) params.push(`min=${this.min}`);
+      if (this.max) params.push(`max=${this.max}`);
+
+      window.location.href = `/product${
+        params.length ? `?${params.join("&")}` : ""
+      }`;
     },
     resetFilter() {
       window.location.href = `/product`;
