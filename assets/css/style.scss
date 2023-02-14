@@ -151,25 +151,19 @@ body {
 
   .card-detail {
     position: relative;
-    padding-top: 0.5rem;
-    padding-bottom: 1.5rem;
     font-size: 12pt;
     text-align: center;
   
     a:hover {
       text-decoration: none;
     }
-
-    .text-overflow {
+    .product-name {
+      color: #444444;
       padding: 0px 1em;
       white-space: nowrap;
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .product-name {
-      color: #444444;
     }
     .product-price {
       font-weight: 500;
@@ -190,11 +184,15 @@ body {
       div.btn {
         border-color: transparent;
       }
-
       div.btn:hover > svg {
         color: #fff !important;
       }
     }
+  }
+
+  .card-detail-text {
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
   }
 }
 .card-product:hover {
