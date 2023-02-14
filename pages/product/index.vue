@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row class="mt-3 mt-md-5">
+    <b-row class="mt-3">
       <b-col md="6">
         <h4>รายการสินค้า</h4>
       </b-col>
@@ -8,6 +8,8 @@
         HOME / SHOP / <span style="color: #888888"> SHOP SIDEBAR LEFT </span>
       </b-col>
     </b-row>
+
+    <hr class="mt-2" />
 
     <b-row>
       <b-col md="4" lg="3" class="mt-4">
@@ -104,9 +106,11 @@
         </b-button>
       </b-col>
       <b-col md="8" lg="9" class="mt-4">
+        <p class="text-muted">{{ showingResult }}</p>
         <b-row
           no-gutters
           class="justify-content-around justify-content-lg-start"
+          style="min-height: 240px"
         >
           <b-col
             cols="6"
@@ -123,8 +127,8 @@
         <b-pagination
           v-model="current_page"
           class="kg-pageination mt-5"
-          :total-rows="counts.length"
-          :per-page="20"
+          :total-rows="total_rows"
+          :per-page="per_page"
           first-number
           last-number
           align="center"
@@ -145,6 +149,23 @@ export default {
 
       return category ? category.product_category_name : "CATEGORIES";
     },
+    showingResult() {
+      if (this.total_rows == 0) {
+        return `Sorry, we couldn't find any product.`;
+      } else {
+        let first_result = this.per_page * (this.current_page - 1) + 1;
+        let last_result = Math.min(
+          this.per_page * this.current_page,
+          this.total_rows
+        );
+
+        if (last_result > 1) {
+          return `SHOWING ${first_result}-${last_result} OF ${this.total_rows}`;
+        } else {
+          return `SHOWING ${first_result} OF ${this.total_rows}`;
+        }
+      }
+    },
   },
   data() {
     return {
@@ -152,7 +173,8 @@ export default {
       min: "",
       max: "",
       current_page: 1,
-      total_page: 1,
+      per_page: 20,
+      total_rows: 0,
     };
   },
   async asyncData({ $productService, query }) {
@@ -169,7 +191,7 @@ export default {
         page_brand: brand,
       });
 
-      const counts = await $productService.product.getProductCount({
+      const product_counts = await $productService.product.getProductCount({
         category,
         count_keyword: keyword,
         count_min: min,
@@ -192,8 +214,10 @@ export default {
       return {
         brands: brands.data ? brands.data : [],
         categorys: categorys.data ? categorys.data : [],
-        counts: counts.data ? counts.data : [],
         products: products.data ? products.data : [],
+        total_rows: product_counts.data
+          ? product_counts.data[0].product_count
+          : 0,
         current_page: page,
         min,
         max,
@@ -206,8 +230,8 @@ export default {
       return {
         brands: [],
         categorys: [],
-        counts: [],
         products: [],
+        total_rows: 0,
       };
     }
   },

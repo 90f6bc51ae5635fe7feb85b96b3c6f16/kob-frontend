@@ -1,16 +1,22 @@
 <template>
   <div>
-    <b-row class="mt-3 mt-md-5">
-      <b-col md="6" sm="12">
+    <b-row class="mt-3">
+      <b-col md="6">
         <h4><b>YOUR CART</b></h4>
       </b-col>
-      <b-col md="6" sm="12" class="text-right" style="color: #e4e4e4">
+      <b-col md="6" class="text-right" style="color: #e4e4e4">
         <p style="font-size: 13pt">
-          <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #e4e4e4" />
+          <font-awesome-icon
+            :icon="['fas', 'angle-left']"
+            style="color: #e4e4e4"
+          />
           RETURN TO SHOP
         </p>
       </b-col>
     </b-row>
+
+    <hr />
+
     <div class="mt-2 overflow-auto">
       <table class="table" style="min-width: 720px; border: 1px solid #e8e8e8">
         <thead>
@@ -26,12 +32,19 @@
           <tr v-for="(product, index) in $store.state.cart.items" :key="index">
             <td>
               <div class="d-flex align-items-center">
-                <img class="cover" width="80px" height="80px" :src="`${product.product_image
-                ? `http://141.98.19.44:6201/${product.product_image}`
-                : `https://placeimg.com/380/200/any?${Math.floor(
-                  Math.random() * 50
-                )}`
-                }`" alt="product" />
+                <img
+                  class="cover"
+                  width="80px"
+                  height="80px"
+                  :src="`${
+                    product.product_image
+                      ? `http://141.98.19.44:6201/${product.product_image}`
+                      : `https://placeimg.com/380/200/any?${Math.floor(
+                          Math.random() * 50
+                        )}`
+                  }`"
+                  alt="product"
+                />
                 <span class="cart-item-name line-clamp-3">
                   {{ product.product_name }}
                 </span>
@@ -42,10 +55,19 @@
             </td>
             <td class="align-middle">
               <div class="d-flex align-items-center">
-                <b-button variant="dark" squared @click="reduceCartQty(product)">-</b-button>
-                <b-input class="text-center" :value="product.amount" @keydown="keydownNumber"
-                  @change="(e) => updateCartQty(product, e)" style="width: 60px" />
-                <b-button variant="dark" squared @click="addCartItem(product)">+</b-button>
+                <b-button variant="dark" squared @click="reduceCartQty(product)"
+                  >-</b-button
+                >
+                <b-input
+                  class="text-center"
+                  :value="product.amount"
+                  @keydown="keydownNumber"
+                  @change="(e) => updateCartQty(product, e)"
+                  style="width: 60px"
+                />
+                <b-button variant="dark" squared @click="addCartItem(product)"
+                  >+</b-button
+                >
               </div>
             </td>
             <td class="align-middle text-center">
@@ -53,7 +75,10 @@
             </td>
             <td class="align-middle text-center">
               <button class="btn" @click="removeCartItem(product)">
-                <font-awesome-icon :icon="['fas', 'circle-xmark']" style="color: #red" />
+                <font-awesome-icon
+                  :icon="['fas', 'circle-xmark']"
+                  style="color: #red"
+                />
               </button>
             </td>
           </tr>
@@ -61,27 +86,45 @@
       </table>
     </div>
     <b-row>
-      <b-alert show variant="success" v-for="promotion_received in promotion_receiveds"
-        :key="promotion_received.promotion_code" style="width: 100%">
+      <b-alert
+        show
+        variant="success"
+        v-for="promotion_received in promotion_receiveds"
+        :key="promotion_received.promotion_code"
+        style="width: 100%"
+      >
         {{ promotion_received.promotion_received_name }}
       </b-alert>
-      <b-alert show variant="success" v-for="promotion_suggest in promotion_suggests"
-        :key="promotion_suggest.promotion_code" style="width: 100%">
+      <b-alert
+        show
+        variant="success"
+        v-for="promotion_suggest in promotion_suggests"
+        :key="promotion_suggest.promotion_code"
+        style="width: 100%"
+      >
         <h5>{{ promotion_suggest.promotion_name }}</h5>
         <h5>{{ promotion_suggest.promotion_suggest_name }}</h5>
       </b-alert>
     </b-row>
     <b-row>
       <b-col cols="12" md="6" class="d-flex align-items-center mt-2 mt-md-0">
-        <input type="text" class="pl-2 mr-1 mr-sm-2" placeholder="Coupon Code"
-          style="border: 1px solid #f2f2f2; height: 48px" />
-        <b-button class="apply-coupon-button" variant="light" style="
+        <input
+          type="text"
+          class="pl-2 mr-1 mr-sm-2"
+          placeholder="Coupon Code"
+          style="border: 1px solid #f2f2f2; height: 48px"
+        />
+        <b-button
+          class="apply-coupon-button"
+          variant="light"
+          style="
             height: 48px
             border: 1px solid #f2f2f2;
             background-color: #f2f2f2;
             color: #a6a6a6;
             min-width: 140px;
-          ">
+          "
+        >
           APPLY COUPON
         </b-button>
       </b-col>
@@ -97,26 +140,53 @@
           <h5 class="mb-4">CART TOTALS</h5>
           <table class="table table-bordered">
             <tr>
-              <td width="50%" class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                width="50%"
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 TAX INVOICE
               </td>
               <td>
-                <b-form-checkbox id="checkbox-1" v-model="order_vat" name="checkbox-1" value="1" unchecked-value="0">
+                <b-form-checkbox
+                  id="checkbox-1"
+                  v-model="order_vat"
+                  name="checkbox-1"
+                  value="1"
+                  unchecked-value="0"
+                >
                   ขอใบกำกับภาษี (กรุณาติดต่อทางร้าน)
                 </b-form-checkbox>
-                <b-form-textarea v-model="order_invoice_address" placeholder="ข้อมูลใบกำกับภาษี" rows="5"
-                  max-rows="5"></b-form-textarea>
+                <b-form-textarea
+                  v-model="order_invoice_address"
+                  placeholder="ข้อมูลใบกำกับภาษี"
+                  rows="5"
+                  max-rows="5"
+                ></b-form-textarea>
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ที่อยู่จัดส่ง
               </td>
               <td>
-                <b-form-group v-slot="{ ariaDescribedby }" label="เลือกที่อยู่จัดสั่ง">
-                  <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" style="padding-top: 10px"
-                    name="some-radios" :value="address_.customer_address_id" v-for="(address_, idx) in address"
-                    @change="selectAddress(address_)" :key="'B' + idx">
+                <b-form-group
+                  v-slot="{ ariaDescribedby }"
+                  label="เลือกที่อยู่จัดสั่ง"
+                >
+                  <b-form-radio
+                    v-model="selected"
+                    :aria-describedby="ariaDescribedby"
+                    style="padding-top: 10px"
+                    name="some-radios"
+                    :value="address_.customer_address_id"
+                    v-for="(address_, idx) in address"
+                    @change="selectAddress(address_)"
+                    :key="'B' + idx"
+                  >
                     {{ address_.customer_name }}
                     <br />
                     {{ address_.customer_address }}
@@ -127,43 +197,71 @@
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ส่วนลด
               </td>
               <td>
                 <div v-for="(discount, idx) in promotion_discount" :key="idx">
-                  {{ discount.receipt_discount_list_name }} {{ discount.receipt_discount_list_price }}
+                  {{ discount.receipt_discount_list_name }}
+                  {{ discount.receipt_discount_list_price }}
                 </div>
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 SUB TOTAL
               </td>
               <td>฿{{ cartSubTotalPrice }}</td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 DISCOUNT
               </td>
               <td>฿{{ discountPrice }}</td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 TOTAL
               </td>
               <td>฿{{ cartTotalPrice }}</td>
             </tr>
           </table>
-          <b-button variant="success" size="lg" class="mb-2" block squared @click="_submitData">
+          <b-button
+            variant="success"
+            size="lg"
+            class="mb-2"
+            block
+            squared
+            @click="_submitData"
+          >
             สั่งซื้อสินค้า
           </b-button>
         </div>
       </b-col>
     </b-row>
 
-    <b-modal id="modal-1" title="สั่งซื้อเรียบร้อย" centered hide-footer @hidden="gotoOrderPage()" no-close-on-esc
-      no-close-on-backdrop hide-header-close>
+    <b-modal
+      id="modal-1"
+      title="สั่งซื้อเรียบร้อย"
+      centered
+      hide-footer
+      @hidden="gotoOrderPage()"
+      no-close-on-esc
+      no-close-on-backdrop
+      hide-header-close
+    >
       <div id="preview">
         <img src="~/assets/qr1.png" />
       </div>
@@ -177,7 +275,9 @@
         </div>
         <div><b>เบอร์โทรศัพท์ : </b><span>099-461-9241</span></div>
       </div>
-      <b-button class="mt-3 btn-success" block @click="gotoOrderPage()">ไปที่คำสั่งซื้อ</b-button>
+      <b-button class="mt-3 btn-success" block @click="gotoOrderPage()"
+        >ไปที่คำสั่งซื้อ</b-button
+      >
     </b-modal>
   </div>
 </template>
@@ -202,20 +302,20 @@ export default {
         total_price += item.product_price * item.amount;
       });
       this.promotion_discount.forEach((item) => {
-        discount += item.receipt_discount_list_price
-      })
+        discount += item.receipt_discount_list_price;
+      });
 
-      this.discount = discount
-      total_price = total_price - discount
+      this.discount = discount;
+      total_price = total_price - discount;
       return total_price;
     },
     discountPrice() {
       let discount = 0;
       this.promotion_discount.forEach((item) => {
-        discount += item.receipt_discount_list_price
-      })
+        discount += item.receipt_discount_list_price;
+      });
       return discount;
-    }
+    },
   },
 
   data() {
@@ -281,10 +381,12 @@ export default {
     async _submitData() {
       try {
         let today = new Date();
-        let now_date = `${today.getFullYear()}-${today.getMonth() + 1
-          }-${today.getDate()}`;
-        let now_time = `${today.getHours()}:${today.getMinutes() + 1
-          }:${today.getSeconds()}`;
+        let now_date = `${today.getFullYear()}-${
+          today.getMonth() + 1
+        }-${today.getDate()}`;
+        let now_time = `${today.getHours()}:${
+          today.getMinutes() + 1
+        }:${today.getSeconds()}`;
 
         await this.$axios
           .post("https://rvscs-develop.com/km-korat-web/api/order-insert/", {
@@ -368,9 +470,11 @@ export default {
           .then((response) => {
             if (response.data) {
               this.promotions_show = response.data;
-              this.promotion_receiveds = this.promotions_show.promotion_receiveds;
+              this.promotion_receiveds =
+                this.promotions_show.promotion_receiveds;
               this.promotion_suggests = this.promotions_show.promotion_suggests;
-              this.promotion_discount = this.promotions_show.receipt_discount_lists;
+              this.promotion_discount =
+                this.promotions_show.receipt_discount_lists;
             } else {
               this.promotions_show = [];
               this.promotion_receiveds = [];
