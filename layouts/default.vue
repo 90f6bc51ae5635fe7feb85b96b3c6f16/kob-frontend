@@ -5,6 +5,7 @@
       <Nuxt />
       <SideBar />
     </b-container>
+    <Advantage />
     <Footer />
   </div>
 </template>

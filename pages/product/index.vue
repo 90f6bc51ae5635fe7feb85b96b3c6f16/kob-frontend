@@ -14,9 +14,9 @@
     <b-row>
       <b-col md="4" lg="3" class="mt-4">
         <b-button
-          variant="outline-secondary"
+          variant="default"
           class="d-flex align-items-center justify-content-between mb-0"
-          style="border-color: #e5e5e5; box-shadow: unset"
+          style="box-shadow: unset"
           block
           squared
           v-b-toggle.collapse
@@ -38,9 +38,9 @@
         </b-collapse>
         <p class="mt-3">FLITER BY</p>
         <b-button
-          variant="outline-secondary"
+          variant="default"
           class="d-flex align-items-center justify-content-between mb-0"
-          style="border-color: #e5e5e5; box-shadow: unset"
+          style="box-shadow: unset"
           block
           squared
           v-b-toggle.collapse1
@@ -60,9 +60,9 @@
           </b-form-checkbox>
         </b-collapse>
         <b-button
-          variant="outline-secondary"
+          variant="default"
           class="d-flex align-items-center justify-content-between mb-0"
-          style="border-color: #e5e5e5; box-shadow: unset"
+          style="box-shadow: unset"
           block
           squared
           v-b-toggle.collapse2
