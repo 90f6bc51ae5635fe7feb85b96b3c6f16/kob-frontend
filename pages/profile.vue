@@ -1,117 +1,122 @@
 <template>
-<div>
-    <div class="" style="margin: 0 -2em 0 -1em;">
-        <b-collapse id="example-collapse" style="
-              width: 100%;
-              margin: 0 0 0 0;
-              max-height: 250px;
-              overflow: auto;
+    <div>
+        <div class="" style="margin: 0 -2em 0 -1em;">
+            <b-collapse id="example-collapse" style="
+                                                                          width: 100%;
+                                                                          margin: 0 0 0 0;
+                                                                          max-height: 250px;
+                                                                          overflow: auto;
 
-            ">
-            <div v-for="category in categorys" :key="category.product_category_code">
-                <ul>
-                    <li>
-                        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
-                            {{category.product_category_name}}
-                        </nuxt-link>
-                    </li>
-                </ul>
-            </div>
-        </b-collapse>
-    </div>
-    <b-row style="margin: 0 -2em 0 -1em;">
-        <b-col class="title-product" style="font-size: 16pt;">ข้อมูลผู้ใช้</b-col>
-    </b-row>
-    <b-row class="content" style="padding-top: 30px; margin: 0 -3em 0 -1.9em;">
-        <b-col class="col-content">
-            <b-row class="row-button" >
-                <ul class="my" style="">
-                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                        <nuxt-link :to="{ path: `/profile` }">
-                            <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
-                            My Details
-                        </nuxt-link>
-                    </li>
-                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                        <nuxt-link :to="{ path: `/address` }">
-                            <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
-                            My address book
-                        </nuxt-link>
-                    </li>
-                    <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
-                        <nuxt-link :to="{ path: `/order` }">
-                            <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
-                            My Order
-                        </nuxt-link>
-                    </li>
-                </ul>
-            </b-row>
-            <b-row class="row-content">
-                <b-form class="form">
-                    <b-row class="row-form">
-                        <b-col class="col-form" >
-                            <b-form-group id="input-group-1" label="First Name:" label-for="input-1" description="">
-                                <b-form-input id="input-1" v-model="form.email" placeholder="ชื่อ" required></b-form-input>
-                            </b-form-group>
-                        </b-col>
-                        <b-col class="col-form" >
-                            <b-form-group id="input-group-2" label="Last Name:" label-for="input-2">
-                                <b-form-input id="input-2" v-model="form.name" placeholder="นาสกุล" required></b-form-input>
-                            </b-form-group>
-                        </b-col>
-                    </b-row>
-                    <b-row class="row-form">
-                        <b-col class="col-form" >
-                            <b-form-group id="input-group-2" label="BIRTH DATE:" label-for="input-2">
-                                <b-form-datepicker id="example-datepicker" v-model="value" class="mb-2" placeholder="วันเกิด"></b-form-datepicker>
-                            </b-form-group>
-                        </b-col>
-                        <b-col class="col-form" >
-                            <b-form-group id="input-group-1" label="Email:" label-for="input-1" description="We'll never share your email with anyone else.">
-                                <b-form-input id="input-1" v-model="form.email" type="email" placeholder="อีเมล" required></b-form-input>
-                            </b-form-group>
-                        </b-col>
-                    </b-row>
-                    <b-row class="row-form" >
-                        <b-col class="col-form " >
-                            <b-form-group class="input-phone" id="input-group-2" label="PHONE NUMBER:" label-for="input-2">
-                                <b-form-input id="input-1" v-model="form.email" type="email" placeholder="เบอร์โทรศัพท์" required></b-form-input>
-                            </b-form-group>
-                        </b-col>
-                    </b-row>
-                    <b-row class="row-form">
-                        <b-col class="col-form" >
-                            <b-button variant="primary" size="md" style="padding-left: 40px; padding-right: 40px">Save</b-button>
-                        </b-col>
-                    </b-row>
-                </b-form>
-            </b-row>
-        </b-col>
-    </b-row>
+                                                                        ">
+                <div v-for="category in categorys" :key="category.product_category_code">
+                    <ul>
+                        <li>
+                            <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
+                                {{ category.product_category_name }}
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </div>
+            </b-collapse>
+        </div>
+        <b-row style="margin: 0 -2em 0 -1em;">
+            <b-col class="title-product" style="font-size: 16pt;">ข้อมูลผู้ใช้</b-col>
+        </b-row>
+        <b-row class="content" style="padding-top: 30px; margin: 0 -3em 0 -1.9em;">
+            <b-col class="col-content">
+                <b-row class="row-button">
+                    <ul class="my" style="">
+                        <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                            <nuxt-link :to="{ path: `/profile` }">
+                                <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
+                                My Details
+                            </nuxt-link>
+                        </li>
+                        <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                            <nuxt-link :to="{ path: `/address` }">
+                                <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
+                                My address book
+                            </nuxt-link>
+                        </li>
+                        <li style="padding: 5px; color: #777777; text-align: left; padding: 5px">
+                            <nuxt-link :to="{ path: `/order` }">
+                                <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
+                                My Order
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </b-row>
+                <b-row class="row-content">
+                    <b-form class="form">
+                        <b-row class="row-form">
+                            <b-col class="col-form">
+                                <b-form-group id="input-group-1" label="ชื่อ:" label-for="input-1" description="">
+                                    <b-form-input id="input-1" v-model="data.customer_name" placeholder="ชื่อ"
+                                        required></b-form-input>
+                                </b-form-group>
+                            </b-col>
+                            <b-col class="col-form">
+                                <b-form-group id="input-group-1" label="อีเมล์:" label-for="input-1"
+                                    description="We'll never share your email with anyone else.">
+                                    <b-form-input id="input-1" v-model="data.customer_email" type="email"
+                                        placeholder="อีเมล" required></b-form-input>
+                                </b-form-group>
+                            </b-col>
+                        </b-row>
+                        <b-row class="row-form">
+                            <!-- <b-col class="col-form">
+                                                                                <b-form-group id="input-group-2" label="BIRTH DATE:" label-for="input-2">
+                                                                                    <b-form-datepicker id="example-datepicker" v-model="value" class="mb-2"
+                                                                                        placeholder="วันเกิด"></b-form-datepicker>
+                                                                                </b-form-group>
+                                                                            </b-col> -->
+
+                        </b-row>
+                        <b-row class="row-form">
+                            <b-col class="col-form ">
+                                <b-form-group class="input-phone" id="input-group-2" label="เบอร์โทรศัพท์"
+                                    label-for="input-2">
+                                    <b-form-input id="input-1" v-model="data.customer_phone" type="email"
+                                        placeholder="เบอร์โทรศัพท์" required></b-form-input>
+                                </b-form-group>
+                            </b-col>
+                        </b-row>
+                        <b-row class="row-form">
+                            <b-col class="col-form">
+                                <b-button variant="primary" size="md" style="padding-left: 40px; padding-right: 40px"
+                                    @click="updateCustomer()">Save</b-button>
+                            </b-col>
+                        </b-row>
+                    </b-form>
+                </b-row>
+            </b-col>
+        </b-row>
 </div>
 </template>
 
 <script>
 export default {
+    middleware: 'auth',
     data() {
         return {
-            form: {
-                email: "",
-                name: "",
-                food: null,
-                checked: [],
+            data: {
+                customer_name: "",
+                customer_full_name: "",
+                customer_email: "",
+                customer_phone: "",
+                customer_code: "",
             },
-            foods: [{
-                    text: "Select One",
-                    value: null
-                },
-                "Carrots",
-                "Beans",
-                "Tomatoes",
-                "Corn",
-            ],
+            user: {},
             show: true,
         };
+    },
+    mounted() {
+        this.user = this.$store.state.auth.user;
+        this.data.customer_name = this.user.customer_name
+        this.data.customer_full_name = this.user.customer_full_name
+        this.data.customer_email = this.user.customer_email
+        this.data.customer_phone = this.user.customer_phone
+        this.data.customer_code = this.user.customer_code
     },
     async asyncData({
         $productService
@@ -121,7 +126,63 @@ export default {
             categorys: categorys.data ? categorys.data : [],
         };
     },
-    // middleware: 'auth',
+    methods: {
+        async updateCustomer() {
+            try {
+                await this.$axios
+                    .post(
+                        "https://rvscs-develop.com/km-korat-web/api/member-update/",
+                        {
+                            customer_name: this.data.customer_name,
+                            customer_email: this.data.customer_email,
+                            customer_phone: this.data.customer_phone,
+                            customer_code: this.data.customer_code,
+
+                        }
+                    )
+                    .then((response) => {
+                        console.log("true", response);
+                        if (response.data == "error") {
+                            // console.log("Email");
+                            this.$swal.fire({
+                                type: "error",
+                                title: "ไม่สามารถแก้ไขข้อมูล",
+                                text: "ไม่สามารถแก้ไขข้อมูล",
+                            });
+                            setTimeout(() => {
+                                this.$router.go();
+                            }, 2000);
+                        } else {
+                            // this.user.customer_name = this.data.customer_name
+                            // this.user.customer_email = this.data.customer_email
+                            // this.user.customer_phone = this.data.customer_phone
+                            // this.user.customer_code = this.data.customer_code
+                            const userToUpdate = { ...this.$auth.user }
+                            userToUpdate.customer_name = this.data.customer_name;
+                            userToUpdate.customer_email = this.data.customer_email;
+                            userToUpdate.customer_phone = this.data.customer_phone;
+                            this.$auth.setUser(userToUpdate)
+                            // this.$auth.fetchUser()
+                            this.$swal.fire({
+                                type: "success",
+                                title: "แก้ไขสำเร็จ",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                            setTimeout(() => {
+                                // this.$router.go();
+                            }, 2000);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("err", error);
+                    });
+            } catch (error) {
+                // console.log("err");
+                this.error = error;
+            }
+        },
+    }
     // async asyncData({ $axios }) {
     //   $axios.setHeader('Authorization', null)
     //   const [user, repos] = await Promise.all([
@@ -240,47 +301,57 @@ li a:hover:not(.active) {
 }
 
 
-.col-content{
+.col-content {
     display: flex;
     flex-direction: row;
 }
-.row-button{
+
+.row-button {
     margin-right: 40px;
     width: 28%;
 }
-.row-content{
+
+.row-content {
     width: 100%;
 }
-.input-phone{
+
+.input-phone {
     width: 47%;
 }
 
 
 /* responsive */
-@media only screen and (max-width:480px){
+@media only screen and (max-width:480px) {
+
     /* Mobile Dives */
-    .col-content{
+    .col-content {
         display: flex;
         flex-direction: column;
     }
-    .row-button{
+
+    .row-button {
         margin: 0;
         width: 90%;
         margin-left: 7px;
     }
-    .row-content{
+
+    .row-content {
         margin: 10px 0px 0px 7px;
     }
-    .input-phone{
+
+    .input-phone {
         width: 100%;
     }
-    .form{
+
+    .form {
         width: 90%;
     }
-    .row-form{
+
+    .row-form {
         display: flex;
         flex-direction: column;
     }
+
     .my {
         list-style-type: none;
         margin: 0;
@@ -291,17 +362,18 @@ li a:hover:not(.active) {
         height: 155px;
     }
 }
+
 @media only screen and (min-width: 481px) and (max-width:629px) {
-    .row-button{
+    .row-button {
         margin-left: 7px;
         width: 60%;
     }
 }
-@media only screen and (min-width: 630px) and (max-width:1024px){
-    .row-button{
+
+@media only screen and (min-width: 630px) and (max-width:1024px) {
+    .row-button {
         margin-left: 7px;
         width: 40%;
     }
 }
-
 </style>
