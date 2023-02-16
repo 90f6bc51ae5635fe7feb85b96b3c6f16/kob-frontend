@@ -1,166 +1,185 @@
 <template>
   <div>
-    <h4>การซื้อของฉัน</h4>
-    <hr />
+    <b-row no-gutters style="min-height: calc(100vh - 260px)">
+      <b-col md="3" class="mt-4 d-none d-lg-block">
+        <user-menu :active="'purchase'" />
+      </b-col>
+      <b-col class="mt-4">
+        <div class="pl-md-3">
+          <h4>การซื้อของฉัน</h4>
+          <hr />
 
-    <div
-      class="mt-4"
-      v-for="(order, index) in orders"
-      :key="index"
-      style="border: 1px solid #e5e5e5"
-    >
-      <b-row>
-        <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
-          <div class="p-3">
-            {{ order.order_code.toUpperCase() }}
-            {{ new Date(order.order_date).toLocaleString() }}
-          </div>
-        </b-col>
-        <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
-          <div class="p-3 text-md-right">
-            <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"
-              ><span style="color: #39b44f"
-                >{{ status[order.order_status] }}
-              </span></a
-            >
-            |
-            <span
-              style="color: #39b44f"
-              v-if="order.order_shipping || order.order_track_number"
-            >
-              <a
-                v-if="order.order_shipping == 'thailand-post'"
-                :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
-                target="_blank"
-              >
-                {{ order.order_shipping }}
-                {{ order.order_track_number }}
-              </a>
-              <a
-                v-if="order.order_shipping == 'flash'"
-                :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
-                target="_blank"
-              >
-                {{ order.order_shipping }}
-                {{ order.order_track_number }}
-              </a>
-              <a
-                v-if="order.order_shipping == 'kerry'"
-                :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
-                target="_blank"
-              >
-                {{ order.order_shipping }}
-                {{ order.order_track_number }}
-              </a>
-
-              <a v-else>
-                {{ order.order_shipping }}
-                {{ order.order_track_number }}
-              </a>
-            </span>
-            <span style="color: #39b44f" v-else></span>
-          </div>
-        </b-col>
-      </b-row>
-      <div
-        v-for="(order_list, index) in order.order_lists"
-        :key="index"
-        style="border-bottom: 1px solid #ccc"
-      >
-        <b-row>
-          <b-col sm="8">
-            <div class="d-flex p-3">
-              <img
-                class="cover"
-                width="90"
-                height="90"
-                :src="`${
-                  order_list.product_image
-                    ? `http://141.98.19.44:6201/${order_list.product_image}`
-                    : `https://placeimg.com/380/200/any?${Math.floor(
-                        Math.random() * 50
-                      )}`
-                }`"
-                alt="product"
-              />
-              <span class="ml-4">
-                <div>{{ order_list.order_list_name }}</div>
-                <div>
-                  ฿{{ order_list.order_list_price }} x
-                  {{ order_list.order_list_qty }}
-                </div>
-              </span>
-            </div>
-          </b-col>
-          <b-col sm="4">
-            <div class="p-sm-3 pt-0 pb-3 px-3 text-right">
-              ฿{{ order_list.order_list_total_price }}
-            </div>
-          </b-col>
-        </b-row>
-      </div>
-
-      <div class="text-right pr-3">
-        <div>
-          ยอดคำสั่งซื้อทั้งหมด :
-          <span style="font-size: 1.8em">฿{{ order.order_product_price }}</span>
-        </div>
-        <div v-if="order.order_predict_price">
-          ค่าขนส่ง :
-          <span style="font-size: 1.8em"
-            >฿{{ order.order_predict_price - order.order_product_price }}</span
+          <div
+            class="mt-4"
+            v-for="(order, index) in orders"
+            :key="index"
+            style="border: 1px solid #e5e5e5"
           >
+            <b-row>
+              <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
+                <div class="p-3">
+                  {{ order.order_code.toUpperCase() }}
+                  {{ new Date(order.order_date).toLocaleString() }}
+                </div>
+              </b-col>
+              <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
+                <div class="p-3 text-md-right">
+                  <a
+                    v-b-modal.modal-2
+                    @click="setOrderCode(order.order_code, order)"
+                    ><span style="color: #39b44f"
+                      >{{ status[order.order_status] }}
+                    </span></a
+                  >
+                  |
+                  <span
+                    style="color: #39b44f"
+                    v-if="order.order_shipping || order.order_track_number"
+                  >
+                    <a
+                      v-if="order.order_shipping == 'thailand-post'"
+                      :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
+                      target="_blank"
+                    >
+                      {{ order.order_shipping }}
+                      {{ order.order_track_number }}
+                    </a>
+                    <a
+                      v-if="order.order_shipping == 'flash'"
+                      :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
+                      target="_blank"
+                    >
+                      {{ order.order_shipping }}
+                      {{ order.order_track_number }}
+                    </a>
+                    <a
+                      v-if="order.order_shipping == 'kerry'"
+                      :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
+                      target="_blank"
+                    >
+                      {{ order.order_shipping }}
+                      {{ order.order_track_number }}
+                    </a>
+
+                    <a v-else>
+                      {{ order.order_shipping }}
+                      {{ order.order_track_number }}
+                    </a>
+                  </span>
+                  <span style="color: #39b44f" v-else></span>
+                </div>
+              </b-col>
+            </b-row>
+            <div
+              v-for="(order_list, index) in order.order_lists"
+              :key="index"
+              style="border-bottom: 1px solid #ccc"
+            >
+              <b-row>
+                <b-col sm="8">
+                  <div class="d-flex p-3">
+                    <img
+                      class="cover"
+                      width="90"
+                      height="90"
+                      :src="`${
+                        order_list.product_image
+                          ? `http://141.98.19.44:6201/${order_list.product_image}`
+                          : `https://placeimg.com/380/200/any?${Math.floor(
+                              Math.random() * 50
+                            )}`
+                      }`"
+                      alt="product"
+                    />
+                    <span class="ml-4">
+                      <div>{{ order_list.order_list_name }}</div>
+                      <div>
+                        ฿{{ order_list.order_list_price }} x
+                        {{ order_list.order_list_qty }}
+                      </div>
+                    </span>
+                  </div>
+                </b-col>
+                <b-col sm="4">
+                  <div class="p-sm-3 pt-0 pb-3 px-3 text-right">
+                    ฿{{ order_list.order_list_total_price }}
+                  </div>
+                </b-col>
+              </b-row>
+            </div>
+
+            <div class="text-right pr-3">
+              <div>
+                ยอดคำสั่งซื้อทั้งหมด :
+                <span style="font-size: 1.8em"
+                  >฿{{ order.order_product_price }}</span
+                >
+              </div>
+              <div v-if="order.order_predict_price">
+                ค่าขนส่ง :
+                <span style="font-size: 1.8em"
+                  >฿{{
+                    order.order_predict_price - order.order_product_price
+                  }}</span
+                >
+              </div>
+              <div v-if="order.order_predict_price">
+                ยอดคำสั่งซื้อรวมค่าขนส่ง :
+                <span style="font-size: 1.8em"
+                  >฿{{ order.order_predict_price }}</span
+                >
+              </div>
+              <div v-if="order.order_box_qty">
+                จำนวนลัง : {{ order.order_box_qty }}
+              </div>
+              <div v-if="order.order_vat" style="color: green">
+                ขอใบกำกับภาษี {{ order.order_invoice_address }}
+              </div>
+            </div>
+            <div
+              class="p-3"
+              style="max-width: 100%"
+              v-if="
+                order.order_status == 'request_check_confirm' ||
+                order.order_status == 'request_check_slip'
+              "
+              v-html="company.company_info_payment_method"
+            ></div>
+            <div class="px-3 pb-3 text-right">
+              <b-button
+                v-if="
+                  order.order_status == 'request_check_confirm' ||
+                  order.order_status == 'request_check_slip'
+                "
+                variant="success"
+                squared
+                v-b-modal.modal-1
+                @click="setOrderCode(order.order_code, order)"
+              >
+                แนบเอกสารการโอน
+              </b-button>
+              <b-button
+                variant="danger"
+                squared
+                v-if="
+                  order.order_status != 'success' &&
+                  order.order_status != 'customer_request_cancel' &&
+                  order.order_status != 'cancel'
+                "
+                @click="
+                  setOrderCode(order.order_code, order), showCancelOrder()
+                "
+              >
+                ยกเลิกออร์เดอร์
+              </b-button>
+              <b-button variant="primary" squared @click="gotoContact">
+                ติดต่อผู้ขาย
+              </b-button>
+            </div>
+          </div>
         </div>
-        <div v-if="order.order_predict_price">
-          ยอดคำสั่งซื้อรวมค่าขนส่ง :
-          <span style="font-size: 1.8em">฿{{ order.order_predict_price }}</span>
-        </div>
-        <div v-if="order.order_box_qty">
-          จำนวนลัง : {{ order.order_box_qty }}
-        </div>
-        <div v-if="order.order_vat" style="color: green">
-          ขอใบกำกับภาษี {{ order.order_invoice_address }}
-        </div>
-      </div>
-      <div
-        class="p-3"
-        style="max-width: 100%"
-        v-if="
-          order.order_status == 'request_check_confirm' ||
-          order.order_status == 'request_check_slip'
-        "
-        v-html="company.company_info_payment_method"
-      ></div>
-      <div class="px-3 pb-3 text-right">
-        <b-button
-          v-if="
-            order.order_status == 'request_check_confirm' ||
-            order.order_status == 'request_check_slip'
-          "
-          variant="success"
-          squared
-          v-b-modal.modal-1
-          @click="setOrderCode(order.order_code, order)"
-        >
-          แนบเอกสารการโอน
-        </b-button>
-        <b-button
-          variant="danger"
-          squared
-          v-if="
-            order.order_status != 'success' &&
-            order.order_status != 'customer_request_cancel' &&
-            order.order_status != 'cancel'
-          "
-          @click="setOrderCode(order.order_code, order), showCancelOrder()"
-        >
-          ยกเลิกออร์เดอร์
-        </b-button>
-        <b-button variant="primary" squared @click="gotoContact">
-          ติดต่อผู้ขาย
-        </b-button>
-      </div>
-    </div>
+      </b-col>
+    </b-row>
 
     <b-modal
       id="modal-1"
@@ -223,7 +242,8 @@
           {{ new Date(order_selected.adddate) }} <br /><span
             style="color: green"
             >สร้างคำสั่งซื้อ {{ order_selected.order_code }} <br />ที่อยู่ :
-            {{ order_selected.order_name }} {{ order_selected.order_address }}
+            {{ order_selected.order_name }}
+            {{ order_selected.order_address }}
           </span>
         </div>
         <div
@@ -241,8 +261,8 @@
           style="color: #212529; font-size: 12pt"
           v-if="order_selected.order_predict_price"
         >
-          {{ new Date(order_selected.order_predict_price_date) }} <br /><span
-            style="color: green"
+          {{ new Date(order_selected.order_predict_price_date) }}
+          <br /><span style="color: green"
             >ประเมินราคาเสร็จสิ้น
             {{ order_selected.order_predict_price }} บาท</span
           >
@@ -316,7 +336,7 @@
 
 <script>
 export default {
-  middleware: "auth",
+  // middleware: "auth",
   layout: "user-account",
   data() {
     return {
