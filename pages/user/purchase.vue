@@ -9,21 +9,16 @@
           <h4>การซื้อของฉัน</h4>
           <hr />
 
-          <div
-            class="mt-4"
-            v-for="(order, index) in orders"
-            :key="index"
-            style="border: 1px solid #e5e5e5"
-          >
-            <b-row>
-              <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
-                <div class="p-3">
+          <div class="mt-4" v-for="(order, index) in orders" :key="index">
+            <b-row no-gutters style="border-bottom: 1px solid #e4e4e4">
+              <b-col cols="12" sm="7">
+                <div class="px-3 pt-3 pb-0 pb-sm-3 bg-light-yellow">
                   {{ order.order_code.toUpperCase() }}
                   {{ new Date(order.order_date).toLocaleString() }}
                 </div>
               </b-col>
-              <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
-                <div class="p-3 text-md-right">
+              <b-col cols="12" sm="5">
+                <div class="px-3 pb-3 pt-sm-3 bg-light-yellow text-sm-right">
                   <a
                     v-b-modal.modal-2
                     @click="setOrderCode(order.order_code, order)"
@@ -108,7 +103,7 @@
               </b-row>
             </div>
 
-            <div class="text-right pr-3">
+            <div class="bg-light-gray text-right pr-3">
               <div>
                 ยอดคำสั่งซื้อทั้งหมด :
                 <span style="font-size: 1.8em"
@@ -137,7 +132,7 @@
               </div>
             </div>
             <div
-              class="p-3"
+              class="p-3 bg-light-gray"
               style="max-width: 100%"
               v-if="
                 order.order_status == 'request_check_confirm' ||
@@ -145,7 +140,7 @@
               "
               v-html="company.company_info_payment_method"
             ></div>
-            <div class="px-3 pb-3 text-right">
+            <div class="px-3 pb-3 bg-light-gray text-right">
               <b-button
                 v-if="
                   order.order_status == 'request_check_confirm' ||
