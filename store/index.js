@@ -1,3 +1,11 @@
 export const state = () => ({
-    title: 'Nuxt.js Fundamental'
-  });
+
+})
+
+export const mutations = {
+
+}
+
+export const getters = {
+
+}

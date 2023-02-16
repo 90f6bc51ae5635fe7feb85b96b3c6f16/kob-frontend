@@ -14,9 +14,9 @@
     <b-row>
       <b-col md="4" lg="3" class="mt-4">
         <b-button
-          variant="outline-secondary"
+          variant="default"
           class="d-flex align-items-center justify-content-between mb-0"
-          style="border-color: #e5e5e5; box-shadow: unset"
+          style="box-shadow: unset"
           block
           squared
           v-b-toggle.collapse
@@ -38,9 +38,9 @@
         </b-collapse>
         <p class="mt-3">FLITER BY</p>
         <b-button
-          variant="outline-secondary"
+          variant="default"
           class="d-flex align-items-center justify-content-between mb-0"
-          style="border-color: #e5e5e5; box-shadow: unset"
+          style="box-shadow: unset"
           block
           squared
           v-b-toggle.collapse1
@@ -60,9 +60,9 @@
           </b-form-checkbox>
         </b-collapse>
         <b-button
-          variant="outline-secondary"
+          variant="default"
           class="d-flex align-items-center justify-content-between mb-0"
-          style="border-color: #e5e5e5; box-shadow: unset"
+          style="box-shadow: unset"
           block
           squared
           v-b-toggle.collapse2
@@ -109,13 +109,14 @@
         <p class="text-muted">{{ showingResult }}</p>
         <b-row
           no-gutters
-          class="justify-content-around justify-content-lg-start"
+          class="product-list justify-content-around justify-content-lg-start"
           style="min-height: 240px"
         >
           <b-col
             cols="6"
             sm="4"
             md="3"
+            class="pt-sm-2 py-md-0"
             style="min-width: 210px"
             v-for="(product, idx) in products"
             :key="idx"
