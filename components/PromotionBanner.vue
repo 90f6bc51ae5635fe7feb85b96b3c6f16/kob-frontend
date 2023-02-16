@@ -11,7 +11,7 @@
         :caption="`${promotion.promotion_name}`"
         :img-src="`${
           promotion.promotion_image
-            ? `http://141.98.19.44:6201/${promotion.promotion_image}`
+            ? `https://rvscs-develop.com/km-korat/${promotion.promotion_image}`
             : `https://picsum.photos/1024/480/?image=12`
         }`"
       >

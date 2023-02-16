@@ -76,7 +76,7 @@
                 height="90"
                 :src="`${
                   order_list.product_image
-                    ? `http://141.98.19.44:6201/${order_list.product_image}`
+                    ? `https://rvscs-develop.com/km-korat/${order_list.product_image}`
                     : `https://placeimg.com/380/200/any?${Math.floor(
                         Math.random() * 50
                       )}`
@@ -552,7 +552,7 @@ export default {
       this.url =
         "https://rvscs-develop.com/km-korat-web/slip/" + order.order_slip;
       this.url_payment =
-        "http://141.98.19.44:6201/" + order.order_payment_return_slip;
+        "https://rvscs-develop.com/km-korat/" + order.order_payment_return_slip;
       this.order_slip_date = order.order_slip_date;
       this.order_slip_time = order.order_slip_time;
       this.order_selected = order;

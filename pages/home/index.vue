@@ -71,7 +71,7 @@
         <b-col class="card-product" v-for="code in codes.slice(0,5)" :key="code.product_code">
             <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important;">
                 <div v-if="code.product_image">
-                    <b-card-img :src="`http://141.98.19.44:6201/${code.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
+                    <b-card-img :src="`https://rvscs-develop.com/km-korat/${code.product_image}`" width="100%" height="220px" alt="Image" class="rounded-0"></b-card-img>
                 </div>
                 <div v-else>
                     <svg class="" width="100%" height="220px"  role="img" aria-label="Placeholder: Kob Giftshop" preserveAspectRatio="xMidYMid slice" focusable="false">

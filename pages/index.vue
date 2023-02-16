@@ -38,7 +38,7 @@
                   height="220px"
                   :src="`${
                     product.product_image
-                      ? `http://141.98.19.44:6201/${product.product_image}`
+                      ? `https://rvscs-develop.com/km-korat/${product.product_image}`
                       : `https://placeimg.com/380/200/any?${idx}`
                   }`"
                 />

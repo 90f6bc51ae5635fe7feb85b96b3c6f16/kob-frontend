@@ -322,8 +322,8 @@ export default {
             });
             mothers.data.forEach((e_img1, i) => {
                 let objToAdd1 = {
-                    'big': `http://141.98.19.44:6201/${e_img1.product_image}`,
-                    'thumb': `http://141.98.19.44:6201/${e_img1.product_image}`
+                    'big': `https://rvscs-develop.com/km-korat/${e_img1.product_image}`,
+                    'thumb': `https://rvscs-develop.com/km-korat/${e_img1.product_image}`
                 }
                 obj = {
                     ...obj,
@@ -333,8 +333,8 @@ export default {
             });
             productImages.data.forEach((e_img2, i) => {
                 let objToAdd1 = {
-                    'big': `http://141.98.19.44:6201/${e_img2.product_image_name}`,
-                    'thumb': `http://141.98.19.44:6201/${e_img2.product_image_name}`
+                    'big': `https://rvscs-develop.com/km-korat/${e_img2.product_image_name}`,
+                    'thumb': `https://rvscs-develop.com/km-korat/${e_img2.product_image_name}`
                 }
                 obj = {
                     ...obj,
@@ -382,8 +382,8 @@ export default {
             }
             mothers.data.forEach((e_img1, i) => {
                 let objToAdd1 = {
-                    'big': `http://141.98.19.44:6201/${e_img1.product_image}`,
-                    'thumb': `http://141.98.19.44:6201/${e_img1.product_image}`
+                    'big': `https://rvscs-develop.com/km-korat/${e_img1.product_image}`,
+                    'thumb': `https://rvscs-develop.com/km-korat/${e_img1.product_image}`
                 }
                 obj = {
                     ...obj,
@@ -393,8 +393,8 @@ export default {
             });
             productImages.data.forEach((e_img2, i) => {
                 let objToAdd1 = {
-                    'big': `http://141.98.19.44:6201/${e_img2.product_image_name}`,
-                    'thumb': `http://141.98.19.44:6201/${e_img2.product_image_name}`
+                    'big': `https://rvscs-develop.com/km-korat/${e_img2.product_image_name}`,
+                    'thumb': `https://rvscs-develop.com/km-korat/${e_img2.product_image_name}`
                 }
                 obj = {
                     ...obj,
