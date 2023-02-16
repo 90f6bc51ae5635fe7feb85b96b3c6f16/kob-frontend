@@ -37,6 +37,7 @@
           <div class="product-price">฿{{ item.product_price }}</div>
           <star-rating
             v-if="rating"
+            style="justify-content: center;"
             class="justify-content-center"
             v-bind:increment="0.1"
             v-bind:max-rating="5"
