@@ -8,33 +8,33 @@
         <b-row class="row-button">
           <ul class="my" style="">
             <li style="
-                      padding: 5px;
-                      color: #777777;
-                      text-align: left;
-                      padding: 5px;
-                    ">
+                        padding: 5px;
+                        color: #777777;
+                        text-align: left;
+                        padding: 5px;
+                      ">
               <nuxt-link :to="{ path: `/profile` }">
                 <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
                 My Details
               </nuxt-link>
             </li>
             <li style="
-                      padding: 5px;
-                      color: #777777;
-                      text-align: left;
-                      padding: 5px;
-                    ">
+                        padding: 5px;
+                        color: #777777;
+                        text-align: left;
+                        padding: 5px;
+                      ">
               <nuxt-link :to="{ path: `/address` }">
                 <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
                 My address book
               </nuxt-link>
             </li>
             <li style="
-                      padding: 5px;
-                      color: #777777;
-                      text-align: left;
-                      padding: 5px;
-                    ">
+                        padding: 5px;
+                        color: #777777;
+                        text-align: left;
+                        padding: 5px;
+                      ">
               <nuxt-link :to="{ path: `/order` }">
                 <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
                 My Order
@@ -75,22 +75,22 @@
                   {{ address_.customer_zipcode }}</b-col>
                 <!-- <b-col cols="1"> -->
                 <!-- <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px"
-                                              v-b-modal.modal-2 @click="setAddress(address_)">
-                                              แก้ไข
-                                          </button> -->
+                                                v-b-modal.modal-2 @click="setAddress(address_)">
+                                                แก้ไข
+                                            </button> -->
                 <!-- </b-col> -->
                 <!-- <b-col cols="3"> -->
                 <!-- <button class="btn-success btn" style="border-radius: 0px">
-                                              ตั้งเป็นค่าตั้งต้น
-                                          </button> -->
+                                                ตั้งเป็นค่าตั้งต้น
+                                            </button> -->
                 <!-- <button class="btn-success btn" style="border-radius: 0px"
-                                              @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address == 1">
-                                              ตั้งเป็นค่าตั้งต้น
-                                          </button> -->
+                                                @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address == 1">
+                                                ตั้งเป็นค่าตั้งต้น
+                                            </button> -->
                 <!-- <button class="btn-secondary btn" style="border-radius: 0px"
-                                              @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address != 1">
-                                              ตั้งเป็นค่าตั้งต้น
-                                          </button> -->
+                                                @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address != 1">
+                                                ตั้งเป็นค่าตั้งต้น
+                                            </button> -->
                 <!-- </b-col> -->
               </b-row>
               <b-row class="button">
@@ -125,11 +125,11 @@
         <b-form-input v-model="customer_address" placeholder="ที่อยู่"></b-form-input>
       </div>
       <!-- <div style="padding-bottom: 10px; padding-top: 10px">
-                  <b-form-select v-model="selected" :options="options"></b-form-select>
-              </div> -->
+                    <b-form-select v-model="selected" :options="options"></b-form-select>
+                </div> -->
       <!-- <div style="padding-bottom: 10px">
-                  <b-form-select v-model="selected" :options="options"></b-form-select>
-              </div> -->
+                    <b-form-select v-model="selected" :options="options"></b-form-select>
+                </div> -->
       <div style="padding-bottom: 10px">
         <b-form-input v-model="customer_zipcode" placeholder="รหัสไปรษณีย์"></b-form-input>
       </div>
@@ -338,7 +338,7 @@ export default {
                 text: "ไม่สามารถเพิ่มข้อมูล",
               });
               setTimeout(() => {
-                this.$router.push("/address");
+                this.$router.go();
               }, 2000);
             } else {
               this.$swal.fire({
@@ -348,7 +348,7 @@ export default {
                 timer: 1500,
               });
               setTimeout(() => {
-                this.$router.push("/address");
+                this.$router.go();
               }, 2000);
             }
           })
@@ -522,4 +522,5 @@ li a:hover:not(.active) {
   .row-content {
     margin-right: 10px;
   }
-}</style>
+}
+</style>

@@ -170,7 +170,7 @@ export default {
                                 timer: 1500,
                             });
                             setTimeout(() => {
-                                // this.$router.go();
+                                this.$router.go();
                             }, 2000);
                         }
                     })
