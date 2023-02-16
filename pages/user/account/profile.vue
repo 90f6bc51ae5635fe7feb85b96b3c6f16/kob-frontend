@@ -1,80 +1,73 @@
 <template>
-  <div>
-    <b-row no-gutters style="min-height: calc(100vh - 260px)">
-      <b-col md="3" class="mt-4 d-none d-lg-block">
-        <user-menu :active="'account-profile'" />
-      </b-col>
-      <b-col class="mt-4">
-        <div class="pl-md-3">
-          <h4>ข้อมูลของฉัน</h4>
-          <hr />
-          <b-form>
-            <b-row>
-              <b-col>
-                <b-form-group label="First Name:" label-for="input-1">
-                  <b-form-input
-                    id="input-1"
-                    v-model="form.email"
-                    placeholder="ชื่อ"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-              </b-col>
-              <b-col>
-                <b-form-group label="Last Name:" label-for="input-2">
-                  <b-form-input
-                    id="input-2"
-                    v-model="form.name"
-                    placeholder="นามสกุล"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col>
-                <b-form-group label="BIRTH DATE:" label-for="input-2">
-                  <b-form-datepicker
-                    v-model="form.birth_date"
-                    class="mb-2"
-                    placeholder="วันเกิด"
-                  ></b-form-datepicker>
-                </b-form-group>
-              </b-col>
-              <b-col>
-                <b-form-group
-                  label="Email:"
-                  label-for="input-1"
-                  description="We'll never share your email with anyone else."
-                >
-                  <b-form-input
-                    id="input-1"
-                    v-model="form.email"
-                    type="email"
-                    placeholder="อีเมล"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col>
-                <b-form-group label="PHONE NUMBER:" label-for="input-2">
-                  <b-form-input
-                    id="input-1"
-                    v-model="form.email"
-                    type="email"
-                    placeholder="เบอร์โทรศัพท์"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-              </b-col>
-            </b-row>
-            <b-button variant="primary" class="px-4">Save</b-button>
-          </b-form>
-        </div>
-      </b-col>
-    </b-row>
+  <div class="mt-4">
+    <div class="pl-md-3">
+      <h4>ข้อมูลของฉัน</h4>
+      <hr />
+      <b-form>
+        <b-row>
+          <b-col>
+            <b-form-group label="First Name:" label-for="input-1">
+              <b-form-input
+                id="input-1"
+                v-model="form.email"
+                placeholder="ชื่อ"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Last Name:" label-for="input-2">
+              <b-form-input
+                id="input-2"
+                v-model="form.name"
+                placeholder="นามสกุล"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="BIRTH DATE:" label-for="input-2">
+              <b-form-datepicker
+                v-model="form.birth_date"
+                class="mb-2"
+                placeholder="วันเกิด"
+              ></b-form-datepicker>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group
+              label="Email:"
+              label-for="input-1"
+              description="We'll never share your email with anyone else."
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.email"
+                type="email"
+                placeholder="อีเมล"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="PHONE NUMBER:" label-for="input-2">
+              <b-form-input
+                id="input-1"
+                v-model="form.email"
+                type="email"
+                placeholder="เบอร์โทรศัพท์"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-button variant="primary" class="px-4">Save</b-button>
+      </b-form>
+    </div>
   </div>
 </template>
 
@@ -101,8 +94,5 @@ export default {
   //   ])
   //   return { user, repos }
   // },
-  beforeMount() {
-    this.$store.commit("setActiveUserMenu", "account-profile");
-  },
 };
 </script>

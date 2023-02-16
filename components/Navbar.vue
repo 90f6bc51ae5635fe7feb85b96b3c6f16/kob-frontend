@@ -139,10 +139,10 @@
               </b-row>
             </b-dropdown-text>
           </b-dropdown>
-
+          <user-sidebar />
           <b-dropdown
             v-if="loggedIn"
-            class="ml-2"
+            class="ml-2 d-none d-lg-block"
             variant="outline-light"
             toggle-class="bg-white"
             no-caret
@@ -202,10 +202,12 @@
 
 <script>
 import FixedHeader from "vue-fixed-header";
+import UserSidebar from "./UserSidebar.vue";
 
 export default {
   components: {
     FixedHeader,
+    UserSidebar,
   },
   computed: {
     loggedIn() {

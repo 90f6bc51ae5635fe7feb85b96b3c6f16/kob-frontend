@@ -1,81 +1,72 @@
 <template>
-  <div>
-    <b-row no-gutters style="min-height: calc(100vh - 260px)">
-      <b-col md="3" class="mt-4 d-none d-lg-block">
-        <user-menu :active="'account-address'" />
-      </b-col>
-      <b-col class="mt-4">
-        <div class="pl-md-3">
-          <h4>ที่อยู่ของฉัน</h4>
-          <hr />
+  <div class="mt-4">
+    <div class="pl-md-3">
+      <h4>ที่อยู่ของฉัน</h4>
+      <hr />
 
-          <b-row>
-            <b-col>ที่อยู่</b-col>
-            <b-col class="text-right">
-              <b-button variant="success" squared v-b-modal.modal-1>
-                <font-awesome-icon :icon="['fas', 'plus']" />
-                เพิ่มที่อยู่
-              </b-button>
-            </b-col>
-          </b-row>
+      <b-row>
+        <b-col>ที่อยู่</b-col>
+        <b-col class="text-right">
+          <b-button variant="success" squared v-b-modal.modal-1>
+            <font-awesome-icon :icon="['fas', 'plus']" />
+            เพิ่มที่อยู่
+          </b-button>
+        </b-col>
+      </b-row>
 
-          <div v-for="(address_, idx) in address" :key="idx">
-            <b-row class="row-name">
-              <b-col cols="3">ชื่อ-นามสกุล</b-col>
-              <b-col cols="5"> {{ address_.customer_name }}</b-col>
-              <b-col cols="1"></b-col>
-              <b-col cols="3"></b-col>
-            </b-row>
-            <b-row class="row-tel" style="">
-              <b-col cols="3">โทรศัพท์</b-col>
-              <b-col cols="5">{{ address_.customer_tel }}</b-col>
-              <b-col cols="1"></b-col>
-              <b-col cols="3"></b-col>
-            </b-row>
-            <b-row class="row-address" style="">
-              <b-col cols="3">ที่อยู่</b-col>
-              <b-col cols="9"
-                >{{ address_.customer_address }}
-                {{ address_.customer_zipcode }}</b-col
-              >
-              <!-- <b-col cols="1"> -->
-              <!-- <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px"
+      <div v-for="(address_, idx) in address" :key="idx">
+        <b-row class="row-name">
+          <b-col cols="3">ชื่อ-นามสกุล</b-col>
+          <b-col cols="5"> {{ address_.customer_name }}</b-col>
+          <b-col cols="1"></b-col>
+          <b-col cols="3"></b-col>
+        </b-row>
+        <b-row class="row-tel" style="">
+          <b-col cols="3">โทรศัพท์</b-col>
+          <b-col cols="5">{{ address_.customer_tel }}</b-col>
+          <b-col cols="1"></b-col>
+          <b-col cols="3"></b-col>
+        </b-row>
+        <b-row class="row-address" style="">
+          <b-col cols="3">ที่อยู่</b-col>
+          <b-col cols="9"
+            >{{ address_.customer_address }}
+            {{ address_.customer_zipcode }}</b-col
+          >
+          <!-- <b-col cols="1"> -->
+          <!-- <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px"
                                         v-b-modal.modal-2 @click="setAddress(address_)">
                                         แก้ไข
                                     </button> -->
-              <!-- </b-col> -->
-              <!-- <b-col cols="3"> -->
-              <!-- <button class="btn-success btn" style="border-radius: 0px">
+          <!-- </b-col> -->
+          <!-- <b-col cols="3"> -->
+          <!-- <button class="btn-success btn" style="border-radius: 0px">
                                         ตั้งเป็นค่าตั้งต้น
                                     </button> -->
-              <!-- <button class="btn-success btn" style="border-radius: 0px"
+          <!-- <button class="btn-success btn" style="border-radius: 0px"
                                         @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address == 1">
                                         ตั้งเป็นค่าตั้งต้น
                                     </button> -->
-              <!-- <button class="btn-secondary btn" style="border-radius: 0px"
+          <!-- <button class="btn-secondary btn" style="border-radius: 0px"
                                         @click="updateDefaultAddress(address_.customer_address_id)" v-if="address_.customer_default_address != 1">
                                         ตั้งเป็นค่าตั้งต้น
                                     </button> -->
-              <!-- </b-col> -->
-            </b-row>
+          <!-- </b-col> -->
+        </b-row>
 
-            <b-row>
-              <b-button
-                variant="secondary"
-                squared
-                v-b-modal.modal-2
-                @click="setAddress(address_)"
-              >
-                แก้ไข
-              </b-button>
-              <b-button variant="success" squared>
-                ตั้งเป็นค่าตั้งต้น
-              </b-button>
-            </b-row>
-          </div>
-        </div>
-      </b-col>
-    </b-row>
+        <b-row>
+          <b-button
+            variant="secondary"
+            squared
+            v-b-modal.modal-2
+            @click="setAddress(address_)"
+          >
+            แก้ไข
+          </b-button>
+          <b-button variant="success" squared> ตั้งเป็นค่าตั้งต้น </b-button>
+        </b-row>
+      </div>
+    </div>
 
     <b-modal id="modal-1" title="เพิ่มที่อยู่" @ok="handleSubmit" centered>
       <div style="padding-bottom: 10px">
@@ -202,9 +193,6 @@ export default {
     return {
       address: address.data ? address.data : [],
     };
-  },
-  beforeMount() {
-    this.$store.commit("setActiveUserMenu", "account-address");
   },
   mounted() {
     this.user = this.$cookies.get("user");
