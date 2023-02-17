@@ -1,14 +1,19 @@
 <template>
   <div>
     <b-row class="mt-3">
-      <b-col md="6">
-        <h4><b>YOUR CART</b></h4>
+      <b-col cols="6">
+        <h4>ตะกร้าสินค้า</h4>
       </b-col>
-      <b-col md="6" class="text-right" style="color: #e4e4e4">
-        <p style="font-size: 13pt">
-          <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #e4e4e4" />
-          RETURN TO SHOP
-        </p>
+      <b-col cols="6" class="text-right" style="color: #e4e4e4">
+        <nuxt-link to="/" style="text-decoration: none">
+          <p style="font-size: 13pt; color: #8f8888">
+            <font-awesome-icon
+              :icon="['fas', 'angle-left']"
+              style="color: #8f8888"
+            />
+            กลับไปที่หน้าหลัก
+          </p>
+        </nuxt-link>
       </b-col>
     </b-row>
 
@@ -18,10 +23,10 @@
       <table class="table" style="min-width: 720px; border: 1px solid #e8e8e8">
         <thead>
           <tr style="background-color: #f8f8f8">
-            <td>PRODUCT</td>
-            <td class="text-center" width="90">PRICE</td>
-            <td class="text-center" width="120">QUANTITY</td>
-            <td class="text-center" width="90">TOTAL</td>
+            <td>สินค้า</td>
+            <td class="text-center" width="90">ราคา</td>
+            <td class="text-center" width="120">จำนวน</td>
+            <td class="text-center" width="90">ราคารวม</td>
             <td width="40"></td>
           </tr>
         </thead>
@@ -29,12 +34,19 @@
           <tr v-for="(product, index) in $store.state.cart.items" :key="index">
             <td>
               <div class="d-flex align-items-center">
-                <img class="cover" width="80px" height="80px" :src="`${product.product_image
-                  ? `https://rvscs-develop.com/km-korat/${product.product_image}`
-                  : `https://placeimg.com/380/200/any?${Math.floor(
-                    Math.random() * 50
-                  )}`
-                  }`" alt="product" />
+                <img
+                  class="cover"
+                  width="80px"
+                  height="80px"
+                  :src="`${
+                    product.product_image
+                      ? `https://rvscs-develop.com/km-korat/${product.product_image}`
+                      : `https://placeimg.com/380/200/any?${Math.floor(
+                          Math.random() * 50
+                        )}`
+                  }`"
+                  alt="product"
+                />
                 <span class="cart-item-name line-clamp-3">
                   {{ product.product_name }}
                 </span>
@@ -45,10 +57,19 @@
             </td>
             <td class="align-middle">
               <div class="d-flex align-items-center">
-                <b-button variant="dark" squared @click="reduceCartQty(product)">-</b-button>
-                <b-input class="text-center" :value="product.amount" @keydown="keydownNumber"
-                  @change="(e) => updateCartQty(product, e)" style="width: 60px" />
-                <b-button variant="dark" squared @click="addCartItem(product)">+</b-button>
+                <b-button variant="info" squared @click="reduceCartQty(product)"
+                  >-</b-button
+                >
+                <b-input
+                  class="text-center"
+                  :value="product.amount"
+                  @keydown="keydownNumber"
+                  @change="(e) => updateCartQty(product, e)"
+                  style="width: 60px"
+                />
+                <b-button variant="info" squared @click="addCartItem(product)"
+                  >+</b-button
+                >
               </div>
             </td>
             <td class="align-middle text-center">
@@ -56,7 +77,10 @@
             </td>
             <td class="align-middle text-center">
               <button class="btn" @click="removeCartItem(product)">
-                <font-awesome-icon :icon="['fas', 'circle-xmark']" style="color: #red" />
+                <font-awesome-icon
+                  :icon="['fas', 'circle-xmark']"
+                  style="color: red"
+                />
               </button>
             </td>
           </tr>
@@ -64,62 +88,112 @@
       </table>
     </div>
     <b-row>
-      <b-alert show variant="success" v-for="promotion_received in promotion_receiveds"
-        :key="promotion_received.promotion_code" style="width: 100%">
+      <b-alert
+        show
+        variant="success"
+        v-for="promotion_received in promotion_receiveds"
+        :key="promotion_received.promotion_code"
+        style="width: 100%"
+      >
         {{ promotion_received.promotion_received_name }}
       </b-alert>
-      <b-alert show variant="success" v-for="promotion_suggest in promotion_suggests"
-        :key="promotion_suggest.promotion_code" style="width: 100%">
+      <b-alert
+        show
+        variant="success"
+        v-for="promotion_suggest in promotion_suggests"
+        :key="promotion_suggest.promotion_code"
+        style="width: 100%"
+      >
         <h5>{{ promotion_suggest.promotion_name }}</h5>
         <h5>{{ promotion_suggest.promotion_suggest_name }}</h5>
       </b-alert>
     </b-row>
     <b-row>
       <b-col cols="12" md="6" class="d-flex align-items-center mt-2 mt-md-0">
-        <input type="text" class="pl-2 mr-1 mr-sm-2" placeholder="Coupon Code"
-          style="border: 1px solid #f2f2f2; height: 48px" />
-        <b-button class="apply-coupon-button" variant="light" style="
+        <input
+          type="text"
+          class="pl-2 mr-1 mr-sm-2"
+          placeholder="รหัสคูปอง"
+          style="border: 1px solid #f2f2f2; height: 48px"
+        />
+        <b-button
+          class="apply-coupon-button"
+          variant="light"
+          style="
                               height: 48px
                               border: 1px solid #f2f2f2;
                               background-color: #f2f2f2;
                               color: #a6a6a6;
                               min-width: 140px;
-                            ">
-          APPLY COUPON
+                            "
+        >
+          ใช้คูปอง
         </b-button>
       </b-col>
       <b-col cols="12" md="6" class="mt-2 mt-md-0 text-md-right">
-        <b-button class="ml-auto" variant="dark" squared style="height: 48px">
-          UPDATE CART
+        <b-button
+          class="ml-auto"
+          variant="warning"
+          squared
+          style="height: 48px"
+        >
+          อัปเดตตะกร้าสินค้า
         </b-button>
       </b-col>
     </b-row>
     <b-row>
       <b-col offset-md="6" md="6" sm="12" class="title-product">
         <div class="text-dark">
-          <h5 class="mb-4">CART TOTALS</h5>
+          <h5 class="mb-4">ยอดรวมของตะกร้าสินค้า</h5>
           <table class="table table-bordered">
             <tr>
-              <td width="50%" class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
-                TAX INVOICE
+              <td
+                width="50%"
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
+                ใบกำกับภาษี
               </td>
               <td>
-                <b-form-checkbox id="checkbox-1" v-model="order_vat" name="checkbox-1" value="1" unchecked-value="0">
+                <b-form-checkbox
+                  id="checkbox-1"
+                  v-model="order_vat"
+                  name="checkbox-1"
+                  value="1"
+                  unchecked-value="0"
+                >
                   ขอใบกำกับภาษี (กรุณาติดต่อทางร้าน)
                 </b-form-checkbox>
-                <b-form-textarea v-model="order_invoice_address" placeholder="ข้อมูลใบกำกับภาษี" rows="5"
-                  max-rows="5"></b-form-textarea>
+                <b-form-textarea
+                  v-model="order_invoice_address"
+                  placeholder="ข้อมูลใบกำกับภาษี"
+                  rows="5"
+                  max-rows="5"
+                ></b-form-textarea>
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ที่อยู่จัดส่ง
               </td>
               <td>
-                <b-form-group v-slot="{ ariaDescribedby }" label="เลือกที่อยู่จัดสั่ง">
-                  <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" style="padding-top: 10px"
-                    name="some-radios" :value="address_.customer_address_id" v-for="(address_, idx) in address"
-                    @change="selectAddress(address_)" :key="'B' + idx">
+                <b-form-group
+                  v-slot="{ ariaDescribedby }"
+                  label="เลือกที่อยู่จัดสั่ง"
+                >
+                  <b-form-radio
+                    v-model="selected"
+                    :aria-describedby="ariaDescribedby"
+                    style="padding-top: 10px"
+                    name="some-radios"
+                    :value="address_.customer_address_id"
+                    v-for="(address_, idx) in address"
+                    @change="selectAddress(address_)"
+                    :key="'B' + idx"
+                  >
                     {{ address_.customer_name }}
                     <br />
                     {{ address_.customer_address }}
@@ -130,7 +204,10 @@
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ส่วนลด
               </td>
               <td>
@@ -141,33 +218,57 @@
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
-                SUB TOTAL
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
+                ยอดรวมก่อนหัก
               </td>
               <td>฿{{ cartSubTotalPrice }}</td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
-                DISCOUNT
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
+                ราคาส่วนลด
               </td>
               <td>฿{{ discountPrice }}</td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
-                TOTAL
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
+                ยอดรวมทั้งหมด
               </td>
               <td>฿{{ cartTotalPrice }}</td>
             </tr>
           </table>
-          <b-button variant="success" size="lg" class="mb-2" block squared @click="_submitData()">
+          <b-button
+            variant="success"
+            size="lg"
+            class="mb-2"
+            block
+            squared
+            @click="_submitData()"
+          >
             สั่งซื้อสินค้า
           </b-button>
         </div>
       </b-col>
     </b-row>
 
-    <b-modal id="modal-1" title="สั่งซื้อเรียบร้อย" centered hide-footer @hidden="gotoOrderPage()" no-close-on-esc
-      no-close-on-backdrop hide-header-close>
+    <b-modal
+      id="modal-1"
+      title="สั่งซื้อเรียบร้อย"
+      centered
+      hide-footer
+      @hidden="gotoOrderPage()"
+      no-close-on-esc
+      no-close-on-backdrop
+      hide-header-close
+    >
       <div id="preview">
         <img src="~/assets/qr1.png" />
       </div>
@@ -181,9 +282,11 @@
         </div>
         <div><b>เบอร์โทรศัพท์ : </b><span>099-461-9241</span></div>
       </div>
-      <b-button class="mt-3 btn-success" block @click="gotoOrderPage()">ไปที่คำสั่งซื้อ</b-button>
+      <b-button class="mt-3 btn-success" block @click="gotoOrderPage()"
+        >ไปที่คำสั่งซื้อ</b-button
+      >
     </b-modal>
-</div>
+  </div>
 </template>
 
 <script>
@@ -211,7 +314,7 @@ export default {
 
       this.discount = discount;
       total_price = total_price - discount;
-      this.total_price = total_price
+      this.total_price = total_price;
       return total_price;
     },
     discountPrice() {
@@ -245,15 +348,14 @@ export default {
     $productService,
     $promotionService,
     $cookies,
-    store
+    store,
   }) {
     try {
       const user = store.state.auth.user;
       const categorys = await $productService.product.getProductCategoryBy();
       const address = await $userService.user.getMemberAddress({
-        customer_code: user.customer_code
-      }
-      );
+        customer_code: user.customer_code,
+      });
       const promotions_temp =
         await $promotionService.promotion.getPromotionActive();
 
@@ -291,30 +393,38 @@ export default {
     async _submitData() {
       try {
         let today = new Date();
-        let now_date = `${today.getFullYear()}-${today.getMonth() + 1
-          }-${today.getDate()}`;
-        let now_time = `${today.getHours()}:${today.getMinutes() + 1
-          }:${today.getSeconds()}`;
-        console.log('today', today);
-        console.log('now_date', now_date);
-        await this.$axios.post("https://rvscs-develop.com/km-korat-web/api/order-insert/", {
-          customer_code: this.user.customer_code,
-          sale_station_code: "",
-          user_code: "",
-          order_date: `${now_date} ${now_time}`,
-          order_name: this.selected_address.customer_name,
-          order_address: this.selected_address.customer_address + " " + this.selected_address.customer_zipcode + " " + this.selected_address.customer_tel,
-          order_predict_price: "",
-          order_product_price: this.total_price,
-          order_discount_price: this.discount,
-          order_status: "request_check_price",
-          order_shipping: "",
-          order_slip: "",
-          order_track_number: "",
-          order_invoice_address: this.order_invoice_address,
-          order_list: this.$store.state.cart.items,
-          order_vat: this.order_vat,
-        })
+        let now_date = `${today.getFullYear()}-${
+          today.getMonth() + 1
+        }-${today.getDate()}`;
+        let now_time = `${today.getHours()}:${
+          today.getMinutes() + 1
+        }:${today.getSeconds()}`;
+        console.log("today", today);
+        console.log("now_date", now_date);
+        await this.$axios
+          .post("https://rvscs-develop.com/km-korat-web/api/order-insert/", {
+            customer_code: this.user.customer_code,
+            sale_station_code: "",
+            user_code: "",
+            order_date: `${now_date} ${now_time}`,
+            order_name: this.selected_address.customer_name,
+            order_address:
+              this.selected_address.customer_address +
+              " " +
+              this.selected_address.customer_zipcode +
+              " " +
+              this.selected_address.customer_tel,
+            order_predict_price: "",
+            order_product_price: this.total_price,
+            order_discount_price: this.discount,
+            order_status: "request_check_price",
+            order_shipping: "",
+            order_slip: "",
+            order_track_number: "",
+            order_invoice_address: this.order_invoice_address,
+            order_list: this.$store.state.cart.items,
+            order_vat: this.order_vat,
+          })
           .then((response) => {
             if (response.data == "error") {
               this.$swal.fire({

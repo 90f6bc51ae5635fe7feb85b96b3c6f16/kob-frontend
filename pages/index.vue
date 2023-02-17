@@ -127,8 +127,8 @@
             style="
               font-size: 13pt;
               color: #fff;
-              border-top: 1px solid #61c46e;
-              border-bottom: 1px solid #61c46e;
+              border-top: 1px solid #fff;
+              border-bottom: 1px solid #fff;
             "
             v-for="(brand, idx) in brands"
             :key="idx"
