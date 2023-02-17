@@ -79,12 +79,12 @@
         <input type="text" class="pl-2 mr-1 mr-sm-2" placeholder="Coupon Code"
           style="border: 1px solid #f2f2f2; height: 48px" />
         <b-button class="apply-coupon-button" variant="light" style="
-                        height: 48px
-                        border: 1px solid #f2f2f2;
-                        background-color: #f2f2f2;
-                        color: #a6a6a6;
-                        min-width: 140px;
-                      ">
+                              height: 48px
+                              border: 1px solid #f2f2f2;
+                              background-color: #f2f2f2;
+                              color: #a6a6a6;
+                              min-width: 140px;
+                            ">
           APPLY COUPON
         </b-button>
       </b-col>
@@ -245,17 +245,21 @@ export default {
     $productService,
     $promotionService,
     $cookies,
+    store
   }) {
     try {
+      const user = store.state.auth.user;
       const categorys = await $productService.product.getProductCategoryBy();
-      const address = await $userService.user.getMemberAddress(
-        await $cookies.get("user")
+      const address = await $userService.user.getMemberAddress({
+        customer_code: user.customer_code
+      }
       );
       const promotions_temp =
         await $promotionService.promotion.getPromotionActive();
 
       const promotions = JSON.parse(promotions_temp.data);
-
+      console.log(address.data);
+      console.log(user);
       return {
         address: address.data ? address.data : [],
         categorys: categorys.data ? categorys.data : [],
