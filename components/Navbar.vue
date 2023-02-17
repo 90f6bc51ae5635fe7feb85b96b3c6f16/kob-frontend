@@ -113,18 +113,18 @@
                 </div>
               </b-dropdown-text>
               <b-dropdown-text class="my-2">
-                <div style="float: left">ORDER TOTAL</div>
+                <div style="float: left">ยอดสั่งซื้อทั้งหมด</div>
                 <div class="text-right">฿{{ cartTotalPrice }}</div>
               </b-dropdown-text>
             </div>
             <div v-else class="text-center py-4">
-              No item in your shopping cart.
+              ไม่มีสินค้าในตะกร้าสินค้าของคุณ
             </div>
             <b-dropdown-text class="mb-2" style="width: 320px">
               <b-row>
                 <b-col class="pr-2">
                   <b-button variant="primary" block squared href="/cart"
-                    >VIEW CART</b-button
+                    >ตะกร้าสินค้า</b-button
                   >
                 </b-col>
                 <b-col class="pl-2">
@@ -133,7 +133,7 @@
                     block
                     squared
                     href="/order"
-                    >CHECK OUT</b-button
+                    >เช็คเอาท์</b-button
                   >
                 </b-col>
               </b-row>
@@ -151,8 +151,8 @@
             <template slot="button-content">
               <font-awesome-icon :icon="['fas', 'user']" class="text-dark" />
             </template>
-            <b-dropdown-item href="/profile">My Account</b-dropdown-item>
-            <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+            <b-dropdown-item href="/profile">บัญชีของฉัน</b-dropdown-item>
+            <b-dropdown-item @click="logout">ออกจากระบบ</b-dropdown-item>
           </b-dropdown>
         </b-container>
         <b-navbar
@@ -288,6 +288,7 @@ a {
 
 .font-navbar {
   font-family: "Kanit", sans-serif;
+  background-color: #ffffff;
 }
 
 .fix-navbar.vue-fixed-header--isFixed {

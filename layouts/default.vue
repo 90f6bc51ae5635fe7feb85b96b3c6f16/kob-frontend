@@ -1,7 +1,11 @@
 <template>
-  <div>
+  <div style="background-color: #f5f5f5">
     <Navbar />
-    <b-container fluid="lg" class="px-lg-0">
+    <b-container
+      fluid="lg"
+      class="px-lg-3 py-lg-1"
+      style="background-color: #ffffff"
+    >
       <Nuxt />
       <SideBar />
     </b-container>
