@@ -71,7 +71,7 @@
       </div>
 
       <div class="text-right pr-3">
-        <div>
+        <div v-if="order.order_discount_price">
           ส่วนลด :
           <span style="font-size: 1.8em">฿{{ order.order_discount_price }}</span>
         </div>
