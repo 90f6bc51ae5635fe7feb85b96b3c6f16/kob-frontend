@@ -3,12 +3,7 @@
     <b-row>
       <b-col class="title-product" style="font-size: 16pt">MY ORDER</b-col>
     </b-row>
-    <div
-      class="mt-4"
-      v-for="(order, index) in orders"
-      :key="index"
-      style="border: 1px solid #e5e5e5"
-    >
+    <div class="mt-4" v-for="(order, index) in orders" :key="index" style="border: 1px solid #e5e5e5">
       <b-row>
         <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
           <div class="p-3">
@@ -18,37 +13,23 @@
         </b-col>
         <b-col cols="12" md="6" style="border-bottom: 1px solid #e4e4e4">
           <div class="p-3 text-md-right">
-            <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"
-              ><span style="color: #39b44f"
-                >{{ status[order.order_status] }}
-              </span></a
-            >
+            <a v-b-modal.modal-2 @click="setOrderCode(order.order_code, order)"><span style="color: #39b44f">{{
+              status[order.order_status] }}
+              </span></a>
             |
-            <span
-              style="color: #39b44f"
-              v-if="order.order_shipping || order.order_track_number"
-            >
-              <a
-                v-if="order.order_shipping == 'thailand-post'"
-                :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
-                target="_blank"
-              >
+            <span style="color: #39b44f" v-if="order.order_shipping || order.order_track_number">
+              <a v-if="order.order_shipping == 'thailand-post'"
+                :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`" target="_blank">
                 {{ order.order_shipping }}
                 {{ order.order_track_number }}
               </a>
-              <a
-                v-if="order.order_shipping == 'flash'"
-                :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
-                target="_blank"
-              >
+              <a v-if="order.order_shipping == 'flash'"
+                :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`" target="_blank">
                 {{ order.order_shipping }}
                 {{ order.order_track_number }}
               </a>
-              <a
-                v-if="order.order_shipping == 'kerry'"
-                :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
-                target="_blank"
-              >
+              <a v-if="order.order_shipping == 'kerry'"
+                :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`" target="_blank">
                 {{ order.order_shipping }}
                 {{ order.order_track_number }}
               </a>
@@ -62,27 +43,16 @@
           </div>
         </b-col>
       </b-row>
-      <div
-        v-for="(order_list, index) in order.order_lists"
-        :key="index"
-        style="border-bottom: 1px solid #ccc"
-      >
+      <div v-for="(order_list, index) in order.order_lists" :key="index" style="border-bottom: 1px solid #ccc">
         <b-row>
           <b-col sm="8">
             <div class="d-flex p-3">
-              <img
-                class="cover"
-                width="90"
-                height="90"
-                :src="`${
-                  order_list.product_image
-                    ? `https://rvscs-develop.com/km-korat/${order_list.product_image}`
-                    : `https://placeimg.com/380/200/any?${Math.floor(
-                        Math.random() * 50
-                      )}`
-                }`"
-                alt="product"
-              />
+              <img class="cover" width="90" height="90" :src="`${order_list.product_image
+                  ? `https://rvscs-develop.com/km-korat/${order_list.product_image}`
+                  : `https://placeimg.com/380/200/any?${Math.floor(
+                    Math.random() * 50
+                  )}`
+                }`" alt="product" />
               <span class="ml-4">
                 <div>{{ order_list.order_list_name }}</div>
                 <div>
@@ -101,15 +71,17 @@
       </div>
 
       <div class="text-right pr-3">
+        <div v-if="order.order_discount_price">
+          ส่วนลด :
+          <span style="font-size: 1.8em">฿{{ order.order_discount_price }}</span>
+        </div>
         <div>
           ยอดคำสั่งซื้อทั้งหมด :
           <span style="font-size: 1.8em">฿{{ order.order_product_price }}</span>
         </div>
         <div v-if="order.order_predict_price">
           ค่าขนส่ง :
-          <span style="font-size: 1.8em"
-            >฿{{ order.order_predict_price - order.order_product_price }}</span
-          >
+          <span style="font-size: 1.8em">฿{{ order.order_predict_price - order.order_product_price }}</span>
         </div>
         <div v-if="order.order_predict_price">
           ยอดคำสั่งซื้อรวมค่าขนส่ง :
@@ -122,38 +94,22 @@
           ขอใบกำกับภาษี {{ order.order_invoice_address }}
         </div>
       </div>
-      <div
-        class="p-3"
-        style="max-width: 100%"
-        v-if="
+      <div class="p-3" style="max-width: 100%" v-if="
+        order.order_status == 'request_check_confirm' ||
+        order.order_status == 'request_check_slip'
+      " v-html="company.company_info_payment_method"></div>
+      <div class="px-3 pb-3 text-right">
+        <b-button v-if="
           order.order_status == 'request_check_confirm' ||
           order.order_status == 'request_check_slip'
-        "
-        v-html="company.company_info_payment_method"
-      ></div>
-      <div class="px-3 pb-3 text-right">
-        <b-button
-          v-if="
-            order.order_status == 'request_check_confirm' ||
-            order.order_status == 'request_check_slip'
-          "
-          variant="success"
-          squared
-          v-b-modal.modal-1
-          @click="setOrderCode(order.order_code, order)"
-        >
+        " variant="success" squared v-b-modal.modal-1 @click="setOrderCode(order.order_code, order)">
           แนบเอกสารการโอน
         </b-button>
-        <b-button
-          variant="danger"
-          squared
-          v-if="
-            order.order_status != 'success' &&
-            order.order_status != 'customer_request_cancel' &&
-            order.order_status != 'cancel'
-          "
-          @click="setOrderCode(order.order_code, order), showCancelOrder()"
-        >
+        <b-button variant="danger" squared v-if="
+          order.order_status != 'success' &&
+          order.order_status != 'customer_request_cancel' &&
+          order.order_status != 'cancel'
+        " @click="setOrderCode(order.order_code, order), showCancelOrder()">
           ยกเลิกออร์เดอร์
         </b-button>
         <b-button variant="primary" squared @click="gotoContact">
@@ -162,123 +118,55 @@
       </div>
     </div>
 
-    <b-modal
-      id="modal-1"
-      title="แจ้งหลักฐานการโอน"
-      @ok="handleSubmit('request_check_slip')"
-      centered
-    >
-      <div
-        id="preview"
-        v-if="url != 'https://rvscs-develop.com/km-korat-web/slip/'"
-      >
+    <b-modal id="modal-1" title="แจ้งหลักฐานการโอน" @ok="handleSubmit('request_check_slip')" centered>
+      <div id="preview" v-if="url != 'https://rvscs-develop.com/km-korat-web/slip/'">
         <img v-if="url" :src="url" />
       </div>
-      <b-form-file
-        v-model="file"
-        ref="file-input"
-        class="mb-2"
-        @change="onFileChange"
-        required
-        style="margin-top: 10px"
-      ></b-form-file>
+      <b-form-file v-model="file" ref="file-input" class="mb-2" @change="onFileChange" required
+        style="margin-top: 10px"></b-form-file>
       <div style="padding-bottom: 10px">
-        <b-form-input
-          v-model="order_slip_date"
-          placeholder="วันที่"
-          required
-        ></b-form-input>
+        <b-form-input v-model="order_slip_date" placeholder="วันที่" required></b-form-input>
       </div>
       <div style="padding-bottom: 10px">
-        <b-form-input
-          v-model="order_slip_time"
-          placeholder="เวลา"
-          required
-        ></b-form-input>
+        <b-form-input v-model="order_slip_time" placeholder="เวลา" required></b-form-input>
       </div>
     </b-modal>
 
-    <b-modal
-      id="modal-2"
-      title="ประวัติทำรายการ"
-      centered
-      scrollable
-      style="z-index: 9999999 !important"
-    >
-      <div
-        style="
-          text-align: left;
-          display: flex;
-          flex-direction: column;
-          padding: 10px;
-          border: 1px solid #e4e4e4;
-          background-color: #f5fffa;
-        "
-      >
-        <div
-          class="dotted"
-          style="color: #212529; font-size: 12pt"
-          v-if="order_selected.order_code"
-        >
-          {{ new Date(order_selected.adddate) }} <br /><span
-            style="color: green"
-            >สร้างคำสั่งซื้อ {{ order_selected.order_code }} <br />ที่อยู่ :
+    <b-modal id="modal-2" title="ประวัติทำรายการ" centered scrollable style="z-index: 9999999 !important">
+      <div style="
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            border: 1px solid #e4e4e4;
+            background-color: #f5fffa;
+          ">
+        <div class="dotted" style="color: #212529; font-size: 12pt" v-if="order_selected.order_code">
+          {{ new Date(order_selected.adddate) }} <br /><span style="color: green">สร้างคำสั่งซื้อ {{
+            order_selected.order_code }} <br />ที่อยู่ :
             {{ order_selected.order_name }} {{ order_selected.order_address }}
           </span>
         </div>
-        <div
-          class="dotted"
-          style="color: #212529; font-size: 12pt"
-          v-if="order_selected.order_status == 'cancel'"
-        >
-          {{ new Date(order_selected.lastupdate) }} <br /><span
-            style="color: green"
-            >ยกเลิกคำสั่งซื้อ</span
-          >
+        <div class="dotted" style="color: #212529; font-size: 12pt" v-if="order_selected.order_status == 'cancel'">
+          {{ new Date(order_selected.lastupdate) }} <br /><span style="color: green">ยกเลิกคำสั่งซื้อ</span>
         </div>
-        <div
-          class="dotted"
-          style="color: #212529; font-size: 12pt"
-          v-if="order_selected.order_predict_price"
-        >
-          {{ new Date(order_selected.order_predict_price_date) }} <br /><span
-            style="color: green"
-            >ประเมินราคาเสร็จสิ้น
-            {{ order_selected.order_predict_price }} บาท</span
-          >
+        <div class="dotted" style="color: #212529; font-size: 12pt" v-if="order_selected.order_predict_price">
+          {{ new Date(order_selected.order_predict_price_date) }} <br /><span style="color: green">ประเมินราคาเสร็จสิ้น
+            {{ order_selected.order_predict_price }} บาท</span>
         </div>
-        <div
-          class="dotted"
-          style="color: #212529; font-size: 12pt"
-          v-if="order_selected.order_slip"
-        >
-          {{ new Date(order_selected.order_slip_lastupdate) }} <br /><span
-            style="color: green"
-            >แนบหลักฐานชำระเงิน</span
-          >
+        <div class="dotted" style="color: #212529; font-size: 12pt" v-if="order_selected.order_slip">
+          {{ new Date(order_selected.order_slip_lastupdate) }} <br /><span style="color: green">แนบหลักฐานชำระเงิน</span>
           <div id="preview">
             <img v-if="url" :src="url" />
           </div>
         </div>
-        <div
-          class="dotted"
-          style="color: #212529; font-size: 12pt"
-          v-if="order_selected.order_track_number"
-        >
-          {{ new Date(order_selected.order_track_date) }} <br /><span
-            style="color: green"
-            >จัดส่งสินค้าแล้ว {{ order_selected.order_shipping }}
-            {{ order_selected.order_track_number }}</span
-          >
+        <div class="dotted" style="color: #212529; font-size: 12pt" v-if="order_selected.order_track_number">
+          {{ new Date(order_selected.order_track_date) }} <br /><span style="color: green">จัดส่งสินค้าแล้ว {{
+            order_selected.order_shipping }}
+            {{ order_selected.order_track_number }}</span>
         </div>
-        <div
-          class="dotted"
-          style="color: #212529; font-size: 12pt"
-          v-if="order_selected.order_payment_return_slip"
-        >
-          {{ new Date(order_selected.lastupdate) }} <br /><span
-            style="color: green"
-            >โอนคืนลูกค้า
+        <div class="dotted" style="color: #212529; font-size: 12pt" v-if="order_selected.order_payment_return_slip">
+          {{ new Date(order_selected.lastupdate) }} <br /><span style="color: green">โอนคืนลูกค้า
           </span>
           <div id="preview">
             <img v-if="url_payment" :src="url_payment" />
@@ -287,31 +175,16 @@
       </div>
     </b-modal>
 
-    <b-modal
-      id="modal-cancel"
-      title="แจ้งยกเลิกรายการ"
-      centered
-      no-close-on-esc
-      no-close-on-backdrop
-      hide-header-close
-      hide-footer
-    >
+    <b-modal id="modal-cancel" title="แจ้งยกเลิกรายการ" centered no-close-on-esc no-close-on-backdrop hide-header-close
+      hide-footer>
       <div style="padding-bottom: 10px">
-        <b-form-input
-          v-model="order_customer_cancel_user_remark"
-          placeholder="หมายเหตุ"
-          required
-        >
+        <b-form-input v-model="order_customer_cancel_user_remark" placeholder="หมายเหตุ" required>
         </b-form-input>
       </div>
-      <b-button class="mt-3 btn-danger" block @click="confirmCancelOrder()"
-        >ยกเลิกรายการ</b-button
-      >
-      <b-button class="mt-3" block @click="this.$bvModal.hide('modal-cancel')"
-        >ปิด</b-button
-      >
+      <b-button class="mt-3 btn-danger" block @click="confirmCancelOrder()">ยกเลิกรายการ</b-button>
+      <b-button class="mt-3" block @click="this.$bvModal.hide('modal-cancel')">ปิด</b-button>
     </b-modal>
-  </div>
+</div>
 </template>
 
 <script>

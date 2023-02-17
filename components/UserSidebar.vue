@@ -53,9 +53,10 @@
 
 <script>
 export default {
+  middleware: "auth",
   computed: {
     loggedIn() {
-      return this.$store.state.auth.loggedIn;
+      return this.$store?.state?.auth?.loggedIn;
     },
   },
   methods: {

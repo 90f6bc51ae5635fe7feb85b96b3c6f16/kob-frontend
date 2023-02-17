@@ -31,39 +31,30 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 ชื่อ <span style="color: red;">*</span>
-                                <b-form-input v-model="firstname" type="text" class="textbox" placeholder="ชื่อ" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกชื่อ');" oninput="setCustomValidity('');"></b-form-input>
+                                <b-form-input v-model="customer_name" type="text" class="textbox" placeholder="ชื่อ" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกชื่อ');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                     <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
-                                นามสกุล <span style="color: red">*</span>
-                                <b-form-input v-model="lastname" type="text" class="textbox" placeholder="นามสกุล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกนามสกุล');" oninput="setCustomValidity('');"></b-form-input>
+                                User <span style="color: red">*</span>
+                                <b-form-input v-model="customer_username" class="textbox" type="text" placeholder="ชื่อผู้ใช้" required pattern=".{1,}" oninvalid="setCustomValidity('ชื่อผู้ใช้');" oninput="setCustomValidity('');"></b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row class="row-form">
-                    <b-col class="col-form">
-                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
-                            <template v-slot="label">
-                                Email <span style="color: red">*</span>
-                                <b-form-input v-model="email" class="textbox" type="email" placeholder="อีเมล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกอีเมล');" oninput="setCustomValidity('');"></b-form-input>
-                            </template>
-                        </b-form-group>
-                    </b-col>
+  
                     <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Password <span style="color: red">*</span>
-                                <b-form-input v-model="password" class="textbox" type="password" placeholder="รหัสผ่าน" name="password" id="password" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="customer_password" class="textbox" type="password" placeholder="รหัสผ่าน" name="password" id="password" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
-                </b-row>
-                <b-row class="row-form">
                     <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
@@ -74,34 +65,26 @@
                             </template>
                         </b-form-group>
                     </b-col>
+                </b-row>
+                <b-row class="row-form" >
                     <b-col class="col-form">
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
+                                Email <span style="color: red">*</span>
+                                <b-form-input v-model="customer_email" class="textbox" type="text" placeholder="อีเมล" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกอีเมล');" oninput="setCustomValidity('');"></b-form-input>
+                            </template>
+                        </b-form-group>
+                    </b-col>
+                    <b-col class="col-form" md="6">
+                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
+                            <template v-slot="label">
                                 หมายเลขโทรศัพท์ <span style="color: red">*</span>
-                                <b-form-input v-model="phone" type="number" class="textbox"  placeholder="หมายเลขโทรศัพท์" required pattern="[0-9]{10}" oninvalid="setCustomValidity('กรุณากรอกเบอร์โทรทัพท์ 0-9');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="customer_phone" type="number" class="textbox"  placeholder="หมายเลขโทรศัพท์" required pattern="[0-9]{10}" oninvalid="setCustomValidity('กรุณากรอกเบอร์โทรทัพท์ 0-9');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
                     </b-col>
                 </b-row >
-                <b-row class="row-form">
-                    <b-col class="col-form">
-                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
-                            <template v-slot="label">
-                                ที่อยู่ <span style="color: red">*</span>
-                                <b-form-input v-model="address" type="text" class="textbox" placeholder="ที่อยู่" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณากรอกที่อยู่');" oninput="setCustomValidity('');"></b-form-input>
-                            </template>
-                        </b-form-group>
-                    </b-col>
-                    <b-col class="col-form">
-                        <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
-                            <template v-slot="label">
-                                วันเกิด <span style="color: red">*</span>
-                                <b-form-input id="" v-model="dates" type="date" class="textbox"  placeholder="วันเกิด" required pattern=".{1,}" oninvalid="setCustomValidity('กรุณาเลือกวันเดือนปีเกิด');" oninput="setCustomValidity('');"></b-form-input>
-                            </template>
-                        </b-form-group>
-                    </b-col>
-                </b-row>
                 <b-row>
                     <b-col >
                     </b-col>
@@ -124,14 +107,13 @@
 export default {
     data() {
         return {
-            firstname: "",
-            lastname: "",
-            email: "",
-            password: "",
+            customer_username: '',
+            customer_name: '',
+            customer_password: '',
+            customer_email: '',
+            customer_phone: '',
             confirmpassword: "",
-            phone: "",
-            address: "",
-            dates: "",
+
             error: null,
             submitted: false,
         };
@@ -191,35 +173,20 @@ export default {
             e.preventDefault();
             if (this.check()) {
                 this.submitted = true;
-                const payload = {
-                    data: {
-                        firstname: this.firstname,
-                        lastname: this.lastname,
-                        email: this.email,
-                        password: this.password,
-                        phone: this.phone,
-                        address: this.address,
-                        dates: this.dates,
-                    },
-                };
-                // console.log("data", payload);
                 try {
 
                     await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/member-insert/', {
-                            // console.log("checkphones", checkphones);
-                            // this.$axios.post(checkphones , {
-                            // member_code: "12312",
-                            member_name: this.firstname,
-                            member_firstname: this.firstname,
-                            member_lastname: this.lastname,
-                            member_email: this.email,
-                            member_password: this.password,
-                            member_phone: this.phone,
-                            member_address: this.address,
-                            member_birthdate: this.dates,
-                            name: 'test',
-                            // payload,
-                        })
+                        // console.log("checkphones", checkphones);
+                        // this.$axios.post(checkphones , {
+                        customer_username: this.customer_username,
+                        customer_name: this.customer_name,
+                        customer_password: this.customer_password,
+                        customer_email: this.customer_email,
+                        customer_phone: this.customer_phone,
+                        customer_zone_type_code: 'web',
+
+                        // payload,
+                    })
                         .then((response) => {
                             console.log("true", response);
                             if (response.data == "EmailErr") {
@@ -243,7 +210,7 @@ export default {
                                     showConfirmButton: false,
                                     timer: 1500
                                 })
-                                setTimeout(() => {  this.$router.push("/"); }, 2000);
+                                setTimeout(() => { this.$router.push("/"); }, 2000);
                             }
                         })
                         .catch((error) => {
@@ -306,18 +273,20 @@ ul {
 
 /* responsive */
 @media only screen and (max-width:1000px) {
+
     /* Mobile And Tablets */
-    .title-product{
+    .title-product {
         margin-left: 10px;
     }
-    .row-form{
+
+    .row-form {
         display: flex;
         flex-direction: column;
         margin-left: 10px;
     }
-    .textbox{
+
+    .textbox {
         width: 90%;
     }
 }
-
 </style>
