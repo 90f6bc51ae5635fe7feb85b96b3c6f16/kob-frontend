@@ -184,6 +184,17 @@
                   v-slot="{ ariaDescribedby }"
                   label="เลือกที่อยู่จัดสั่ง"
                 >
+                <b-form-radio
+                    v-model="selected"
+                    :aria-describedby="ariaDescribedby"
+                    style="padding-top: 10px"
+                    name="some-radios"
+                    @change="selectAddress('',0)"
+                  >
+                    {{ `รับเองที่ร้าน` }}
+                    <br />
+                  </b-form-radio>
+
                   <b-form-radio
                     v-model="selected"
                     :aria-describedby="ariaDescribedby"
@@ -191,7 +202,7 @@
                     name="some-radios"
                     :value="address_.customer_address_id"
                     v-for="(address_, idx) in address"
-                    @change="selectAddress(address_)"
+                    @change="selectAddress(address_,1)"
                     :key="'B' + idx"
                   >
                     {{ address_.customer_name }}
@@ -341,6 +352,7 @@ export default {
       promotion_receiveds: [],
       promotion_suggests: [],
       promotion_discount: [],
+      order_shipping_status : 0,
     };
   },
   async asyncData({
@@ -360,8 +372,7 @@ export default {
         await $promotionService.promotion.getPromotionActive();
 
       const promotions = JSON.parse(promotions_temp.data);
-      console.log(address.data);
-      console.log(user);
+
       return {
         address: address.data ? address.data : [],
         categorys: categorys.data ? categorys.data : [],
@@ -399,8 +410,6 @@ export default {
         let now_time = `${today.getHours()}:${
           today.getMinutes() + 1
         }:${today.getSeconds()}`;
-        console.log("today", today);
-        console.log("now_date", now_date);
         await this.$axios
           .post("https://rvscs-develop.com/km-korat-web/api/order-insert/", {
             customer_code: this.user.customer_code,
@@ -424,6 +433,7 @@ export default {
             order_invoice_address: this.order_invoice_address,
             order_list: this.$store.state.cart.items,
             order_vat: this.order_vat,
+            order_shipping_status: this.order_shipping_status,
           })
           .then((response) => {
             if (response.data == "error") {
@@ -443,7 +453,6 @@ export default {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              console.log("response.data", response.data);
               this.$bvModal.show("modal-1");
             }
           })
@@ -513,8 +522,16 @@ export default {
         this.selected = value.customer_address_id;
       }
     },
-    selectAddress(value) {
-      this.selected_address = value;
+    selectAddress(value,order_shipping_status) {
+      if(order_shipping_status === 0){
+        this.selected_address = [];
+        this.order_shipping_status = order_shipping_status
+      }else{
+        this.selected_address = value;
+        this.order_shipping_status = order_shipping_status
+      }
+        console.log('order_shipping_status',this.order_shipping_status);
+        console.log('selected_address',this.selected_address);
     },
     updateCartQty(product, e) {
       this.$store.commit("cart/updateQty", product, e);
