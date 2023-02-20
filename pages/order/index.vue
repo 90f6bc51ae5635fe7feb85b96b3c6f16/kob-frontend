@@ -9,7 +9,7 @@
       :key="index"
       style="border: 1px solid #e5e5e5"
     >
-      <div style="border-bottom: 1px solid #e4e4e4">
+      <div class="bg-light-gray" style="border-bottom: 1px solid #e4e4e4">
         <b-row>
           <b-col cols="12" md="6">
             <div class="p-3">
@@ -129,7 +129,7 @@
         </b-row>
       </div>
 
-      <div class="text-right pr-3" style="font-size: 1.1em">
+      <div class="text-right pr-3 bg-light-gray" style="font-size: 1.1em">
         <div v-if="order.order_discount_price">
           ส่วนลด :
           <span> ฿{{ order.order_discount_price }}</span>
@@ -156,7 +156,7 @@
         </div>
       </div>
       <div
-        class="p-3"
+        class="p-3 bg-light-gray"
         style="max-width: 100%"
         v-if="
           order.order_status == 'request_check_confirm' ||
@@ -164,7 +164,7 @@
         "
         v-html="company.company_info_payment_method"
       ></div>
-      <div class="px-3 pb-3 text-right">
+      <div class="px-3 pb-3 text-right bg-light-gray">
         <b-button
           v-if="
             order.order_status == 'request_check_confirm' ||

@@ -4,23 +4,53 @@
       <h4>การซื้อของฉัน</h4>
       <hr />
 
-      <div class="mt-4" v-for="(order, index) in orders" :key="index">
+      <div
+        class="mt-4"
+        v-for="(order, index) in orders"
+        :key="index"
+        style="border: 1px solid #e5e5e5"
+      >
         <b-row no-gutters style="border-bottom: 1px solid #e4e4e4">
           <b-col cols="12" sm="7">
-            <div class="px-3 pt-3 pb-0 pb-sm-3 bg-light-yellow">
+            <div class="px-3 pt-3 pb-0 pb-sm-3 bg-light-gray">
               {{ order.order_code.toUpperCase() }}
               {{ new Date(order.order_date).toLocaleString() }}
             </div>
           </b-col>
           <b-col cols="12" sm="5">
-            <div class="px-3 pb-3 pt-sm-3 bg-light-yellow text-sm-right">
+            <div class="px-3 pb-3 pt-sm-3 bg-light-gray text-sm-right">
               <a
                 v-b-modal.modal-2
                 @click="setOrderCode(order.order_code, order)"
-                ><span style="color: #39b44f"
-                  >{{ status[order.order_status] }}
-                </span></a
               >
+                <span
+                  style="color: #39b44f"
+                  v-if="order.order_status == 'success'"
+                >
+                  {{ status[order.order_status] }}
+                </span>
+                <span
+                  style="color: #c82333"
+                  v-if="
+                    order.order_status == 'cancel' ||
+                    order.order_status == 'payment_failed' ||
+                    order.order_status == 'customer_request_cancel'
+                  "
+                >
+                  {{ status[order.order_status] }}
+                </span>
+                <span
+                  style="color: #f8b708"
+                  v-if="
+                    order.order_status == 'request_check_price' ||
+                    order.order_status == 'request-check-confirm' ||
+                    order.order_status == 'request-check-slip' ||
+                    order.order_status == 'request-check-track'
+                  "
+                >
+                  {{ status[order.order_status] }}
+                </span>
+              </a>
               |
               <span
                 style="color: #39b44f"
@@ -98,16 +128,14 @@
           </b-row>
         </div>
 
-        <div class="bg-light-gray text-right pr-3">
+        <div class="bg-light-gray text-right pr-3" style="font-size: 1.1em">
           <div>
             ยอดคำสั่งซื้อทั้งหมด :
-            <span style="font-size: 1.8em"
-              >฿{{ order.order_product_price }}</span
-            >
+            <span>฿{{ order.order_product_price }}</span>
           </div>
           <div v-if="order.order_predict_price">
             ค่าขนส่ง :
-            <span style="font-size: 1.8em"
+            <span
               >฿{{
                 order.order_predict_price - order.order_product_price
               }}</span
@@ -115,9 +143,7 @@
           </div>
           <div v-if="order.order_predict_price">
             ยอดคำสั่งซื้อรวมค่าขนส่ง :
-            <span style="font-size: 1.8em"
-              >฿{{ order.order_predict_price }}</span
-            >
+            <span>฿{{ order.order_predict_price }}</span>
           </div>
           <div v-if="order.order_box_qty">
             จำนวนลัง : {{ order.order_box_qty }}
