@@ -1,42 +1,59 @@
 <template>
   <div>
     <b-row style="margin: 0 -2em 0 -1em">
-      <b-col class="title-product" style="font-size: 16pt">ข้อมูลที่จัดส่ง</b-col>
+      <b-col class="title-product" style="font-size: 16pt"
+        >ข้อมูลที่จัดส่ง</b-col
+      >
     </b-row>
-    <b-row class="content" style="padding-top: 30px; margin: 0 -2em 0 -1.9em">
+    <b-row class="content" style="padding-top: 30px">
       <b-col class="col-content">
         <b-row class="row-button">
           <ul class="my" style="">
-            <li style="
-                        padding: 5px;
-                        color: #777777;
-                        text-align: left;
-                        padding: 5px;
-                      ">
+            <li
+              style="
+                padding: 5px;
+                color: #777777;
+                text-align: left;
+                padding: 5px;
+              "
+            >
               <nuxt-link :to="{ path: `/profile` }">
-                <font-awesome-icon :icon="['fas', 'circle-user']" style="color: #000" />
+                <font-awesome-icon
+                  :icon="['fas', 'circle-user']"
+                  style="color: #000"
+                />
                 My Details
               </nuxt-link>
             </li>
-            <li style="
-                        padding: 5px;
-                        color: #777777;
-                        text-align: left;
-                        padding: 5px;
-                      ">
+            <li
+              style="
+                padding: 5px;
+                color: #777777;
+                text-align: left;
+                padding: 5px;
+              "
+            >
               <nuxt-link :to="{ path: `/address` }">
-                <font-awesome-icon :icon="['fas', 'location-dot']" style="color: #000" />
+                <font-awesome-icon
+                  :icon="['fas', 'location-dot']"
+                  style="color: #000"
+                />
                 My address book
               </nuxt-link>
             </li>
-            <li style="
-                        padding: 5px;
-                        color: #777777;
-                        text-align: left;
-                        padding: 5px;
-                      ">
+            <li
+              style="
+                padding: 5px;
+                color: #777777;
+                text-align: left;
+                padding: 5px;
+              "
+            >
               <nuxt-link :to="{ path: `/order` }">
-                <font-awesome-icon :icon="['fas', 'bag-shopping']" style="color: #000" />
+                <font-awesome-icon
+                  :icon="['fas', 'bag-shopping']"
+                  style="color: #000"
+                />
                 My Order
               </nuxt-link>
             </li>
@@ -49,14 +66,25 @@
               <b-col class="title-product">
                 <div style="text-align: right">
                   <!-- <b-button v-b-modal.modal-1>Launch demo modal</b-button> -->
-                  <button v-b-modal.modal-1 class="btn-success btn" style="border-radius: 0px">
-                    <font-awesome-icon :icon="['fas', 'plus']" style="color: #fff" />
+                  <button
+                    v-b-modal.modal-1
+                    class="btn-success btn"
+                    style="border-radius: 0px"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'plus']"
+                      style="color: #fff"
+                    />
                     เพิ่มที่อยู่
                   </button>
                 </div>
               </b-col>
             </b-row>
-            <div style="padding: 10px" v-for="(address_, idx) in address" :key="'B' + idx">
+            <div
+              style="padding: 10px"
+              v-for="(address_, idx) in address"
+              :key="'B' + idx"
+            >
               <b-row class="row-name">
                 <b-col cols="3">ชื่อ-นามสกุล</b-col>
                 <b-col cols="5"> {{ address_.customer_name }}</b-col>
@@ -71,8 +99,10 @@
               </b-row>
               <b-row class="row-address" style="">
                 <b-col cols="3">ที่อยู่</b-col>
-                <b-col cols="9">{{ address_.customer_address }}
-                  {{ address_.customer_zipcode }}</b-col>
+                <b-col cols="9"
+                  >{{ address_.customer_address }}
+                  {{ address_.customer_zipcode }}</b-col
+                >
                 <!-- <b-col cols="1"> -->
                 <!-- <button class="btn-secondary btn" style="border-radius: 0px; margin-bottom: 10px"
                                                 v-b-modal.modal-2 @click="setAddress(address_)">
@@ -94,18 +124,28 @@
                 <!-- </b-col> -->
               </b-row>
               <b-row class="button">
-                <button class="btn-secondary btn" style="border-radius: 0px" v-b-modal.modal-2
-                  @click="setAddress(address_)">
+                <button
+                  class="btn-secondary btn"
+                  style="border-radius: 0px"
+                  v-b-modal.modal-2
+                  @click="setAddress(address_)"
+                >
                   แก้ไข
                 </button>
-                <button class="btn-secondary btn" style="border-radius: 0px; margin-left: 15px"
+                <button
+                  class="btn-secondary btn"
+                  style="border-radius: 0px; margin-left: 15px"
                   @click="updateDefaultAddress(address_.customer_address_id)"
-                  v-if="address_.customer_default_address != 1">
+                  v-if="address_.customer_default_address != 1"
+                >
                   ตั้งเป็นค่าตั้งต้น
                 </button>
-                <button class="btn-success btn" style="border-radius: 0px; margin-left: 15px"
+                <button
+                  class="btn-success btn"
+                  style="border-radius: 0px; margin-left: 15px"
                   @click="updateDefaultAddress(address_.customer_address_id)"
-                  v-if="address_.customer_default_address == 1">
+                  v-if="address_.customer_default_address == 1"
+                >
                   ตั้งเป็นค่าตั้งต้น
                 </button>
               </b-row>
@@ -116,13 +156,22 @@
     </b-row>
     <b-modal id="modal-1" title="เพิ่มที่อยู่" @ok="handleSubmit" centered>
       <div style="padding-bottom: 10px">
-        <b-form-input v-model="customer_name" placeholder="ชื่อ-นามสกุล"></b-form-input>
+        <b-form-input
+          v-model="customer_name"
+          placeholder="ชื่อ-นามสกุล"
+        ></b-form-input>
       </div>
       <div style="padding-bottom: 10px">
-        <b-form-input v-model="customer_tel" placeholder="โทรศัพท์"></b-form-input>
+        <b-form-input
+          v-model="customer_tel"
+          placeholder="โทรศัพท์"
+        ></b-form-input>
       </div>
       <div style="padding-bottom: 10px">
-        <b-form-input v-model="customer_address" placeholder="ที่อยู่"></b-form-input>
+        <b-form-input
+          v-model="customer_address"
+          placeholder="ที่อยู่"
+        ></b-form-input>
       </div>
       <!-- <div style="padding-bottom: 10px; padding-top: 10px">
                     <b-form-select v-model="selected" :options="options"></b-form-select>
@@ -131,25 +180,40 @@
                     <b-form-select v-model="selected" :options="options"></b-form-select>
                 </div> -->
       <div style="padding-bottom: 10px">
-        <b-form-input v-model="customer_zipcode" placeholder="รหัสไปรษณีย์"></b-form-input>
+        <b-form-input
+          v-model="customer_zipcode"
+          placeholder="รหัสไปรษณีย์"
+        ></b-form-input>
       </div>
     </b-modal>
 
     <b-modal id="modal-2" title="แก้ไขที่อยู่" @ok="updateAddress" centered>
       <div style="padding-bottom: 10px">
-        <b-form-input v-model="customer_name" placeholder="ชื่อ-นามสกุล"></b-form-input>
+        <b-form-input
+          v-model="customer_name"
+          placeholder="ชื่อ-นามสกุล"
+        ></b-form-input>
       </div>
       <div style="padding-bottom: 10px">
-        <b-form-input v-model="customer_tel" placeholder="โทรศัพท์"></b-form-input>
+        <b-form-input
+          v-model="customer_tel"
+          placeholder="โทรศัพท์"
+        ></b-form-input>
       </div>
       <div style="padding-bottom: 10px">
-        <b-form-input v-model="customer_address" placeholder="ที่อยู่"></b-form-input>
+        <b-form-input
+          v-model="customer_address"
+          placeholder="ที่อยู่"
+        ></b-form-input>
       </div>
       <div style="padding-bottom: 10px">
-        <b-form-input v-model="customer_zipcode" placeholder="รหัสไปรษณีย์"></b-form-input>
+        <b-form-input
+          v-model="customer_zipcode"
+          placeholder="รหัสไปรษณีย์"
+        ></b-form-input>
       </div>
     </b-modal>
-</div>
+  </div>
 </template>
 
 <script>
@@ -204,11 +268,10 @@ export default {
     };
   },
   async asyncData({ $userService, $cookies, store }) {
-
     const user = store.state.auth.user;
-    console.log('this.user ', user)
+    console.log("this.user ", user);
     const address = await $userService.user.getMemberAddress({
-      customer_code: user.customer_code
+      customer_code: user.customer_code,
     });
 
     return {
@@ -217,7 +280,6 @@ export default {
   },
   mounted() {
     this.user = this.$store.state.auth.user;
-
   },
   methods: {
     setAddress(address) {
@@ -460,6 +522,7 @@ li a:hover:not(.active) {
 .col-content {
   display: flex;
   flex-direction: row;
+  margin: 0 15px;
 }
 
 .row-button {
@@ -470,6 +533,7 @@ li a:hover:not(.active) {
 .row-content {
   width: 100%;
   border: 2px solid #e5e5e5;
+  margin-bottom: 10px;
 }
 
 .button {
@@ -479,11 +543,11 @@ li a:hover:not(.active) {
 
 /* responsive */
 @media only screen and (max-width: 496px) {
-
   /* Mobile Devices */
   .col-content {
     display: flex;
     flex-direction: column;
+    margin: 0;
   }
 
   .row-button {
@@ -493,7 +557,7 @@ li a:hover:not(.active) {
   }
 
   .row-content {
-    margin: 10px 0px 0px 7px;
+    margin: 10px 0px 15px 7px;
     width: 95%;
   }
 
@@ -503,6 +567,9 @@ li a:hover:not(.active) {
 }
 
 @media only screen and (min-width: 497px) and (max-width: 671px) {
+  .col-content {
+    margin: 0;
+  }
   .row-button {
     margin-left: 7px;
     width: 70%;
@@ -514,7 +581,10 @@ li a:hover:not(.active) {
 }
 
 @media only screen and (min-width: 672px) and (max-width: 1024px) {
-  .row-button {
+  .col-content {
+    margin: 0;
+  }
+  .col .row-button {
     margin-left: 7px;
     width: 40%;
   }
