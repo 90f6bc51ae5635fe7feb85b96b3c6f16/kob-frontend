@@ -11,7 +11,7 @@
 
     <hr class="mt-2" />
 
-    <b-row>
+    <b-row class="pr-md-3">
       <b-col md="4" lg="3" class="mt-4">
         <b-button
           variant="default"
@@ -29,8 +29,8 @@
             <b-list-group-item
               v-for="(category, idx) in categorys"
               :key="idx"
-              class="px-3 py-2"
               :href="`/product?category=${category.product_category_code}`"
+              class="px-3 py-2"
             >
               {{ category.product_category_name }}
             </b-list-group-item>
@@ -105,7 +105,7 @@
           ลบตัวกรอง
         </b-button>
       </b-col>
-      <b-col md="8" lg="9" class="mt-4">
+      <b-col md="8" lg="9" class="mt-4 pl-0 pr-0">
         <p class="text-muted">{{ showingResult }}</p>
         <b-row
           no-gutters
