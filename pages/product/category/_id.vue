@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="" style="margin: 0 -2em 0 -1em">
+    <!-- <div class="" style="margin: 0 -2em 0 -1em">
       <b-collapse
         id="example-collapse"
         style="width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto"
@@ -19,228 +19,140 @@
           </ul>
         </div>
       </b-collapse>
-    </div>
+    </div> -->
 
-    <b-row class="title-product" style="margin: -1em -2em auto -1em">
-      <b-col
-        md="6"
-        sm="12"
-        class="list-product"
-        style="font-size: 16pt; margin: auto 0 auto -0.7em"
-        v-for="(category_name, idx) in category_names.slice(0, 1)"
-        :key="'B' + idx"
-      >
-        ค้นหา : {{ category_name.product_category_name }}
+    <b-row class="mt-3">
+      <b-col md="6">
+        <div
+          v-for="(category_name, idx) in category_names.slice(0, 1)"
+          :key="'B' + idx"
+        >
+          <h4>ค้นหา : {{ category_name.product_category_name }}</h4>
+        </div>
       </b-col>
-      <b-col
-        md="6"
-        sm="12"
-        class="history-page"
-        style="font-size: 12pt; margin: auto -1em auto 0"
-      >
+      <b-col md="6" class="text-left text-md-right">
         HOME / SHOP /
         <span style="color: #888888"> SHOP SIDEBAR LEFT </span>
       </b-col>
     </b-row>
 
-    <b-row style="padding-top: 30px">
-      <b-col sm="12" md="3" class="col-fliter">
-        <div style="background-color: #f8f8f8; border: 0.2px solid #e5e5e5">
-          <b-button
-            class="d-flex justify-between mb-0"
-            block
-            v-b-toggle.collapse
-            variant="outline"
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 8px 20px;
-              font-size: 12pt;
-            "
-          >
-            CATEGORIES
-            <font-awesome-icon
-              :icon="['fas', 'angle-down']"
-              style="color: #000"
-            />
-          </b-button>
-          <b-collapse
-            id="collapse"
-            style="
-              margin: 0 0 0 0;
-              background-color: #fff;
-              max-height: 250px;
-              overflow: auto;
-            "
-          >
-            <b-list-group>
-              <b-list-group-item
-                v-for="(category, idx) in categorys"
-                :key="'B' + idx"
-                :href="`/product/category/${category.product_category_code}`"
-                style="font-size: 12pt; padding: 5px 5px 5px 20px"
-              >
-                {{ category.product_category_name }}
-              </b-list-group-item>
-            </b-list-group>
-          </b-collapse>
-        </div>
-        <b-row>
-          <b-col style="font-weight: 500; padding: 15px; font-size: 13pt"
-            >FLITER BY</b-col
-          >
-        </b-row>
-        <div style="background-color: #f8f8f8; border: 0.2px solid #e5e5e5">
-          <b-button
-            class="d-flex justify-between mb-0"
-            block
-            v-b-toggle.collapse1
-            variant="outline"
-            size="sm"
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 8px 20px;
-              font-size: 12pt;
-            "
-          >
-            BRANDS
-            <font-awesome-icon
-              :icon="['fas', 'angle-down']"
-              style="color: #000"
-            />
-          </b-button>
-          <b-collapse
-            id="collapse1"
-            style="
-              margin: 0 0 0 0;
-              background-color: #fff;
-              max-height: 250px;
-              overflow: auto;
-            "
-          >
-            <b-list-group>
-              <b-list-group-item
-                v-for="(brand, idx) in brands"
-                :key="'C' + idx"
-              >
-                <input
-                  type="checkbox"
-                  checked
-                  :name="`${brand.product_brand_code}`"
-                  :value="`${brand.product_brand_code}`"
-                  v-model="checkedNames"
-                  style="margin: 0 5px 0 10px"
-                  @change="check_brand($event)"
-                />
-                {{ brand.product_brand_name }}
-              </b-list-group-item>
-            </b-list-group>
-          </b-collapse>
-        </div>
-        <div style="background-color: #f8f8f8; border: 0.2px solid #e5e5e5">
-          <b-button
-            class="d-flex justify-between mb-0"
-            block
-            v-b-toggle.collapse2
-            variant="outline"
-            size="sm"
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 8px 20px;
-              font-size: 12pt;
-            "
-          >
-            PRICE
-            <font-awesome-icon
-              :icon="['fas', 'angle-down']"
-              style="color: #000"
-            />
-          </b-button>
-          <b-collapse id="collapse2" style="background-color: #fff">
-            <div
-              style="
-                padding-left: 11px;
-                font-size: 12pt;
-                color: #777777;
-                text-align: left;
-                padding: 5px;
-                border: 0.2px solid #e5e5e5;
-                text-align: center;
-              "
-            >
-              <input
-                placeholder="ใส่ราคาต่ำสุด"
-                v-model="min"
-                type="number"
-                style="
-                  margin-top: 0.5em;
-                  width: 80%;
-                  font-size: 12pt;
-                  border: 2px solid rgb(229, 229, 229);
-                  border-radius: 3px;
-                "
-              />
-              <p style="margin: 0.5em 0.3em 0 0.3em">ถึง</p>
-              <input
-                placeholder="ใส่ราคาสูงสุด"
-                v-model="max"
-                type="number"
-                style="
-                  margin-top: 0.5em;
-                  width: 80%;
-                  font-size: 12pt;
-                  border: 2px solid rgb(229, 229, 229);
-                  border-radius: 3px;
-                "
-              />
-              <p style="margin-top: 0.4em; text-align: center" id="demo"></p>
-              <button
-                type="submit"
-                class="btn btn-success"
-                style="width: 40%"
-                @click="check_price()"
-              >
-                ยืนยัน
-              </button>
-            </div>
-          </b-collapse>
-        </div>
-        <b-row>
-          <b-col
-            style="
-              font-weight: 500;
-              padding: 15px;
-              font-size: 13pt;
-              text-align: center;
-            "
-            ><button
-              type="submit"
-              class="btn btn-danger"
-              style="width: 80%"
-              @click="reset_filter()"
-            >
-              ลบตัวกรองสินค้าทั้งหมด
-            </button></b-col
-          >
-        </b-row>
-      </b-col>
-      <b-col class="col-product">
-        <b-col
-          class="col-card-product"
-          sm="12"
-          md="3"
-          v-for="(product, idx) in category_products"
-          :key="'E' + idx"
+    <b-row class="pr-md-3">
+      <b-col md="4" lg="3" class="mt-4">
+        <b-button
+          class="d-flex align-items-center justify-content-between mb-0"
+          block
+          v-b-toggle.collapse
+          variant="default"
         >
-          <card-product :item="product" :rating="true" />
-        </b-col>
+          CATEGORIES
+          <font-awesome-icon :icon="['fas', 'angle-down']" />
+        </b-button>
+        <b-collapse id="collapse" class="filter-list-group-panel">
+          <b-list-group class="rounded-0">
+            <b-list-group-item
+              v-for="(category, idx) in categorys"
+              :key="'B' + idx"
+              :href="`/product/category/${category.product_category_code}`"
+              class="px-3 py-2"
+            >
+              {{ category.product_category_name }}
+            </b-list-group-item>
+          </b-list-group>
+        </b-collapse>
+        <p class="mt-3">FLITER BY</p>
+        <b-button
+          variant="default"
+          class="d-flex align-items-center justify-content-between mb-0"
+          style="box-shadow: unset"
+          block
+          squared
+          v-b-toggle.collapse1
+        >
+          BRANDS
+          <font-awesome-icon :icon="['fas', 'angle-down']" />
+        </b-button>
+        <b-collapse id="collapse1" class="filter-panel">
+          <b-list-group class="rounded-0">
+            <b-list-group-item v-for="(brand, idx) in brands" :key="'C' + idx">
+              <input
+                type="checkbox"
+                checked
+                :name="`${brand.product_brand_code}`"
+                :value="`${brand.product_brand_code}`"
+                v-model="checkedNames"
+                @change="check_brand($event)"
+              />
+              {{ brand.product_brand_name }}
+            </b-list-group-item>
+          </b-list-group>
+        </b-collapse>
+        <b-button
+          variant="default"
+          class="d-flex align-items-center justify-content-between mb-0"
+          style="box-shadow: unset"
+          block
+          squared
+          v-b-toggle.collapse2
+        >
+          PRICE
+          <font-awesome-icon :icon="['fas', 'angle-down']" />
+        </b-button>
+        <b-collapse id="collapse2" class="filter-panel px-3 text-center">
+          <b-form-input
+            type="number"
+            class="mt-3"
+            v-model="min"
+            placeholder="ใส่ราคาต่ำสุด"
+          />
+          <div class="mt-3">ถึง</div>
+          <b-form-input
+            type="number"
+            class="mt-3"
+            v-model="max"
+            placeholder="ใส่ราคาสูงสุด"
+          />
+          <p id="demo"></p>
+          <b-button
+            type="submit"
+            class="mt-3"
+            variant="success"
+            @click="check_price()"
+          >
+            ยืนยัน
+          </b-button>
+        </b-collapse>
+        <b-button
+          type="submit"
+          variant="danger"
+          class="mt-2"
+          block
+          squared
+          @click="reset_filter()"
+        >
+          ลบตัวกรอง
+        </b-button>
+      </b-col>
+      <b-col class="mt-4 pl-0 pr-0">
+        <b-row
+          no-gutters
+          class="product-list justify-content-around justify-content-lg-start"
+          style="min-height: 240px"
+        >
+          <b-col
+            cols="6"
+            sm="4"
+            md="3"
+            class="pt-sm-2 py-md-0"
+            style="min-width: 210px"
+            v-for="(product, idx) in category_products"
+            :key="'E' + idx"
+          >
+            <card-product :item="product" :rating="true" />
+          </b-col>
+        </b-row>
       </b-col>
     </b-row>
+
     <b-row>
       <div
         style="
@@ -3117,239 +3029,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.col-fliter {
-  margin: -1em -2em auto -1em;
-}
 
-.col-product {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -1em -2em 0 1em;
-}
-.history-page {
-  text-align: right;
-}
-
-@media only screen and (max-width: 600px) {
-  .list-product {
-    padding-left: 30px;
-  }
-  .history-page {
-    text-align: left;
-  }
-  .col-product {
-    display: block;
-    flex-wrap: wrap;
-    margin: 0 -2em 0 0;
-  }
-
-  .col-fliter {
-    margin: auto;
-  }
-  .title-product {
-    padding: 0px 5px 0px 5px;
-  }
-}
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
-  .title-product {
-    padding: 0px 5px 0px 20px;
-  }
-
-  .row-content {
-    padding: 0px 10px 0px 5px;
-  }
-  .col-fliter {
-    margin-left: 0.1em;
-  }
-  .col-product {
-    gap: 1.5em;
-    margin-left: 1em;
-  }
-  .col-card-product {
-    min-width: 230px;
-  }
-}
-
-.left {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 59%;
-  right: 50%;
-  /* transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); */
-  text-align: center;
-}
-
-.right {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 59%;
-  left: 50%;
-  /* transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); */
-  text-align: center;
-}
-
-.left:hover .text {
-  background-color: #39b44f;
-}
-
-.right:hover .text {
-  background-color: #39b44f;
-}
-
-/* .card-product:hover {
-  box-shadow: 0 0 5px rgba(33, 33, 33, 0.5);
-  border: 1px solid #ccc;
-} */
-
-style .card-product:hover .image {
-  opacity: 0.3;
-}
-
-.card-product:hover .left {
-  opacity: 1;
-  background-color: green;
-  width: 50%;
-  border: 1px solid #eaecee;
-}
-
-.card-product:hover .right {
-  opacity: 1;
-  background-color: green;
-  width: 50%;
-  border: 1px solid #eaecee;
-}
-
-.text {
-  background-color: white;
-  color: white;
-  font-size: 16px;
-  padding: 5px 44px;
-}
-
-div {
-  font-family: "Kanit";
-}
-
-.col-card-product {
-  padding-left: 0;
-  padding-right: 0;
-  /* flex: 1 0 21%; */
-  /* explanation below */
-}
-
-.product-name {
-  margin-top: 0.3em;
-  text-align: center;
-  color: #444444;
-  font-size: 12pt;
-  /* font-family: "Myriad"; */
-  text-decoration: none !important;
-}
-
-.product-price {
-  font-weight: 500;
-  text-align: center;
-  color: #222222;
-  font-size: 12pt;
-  /* font-family: "Myriad Pro"; */
-}
-
-.text-overflow {
-  padding: 0 1em 0 1em;
-  white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.title-product {
-  padding-top: 2em;
-  font-family: "Kanit";
-  font-size: 1em;
-  font-weight: auto;
-  border-bottom: 1px solid #e4e4e4;
-  padding-bottom: 20px;
-}
-
-.carousel-wrapper {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-
-.img-wrapper img {
-  margin: auto;
-  background-image: linear-gradient(gray 100%, transparent 0);
-}
-
-.vue-star-rating {
-  justify-content: center;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  background-color: transparent;
-  border-bottom: 1px solid rgb(0 0 0 / 14%);
-  border-left: 1px solid rgb(0 0 0 / 14%);
-  border-right: 1px solid rgb(0 0 0 / 14%);
-}
-
-#example-collapse {
-  padding-right: 1.5px;
-}
-
-#example-collapse a {
-  font-size: 12pt;
-  text-align: center;
-  color: #666666;
-  display: block;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-#example-collapse a:hover {
-  color: #fff;
-  background-color: #39b44f !important;
-  box-sizing: border-box;
-}
-
-.divCheckbox {
-  display: none !important;
-}
-
-.manu-sidebar {
-  position: fixed !important;
-  font-size: 24px !important;
-  width: 50px;
-  margin-top: 12%;
-  margin-left: 2em;
-  float: right;
-  display: block;
-  text-align: center;
-}
-
-.manu-sidebar-a {
-  /* border: 0.2px solid #e5e5e5; */
-  margin-top: 5px;
-  /* background-color: #fff; */
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-</style>

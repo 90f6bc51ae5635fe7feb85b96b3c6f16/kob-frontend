@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="" style="margin: 0 -2em 0 -1em">
+    <!-- <div class="" style="margin: 0 -2em 0 -1em">
       <b-collapse
         id="example-collapse"
         style="width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto"
@@ -19,7 +19,7 @@
           </ul>
         </div>
       </b-collapse>
-    </div>
+    </div> -->
 
     <b-row class="title-product" style="margin: -1em -2em auto -1em">
       <b-col
