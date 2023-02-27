@@ -354,7 +354,7 @@ export default {
       promotion_receiveds: [],
       promotion_suggests: [],
       promotion_discount: [],
-      order_shipping_status: 0,
+      order_shipping_status: 1,
     };
   },
   async asyncData({
@@ -397,6 +397,7 @@ export default {
       if (address.customer_default_address == 1) {
         this.selected = address.customer_address_id;
         this.selected_address = address;
+        this.order_shipping_status = 1;
       }
     });
 
@@ -412,6 +413,17 @@ export default {
         let now_time = `${today.getHours()}:${
           today.getMinutes() + 1
         }:${today.getSeconds()}`;
+
+        let address = ''
+        if(this.order_shipping_status == 0){
+         address = ''
+        }else if(this.order_shipping_status != 0){
+          address = this.selected_address.customer_address +
+              " " +
+              this.selected_address.customer_zipcode +
+              " " +
+              this.selected_address.customer_tel
+        }
         await this.$axios
           .post("https://rvscs-develop.com/km-korat-web/api/order-insert/", {
             customer_code: this.user.customer_code,
@@ -419,12 +431,7 @@ export default {
             user_code: "",
             order_date: `${now_date} ${now_time}`,
             order_name: this.selected_address.customer_name,
-            order_address:
-              this.selected_address.customer_address +
-              " " +
-              this.selected_address.customer_zipcode +
-              " " +
-              this.selected_address.customer_tel,
+            order_address:address,
             order_predict_price: "",
             order_product_price: this.total_price,
             order_discount_price: this.discount,
@@ -436,6 +443,7 @@ export default {
             order_list: this.$store.state.cart.items,
             order_vat: this.order_vat,
             order_shipping_status: this.order_shipping_status,
+            addby: this.user.customer_code,
           })
           .then((response) => {
             if (response.data == "error") {
@@ -526,9 +534,11 @@ export default {
     },
     selectAddress(value, order_shipping_status) {
       if (order_shipping_status === 0) {
+        console.log('00000000000000000000000000000000000');
         this.selected_address = [];
         this.order_shipping_status = order_shipping_status;
       } else {
+        console.log('111111111111111111111111');
         this.selected_address = value;
         this.order_shipping_status = order_shipping_status;
       }
