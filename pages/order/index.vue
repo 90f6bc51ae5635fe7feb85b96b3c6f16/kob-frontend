@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-3">
     <b-row>
       <b-col class="title-product" style="font-size: 16pt">MY ORDER</b-col>
     </b-row>
@@ -43,9 +43,9 @@
                   style="color: #f8b708"
                   v-if="
                     order.order_status == 'request_check_price' ||
-                    order.order_status == 'request-check-confirm' ||
-                    order.order_status == 'request-check-slip' ||
-                    order.order_status == 'request-check-track'
+                    order.order_status == 'request_check_confirm' ||
+                    order.order_status == 'request_check_slip' ||
+                    order.order_status == 'request_check_track'
                   "
                 >
                   {{ status[order.order_status] }}
@@ -57,7 +57,11 @@
                 v-if="order.order_shipping || order.order_track_number"
               >
                 <a
-                  v-if="order.order_shipping == 'thailand-post'"
+                  v-if="
+                    order.order_shipping == 'thailand-post' &&
+                    order.order_shipping_status == 1 &&
+                    order.order_status == 'success'
+                  "
                   :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
                   target="_blank"
                 >
@@ -65,7 +69,11 @@
                   {{ order.order_track_number }}
                 </a>
                 <a
-                  v-if="order.order_shipping == 'flash'"
+                  v-if="
+                    order.order_shipping == 'flash' &&
+                    order.order_shipping_status == 1 &&
+                    order.order_status == 'success'
+                  "
                   :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
                   target="_blank"
                 >
@@ -73,17 +81,24 @@
                   {{ order.order_track_number }}
                 </a>
                 <a
-                  v-if="order.order_shipping == 'kerry'"
+                  v-if="
+                    order.order_shipping == 'kerry' &&
+                    order.order_shipping_status == 1 &&
+                    order.order_status == 'success'
+                  "
                   :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
                   target="_blank"
                 >
                   {{ order.order_shipping }}
                   {{ order.order_track_number }}
                 </a>
-
-                <a v-else>
-                  {{ order.order_shipping }}
-                  {{ order.order_track_number }}
+                <a
+                  v-if="
+                    order.order_shipping_status == 0 &&
+                    order.order_status == 'success'
+                  "
+                >
+                  รับเองที่ร้าน
                 </a>
               </span>
               <span style="color: #39b44f" v-else></span>
@@ -129,7 +144,7 @@
         </b-row>
       </div>
 
-      <div class="text-right pr-3 bg-light-gray" style="font-size: 1.1em">
+      <div class="text-right pr-3 bg-light-gray pt-3" style="font-size: 1.1em">
         <div v-if="order.order_discount_price">
           ส่วนลด :
           <span> ฿{{ order.order_discount_price }}</span>
@@ -164,7 +179,7 @@
         "
         v-html="company.company_info_payment_method"
       ></div>
-      <div class="px-3 pb-3 text-right bg-light-gray">
+      <div class="p-3 text-right bg-light-gray">
         <b-button
           v-if="
             order.order_status == 'request_check_confirm' ||
