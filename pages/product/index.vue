@@ -127,7 +127,7 @@
 
         <b-pagination
           v-model="current_page"
-          class="kg-pageination mt-5"
+          class="kg-pageination mt-5 bg-Success"
           :total-rows="total_rows"
           :per-page="per_page"
           first-number

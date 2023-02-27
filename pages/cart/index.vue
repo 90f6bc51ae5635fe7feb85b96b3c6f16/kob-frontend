@@ -184,12 +184,12 @@
                   v-slot="{ ariaDescribedby }"
                   label="เลือกที่อยู่จัดสั่ง"
                 >
-                <b-form-radio
+                  <b-form-radio
                     v-model="selected"
                     :aria-describedby="ariaDescribedby"
                     style="padding-top: 10px"
                     name="some-radios"
-                    @change="selectAddress('',0)"
+                    @change="selectAddress('', 0)"
                   >
                     {{ `รับเองที่ร้าน` }}
                     <br />
@@ -202,7 +202,7 @@
                     name="some-radios"
                     :value="address_.customer_address_id"
                     v-for="(address_, idx) in address"
-                    @change="selectAddress(address_,1)"
+                    @change="selectAddress(address_, 1)"
                     :key="'B' + idx"
                   >
                     {{ address_.customer_name }}
@@ -301,6 +301,8 @@
 </template>
 
 <script>
+import { data } from "browserslist";
+
 export default {
   name: "Homepage",
   middleware: "auth",
@@ -352,7 +354,7 @@ export default {
       promotion_receiveds: [],
       promotion_suggests: [],
       promotion_discount: [],
-      order_shipping_status : 0,
+      order_shipping_status: 0,
     };
   },
   async asyncData({
@@ -522,16 +524,16 @@ export default {
         this.selected = value.customer_address_id;
       }
     },
-    selectAddress(value,order_shipping_status) {
-      if(order_shipping_status === 0){
+    selectAddress(value, order_shipping_status) {
+      if (order_shipping_status === 0) {
         this.selected_address = [];
-        this.order_shipping_status = order_shipping_status
-      }else{
+        this.order_shipping_status = order_shipping_status;
+      } else {
         this.selected_address = value;
-        this.order_shipping_status = order_shipping_status
+        this.order_shipping_status = order_shipping_status;
       }
-        console.log('order_shipping_status',this.order_shipping_status);
-        console.log('selected_address',this.selected_address);
+      // console.log("order_shipping_status", this.order_shipping_status);
+      // console.log("selected_address", this.selected_address);
     },
     updateCartQty(product, e) {
       this.$store.commit("cart/updateQty", product, e);
