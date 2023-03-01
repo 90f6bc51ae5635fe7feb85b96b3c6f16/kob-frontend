@@ -12,13 +12,13 @@
       <div class="bg-light-gray" style="border-bottom: 1px solid #e4e4e4">
         <b-row>
           <b-col cols="12" md="6">
-            <div class="p-3">
+            <div class="px-3 pt-3 pb-0 pb-sm-3 bg-light-gray">
               {{ order.order_code.toUpperCase() }}
               {{ new Date(order.order_date).toLocaleString() }}
             </div>
           </b-col>
           <b-col cols="12" md="6">
-            <div class="p-3 text-md-right">
+            <div class="px-3 pb-3 pt-sm-3 bg-light-gray text-sm-right">
               <a
                 v-b-modal.modal-2
                 @click="setOrderCode(order.order_code, order)"
@@ -88,6 +88,18 @@
                   "
                   :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
                   target="_blank"
+                >
+                  {{ order.order_shipping }}
+                  {{ order.order_track_number }}
+                </a>
+                <a
+                  v-if="
+                    order.order_shipping != 'thailand-post' &&
+                    order.order_shipping != 'flash' &&
+                    order.order_shipping != 'kerry' &&
+                    order.order_shipping_status == 1 &&
+                    order.order_status == 'success'
+                  "
                 >
                   {{ order.order_shipping }}
                   {{ order.order_track_number }}

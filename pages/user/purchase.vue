@@ -57,7 +57,11 @@
                 v-if="order.order_shipping || order.order_track_number"
               >
                 <a
-                  v-if="order.order_shipping == 'thailand-post'"
+                  v-if="
+                    order.order_shipping == 'thailand-post' &&
+                    order.order_shipping_status == 1 &&
+                    order.order_status == 'success'
+                  "
                   :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
                   target="_blank"
                 >
@@ -65,7 +69,11 @@
                   {{ order.order_track_number }}
                 </a>
                 <a
-                  v-if="order.order_shipping == 'flash'"
+                  v-if="
+                    order.order_shipping == 'flash' &&
+                    order.order_shipping_status == 1 &&
+                    order.order_status == 'success'
+                  "
                   :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
                   target="_blank"
                 >
@@ -73,18 +81,41 @@
                   {{ order.order_track_number }}
                 </a>
                 <a
-                  v-if="order.order_shipping == 'kerry'"
+                  v-if="
+                    order.order_shipping == 'kerry' &&
+                    order.order_shipping_status == 1 &&
+                    order.order_status == 'success'
+                  "
                   :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
                   target="_blank"
                 >
                   {{ order.order_shipping }}
                   {{ order.order_track_number }}
                 </a>
-
-                <a v-else>
+                <a
+                  v-if="
+                    order.order_shipping != 'thailand-post' &&
+                    order.order_shipping != 'flash' &&
+                    order.order_shipping != 'kerry' &&
+                    order.order_shipping_status == 1 &&
+                    order.order_status == 'success'
+                  "
+                >
                   {{ order.order_shipping }}
                   {{ order.order_track_number }}
                 </a>
+                <a
+                  v-if="
+                    order.order_shipping_status == 0 &&
+                    order.order_status == 'success'
+                  "
+                >
+                  รับเองที่ร้าน
+                </a>
+                <!-- <a v-else>
+                  {{ order.order_shipping }}
+                  {{ order.order_track_number }}
+                </a> -->
               </span>
               <span style="color: #39b44f" v-else></span>
             </div>
@@ -128,7 +159,10 @@
           </b-row>
         </div>
 
-        <div class="bg-light-gray text-right pr-3" style="font-size: 1.1em">
+        <div
+          class="bg-light-gray text-right pr-3 pt-3"
+          style="font-size: 1.1em"
+        >
           <div>
             ยอดคำสั่งซื้อทั้งหมด :
             <span>฿{{ order.order_product_price }}</span>
@@ -161,7 +195,7 @@
           "
           v-html="company.company_info_payment_method"
         ></div>
-        <div class="px-3 pb-3 bg-light-gray text-right">
+        <div class="p-3 bg-light-gray text-right">
           <b-button
             v-if="
               order.order_status == 'request_check_confirm' ||
