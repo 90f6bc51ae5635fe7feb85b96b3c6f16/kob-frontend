@@ -2361,6 +2361,7 @@ export default {
       rating: 4.3,
       // checkedNames: [],
       shoppingCart: [],
+      boxTwo: "",
     };
   },
   mounted() {
@@ -2379,8 +2380,7 @@ export default {
   methods: {
     check_price() {
       if (parseInt(this.min) > parseInt(this.max)) {
-        document.getElementById("demo").innerHTML =
-          "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
+        this.showmsgBoxTwo();
       } else if (
         parseInt(this.min) <= parseInt(this.max) ||
         (this.min == "" && this.max != "") ||
@@ -2398,7 +2398,6 @@ export default {
         if (this.keyword == "") {
           this.keyword = "undefined";
         }
-        document.getElementById("demo").innerHTML = "";
         return this.$router.push(
           {
             path: `/search/page/1`,
@@ -2537,6 +2536,18 @@ export default {
         });
       }
       window.location.reload(true);
+    },
+    showmsgBoxTwo() {
+      this.boxTwo = "";
+      this.$bvModal.msgBoxOk("กรุณาใส่จำนวนเงิน น้อยสุด และ มากสุด !", {
+        title: "แจ้งเตือน !!",
+        size: "md",
+        buttonSize: "md",
+        okVariant: "primary",
+        headerClass: "p-3 border-bottom-1 text-danger font-weight-bold",
+        footerClass: "p-2 border-top-0",
+        // centered: true,
+      });
     },
   },
 };

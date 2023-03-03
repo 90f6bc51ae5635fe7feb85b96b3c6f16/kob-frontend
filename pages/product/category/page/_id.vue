@@ -36,6 +36,8 @@
       </b-col>
     </b-row>
 
+    <hr class="mt-2" />
+
     <b-row class="pr-md-3">
       <b-col md="4" lg="3" class="mt-4">
         <b-button
@@ -2835,6 +2837,7 @@ export default {
       rating: 4.3,
       // checkedNames: [],
       shoppingCart: [],
+      boxTwo: "",
     };
   },
   mounted() {
@@ -2853,8 +2856,7 @@ export default {
   methods: {
     check_price() {
       if (parseInt(this.min) > parseInt(this.max)) {
-        document.getElementById("demo").innerHTML =
-          "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
+        this.showmsgBoxTwo();
       } else if (
         parseInt(this.min) <= parseInt(this.max) ||
         (this.min == "" && this.max != "") ||
@@ -2872,7 +2874,6 @@ export default {
         if (this.category == "") {
           this.category = "undefined";
         }
-        document.getElementById("demo").innerHTML = "";
         return this.$router.push(
           {
             path: `/product/category/page/1`,
@@ -3012,7 +3013,18 @@ export default {
       }
       window.location.reload(true);
     },
+    showmsgBoxTwo() {
+      this.boxTwo = "";
+      this.$bvModal.msgBoxOk("กรุณาใส่จำนวนเงิน น้อยสุด และ มากสุด !", {
+        title: "แจ้งเตือน !!",
+        size: "md",
+        buttonSize: "md",
+        okVariant: "primary",
+        headerClass: "p-3 border-bottom-1 text-danger font-weight-bold",
+        footerClass: "p-2 border-top-0",
+        // centered: true,
+      });
+    },
   },
 };
 </script>
-

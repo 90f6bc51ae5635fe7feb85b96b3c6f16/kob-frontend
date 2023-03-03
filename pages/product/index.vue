@@ -29,7 +29,7 @@
             <b-list-group-item
               v-for="(category, idx) in categorys"
               :key="idx"
-              :href="`/product?category=${category.product_category_code}`"
+              :href="`/product/category/${category.product_category_code}`"
               class="px-3 py-2"
             >
               {{ category.product_category_name }}
@@ -84,7 +84,7 @@
             v-model="max"
             placeholder="ใส่ราคาสูงสุด"
           />
-          <p id="demo"></p>
+          <!-- <p id="demo"></p> -->
           <b-button
             type="submit"
             class="mt-3"
@@ -173,9 +173,11 @@ export default {
       keyword: "",
       min: "",
       max: "",
+      brand: "",
       current_page: 1,
       per_page: 20,
       total_rows: 0,
+      boxTwo: "",
     };
   },
   async asyncData({ $productService, query }) {
@@ -238,13 +240,64 @@ export default {
   },
   methods: {
     filterPrice() {
-      document.getElementById("demo").innerHTML = "";
-
       if (this.min && this.max && parseInt(this.min) > parseInt(this.max)) {
-        document.getElementById("demo").innerHTML =
-          "ใส่จำนวนเงิน น้อยสุด และ มากสุด !";
+        this.showmsgBoxTwo();
+      } else if (
+        parseInt(this.min) <= parseInt(this.max) ||
+        (this.min == "" && this.max != "") ||
+        (this.min != "" && this.max == "")
+      ) {
+        if (this.min == "") {
+          this.min = "undefined";
+        }
+        if (this.max == "") {
+          this.max = "undefined";
+        }
+        if (this.brand == "") {
+          this.brand = "undefined";
+        }
+        if (this.category == "") {
+          this.category = "undefined";
+        }
+        return this.$router.push(
+          {
+            path: `/product/`,
+            query: {
+              brand: this.brand,
+              min: this.min,
+              max: this.max,
+            },
+          },
+          () => {
+            this.$router.app.refresh();
+          }
+        );
       } else {
-        this.gotoPageUrl();
+        if (this.min == "") {
+          this.min = "undefined";
+        }
+        if (this.max == "") {
+          this.max = "undefined";
+        }
+        if (this.brand == "") {
+          this.brand = "undefined";
+        }
+        if (this.category == "") {
+          this.category = "undefined";
+        }
+        return this.$router.push(
+          {
+            path: `/product/`,
+            query: {
+              brand: this.brand,
+              min: this.min,
+              max: this.max,
+            },
+          },
+          () => {
+            this.$router.app.refresh();
+          }
+        );
       }
     },
     gotoPageUrl({ page }) {
@@ -271,6 +324,18 @@ export default {
     },
     resetFilter() {
       window.location.href = `/product`;
+    },
+    showmsgBoxTwo() {
+      this.boxTwo = "";
+      this.$bvModal.msgBoxOk("กรุณาใส่จำนวนเงิน น้อยสุด และ มากสุด !", {
+        title: "แจ้งเตือน !!",
+        size: "md",
+        buttonSize: "md",
+        okVariant: "primary",
+        headerClass: "p-3 border-bottom-1 text-danger font-weight-bold",
+        footerClass: "p-2 border-top-0",
+        // centered: true,
+      });
     },
   },
 };
