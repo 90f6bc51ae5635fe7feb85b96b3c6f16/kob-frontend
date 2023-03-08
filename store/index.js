@@ -1,7 +1,5 @@
 export const state = () => ({
-  app_config: {
-    is_order_able: false,
-  },
+  app_config: []
 })
 
 export const mutations = {
