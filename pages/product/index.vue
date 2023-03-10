@@ -93,6 +93,20 @@
           >
             ยืนยัน
           </b-button>
+
+          <b-modal id="my-modal" hide-footer>
+            <template #modal-title>
+              <h5 class="text-danger">แจ้งเตือน !!</h5>
+            </template>
+            <div class="d-block text-center">
+              <p>กรุณาใส่จำนวนเงิน น้อยสุด และ มากสุด !</p>
+            </div>
+            <div class="d-flex justify-content-end">
+              <b-button class="" @click="$bvModal.hide('my-modal')">
+                Close
+              </b-button>
+            </div>
+          </b-modal>
         </b-collapse>
         <b-button
           type="submit"
@@ -177,7 +191,6 @@ export default {
       current_page: 1,
       per_page: 20,
       total_rows: 0,
-      boxTwo: "",
     };
   },
   async asyncData({ $productService, query }) {
@@ -241,7 +254,7 @@ export default {
   methods: {
     filterPrice() {
       if (this.min && this.max && parseInt(this.min) > parseInt(this.max)) {
-        this.showmsgBoxTwo();
+        this.$bvModal.show("my-modal");
       } else if (
         parseInt(this.min) <= parseInt(this.max) ||
         (this.min == "" && this.max != "") ||
@@ -324,18 +337,6 @@ export default {
     },
     resetFilter() {
       window.location.href = `/product`;
-    },
-    showmsgBoxTwo() {
-      this.boxTwo = "";
-      this.$bvModal.msgBoxOk("กรุณาใส่จำนวนเงิน น้อยสุด และ มากสุด !", {
-        title: "แจ้งเตือน !!",
-        size: "md",
-        buttonSize: "md",
-        okVariant: "primary",
-        headerClass: "p-3 border-bottom-1 text-danger font-weight-bold",
-        footerClass: "p-2 border-top-0",
-        // centered: true,
-      });
     },
   },
 };
