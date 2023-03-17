@@ -46,7 +46,7 @@
           v-b-toggle.collapse
           variant="default"
         >
-          CATEGORIES
+          ประเภทสินค้า
           <font-awesome-icon :icon="['fas', 'angle-down']" />
         </b-button>
         <b-collapse id="collapse" class="filter-list-group-panel">
@@ -61,7 +61,7 @@
             </b-list-group-item>
           </b-list-group>
         </b-collapse>
-        <p class="mt-3">FLITER BY</p>
+        <p class="mt-3">ตัวกรอง</p>
         <b-button
           variant="default"
           class="d-flex align-items-center justify-content-between mb-0"
@@ -70,7 +70,7 @@
           squared
           v-b-toggle.collapse1
         >
-          BRANDS
+          ยี่ห้อสินค้า
           <font-awesome-icon :icon="['fas', 'angle-down']" />
         </b-button>
         <b-collapse id="collapse1" class="filter-panel">
@@ -96,7 +96,7 @@
           squared
           v-b-toggle.collapse2
         >
-          PRICE
+          ราคา
           <font-awesome-icon :icon="['fas', 'angle-down']" />
         </b-button>
         <b-collapse id="collapse2" class="filter-panel px-3 text-center">
@@ -152,7 +152,7 @@
         <b-row
           no-gutters
           class="product-list justify-content-around justify-content-lg-start"
-          style="min-height: 240px"
+          style="min-height: 400px"
         >
           <b-col
             cols="6"
@@ -165,2618 +165,2644 @@
           >
             <card-product :item="product" :rating="true" />
           </b-col>
+          <div
+            v-for="(count, idx) in counts"
+            :key="'F' + idx"
+            style="width: 100%"
+            class="d-flex justify-content-center align-items-center"
+          >
+            <b-row
+              v-if="count.product_count == 0"
+              class="d-flex flex-column align-items-center"
+              style="width: 250px"
+            >
+              <p>ไม่พบสินค้า</p>
+              <button
+                type="submit"
+                class="btn btn-success"
+                @click="reset_data()"
+              >
+                กลับไปหน้ารายการสินค้า
+              </button>
+            </b-row>
+          </div>
+        </b-row>
+        <b-row no-gutters>
+          <div
+            style="
+              margin-top: 1em;
+              justify-content: center;
+              list-style-type: none;
+              width: 100%;
+              display: flex;
+              padding: 1em 1em;
+              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+            "
+            v-for="(count, idx) in counts"
+            :key="'F' + idx"
+          >
+            <!-- <div
+              v-if="count.product_count == 0"
+              style="margin-top: 1em; margin-bottom: 10em; text-align: center"
+            >
+              <p>ไม่พบสินค้า</p>
+              <button
+                type="submit"
+                class="btn btn-success"
+                @click="reset_data()"
+              >
+                กลับไปหน้ารายการสินค้า
+              </button>
+            </div> -->
+            <div
+              v-if="
+                count.product_count < 1 &&
+                count.product_count > 0 &&
+                count.product_count != 0 &&
+                Math.round(count.product_count) != 1
+              "
+            >
+              <ul
+                v-if="pages == 1"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <button class="btn btn-light" style="float: right" disbled>
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div v-if="Math.round(count.product_count) == 1">
+              <ul
+                v-if="pages == 1"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <button class="btn btn-light" style="float: right" disbled>
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div v-if="Math.round(count.product_count) == 2">
+              <ul
+                v-if="pages == 1"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 2"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div v-if="Math.round(count.product_count) == 3">
+              <ul
+                v-if="pages == 1"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 2"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 3"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div v-if="Math.round(count.product_count) == 4">
+              <ul
+                v-if="pages == 1"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 2"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 3"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 4"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div v-if="Math.round(count.product_count) == 5">
+              <ul
+                v-if="pages == 1"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 4}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 4 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 2"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 3"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 4"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 5"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 4}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 4 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div v-if="Math.round(count.product_count) > 5">
+              <ul
+                v-if="pages == 1"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 4}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 4 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 2"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == 3"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="
+                  pages == Math.round(count.product_count) - 2 && pages != 3
+                "
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == Math.round(count.product_count) - 1"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+              <ul
+                v-if="pages == Math.round(count.product_count)"
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 4}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 4 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 3}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 3 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <button
+                    class="btn btn-light"
+                    style="float: left; color: #333"
+                    disbled
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </button>
+                </li>
+              </ul>
+              <ul
+                v-if="
+                  pages > 3 &&
+                  pages != Math.round(count.product_count) - 2 &&
+                  pages != Math.round(count.product_count) - 1 &&
+                  pages != Math.round(count.product_count)
+                "
+                style="
+                  margin-top: 1em;
+                  justify-content: center;
+                  list-style-type: none;
+                  width: 100%;
+                  display: flex;
+                  padding: 1em 1em;
+                  border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
+                  border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
+                "
+              >
+                <li style="margin: 0 0.5em 0 0">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-left']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages - 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages - 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <button
+                    class="btn btn-primary"
+                    style="
+                      background-color: #39b54a;
+                      color: #fff;
+                      margin-left: 4.335%;
+                      margin-right: 4.335%;
+                    "
+                    disbled
+                  >
+                    {{ pages }}
+                  </button>
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 1 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0.5em 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="margin-left: 4.335%; margin-right: 4.335%"
+                    :to="{
+                      path: `/product/category/page/${pages + 2}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                    >{{ pages + 2 }}</nuxt-link
+                  >
+                </li>
+                <li style="margin: 0 0 0 0.5em">
+                  <nuxt-link
+                    class="btn btn-outline-primary"
+                    style="float: right"
+                    :to="{
+                      path: `/product/category/page/${pages + 1}`,
+                      query: {
+                        category: category,
+                        brand: brand,
+                        min: min,
+                        max: max,
+                      },
+                    }"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      style="color: #555555; font-size: 10pt"
+                    />
+                  </nuxt-link>
+                </li>
+              </ul>
+            </div>
+          </div>
         </b-row>
       </b-col>
-    </b-row>
-
-    <b-row>
-      <div
-        style="
-          margin-top: 1em;
-          justify-content: center;
-          list-style-type: none;
-          width: 100%;
-          display: flex;
-          padding: 1em 1em;
-          border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-          border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-          border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-        "
-        v-for="(count, idx) in counts"
-        :key="'F' + idx"
-      >
-        <div
-          v-if="count.product_count == 0"
-          style="margin-top: 1em; margin-bottom: 10em; text-align: center"
-        >
-          <p>ไม่พบสินค้า</p>
-          <button type="submit" class="btn btn-success" @click="reset_data()">
-            กลับไปหน้ารายการสินค้า
-          </button>
-        </div>
-        <div
-          v-if="
-            count.product_count < 1 &&
-            count.product_count > 0 &&
-            count.product_count != 0 &&
-            Math.round(count.product_count) != 1
-          "
-        >
-          <ul
-            v-if="pages == 1"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <button class="btn btn-light" style="float: right" disbled>
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div v-if="Math.round(count.product_count) == 1">
-          <ul
-            v-if="pages == 1"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <button class="btn btn-light" style="float: right" disbled>
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div v-if="Math.round(count.product_count) == 2">
-          <ul
-            v-if="pages == 1"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 2"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div v-if="Math.round(count.product_count) == 3">
-          <ul
-            v-if="pages == 1"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 2"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 3"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div v-if="Math.round(count.product_count) == 4">
-          <ul
-            v-if="pages == 1"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 2"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 3"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 4"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div v-if="Math.round(count.product_count) == 5">
-          <ul
-            v-if="pages == 1"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 4}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 4 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 2"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 3"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 4"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 5"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 4}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 4 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-        <div v-if="Math.round(count.product_count) > 5">
-          <ul
-            v-if="pages == 1"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 4}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 4 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 2"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == 3"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == Math.round(count.product_count) - 2 && pages != 3"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == Math.round(count.product_count) - 1"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-          <ul
-            v-if="pages == Math.round(count.product_count)"
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 4}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 4 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 3}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 3 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <button
-                class="btn btn-light"
-                style="float: left; color: #333"
-                disbled
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </button>
-            </li>
-          </ul>
-          <ul
-            v-if="
-              pages > 3 &&
-              pages != Math.round(count.product_count) - 2 &&
-              pages != Math.round(count.product_count) - 1 &&
-              pages != Math.round(count.product_count)
-            "
-            style="
-              margin-top: 1em;
-              justify-content: center;
-              list-style-type: none;
-              width: 100%;
-              display: flex;
-              padding: 1em 1em;
-              border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
-              border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-          >
-            <li style="margin: 0 0.5em 0 0">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-left']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages - 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages - 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <button
-                class="btn btn-primary"
-                style="
-                  background-color: #39b54a;
-                  color: #fff;
-                  margin-left: 4.335%;
-                  margin-right: 4.335%;
-                "
-                disbled
-              >
-                {{ pages }}
-              </button>
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 1 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0.5em 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="margin-left: 4.335%; margin-right: 4.335%"
-                :to="{
-                  path: `/product/category/page/${pages + 2}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-                >{{ pages + 2 }}</nuxt-link
-              >
-            </li>
-            <li style="margin: 0 0 0 0.5em">
-              <nuxt-link
-                class="btn btn-outline-primary"
-                style="float: right"
-                :to="{
-                  path: `/product/category/page/${pages + 1}`,
-                  query: {
-                    category: category,
-                    brand: brand,
-                    min: min,
-                    max: max,
-                  },
-                }"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'angle-right']"
-                  style="color: #555555; font-size: 10pt"
-                />
-              </nuxt-link>
-            </li>
-          </ul>
-        </div>
-      </div>
     </b-row>
   </div>
 </template>

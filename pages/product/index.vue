@@ -36,7 +36,7 @@
             </b-list-group-item>
           </b-list-group>
         </b-collapse>
-        <p class="mt-3">FLITER BY</p>
+        <p class="mt-3">ตัวกรอง</p>
         <b-button
           variant="default"
           class="d-flex align-items-center justify-content-between mb-0"
@@ -45,7 +45,7 @@
           squared
           v-b-toggle.collapse1
         >
-          BRANDS
+          ยี่ห้อสินค้า
           <font-awesome-icon :icon="['fas', 'angle-down']" />
         </b-button>
         <b-collapse id="collapse1" class="filter-panel px-3 pb-3">
@@ -67,7 +67,7 @@
           squared
           v-b-toggle.collapse2
         >
-          PRICE
+          ราคา
           <font-awesome-icon :icon="['fas', 'angle-down']" />
         </b-button>
         <b-collapse id="collapse2" class="filter-panel px-3 pb-3 text-center">
@@ -124,7 +124,7 @@
         <b-row
           no-gutters
           class="product-list justify-content-around justify-content-lg-start"
-          style="min-height: 240px"
+          style="min-height: 400px"
         >
           <b-col
             cols="6"
@@ -162,7 +162,7 @@ export default {
         (val) => val.product_category_code === this.$route.query.category
       );
 
-      return category ? category.product_category_name : "CATEGORIES";
+      return category ? category.product_category_name : "ประเภทสินค้า";
     },
     showingResult() {
       if (this.total_rows == 0) {
@@ -175,9 +175,11 @@ export default {
         );
 
         if (last_result > 1) {
-          return `SHOWING ${first_result}-${last_result} OF ${this.total_rows}`;
+          return `SHOWING ${first_result}-${last_result} OF ${this.total_rows.toFixed(
+            0
+          )}`;
         } else {
-          return `SHOWING ${first_result} OF ${this.total_rows}`;
+          return `SHOWING ${first_result} OF ${this.total_rows.toFixed(0)}`;
         }
       }
     },

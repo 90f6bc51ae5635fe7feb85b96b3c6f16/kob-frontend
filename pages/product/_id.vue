@@ -25,7 +25,7 @@
     </div> -->
     <b-row class="title-product">
       <b-col md="6" class="mt-md-3 mt-3">
-        <button
+        <!-- <button
           @click=""
           class="btn"
           style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important"
@@ -44,7 +44,7 @@
             :icon="['fas', 'angle-right']"
             style="color: #555555; font-size: 10pt"
           />
-        </button>
+        </button> -->
       </b-col>
       <b-col md="6" class="mt-md-3 mt-2 text-md-right text-left">
         <div style="color: #444444; font-size: 12pt">
@@ -189,18 +189,18 @@
           >
             <b-input-group style="height: 40px">
               <b-input-group-prepend>
-                <b-btn variant="info" @click="decrement()">-</b-btn>
+                <b-btn class="btn-qty" @click="decrement()">-</b-btn>
               </b-input-group-prepend>
 
               <b-form-input
                 min="0.00"
                 :value="quantity"
                 class="text-center"
-                style="height: 100%"
+                style="height: 100%; border: 1px solid black"
               ></b-form-input>
 
               <b-input-group-append>
-                <b-btn variant="info" @click="increment()">+</b-btn>
+                <b-btn class="btn-qty" @click="increment()">+</b-btn>
               </b-input-group-append>
             </b-input-group>
           </b-col>
@@ -289,7 +289,12 @@
     </b-row>
     <div class="" style="padding-bottom: 30px">
       <b-card no-body>
-        <b-tabs pills card nav-wrapper-class="">
+        <b-tabs
+          pills
+          card
+          nav-wrapper-class=""
+          active-nav-item-class="bg-success"
+        >
           <b-tab title="DESCRIPTION" active>
             <div
               v-for="(product_mother, index) in product_mothers"
@@ -447,22 +452,22 @@
         <div class="awesome-product text-left text-sm-right">
           <button
             @click="$refs.carousel.goToPrev()"
-            class="btn"
+            class="btn-toggle"
             style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important"
           >
             <font-awesome-icon
               :icon="['fas', 'angle-left']"
-              style="color: #555555; font-size: 10pt"
+              style="font-size: 10pt"
             />
           </button>
           <button
             @click="$refs.carousel.goToNext()"
-            class="btn"
+            class="btn-toggle"
             style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important"
           >
             <font-awesome-icon
               :icon="['fas', 'angle-right']"
-              style="color: #555555; font-size: 10pt"
+              style="font-size: 10pt"
             />
           </button>
         </div>
@@ -930,5 +935,28 @@ ul {
   .Add-to-cart {
     width: 100%;
   }
+}
+
+.btn-qty {
+  color: black;
+  border: 1px solid black;
+  background: #fff;
+  font-weight: 700;
+}
+.btn-qty:hover {
+  color: #fff;
+  background: #39b44f;
+  font-weight: 700;
+  border: 1px solid black;
+}
+.btn-toggle {
+  color: black;
+  background: #fff;
+  border: 1px solid rgb(228, 228, 228);
+}
+.btn-toggle:hover {
+  color: #fff;
+  background: #39b44f;
+  border: 1px solid rgb(228, 228, 228);
 }
 </style>
