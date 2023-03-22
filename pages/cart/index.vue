@@ -7,7 +7,10 @@
       <b-col cols="6" class="text-right" style="color: #e4e4e4">
         <nuxt-link to="/" style="text-decoration: none">
           <p style="font-size: 13pt; color: #8f8888">
-            <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #8f8888" />
+            <font-awesome-icon
+              :icon="['fas', 'angle-left']"
+              style="color: #8f8888"
+            />
             กลับไปที่หน้าหลัก
           </p>
         </nuxt-link>
@@ -31,12 +34,19 @@
           <tr v-for="(product, index) in $store.state.cart.items" :key="index">
             <td>
               <div class="d-flex align-items-center">
-                <img class="cover" width="80px" height="80px" :src="`${product.product_image
-                    ? `https://rvscs-develop.com/km-korat/${product.product_image}`
-                    : `https://placeimg.com/380/200/any?${Math.floor(
-                      Math.random() * 50
-                    )}`
-                  }`" alt="product" />
+                <img
+                  class="cover"
+                  width="80px"
+                  height="80px"
+                  :src="`${
+                    product.product_image
+                      ? `https://rvscs-develop.com/km-korat/${product.product_image}`
+                      : `https://placeimg.com/380/200/any?${Math.floor(
+                          Math.random() * 50
+                        )}`
+                  }`"
+                  alt="product"
+                />
                 <span class="cart-item-name line-clamp-3">
                   {{ product.product_name }}
                 </span>
@@ -47,18 +57,38 @@
             </td>
             <td class="align-middle">
               <div class="d-flex align-items-center">
-                <b-button variant="info" squared @click="reduceCartQty(product)">-</b-button>
-                <b-input class="text-center" :value="product.amount" @keydown="keydownNumber"
-                  @change="(e) => updateCartQty(product, e)" style="width: 60px" />
-                <b-button variant="info" squared @click="addCartItem(product)">+</b-button>
+                <b-input-group-prepend>
+                  <b-btn class="btn-qty" squared @click="reduceCartQty(product)"
+                    >-</b-btn
+                  >
+                </b-input-group-prepend>
+                <b-form-input
+                  class="text-center"
+                  :value="product.amount"
+                  @keydown="keydownNumber"
+                  @change="(e) => updateCartQty(product, e)"
+                  style="
+                    width: 60px;
+                    border-top: 1px solid black;
+                    border-bottom: 1px solid black;
+                  "
+                ></b-form-input>
+                <b-input-group-prepend>
+                  <b-btn class="btn-qty" squared @click="addCartItem(product)"
+                    >+</b-btn
+                  >
+                </b-input-group-prepend>
               </div>
             </td>
             <td class="align-middle text-center">
               ฿{{ product.product_price * product.amount }}
             </td>
             <td class="align-middle text-center">
-              <button class="btn" @click="removeCartItem(product)">
-                <font-awesome-icon :icon="['fas', 'circle-xmark']" style="color: red" />
+              <button class="btn p-0" @click="removeCartItem(product)">
+                <font-awesome-icon
+                  :icon="['fas', 'circle-xmark']"
+                  style="color: red; font-size: 25px"
+                />
               </button>
             </td>
           </tr>
@@ -66,32 +96,55 @@
       </table>
     </div>
     <b-row>
-      <b-alert show variant="success" v-for="promotion_received in promotion_receiveds"
-        :key="promotion_received.promotion_code" style="width: 100%">
+      <b-alert
+        show
+        variant="success"
+        v-for="promotion_received in promotion_receiveds"
+        :key="promotion_received.promotion_code"
+        style="width: 100%"
+      >
         {{ promotion_received.promotion_received_name }}
       </b-alert>
-      <b-alert show variant="success" v-for="promotion_suggest in promotion_suggests"
-        :key="promotion_suggest.promotion_code" style="width: 100%">
+      <b-alert
+        show
+        variant="success"
+        v-for="promotion_suggest in promotion_suggests"
+        :key="promotion_suggest.promotion_code"
+        style="width: 100%"
+      >
         <h5>{{ promotion_suggest.promotion_name }}</h5>
         <h5>{{ promotion_suggest.promotion_suggest_name }}</h5>
       </b-alert>
     </b-row>
     <b-row>
       <b-col cols="12" md="6" class="d-flex align-items-center mt-2 mt-md-0">
-        <input type="text" class="pl-2 mr-1 mr-sm-2" placeholder="รหัสคูปอง"
-          style="border: 1px solid #f2f2f2; height: 48px" />
-        <b-button class="apply-coupon-button" variant="light" style="
+        <input
+          type="text"
+          class="pl-2 mr-1 mr-sm-2"
+          placeholder="รหัสคูปอง"
+          style="border: 1px solid #f2f2f2; height: 48px"
+        />
+        <b-button
+          class="apply-coupon-button"
+          variant="light"
+          style="
                                 height: 48px
                                 border: 1px solid #f2f2f2;
                                 background-color: #f2f2f2;
                                 color: #a6a6a6;
                                 min-width: 140px;
-                              ">
+                              "
+        >
           ใช้คูปอง
         </b-button>
       </b-col>
       <b-col cols="12" md="6" class="mt-2 mt-md-0 text-md-right">
-        <b-button class="ml-auto" variant="warning" squared style="height: 48px">
+        <b-button
+          class="ml-auto"
+          variant="warning"
+          squared
+          style="height: 48px"
+        >
           อัปเดตตะกร้าสินค้า
         </b-button>
       </b-col>
@@ -102,32 +155,64 @@
           <h5 class="mb-4">ยอดรวมของตะกร้าสินค้า</h5>
           <table class="table table-bordered">
             <tr>
-              <td width="50%" class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                width="50%"
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ใบกำกับภาษี
               </td>
               <td>
-                <b-form-checkbox id="checkbox-1" v-model="order_vat" name="checkbox-1" value="1" unchecked-value="0">
+                <b-form-checkbox
+                  id="checkbox-1"
+                  v-model="order_vat"
+                  name="checkbox-1"
+                  value="1"
+                  unchecked-value="0"
+                >
                   ขอใบกำกับภาษี (กรุณาติดต่อทางร้าน)
                 </b-form-checkbox>
-                <b-form-textarea v-model="order_invoice_address" placeholder="ข้อมูลใบกำกับภาษี" rows="5"
-                  max-rows="5"></b-form-textarea>
+                <b-form-textarea
+                  v-model="order_invoice_address"
+                  placeholder="ข้อมูลใบกำกับภาษี"
+                  rows="5"
+                  max-rows="5"
+                ></b-form-textarea>
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ที่อยู่จัดส่ง
               </td>
               <td>
-                <b-form-group v-slot="{ ariaDescribedby }" label="เลือกที่อยู่จัดสั่ง">
-                  <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" style="padding-top: 10px"
-                    name="some-radios" @change="selectAddress('', 0)">
+                <b-form-group
+                  v-slot="{ ariaDescribedby }"
+                  label="เลือกที่อยู่จัดสั่ง"
+                >
+                  <b-form-radio
+                    v-model="selected"
+                    :aria-describedby="ariaDescribedby"
+                    style="padding-top: 10px"
+                    name="some-radios"
+                    @change="selectAddress('', 0)"
+                  >
                     {{ `รับเองที่ร้าน` }}
                     <br />
                   </b-form-radio>
 
-                  <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" style="padding-top: 10px"
-                    name="some-radios" :value="address_.customer_address_id" v-for="(address_, idx) in address"
-                    @change="selectAddress(address_, 1)" :key="'B' + idx">
+                  <b-form-radio
+                    v-model="selected"
+                    :aria-describedby="ariaDescribedby"
+                    style="padding-top: 10px"
+                    name="some-radios"
+                    :value="address_.customer_address_id"
+                    v-for="(address_, idx) in address"
+                    @change="selectAddress(address_, 1)"
+                    :key="'B' + idx"
+                  >
                     {{ address_.customer_name }}
                     <br />
                     {{ address_.customer_address }}
@@ -138,7 +223,10 @@
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ส่วนลด
               </td>
               <td>
@@ -149,33 +237,57 @@
               </td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ยอดรวมก่อนหัก
               </td>
               <td>฿{{ cartSubTotalPrice }}</td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ราคาส่วนลด
               </td>
               <td>฿{{ discountPrice }}</td>
             </tr>
             <tr>
-              <td class="d-none d-md-table-cell" style="background-color: rgb(248, 248, 248)">
+              <td
+                class="d-none d-md-table-cell"
+                style="background-color: rgb(248, 248, 248)"
+              >
                 ยอดรวมทั้งหมด
               </td>
               <td>฿{{ cartTotalPrice }}</td>
             </tr>
           </table>
-          <b-button variant="success" size="lg" class="mb-2" block squared @click="_submitData()">
+          <b-button
+            variant="success"
+            size="lg"
+            class="mb-2"
+            block
+            squared
+            @click="_submitData()"
+          >
             สั่งซื้อสินค้า
           </b-button>
         </div>
       </b-col>
     </b-row>
 
-    <b-modal id="modal-1" title="สั่งซื้อเรียบร้อย" centered hide-footer @hidden="gotoOrderPage()" no-close-on-esc
-      no-close-on-backdrop hide-header-close>
+    <b-modal
+      id="modal-1"
+      title="สั่งซื้อเรียบร้อย"
+      centered
+      hide-footer
+      @hidden="gotoOrderPage()"
+      no-close-on-esc
+      no-close-on-backdrop
+      hide-header-close
+    >
       <div id="preview">
         <img src="~/assets/qr1.png" />
       </div>
@@ -189,7 +301,9 @@
         </div>
         <div><b>เบอร์โทรศัพท์ : </b><span>099-461-9241</span></div>
       </div>
-      <b-button class="mt-3 btn-success" block @click="gotoOrderPage()">ไปที่คำสั่งซื้อ</b-button>
+      <b-button class="mt-3 btn-success" block @click="gotoOrderPage()"
+        >ไปที่คำสั่งซื้อ</b-button
+      >
     </b-modal>
   </div>
 </template>
@@ -298,24 +412,26 @@ export default {
   },
   methods: {
     async _submitData() {
-
       if (this.$store.state.app_config.cart_status) {
         try {
           let today = new Date();
-          let now_date = `${today.getFullYear()}-${today.getMonth() + 1
-            }-${today.getDate()}`;
-          let now_time = `${today.getHours()}:${today.getMinutes() + 1
-            }:${today.getSeconds()}`;
+          let now_date = `${today.getFullYear()}-${
+            today.getMonth() + 1
+          }-${today.getDate()}`;
+          let now_time = `${today.getHours()}:${
+            today.getMinutes() + 1
+          }:${today.getSeconds()}`;
 
-          let address = ''
+          let address = "";
           if (this.order_shipping_status == 0) {
-            address = ''
+            address = "";
           } else if (this.order_shipping_status != 0) {
-            address = this.selected_address.customer_address +
+            address =
+              this.selected_address.customer_address +
               " " +
               this.selected_address.customer_zipcode +
               " " +
-              this.selected_address.customer_tel
+              this.selected_address.customer_tel;
           }
           await this.$axios
             .post("https://rvscs-develop.com/km-korat-web/api/order-insert/", {
@@ -368,7 +484,7 @@ export default {
         }
       } else {
         this.$swal.fire({
-          icon: 'info',
+          icon: "info",
           title: "Coming soon",
           text: "Coming soon",
         });
@@ -434,11 +550,11 @@ export default {
     },
     selectAddress(value, order_shipping_status) {
       if (order_shipping_status === 0) {
-        console.log('00000000000000000000000000000000000');
+        console.log("00000000000000000000000000000000000");
         this.selected_address = [];
         this.order_shipping_status = order_shipping_status;
       } else {
-        console.log('111111111111111111111111');
+        console.log("111111111111111111111111");
         this.selected_address = value;
         this.order_shipping_status = order_shipping_status;
       }
@@ -505,5 +621,15 @@ ul {
   border-bottom: 1px solid rgb(0 0 0 / 14%);
   border-left: 1px solid rgb(0 0 0 / 14%);
   border-right: 1px solid rgb(0 0 0 / 14%);
+}
+.btn-qty {
+  background: #fff;
+  color: black;
+  font-weight: 700;
+}
+.btn-qty:hover {
+  background: #39b54a;
+  color: #fff;
+  font-weight: 700;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="" style="margin: 0 -2em 0 -1em">
+    <!-- <div class="" style="margin: 0 -2em 0 -1em">
       <b-collapse
         id="example-collapse"
         style="width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto"
@@ -22,60 +22,42 @@
           </ul>
         </div>
       </b-collapse>
-    </div>
-    <b-row style="margin: 0 -2em 0 -1em">
+    </div> -->
+    <b-row class="mt-3">
       <b-col class="title-product" style="font-size: 16pt">ข้อมูลผู้ใช้</b-col>
     </b-row>
-    <b-row class="content" style="padding-top: 30px">
+
+    <hr class="mt-2" />
+
+    <b-row class="content pb-3 pt-3">
       <b-col class="col-content">
         <b-row class="row-button">
           <ul class="my" style="">
-            <li
-              style="
-                padding: 5px;
-                color: #777777;
-                text-align: left;
-                padding: 5px;
-              "
-            >
+            <li style="color: #777777; text-align: left">
               <nuxt-link :to="{ path: `/profile` }">
                 <font-awesome-icon
                   :icon="['fas', 'circle-user']"
                   style="color: #000"
                 />
-                My Details
+                ข้อมูลผู้ใช้
               </nuxt-link>
             </li>
-            <li
-              style="
-                padding: 5px;
-                color: #777777;
-                text-align: left;
-                padding: 5px;
-              "
-            >
+            <li style="color: #777777; text-align: left">
               <nuxt-link :to="{ path: `/address` }">
                 <font-awesome-icon
                   :icon="['fas', 'location-dot']"
                   style="color: #000"
                 />
-                My address book
+                ข้อมูลที่จัดส่ง
               </nuxt-link>
             </li>
-            <li
-              style="
-                padding: 5px;
-                color: #777777;
-                text-align: left;
-                padding: 5px;
-              "
-            >
+            <li style="color: #777777; text-align: left">
               <nuxt-link :to="{ path: `/order` }">
                 <font-awesome-icon
                   :icon="['fas', 'bag-shopping']"
                   style="color: #000"
                 />
-                My Order
+                การซื้อของฉัน
               </nuxt-link>
             </li>
           </ul>
@@ -144,7 +126,7 @@
             <b-row class="row-form">
               <b-col class="col-form">
                 <b-button
-                  variant="primary"
+                  variant="success"
                   size="md"
                   style="padding-left: 40px; padding-right: 40px"
                   @click="updateCustomer()"
@@ -267,7 +249,7 @@ div {
   width: 100%;
   background-color: transparent;
   border: 1px solid #adadad;
-  height: 155px;
+  height: 124px;
 }
 
 li a {
@@ -347,17 +329,21 @@ li a.active {
 }
 
 li a:hover:not(.active) {
-  background-color: #39b44f;
+  background-color: #04aa6d;
   color: white;
 }
+li a.nuxt-link-active {
+  background: #39b44f;
+  color: #fff;
+}
 
-.title-product {
+/* .title-product {
   padding-top: 1em;
   font-family: "Kanit";
   font-weight: 500;
   border-bottom: 1px solid #e4e4e4;
   padding-bottom: 20px;
-}
+} */
 
 .col-content {
   display: flex;
@@ -409,16 +395,6 @@ li a:hover:not(.active) {
   .row-form {
     display: flex;
     flex-direction: column;
-  }
-
-  .my {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: transparent;
-    border: 1px solid #adadad;
-    height: 155px;
   }
 }
 

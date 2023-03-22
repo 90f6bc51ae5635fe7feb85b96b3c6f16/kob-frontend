@@ -1,60 +1,39 @@
 <template>
   <div>
-    <b-row style="margin: 0 -2em 0 -1em">
-      <b-col class="title-product" style="font-size: 16pt"
-        >ข้อมูลที่จัดส่ง</b-col
-      >
+    <b-row class="mt-3">
+      <b-col style="font-size: 16pt">ข้อมูลที่จัดส่ง</b-col>
     </b-row>
-    <b-row class="content" style="padding-top: 30px">
+
+    <hr class="mt-2" />
+    <b-row class="content pb-3 pt-3">
       <b-col class="col-content">
         <b-row class="row-button">
           <ul class="my" style="">
-            <li
-              style="
-                padding: 5px;
-                color: #777777;
-                text-align: left;
-                padding: 5px;
-              "
-            >
+            <li style="color: #777777; text-align: left">
               <nuxt-link :to="{ path: `/profile` }">
                 <font-awesome-icon
                   :icon="['fas', 'circle-user']"
                   style="color: #000"
                 />
-                My Details
+                ข้อมูลผู้ใช้
               </nuxt-link>
             </li>
-            <li
-              style="
-                padding: 5px;
-                color: #777777;
-                text-align: left;
-                padding: 5px;
-              "
-            >
+            <li style="color: #777777; text-align: left">
               <nuxt-link :to="{ path: `/address` }">
                 <font-awesome-icon
                   :icon="['fas', 'location-dot']"
                   style="color: #000"
                 />
-                My address book
+                ข้อมูลที่จัดส่ง
               </nuxt-link>
             </li>
-            <li
-              style="
-                padding: 5px;
-                color: #777777;
-                text-align: left;
-                padding: 5px;
-              "
-            >
+            <li style="color: #777777; text-align: left">
               <nuxt-link :to="{ path: `/order` }">
                 <font-awesome-icon
                   :icon="['fas', 'bag-shopping']"
                   style="color: #000"
                 />
-                My Order
+                การซื้อของฉัน
               </nuxt-link>
             </li>
           </ul>
@@ -445,7 +424,7 @@ export default {
   width: 100%;
   background-color: transparent;
   border: 1px solid #adadad;
-  height: 155px;
+  height: 124px;
 }
 
 li a {
@@ -506,8 +485,12 @@ li a.active {
 }
 
 li a:hover:not(.active) {
-  background-color: #39b54a;
+  background-color: #04aa6d;
   color: white;
+}
+li a.nuxt-link-active {
+  background: #39b54a;
+  color: #fff;
 }
 
 .title-product {
