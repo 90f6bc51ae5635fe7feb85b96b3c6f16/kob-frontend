@@ -5,43 +5,42 @@
     </b-row>
 
     <hr class="mt-2" />
+
     <b-row class="row-header" no-gutters style="height: 50px">
       <b-col class="">
         <div
           class="row-header-content d-flex justify-content-between align-items-center"
         >
           <nuxt-link
+            active-class=""
             :to="{ path: `/order` }"
             class="header d-flex justify-content-center align-items-center"
             style="width: 100%; height: 50px"
-            @click="countorder()"
             >ทั้งหมด
+            <span class="notification-badge" v-if="hasnotificationcount">
+              ({{ notificationcount }})
+            </span>
           </nuxt-link>
           <nuxt-link
-            active-class=""
             :to="{ path: `/order/payment` }"
             class="header d-flex justify-content-center align-items-center"
             style="width: 100%; height: 50px"
-            >ที่ต้องชำระ
-            <span class="notification-badge" v-if="paymentordercount > 0"
-              >({{ paymentcount }})
-            </span>
-          </nuxt-link>
+            >ที่ต้องชำระ</nuxt-link
+          >
           <nuxt-link
             :to="{ path: `/order/delivery` }"
             class="header d-flex justify-content-center align-items-center"
             style="width: 100%; height: 50px"
             >ที่ต้องจัดส่ง
             <span class="notification-badge" v-if="deliveryordercount > 0"
-              >({{ deliverycount }})
-            </span>
+              >({{ deliverycount }})</span
+            >
           </nuxt-link>
           <nuxt-link
             :to="{ path: `/order/success` }"
             class="header d-flex justify-content-center align-items-center"
             style="width: 100%; height: 50px"
-          >
-            สำเร็จแล้ว
+            >สำเร็จแล้ว
             <span class="notification-badge" v-if="successordercount > 0">
               ({{ successfulcount }})
             </span>
@@ -68,227 +67,217 @@
       </b-col>
     </b-row>
 
-    <div
-      class="mt-4"
-      v-for="(order, index) in orders"
-      :key="index"
-      style="border: 1px solid #e5e5e5"
-    >
-      <div class="bg-light-gray" style="border-bottom: 1px solid #e4e4e4">
-        <b-row>
-          <b-col cols="12" md="6">
-            <div class="px-3 pt-3 pb-0 pb-sm-3 bg-light-gray">
-              {{ order.order_code.toUpperCase() }}
-              {{ new Date(order.order_date).toLocaleString() }}
-            </div>
-          </b-col>
-          <b-col cols="12" md="6">
-            <div class="px-3 pb-3 pt-sm-3 bg-light-gray text-sm-right">
-              <a
-                v-b-modal.modal-2
-                @click="setOrderCode(order.order_code, order)"
-              >
+    <div class="mt-4" v-for="(order, index) in orders" :key="index">
+      <div
+        v-if="
+          order.order_status == 'request_check_price' ||
+          order.order_status == 'request_check_confirm'
+        "
+        style="border: 1px solid #e5e5e5"
+      >
+        <div class="bg-light-gray" style="border-bottom: 1px solid #e4e4e4">
+          <b-row>
+            <b-col cols="12" md="6">
+              <div class="px-3 pt-3 pb-0 pb-sm-3 bg-light-gray">
+                {{ order.order_code.toUpperCase() }}
+                {{ new Date(order.order_date).toLocaleString() }}
+              </div>
+            </b-col>
+            <b-col cols="12" md="6">
+              <div class="px-3 pb-3 pt-sm-3 bg-light-gray text-sm-right">
+                <a
+                  v-b-modal.modal-2
+                  @click="setOrderCode(order.order_code, order)"
+                >
+                  <span
+                    style="color: #f8b708"
+                    v-if="
+                      order.order_status == 'request_check_price' ||
+                      order.order_status == 'request_check_confirm'
+                    "
+                  >
+                    {{ status[order.order_status] }}
+                  </span>
+                </a>
+                |
                 <span
                   style="color: #39b44f"
-                  v-if="order.order_status == 'success'"
+                  v-if="order.order_shipping || order.order_track_number"
                 >
-                  {{ status[order.order_status] }}
+                  <a
+                    v-if="
+                      order.order_shipping == 'thailand-post' &&
+                      order.order_shipping_status == 1 &&
+                      order.order_status == 'success'
+                    "
+                    :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
+                    target="_blank"
+                  >
+                    {{ order.order_shipping }}
+                    {{ order.order_track_number }}
+                  </a>
+                  <a
+                    v-if="
+                      order.order_shipping == 'flash' &&
+                      order.order_shipping_status == 1 &&
+                      order.order_status == 'success'
+                    "
+                    :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
+                    target="_blank"
+                  >
+                    {{ order.order_shipping }}
+                    {{ order.order_track_number }}
+                  </a>
+                  <a
+                    v-if="
+                      order.order_shipping == 'kerry' &&
+                      order.order_shipping_status == 1 &&
+                      order.order_status == 'success'
+                    "
+                    :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
+                    target="_blank"
+                  >
+                    {{ order.order_shipping }}
+                    {{ order.order_track_number }}
+                  </a>
+                  <a
+                    v-if="
+                      order.order_shipping != 'thailand-post' &&
+                      order.order_shipping != 'flash' &&
+                      order.order_shipping != 'kerry' &&
+                      order.order_shipping_status == 1 &&
+                      order.order_status == 'success'
+                    "
+                  >
+                    {{ order.order_shipping }}
+                    {{ order.order_track_number }}
+                  </a>
+                  <a
+                    v-if="
+                      order.order_shipping_status == 0 &&
+                      order.order_status == 'success'
+                    "
+                  >
+                    รับเองที่ร้าน
+                  </a>
                 </span>
-                <span
-                  style="color: #c82333"
-                  v-if="
-                    order.order_status == 'cancel' ||
-                    order.order_status == 'payment_failed' ||
-                    order.order_status == 'customer_request_cancel'
-                  "
-                >
-                  {{ status[order.order_status] }}
+                <span style="color: #39b44f" v-else></span>
+              </div>
+            </b-col>
+          </b-row>
+        </div>
+        <div
+          v-for="(order_list, index) in order.order_lists"
+          :key="index"
+          style="border-bottom: 1px solid #ccc"
+        >
+          <b-row>
+            <b-col sm="8">
+              <div class="d-flex p-3">
+                <img
+                  class="cover"
+                  width="90"
+                  height="90"
+                  :src="`${
+                    order_list.product_image
+                      ? `https://rvscs-develop.com/km-korat/${order_list.product_image}`
+                      : `https://placeimg.com/380/200/any?${Math.floor(
+                          Math.random() * 50
+                        )}`
+                  }`"
+                  alt="product"
+                />
+                <span class="ml-4">
+                  <div>{{ order_list.order_list_name }}</div>
+                  <div>
+                    ฿{{ order_list.order_list_price }} x
+                    {{ order_list.order_list_qty }}
+                  </div>
                 </span>
-                <span
-                  style="color: #f8b708"
-                  v-if="
-                    order.order_status == 'request_check_price' ||
-                    order.order_status == 'request_check_confirm' ||
-                    order.order_status == 'request_check_slip' ||
-                    order.order_status == 'request_check_track'
-                  "
-                >
-                  {{ status[order.order_status] }}
-                </span>
-              </a>
-              |
-              <span
-                style="color: #39b44f"
-                v-if="order.order_shipping || order.order_track_number"
-              >
-                <a
-                  v-if="
-                    order.order_shipping == 'thailand-post' &&
-                    order.order_shipping_status == 1 &&
-                    order.order_status == 'success'
-                  "
-                  :href="`https://track.thailandpost.co.th/?trackNumber=${order.order_track_number}`"
-                  target="_blank"
-                >
-                  {{ order.order_shipping }}
-                  {{ order.order_track_number }}
-                </a>
-                <a
-                  v-if="
-                    order.order_shipping == 'flash' &&
-                    order.order_shipping_status == 1 &&
-                    order.order_status == 'success'
-                  "
-                  :href="`https://www.flashexpress.co.th/fle/tracking?se=${order.order_track_number}`"
-                  target="_blank"
-                >
-                  {{ order.order_shipping }}
-                  {{ order.order_track_number }}
-                </a>
-                <a
-                  v-if="
-                    order.order_shipping == 'kerry' &&
-                    order.order_shipping_status == 1 &&
-                    order.order_status == 'success'
-                  "
-                  :href="`https://th.kerryexpress.com/en/track/?track=${order.order_track_number}`"
-                  target="_blank"
-                >
-                  {{ order.order_shipping }}
-                  {{ order.order_track_number }}
-                </a>
-                <a
-                  v-if="
-                    order.order_shipping != 'thailand-post' &&
-                    order.order_shipping != 'flash' &&
-                    order.order_shipping != 'kerry' &&
-                    order.order_shipping_status == 1 &&
-                    order.order_status == 'success'
-                  "
-                >
-                  {{ order.order_shipping }}
-                  {{ order.order_track_number }}
-                </a>
-                <a
-                  v-if="
-                    order.order_shipping_status == 0 &&
-                    order.order_status == 'success'
-                  "
-                >
-                  รับเองที่ร้าน
-                </a>
-              </span>
-              <span style="color: #39b44f" v-else></span>
-            </div>
-          </b-col>
-        </b-row>
-      </div>
-      <div
-        v-for="(order_list, index) in order.order_lists"
-        :key="index"
-        style="border-bottom: 1px solid #ccc"
-      >
-        <b-row>
-          <b-col sm="8">
-            <div class="d-flex p-3">
-              <img
-                class="cover"
-                width="90"
-                height="90"
-                :src="`${
-                  order_list.product_image
-                    ? `https://rvscs-develop.com/km-korat/${order_list.product_image}`
-                    : `https://placeimg.com/380/200/any?${Math.floor(
-                        Math.random() * 50
-                      )}`
-                }`"
-                alt="product"
-              />
-              <span class="ml-4">
-                <div>{{ order_list.order_list_name }}</div>
-                <div>
-                  ฿{{ order_list.order_list_price }} x
-                  {{ order_list.order_list_qty }}
-                </div>
-              </span>
-            </div>
-          </b-col>
-          <b-col sm="4">
-            <div class="p-sm-3 pt-0 pb-3 px-3 text-right">
-              ฿{{ order_list.order_list_total_price }}
-            </div>
-          </b-col>
-        </b-row>
-      </div>
+              </div>
+            </b-col>
+            <b-col sm="4">
+              <div class="p-sm-3 pt-0 pb-3 px-3 text-right">
+                ฿{{ order_list.order_list_total_price }}
+              </div>
+            </b-col>
+          </b-row>
+        </div>
 
-      <div class="text-right pr-3 bg-light-gray pt-3" style="font-size: 1.1em">
-        <div v-if="order.order_discount_price">
-          ส่วนลด :
-          <span> ฿{{ order.order_discount_price }}</span>
+        <div
+          class="text-right pr-3 bg-light-gray pt-3"
+          style="font-size: 1.1em"
+        >
+          <div v-if="order.order_discount_price">
+            ส่วนลด :
+            <span> ฿{{ order.order_discount_price }}</span>
+          </div>
+          <div>
+            ยอดคำสั่งซื้อทั้งหมด :
+            <span>฿{{ order.order_product_price }}</span>
+          </div>
+          <div v-if="order.order_predict_price">
+            ค่าขนส่ง :
+            <span
+              >฿{{
+                order.order_predict_price - order.order_product_price
+              }}</span
+            >
+          </div>
+          <div v-if="order.order_predict_price">
+            ยอดคำสั่งซื้อรวมค่าขนส่ง :
+            <span>฿{{ order.order_predict_price }}</span>
+          </div>
+          <div v-if="order.order_box_qty">
+            จำนวนลัง : {{ order.order_box_qty }}
+          </div>
+          <div v-if="order.order_vat" style="color: green">
+            ขอใบกำกับภาษี {{ order.order_invoice_address }}
+          </div>
         </div>
-        <div>
-          ยอดคำสั่งซื้อทั้งหมด :
-          <span>฿{{ order.order_product_price }}</span>
-        </div>
-        <div v-if="order.order_predict_price">
-          ค่าขนส่ง :
-          <span
-            >฿{{ order.order_predict_price - order.order_product_price }}</span
-          >
-        </div>
-        <div v-if="order.order_predict_price">
-          ยอดคำสั่งซื้อรวมค่าขนส่ง :
-          <span>฿{{ order.order_predict_price }}</span>
-        </div>
-        <div v-if="order.order_box_qty">
-          จำนวนลัง : {{ order.order_box_qty }}
-        </div>
-        <div v-if="order.order_vat" style="color: green">
-          ขอใบกำกับภาษี {{ order.order_invoice_address }}
-        </div>
-      </div>
-      <div
-        class="p-3 bg-light-gray"
-        style="max-width: 100%"
-        v-if="
-          order.order_status == 'request_check_confirm' ||
-          order.order_status == 'request_check_slip'
-        "
-        v-html="company.company_info_payment_method"
-      ></div>
-      <div class="p-3 text-right bg-light-gray">
-        <b-button
+        <div
+          class="p-3 bg-light-gray"
+          style="max-width: 100%"
           v-if="
             order.order_status == 'request_check_confirm' ||
             order.order_status == 'request_check_slip'
           "
-          variant="success"
-          squared
-          v-b-modal.modal-1
-          @click="setOrderCode(order.order_code, order)"
-        >
-          แนบเอกสารการโอน
-        </b-button>
-        <b-button
-          variant="danger"
-          squared
-          v-if="
-            order.order_status != 'success' &&
-            order.order_status != 'customer_request_cancel' &&
-            order.order_status != 'cancel'
-          "
-          @click="setOrderCode(order.order_code, order), showCancelOrder()"
-        >
-          ยกเลิกออร์เดอร์
-        </b-button>
-        <b-button variant="primary" squared @click="gotoContact">
-          ติดต่อผู้ขาย
-        </b-button>
+          v-html="company.company_info_payment_method"
+        ></div>
+        <div class="p-3 text-right bg-light-gray">
+          <b-button
+            v-if="
+              order.order_status == 'request_check_confirm' ||
+              order.order_status == 'request_check_slip'
+            "
+            variant="success"
+            squared
+            v-b-modal.modal-1
+            @click="setOrderCode(order.order_code, order)"
+          >
+            แนบเอกสารการโอน
+          </b-button>
+          <b-button
+            variant="danger"
+            squared
+            v-if="
+              order.order_status != 'success' &&
+              order.order_status != 'customer_request_cancel' &&
+              order.order_status != 'cancel'
+            "
+            @click="setOrderCode(order.order_code, order), showCancelOrder()"
+          >
+            ยกเลิกออร์เดอร์
+          </b-button>
+          <b-button variant="primary" squared @click="gotoContact">
+            ติดต่อผู้ขาย
+          </b-button>
+        </div>
       </div>
     </div>
 
     <div
-      v-if="orders.length == 0"
+      v-if="paymentordercount == 0"
       class="d-flex flex-column align-items-center justify-content-center"
       style="height: 600px"
     >
@@ -449,8 +438,9 @@
 </template>
 
 <script>
+import path from "path";
+
 export default {
-  name: "Homepage",
   middleware: "auth",
   data() {
     return {
@@ -477,7 +467,7 @@ export default {
       order_selected: "",
       url: "",
       file: null,
-      countorders: "",
+      orders: [],
     };
   },
   async asyncData({ $orderService, $companyService, store }) {
@@ -498,6 +488,7 @@ export default {
       let cancelordercount = 0;
       let paymentordercount = 0;
       let deliveryordercount = 0;
+
       //warning! http request loop will drop performance so much, this affect to SEO.
       //solution => new service in server to get full detail instead (loop in service).
       for (let order of orders.data) {
@@ -535,7 +526,6 @@ export default {
       return {
         company,
         orders: orders.data || [],
-
         successordercount,
         failedordercount,
         cancelordercount,
@@ -742,6 +732,13 @@ export default {
     },
   },
   computed: {
+    notificationcount() {
+      let count = this.orders.length;
+      return count;
+    },
+    hasnotificationcount() {
+      return this.orders.length > 0;
+    },
     successfulcount() {
       return this.successordercount;
     },
@@ -750,9 +747,6 @@ export default {
     },
     cancelcount() {
       return this.cancelordercount;
-    },
-    paymentcount() {
-      return this.paymentordercount;
     },
     deliverycount() {
       return this.deliveryordercount;

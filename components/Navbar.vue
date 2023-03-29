@@ -31,10 +31,11 @@
                 style="border-radius: 0"
                 pattern=".{1,}"
                 required
+                id="txtsearch"
               >
               </b-form-input>
               <template #append>
-                <b-button type="submit" variant="warning">
+                <b-button type="submit" variant="warning" @click="checkempt()">
                   <font-awesome-icon
                     :icon="['fas', 'search']"
                     style="font-size: 12px"
@@ -264,11 +265,25 @@ export default {
           // });
         );
     },
+    checkempt(e) {
+      if (this.keyword.trim() === "") {
+        this.$bvModal.msgBoxOk("กรุณาป้อนข้อมูลเพื่อค้นหา", {
+          title: "แจ้งเตือน",
+          buttonSize: "sm",
+          footerClass: "p-2 ",
+        });
+        if (confirm) {
+          document.getElementById("txtsearch").value = "";
+        }
+        event.preventDefault();
+      }
+    },
   },
 };
 </script>
 
-import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap');
+import
+url('https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap');
 
 <style scoped>
 a {
