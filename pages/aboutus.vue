@@ -10,16 +10,17 @@
 export default {
   async asyncData({ $companyService }) {
     const company = await $companyService.company.getCompany();
-    const url = company.data[0].company_info_about_us;
+    const url = company?.data[0]?.company_info_about_us;
+    let filteredHtml
+    if (company?.data != undefined) {
+      filteredHtml = url.replace(
+        /<oembed\s+[^>]*?url="https:\/\/(?:www\.)?youtube\.com\/watch\?v=([\w-]+).*?<\/oembed>/,
 
-    let filteredHtml = url.replace(
-      /<oembed\s+[^>]*?url="https:\/\/(?:www\.)?youtube\.com\/watch\?v=([\w-]+).*?<\/oembed>/,
-
-      `<div class="embed-responsive embed-responsive-16by9">
+        `<div class="embed-responsive embed-responsive-16by9">
       <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>
       </div>`
-    );
-
+      );
+    }
     return {
       company: company.data ? company.data[0] : [],
 

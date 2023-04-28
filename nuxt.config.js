@@ -45,7 +45,7 @@ export default {
       },
       { name: 'format-detection', content: 'telephone=no' },
       { hid: 'description', name: 'description', content: 'กิ๊ฟช็อป ของขวัญ ของใช้ เครื่องสำอางค์ อยากได้อะไรขอให้ถามนะจ๊ะ ขายปลีก-ส่ง กิฟช็อป หวี กระจก ยางมัดผม โบว์ ผ้าเช็ดหน้า ของขวัญ ของชำร่วย งานบวช งานแต่ง งานศพ ยาหม่อง ยาดม ถุงเท้า ถุงมือ แฟชั่น นักเรียน เครื่องเขียนทุกชนิด ' },
-      { hid: 'keywords', name: 'keywords', content: 'กิ๊ฟช็อป,ของขวัญ,ของใช้,เครื่องสำอางค์,ขายปลีก-ส่ง,กิฟช็อป,หวี,กระจ,ยางมัดผม,โบว์,ผ้าเช็ดหน้า,ของขวัญ,ของชำร่วย,งานบวช,งานแต่ง,งานศพ,ยาหม่อง,ยาดม,ถุงเท้า,ถุงมือ,แฟชั่น,นักเรียน,เครื่องเขียนทุกชนิด,กระเป๋าลิขสิทธิ์ถูกต้อง,กรอบรูป,อัลบั้มรูป,ออมสิน,ของใช้,คัตตอนบัต,สำลี,น้ำยาล้างเล็บ,ทาเล็บ,น้ำมันมะกอก,กรรไกรตัดเล็บ,ใบมีดโกน,ถุงแขน,ถุงน่อง' }
+      { hid: 'keywords', name: 'keywords', content: 'กบกิ๊ฟช็อปและมดงานบิวตี้,กบกิ๊ฟช็อป,มดงานบิวตี้,ของขวัญ,ของใช้,เครื่องสำอางค์,ขายปลีก-ส่ง,กิฟช็อป,หวี,กระจ,ยางมัดผม,โบว์,ผ้าเช็ดหน้า,ของขวัญ,ของชำร่วย,งานบวช,งานแต่ง,งานศพ,ยาหม่อง,ยาดม,ถุงเท้า,ถุงมือ,แฟชั่น,นักเรียน,เครื่องเขียนทุกชนิด' }
     ],
 
     // <meta http-equiv="Content-Security-Policy" content="default-src https://cdn.example.net; child-src 'none'; object-src 'none'">
@@ -86,37 +86,37 @@ export default {
     "@nuxtjs/fontawesome",
     "@nuxtjs/pwa",
     // '@nuxtjs/vuetify',
-    [
-      '@nuxtjs/i18n',
-      {
-        // vueI18nLoader: true,
-        defaultLocale: 'th',
-        locales: [
-          {
-            code: 'en',
-            name: 'En',
-          },
-          {
-            code: 'th',
-            name: 'ไทย',
-          },
-        ],
-        vueI18n: i18n,
-        vuex: {
-          // Module namespace
-          moduleName: 'i18n',
+    // [
+    //   '@nuxtjs/i18n',
+    //   {
+    //     // vueI18nLoader: true,
+    //     defaultLocale: 'th',
+    //     locales: [
+    //       {
+    //         code: 'en',
+    //         name: 'En',
+    //       },
+    //       {
+    //         code: 'th',
+    //         name: 'ไทย',
+    //       },
+    //     ],
+    //     vueI18n: i18n,
+    //     vuex: {
+    //       // Module namespace
+    //       moduleName: 'i18n',
 
-          // If enabled, current app's locale is synced with nuxt-i18n store module
-          syncLocale: true,
+    //       // If enabled, current app's locale is synced with nuxt-i18n store module
+    //       syncLocale: true,
 
-          // If enabled, current translation messages are synced with nuxt-i18n store module
-          syncMessages: true,
+    //       // If enabled, current translation messages are synced with nuxt-i18n store module
+    //       syncMessages: true,
 
-          // Mutation to commit to set route parameters translations
-          syncRouteParams: true,
-        },
-      },
-    ],
+    //       // Mutation to commit to set route parameters translations
+    //       syncRouteParams: true,
+    //     },
+    //   },
+    // ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
