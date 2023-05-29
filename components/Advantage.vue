@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #fefefe">
+  <!-- <div style="background-color: #fefefe">
     <div style="border-top: 1px solid #e5e7eb; margin-top: 80px">
       <b-container class="py-4" fluid="lg">
         <b-row>
@@ -54,5 +54,6 @@
         </b-row>
       </b-container>
     </div>
-  </div>
+  </div> -->
+  <div></div>
 </template>

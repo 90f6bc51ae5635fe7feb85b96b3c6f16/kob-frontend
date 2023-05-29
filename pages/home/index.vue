@@ -311,7 +311,7 @@
                                     class="rounded-0"></b-card-img>
                                 <div class="product-name">
                                     <div class="text-overflow">
-                                        Cillcips Air Purifier A215 asdasdasdasdasdasa
+                                        Cillcips Air Purifier A215 
                                     </div>
                                 </div>
                                 <div class="product-price">124.00</div>

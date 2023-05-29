@@ -2,40 +2,11 @@
   <div class="mt-4">
     <h4>ติดต่อเรา</h4>
     <hr />
-    <b-row>
-      <b-col offset-md="1" cols="12" md="7">
-        <div>
-          <b>ที่อยู่ : </b
-          ><span
-            >121 ถนนจันทร์ ตำบลในเมือง อำเภอเมืองนครราชสีมา จังหวัดนครราชสีมา
-            30000</span
-          >
-        </div>
-        <div><b>เบอร์โทรศัพท์ : </b><span>099-461-9241</span></div>
-        <div><b>เบอร์แฟกซ์ : </b><span>-</span></div>
-        <div>
-          <b>ไอดีไลน์ : </b><span>@kob0994619241</span> หรือ @modnganbeauty
-        </div>
-        <div><b>อีเมล : </b><span>katai_ee@hotmail.com</span></div>
-        <div>
-          <b>เฟสบุ๊ค : </b
-          ><a href="https://www.facebook.com/kobgiftshop" target="_blank"
-            >กบกิ๊ฟช็อปและมดงานบิวตี้ @ ตรอกจันทร์(ตึกเขียวส้ม)</a
-          >
-        </div>
-        <div>
-          <b>เวลาเปิด-ปิด วันจันทร์-วันเสาร์ : </b
-          ><span style="color: red">08.00 - 17.30</span>
-        </div>
-        <div>
-          <b>เวลาเปิด-ปิด วันอาทิตย์ : </b
-          ><span style="color: red">08.00 - 17.00</span>
-        </div>
-      </b-col>
-      <b-col md="4">ไลน์บาร์โค้ด : -</b-col>
+    <b-row class="m-4">
+      <div class="content" v-html="recruitment.company_info_contact"></div>
     </b-row>
 
-    <b-row class="mt-4">
+    <!-- <b-row class="mt-4">
       <b-col offset-md="1" cols="12" md="11">
         <span class="ml-5">ขายปลีก-ส่ง</span>
         กิ๊ฟช็อป ของขวัญ ของใช้ เครื่องสำอางค์ อยากได้อะไรขอให้ถามนะจ๊ะ
@@ -49,7 +20,7 @@
           >สามารถติดต่อเราได้ทางเฟสบุ๊ค และไลน์ได้เลยค่ะ</span
         >
       </b-col>
-    </b-row>
+    </b-row> -->
 
     <div class="mapouter mt-4">
       <iframe
