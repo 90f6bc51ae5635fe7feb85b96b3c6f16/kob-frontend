@@ -321,6 +321,7 @@
           v-model="order_slip_date"
           placeholder="วันที่"
           required
+          :type="date"
         ></b-form-input>
       </div>
       <div style="padding-bottom: 10px">
@@ -328,6 +329,7 @@
           v-model="order_slip_time"
           placeholder="เวลา"
           required
+          :type="time"
         ></b-form-input>
       </div>
     </b-modal>
