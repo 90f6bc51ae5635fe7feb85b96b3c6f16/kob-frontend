@@ -50,7 +50,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Password <span style="color: red">*</span>
-                                <b-form-input v-model="customer_password" class="textbox" type="password" placeholder="รหัสผ่าน" name="password" id="password" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="customer_password" class="textbox" type="password" placeholder="รหัสผ่าน" name="password" id="password" v-on:input="check()" required oninvalid="setCustomValidity('กรุณากรอกรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
                             </template>
                         </b-form-group>
@@ -59,7 +59,7 @@
                         <b-form-group id="" label="" label-for="" description="" label-for="input-customer-name" style="text-align: left;">
                             <template v-slot="label">
                                 Confirm Password <span style="color: red">*</span>
-                                <b-form-input v-model="confirmpassword" class="textbox" type="password" placeholder="ยืนยันรหัสผ่าน" name="confirmpassword" id="confirmpassword" v-on:input="check()" required pattern=".{6}" oninvalid="setCustomValidity('ยืนยันรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
+                                <b-form-input v-model="confirmpassword" class="textbox" type="password" placeholder="ยืนยันรหัสผ่าน" name="confirmpassword" id="confirmpassword" v-on:input="check()" required oninvalid="setCustomValidity('ยืนยันรหัสผ่าน อย่างน้อย 6 ตัว');" oninput="setCustomValidity('');">
                                 </b-form-input>
                                 <span id="message"></span>
                             </template>
