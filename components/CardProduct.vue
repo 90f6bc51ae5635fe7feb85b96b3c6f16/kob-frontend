@@ -7,7 +7,7 @@
         height="220px"
         :src="`${
           item.product_image
-            ? `https://rvscs-develop.com/km-korat/${item.product_image}`
+            ? `https://rvscs-prod.com/giftshop-service/${item.product_image}`
             : `https://placeimg.com/380/200/any?${Math.floor(
                 Math.random() * 50
               )}`

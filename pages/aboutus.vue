@@ -11,7 +11,7 @@
 
           <b-col lg="3" sm="6" class="text-center p-2" v-for="image in gellery.item" :key="image.gallery_list_code">
             <img class="cover" width="100%" height="100%" :src="`${image.gallery_list_image
-              ? `https://rvscs-develop.com/km-korat/${image.gallery_list_image}`
+              ? `https://rvscs-prod.com/giftshop-service/${image.gallery_list_image}`
               : `https://placeimg.com/380/200/any?${Math.floor(
                 Math.random() * 50
               )}`
