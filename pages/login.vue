@@ -4,7 +4,7 @@
     <div class="text-center mt-4">
       <h3>Log In</h3>
     </div>
-    <b-form-group label="ชื่อผู้ใช้" label-for="input-email">
+    <b-form-group label="Username" label-for="input-email">
       <b-form-input
         id="input-email"
         type="text"
