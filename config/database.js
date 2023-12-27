@@ -6,7 +6,7 @@ module.exports = {
   //     'database': 'giftshop_base'
   // }
   'connection': {
-    'host': '141.98.19.45',
+    'host': '141.98.19.42',
     'user': 'rvscs01',
     'password': 'Qwerty1@#$',
     'database': 'giftshop_base',
@@ -14,7 +14,7 @@ module.exports = {
     'multipleStatements': 'true'
   },
   'connection_sale': {
-    'host': '141.98.19.45',
+    'host': '141.98.19.42',
     'user': 'rvscs01',
     'password': 'Qwerty1@#$',
     'database': 'giftshop_sale',
