@@ -34,21 +34,12 @@
                 </b-col>
             </b-row>
         </div>
-        <!-- <div class="carousel-wrapper">
-      <client-only>
-        <slick :options="slickOptions" ref="refs">
-          <div v-for="i in 5" :key="i" class="img-wrapper">
-            <img src="https://placeimg.com/480/480/any?1" />
-          </div>
-        </slick>
-      </client-only>
-    </div> -->
 
         <div class="carousel-wrapper" style="margin: 0 -2em 0 -1.5em;">
             <client-only>
                 <agile :options="options" ref="carousel">
                     <div v-for="i in 5" :key="i" class="img-wrapper">
-                        <img :src="`https://placeimg.com/380/200/any?${i}`" style="margin: 0.6rem;" />
+                        <img src="~/assets/kob-image.jpg" style="margin: 0.6rem;" />
                     </div>
                 </agile>
             </client-only>
@@ -311,7 +302,7 @@
                                     class="rounded-0"></b-card-img>
                                 <div class="product-name">
                                     <div class="text-overflow">
-                                        Cillcips Air Purifier A215 
+                                        Cillcips Air Purifier A215
                                     </div>
                                 </div>
                                 <div class="product-price">124.00</div>
@@ -487,8 +478,9 @@
                         <b-button variant="outline-light">SHOP NOW</b-button>
                     </div>
                 </div>
-                <img :src="`https://placeimg.com/480/200/any?2`" style="width: 100%" />
+                <img src="~/assets/kob-image.jpg" style="width: 100%" alt="kob-image" />
             </b-col>
+
             <b-col class="no-gutters" style="margin-right: -1em; margin-left: 0.5em; ">
                 <div style="position: absolute; top: 50px; left: 15em">
                     <div style="font-size: 1.5em; font-weight: 500; color: #fff">
@@ -505,7 +497,7 @@
                         <b-button variant="outline-light">SHOP NOW</b-button>
                     </div>
                 </div>
-                <img :src="`https://placeimg.com/480/200/any?2`" style="width: 100%" />
+                <img src="~/assets/kob-image.jpg" style="width: 100%" alt="kob-image" />
             </b-col>
         </b-row>
     </div>
@@ -768,4 +760,5 @@ img.navber-show {
     width: 220px;
     overflow: hidden;
     text-overflow: ellipsis;
-}</style>
+}
+</style>

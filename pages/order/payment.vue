@@ -110,12 +110,9 @@
           <b-row>
             <b-col sm="8">
               <div class="d-flex p-3">
-                <img class="cover" width="90" height="90" :src="`${order_list.product_image
-                    ? `${$store.state.BASE_ENDPOINT_IMAGE}/${order_list.product_image}`
-                    : `https://placeimg.com/380/200/any?${Math.floor(
-                      Math.random() * 50
-                    )}`
-                  }`" alt="product" />
+                <img v-if="order_list.product_image" class="cover" width="90" height="90"
+                  :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${order_list.product_image}`" alt="kob-image" />
+                <img v-else class="cover" width="90" height="90" src="~/assets/kob-image.jpg" alt="kob-image" />
                 <span class="ml-4">
                   <div>{{ order_list.order_list_name }}</div>
                   <div>

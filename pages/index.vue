@@ -3,16 +3,10 @@
     <b-row>
       <b-col md="3" class="mt-4">
         <b-card class="h-100" no-body border-variant="warning">
-          <b-card-header header-bg-variant="warning"
-            >รายการสินค้า</b-card-header
-          >
+          <b-card-header header-bg-variant="warning">รายการสินค้า</b-card-header>
           <b-list-group class="category-list-group" flush>
-            <b-list-group-item
-              v-for="(category, idx) in categorys"
-              class="hover-warning"
-              :key="idx"
-              :href="`/product/category/${category.product_category_code}`"
-            >
+            <b-list-group-item v-for="(category, idx) in categorys" class="hover-warning" :key="idx"
+              :href="`/product/category/${category.product_category_code}`">
               {{ category.product_category_name }}
             </b-list-group-item>
           </b-list-group>
@@ -25,23 +19,12 @@
     <div class="kg-carousel-b">
       <client-only>
         <agile :options="options" ref="carousel">
-          <div
-            v-for="(product, idx) in product_randoms"
-            :key="idx"
-            class="img-wrapper px-2"
-          >
+          <div v-for="(product, idx) in product_randoms" :key="idx" class="img-wrapper px-2">
             <nuxt-link :to="{ path: `/product/${product.product_code}` }">
               <div class="text-dark text-center">
-                <img
-                  class="cover"
-                  width="100%"
-                  height="220px"
-                  :src="`${
-                    product.product_image
-                      ? `${$store.state.BASE_ENDPOINT_IMAGE}/${product.product_image}`
-                      : `https://placeimg.com/380/200/any?${idx}`
-                  }`"
-                />
+                <img v-if="product.product_image" class="cover" width="100%" height="220px"
+                  :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${product.product_image}`" alt="kob-image" />
+                <img v-else class="cover" width="100%" height="220px" src="~/assets/kob-image.jpg" alt="kob-image" />
                 {{ product.product_name }}
               </div>
             </nuxt-link>
@@ -54,25 +37,13 @@
       <b-col cols="8" class="title-product"> สินค้าใหม่ล่าสุด </b-col>
       <b-col cols="4" class="title-product">
         <div style="text-align: right">
-          <button
-            @click="$refs.carousel.goToPrev()"
-            class="btn"
-            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important"
-          >
-            <font-awesome-icon
-              :icon="['fas', 'angle-left']"
-              style="color: #555555; font-size: 10pt"
-            />
+          <button @click="$refs.carousel.goToPrev()" class="btn"
+            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important">
+            <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
           </button>
-          <button
-            @click="$refs.carousel.goToNext()"
-            class="btn"
-            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important"
-          >
-            <font-awesome-icon
-              :icon="['fas', 'angle-right']"
-              style="color: #555555; font-size: 10pt"
-            />
+          <button @click="$refs.carousel.goToNext()" class="btn"
+            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important">
+            <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
           </button>
         </div>
       </b-col>
@@ -80,113 +51,65 @@
 
     <div class="title-product-sub">ขายง่าย ขายดี กำไรงาม</div>
 
-    <b-row
-      class="
+    <b-row class="
         no-gutters
         mt-4
         product-bestseller
         justify-content-around justify-content-lg-center
-      "
-    >
-      <b-col
-        class="grid-5"
-        v-for="(product, idx) in products.slice(0, 5)"
-        :key="idx"
-        style="min-width: 220px"
-      >
+      ">
+      <b-col class="grid-5" v-for="(product, idx) in products.slice(0, 5)" :key="idx" style="min-width: 220px">
         <card-product :item="product" />
       </b-col>
     </b-row>
 
     <client-only>
-      <b-row
-        class="no-gutters mt-5"
-        v-for="(category, category_idx) in categorys"
-        :key="category_idx"
-        :style="`border-top: 4px solid ${category.product_category_color};`"
-      >
-        <b-col
-          md="3"
-          class="pt-4 grid-lg-5 d-none d-md-block"
-          :style="`background-color: ${category.product_category_color}`"
-        >
+      <b-row class="no-gutters mt-5" v-for="(category, category_idx) in categorys" :key="category_idx"
+        :style="`border-top: 4px solid ${category.product_category_color};`">
+        <b-col md="3" class="pt-4 grid-lg-5 d-none d-md-block"
+          :style="`background-color: ${category.product_category_color}`">
           <div class="text-center mb-4">
-            <b-img
-              :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_icon}`"
-              alt="Image"
-              class="rounded"
-              width="56"
-              height="56"
-            ></b-img>
+            <b-img v-if="category.product_category_icon"
+              :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_icon}`" alt="Image" class="rounded"
+              width="56" height="56"></b-img>
+            <img v-else class="rounded" width="56" height="56" src="~/assets/kob-image.jpg" alt="kob-image" />
             <p class="my-2" style="font-size: 15pt; color: #fff">
               {{ category.product_category_name }}
             </p>
           </div>
-          <div
-            class="pl-4 py-2"
-            style="
+          <div class="pl-4 py-2" style="
               font-size: 13pt;
               color: #fff;
               border-top: 1px solid #fff;
               border-bottom: 1px solid #fff;
-            "
-            v-for="(brand, idx) in brands"
-            :key="idx"
-          >
+            " v-for="(brand, idx) in brands" :key="idx">
             {{ brand.product_brand_name }}
           </div>
         </b-col>
-        <b-col
-          cols="12"
-          class="p-2 d-block d-md-none"
-          :style="`background-color: ${category.product_category_color}`"
-        >
+        <b-col cols="12" class="p-2 d-block d-md-none" :style="`background-color: ${category.product_category_color}`">
           <div class="d-flex">
-            <b-img
-              :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_icon}`"
-              alt="Image"
-              class="rounded cover"
-              width="36"
-              height="36"
-            ></b-img>
+            <b-img :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_icon}`" alt="Image"
+              class="rounded cover" width="36" height="36"></b-img>
             <p class="ml-2 mb-0" style="font-size: 15pt; color: #fff">
               {{ category.product_category_name }}
             </p>
-            <b-dropdown
-              class="ml-auto bg-transparent drop-icon"
-              variant="light"
-              no-caret
-              right
-            >
+            <b-dropdown class="ml-auto bg-transparent drop-icon" variant="light" no-caret right>
               <template slot="button-content">
                 <font-awesome-icon :icon="['fas', 'angle-left']" />
                 <font-awesome-icon :icon="['fas', 'angle-down']" />
               </template>
-              <b-dropdown-item
-                v-for="(brand, brand_idx) in brands"
-                :key="brand_idx"
-                >{{ brand.product_brand_name }}</b-dropdown-item
-              >
+              <b-dropdown-item v-for="(brand, brand_idx) in brands" :key="brand_idx">{{ brand.product_brand_name
+              }}</b-dropdown-item>
             </b-dropdown>
           </div>
         </b-col>
         <b-col class="card-product-blog">
           <b-row class="no-gutters">
-            <b-col
-              sm="6"
-              md="4"
-              v-for="(product, idx) in category.product_randoms"
-              :key="idx"
-            >
+            <b-col sm="6" md="4" v-for="(product, idx) in category.product_randoms" :key="idx">
               <card-product :item="product" :rating="true" />
             </b-col>
           </b-row>
         </b-col>
-        <b-col
-          sm="4"
-          md="3"
-          class="card-product-hot grid-lg-5 d-block d-sm-none d-lg-block"
-        >
+        <b-col sm="4" md="3" class="card-product-hot grid-lg-5 d-block d-sm-none d-lg-block">
           <div style="background-color: #adadad; margin: 0.6em">
             <h4 style="padding-top: 1em; text-align: center; color: #fff">
               NEW GADJETS
@@ -194,32 +117,18 @@
             <p style="text-align: center; font-size: 11px">
               SUMMER SPECIAL COLLECTION <br />40% OFFER
             </p>
-            <b-card-img
-              src="https://picsum.photos/400/400/?image=20"
-              alt="Image"
-              class="rounded-0"
-              style="height: 405px"
-            ></b-card-img>
+            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"
+              style="height: 405px"></b-card-img>
           </div>
         </b-col>
       </b-row>
     </client-only>
     <b-row class="pt-5">
-      <b-col
-        md="6"
-        v-for="(category, idx) in categorys.slice(0, 2)"
-        :key="category.product_category_code"
-      >
-        <nuxt-link
-          :to="{ path: `/product/category/${category.product_category_code}` }"
-        >
+      <b-col md="6" v-for="(category, idx) in categorys.slice(0, 2)" :key="category.product_category_code">
+        <nuxt-link :to="{ path: `/product/category/${category.product_category_code}` }">
           <div :class="`card-category pattern-${idx + 1}`">
-            <b-card-img
-              :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_image}`"
-              width="100%"
-              alt="Image"
-              class="rounded-0"
-            ></b-card-img>
+            <b-card-img :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_image}`" width="100%"
+              alt="Image" class="rounded-0"></b-card-img>
             <div class="category-text">
               <div class="category-title">
                 {{ category.product_category_name }}

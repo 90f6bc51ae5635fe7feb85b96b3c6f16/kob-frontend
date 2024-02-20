@@ -7,15 +7,12 @@
       <h4>{{ gellery.gallery_name }}</h4>
       <hr />
       <b-container class="py-4" fluid="lg">
-        <b-row  no-gutters>
+        <b-row no-gutters>
 
           <b-col lg="3" sm="6" class="text-center p-2" v-for="image in gellery.item" :key="image.gallery_list_code">
-            <img class="cover" width="100%" height="100%" :src="`${image.gallery_list_image
-              ? `${$store.state.BASE_ENDPOINT_IMAGE}/${image.gallery_list_image}`
-              : `https://placeimg.com/380/200/any?${Math.floor(
-                Math.random() * 50
-              )}`
-              }`" />
+            <img v-if="image.gallery_list_image" class="cover" width="100%" height="100%"
+              :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${image.gallery_list_image}`" alt="kob-image" />
+            <img v-else class="cover" width="100%" height="100%" src="~/assets/kob-image.jpg" alt="kob-image" />
           </b-col>
         </b-row>
       </b-container>
