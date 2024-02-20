@@ -177,11 +177,13 @@ export default {
   publicRuntimeConfig: {
     APP_URL: process.env.APP_URL,
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
+    BASE_ENDPOINT_IMAGE: process.env.BASE_ENDPOINT_IMAGE,
   },
 
   privateRuntimeConfig: {
     APP_URL: process.env.APP_URL,
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
+    BASE_ENDPOINT_IMAGE: process.env.BASE_ENDPOINT_IMAGE,
   },
 
 

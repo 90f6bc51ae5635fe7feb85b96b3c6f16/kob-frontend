@@ -38,7 +38,7 @@
                   height="220px"
                   :src="`${
                     product.product_image
-                      ? `https://rvscs-prod.com/giftshop-service/${product.product_image}`
+                      ? `${$store.state.BASE_ENDPOINT_IMAGE}/${product.product_image}`
                       : `https://placeimg.com/380/200/any?${idx}`
                   }`"
                 />
@@ -112,7 +112,7 @@
         >
           <div class="text-center mb-4">
             <b-img
-              :src="`https://rvscs-prod.com/giftshop-service/${category.product_category_icon}`"
+              :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_icon}`"
               alt="Image"
               class="rounded"
               width="56"
@@ -143,7 +143,7 @@
         >
           <div class="d-flex">
             <b-img
-              :src="`https://rvscs-prod.com/giftshop-service/${category.product_category_icon}`"
+              :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_icon}`"
               alt="Image"
               class="rounded cover"
               width="36"
@@ -215,7 +215,7 @@
         >
           <div :class="`card-category pattern-${idx + 1}`">
             <b-card-img
-              :src="`https://rvscs-prod.com/giftshop-service/${category.product_category_image}`"
+              :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${category.product_category_image}`"
               width="100%"
               alt="Image"
               class="rounded-0"

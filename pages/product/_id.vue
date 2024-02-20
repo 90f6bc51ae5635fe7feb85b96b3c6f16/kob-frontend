@@ -54,44 +54,20 @@
       </b-col>
     </b-row>
 
-    <b-row
-      class="photos"
-      style="margin: 2em 0 0 0"
-      v-for="(product_mother, index) in product_mothers"
-      :key="product_mother.product_code"
-    >
+    <b-row class="photos" style="margin: 2em 0 0 0" v-for="(product_mother, index) in product_mothers"
+      :key="product_mother.product_code">
       <!-- <carousel :starting-image="3" :images="images"> </carousel> -->
 
-      <div
-        v-if="product_mother.product_image"
-        style="border: 1px solid #e4e4e4"
-      >
-        <carousel
-          style="border: 1px solid #e4e4e4"
-          :starting-image="0"
-          :images="images"
-        >
+      <div v-if="product_mother.product_image" style="border: 1px solid #e4e4e4">
+        <carousel style="border: 1px solid #e4e4e4" :starting-image="0" :images="images">
         </carousel>
       </div>
       <div v-else style="border: 1px solid #e4e4e4">
-        <svg
-          class=""
-          width="100%"
-          height="550"
-          role="img"
-          aria-label="Placeholder: Kob Giftshop"
-          preserveAspectRatio="xMidYMid slice"
-          focusable="false"
-        >
+        <svg class="" width="100%" height="550" role="img" aria-label="Placeholder: Kob Giftshop"
+          preserveAspectRatio="xMidYMid slice" focusable="false">
           <title></title>
           <rect width="100%" height="100%" fill="#55595c"></rect>
-          <text
-            x="30%"
-            y="50%"
-            fill="#eceeef"
-            dy=".3em"
-            style="font-size: 30pt"
-          >
+          <text x="30%" y="50%" fill="#eceeef" dy=".3em" style="font-size: 30pt">
             Kob Giftshop
           </text>
         </svg>
@@ -105,40 +81,30 @@
         </div>
         <div class="product-star-ating">
           <div style="float: left; margin: -2px 5px 0 0">
-            <star-rating
-              v-bind:increment="0.1"
-              v-bind:max-rating="5"
-              v-bind:star-size="12"
-              v-bind:read-only="true"
-              v-bind:show-rating="false"
-              v-model:rating="rating"
-            >
+            <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true"
+              v-bind:show-rating="false" v-model:rating="rating">
             </star-rating>
           </div>
           <div style="text-align: right; margin: 0 0 0 0">
-            <p
-              style="
+            <p style="
                 text-align: center;
                 float: left;
                 margin: 0 0 0 0;
                 color: #777777;
                 font-size: 12pt;
-              "
-            >
+              ">
               (5 Customers reviews)
             </p>
           </div>
         </div>
         <br />
         <div style="text-align: left; display: flex">
-          <div
-            style="
+          <div style="
               text-decoration: line-through;
               padding-right: 10px;
               color: #999999;
               font-size: 18pt;
-            "
-          >
+            ">
             ฿200.00
           </div>
           <div style="color: #222222; font-size: 18pt">
@@ -150,8 +116,7 @@
             {{ product_mother.product_detail }}
           </div>
         </div>
-        <div
-          style="
+        <div style="
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -159,22 +124,13 @@
             margin-bottom: 10px;
             border: 1px solid #e4e4e4;
             background-color: #f5fffa;
-          "
-          v-if="product_childs != ''"
-        >
-          <div
-            v-for="product_child in product_childs"
-            :key="product_child.product_code"
-          >
+          " v-if="product_childs != ''">
+          <div v-for="product_child in product_childs" :key="product_child.product_code">
             <div class="dotted" style="color: #777777; font-size: 12pt">
               จำนวนชิ้น :
-              <span style="color: #222222"
-                >{{ product_child.product_unit_name }} ชิ้น</span
-              >
+              <span style="color: #222222">{{ product_child.product_unit_name }} ชิ้น</span>
               ราคา :
-              <span style="color: #222222"
-                >{{ product_child.product_price }} บาท</span
-              >
+              <span style="color: #222222">{{ product_child.product_price }} บาท</span>
             </div>
           </div>
         </div>
@@ -182,22 +138,14 @@
         <!-- <div class="qty-button"> -->
         <!-- <div class="quantity"> -->
         <b-row class="mt-3">
-          <b-col
-            cols="5"
-            lg="4"
-            class="d-flex justify-content-center align-items-center"
-          >
+          <b-col cols="5" lg="4" class="d-flex justify-content-center align-items-center">
             <b-input-group style="height: 40px">
               <b-input-group-prepend>
                 <b-btn class="btn-qty" @click="decrement()">-</b-btn>
               </b-input-group-prepend>
 
-              <b-form-input
-                min="0.00"
-                :value="quantity"
-                class="text-center"
-                style="height: 100%; border: 1px solid black"
-              ></b-form-input>
+              <b-form-input min="0.00" :value="quantity" class="text-center"
+                style="height: 100%; border: 1px solid black"></b-form-input>
 
               <b-input-group-append>
                 <b-btn class="btn-qty" @click="increment()">+</b-btn>
@@ -205,9 +153,7 @@
             </b-input-group>
           </b-col>
           <b-col cols="7" lg="8" class="d-flex justify-content-start pl-0">
-            <div
-              class="Add-to-cart"
-              style="
+            <div class="Add-to-cart" style="
                 /* width: 65%; */
                 /* text-align: left; */
                 /* display: flex; */
@@ -216,20 +162,11 @@
                 /* padding-bottom: 10px; */
                 /* border-bottom: 1px solid #e4e4e4; */
                 /* margin: 0 -2em 0 0; */
-              "
-            >
+              ">
               <!-- <div style="width: 80%"> -->
-              <b-button
-                variant="dark"
-                class=""
-                style="height: 45px; width: 100%"
-                @click="addToCart(product_mother)"
-              >
+              <b-button variant="dark" class="" style="height: 45px; width: 100%" @click="addToCart(product_mother)">
                 ADD TO CART
-                <font-awesome-icon
-                  :icon="['fa', 'cart-plus']"
-                  style="color: #fff"
-                />
+                <font-awesome-icon :icon="['fa', 'cart-plus']" style="color: #fff" />
               </b-button>
               <!-- </div> -->
             </div>
@@ -241,8 +178,7 @@
         <hr class="mt-3" />
 
         <b-row>
-          <b-col
-            style="
+          <b-col style="
               text-align: left;
               display: flex;
               flex-direction: column;
@@ -250,26 +186,17 @@
               margin: 0 -2em 0 0;
               /* border-bottom: 1px solid #e4e4e4; */
               /* padding-top: 20px; */
-            "
-          >
+            ">
             <div style="color: #222222; font-size: 12pt" class="">
               SKU :
               <span style="color: #777777; font-size: 12pt">
                 {{ product_mother.product_code }}
               </span>
             </div>
-            <div
-              v-for="category in categorys"
-              :key="category.product_category_code"
-            >
-              <div
-                style="color: #222222; font-size: 12pt"
-                class=""
-                v-if="
-                  product_mother.product_category_code ==
-                  category.product_category_code
-                "
-              >
+            <div v-for="category in categorys" :key="category.product_category_code">
+              <div style="color: #222222; font-size: 12pt" class="" v-if="product_mother.product_category_code ==
+                category.product_category_code
+                ">
                 Category :
                 <span style="color: #777777; font-size: 12pt">
                   {{ category.product_category_name }}
@@ -289,17 +216,9 @@
     </b-row>
     <div class="" style="padding-bottom: 30px">
       <b-card no-body>
-        <b-tabs
-          pills
-          card
-          nav-wrapper-class=""
-          active-nav-item-class="bg-success"
-        >
+        <b-tabs pills card nav-wrapper-class="" active-nav-item-class="bg-success">
           <b-tab title="DESCRIPTION" active>
-            <div
-              v-for="(product_mother, index) in product_mothers"
-              :key="product_mother.product_code"
-            >
+            <div v-for="(product_mother, index) in product_mothers" :key="product_mother.product_code">
               <b-card-text>{{
                 product_mother.product_description
               }}</b-card-text>
@@ -307,132 +226,102 @@
           </b-tab>
           <b-tab title="ADDITIONAL INFORMATION">
             <b-card-text>
-              <div
-                style="
+              <div style="
                   text-align: left;
                   display: flex;
                   flex-direction: column;
                   padding-top: 20px;
                   padding-bottom: 10px;
-                "
-              >
-                <div
-                  v-for="(product_mother, index) in product_mothers"
-                  :key="product_mother.product_code"
-                  class="additionnal"
-                >
+                ">
+                <div v-for="(product_mother, index) in product_mothers" :key="product_mother.product_code"
+                  class="additionnal">
                   <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                    <div
-                      style="
+                    <div style="
                         float: left;
                         width: 20%;
                         color: #444444;
                         font-size: 12pt;
-                      "
-                      class=""
-                    >
+                      " class="">
                       Weight :
                     </div>
-                    <div
-                      style="
+                    <div style="
                         align: right;
                         width: 80%;
                         color: #777777;
                         font-size: 12pt;
-                      "
-                    >
+                      ">
                       1.5 kg
                     </div>
                   </div>
                   <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                    <div
-                      style="
+                    <div style="
                         float: left;
                         width: 20%;
                         color: #444444;
                         font-size: 12pt;
-                      "
-                      class=""
-                    >
+                      " class="">
                       Dimensions :
                     </div>
-                    <div
-                      style="
+                    <div style="
                         align: right;
                         width: 80%;
                         color: #777777;
                         font-size: 12pt;
-                      "
-                    >
+                      ">
                       90 x 60 x 90 cm
                     </div>
                   </div>
                   <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                    <div
-                      style="
+                    <div style="
                         float: left;
                         width: 20%;
                         color: #444444;
                         font-size: 12pt;
-                      "
-                      class=""
-                    >
+                      " class="">
                       Composition :
                     </div>
-                    <div
-                      style="
+                    <div style="
                         align: right;
                         width: 80%;
                         color: #777777;
                         font-size: 12pt;
-                      "
-                    >
+                      ">
                       100% Cotton
                     </div>
                   </div>
                   <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                    <div
-                      style="
+                    <div style="
                         float: left;
                         width: 20%;
                         color: #444444;
                         font-size: 12pt;
-                      "
-                      class=""
-                    >
+                      " class="">
                       Colour :
                     </div>
-                    <div
-                      style="
+                    <div style="
                         align: right;
                         width: 80%;
                         color: #777777;
                         font-size: 12pt;
-                      "
-                    >
+                      ">
                       Blue, Gray, Red
                     </div>
                   </div>
                   <div style="border-bottom: 1px solid #e4e4e4; padding: 5px">
-                    <div
-                      style="
+                    <div style="
                         float: left;
                         width: 20%;
                         color: #444444;
                         font-size: 12pt;
-                      "
-                      class=""
-                    >
+                      " class="">
                       Size :
                     </div>
-                    <div
-                      style="
+                    <div style="
                         align: right;
                         width: 80%;
                         color: #777777;
                         font-size: 12pt;
-                      "
-                    >
+                      ">
                       Extra Smail, Large, Medium, Small
                     </div>
                   </div>
@@ -450,25 +339,13 @@
       </b-col>
       <b-col class="related-product" sm="6" cols="12">
         <div class="awesome-product text-left text-sm-right">
-          <button
-            @click="$refs.carousel.goToPrev()"
-            class="btn-toggle"
-            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important"
-          >
-            <font-awesome-icon
-              :icon="['fas', 'angle-left']"
-              style="font-size: 10pt"
-            />
+          <button @click="$refs.carousel.goToPrev()" class="btn-toggle"
+            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important">
+            <font-awesome-icon :icon="['fas', 'angle-left']" style="font-size: 10pt" />
           </button>
-          <button
-            @click="$refs.carousel.goToNext()"
-            class="btn-toggle"
-            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important"
-          >
-            <font-awesome-icon
-              :icon="['fas', 'angle-right']"
-              style="font-size: 10pt"
-            />
+          <button @click="$refs.carousel.goToNext()" class="btn-toggle"
+            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important">
+            <font-awesome-icon :icon="['fas', 'angle-right']" style="font-size: 10pt" />
           </button>
         </div>
       </b-col>
@@ -500,7 +377,7 @@ export default {
     Carousel,
     CardProduct,
   },
-  async asyncData({ $productService, params }) {
+  async asyncData({ $productService, params, store }) {
     const products = await $productService.product.getProductPage({
       product_page: 1,
       // page_brand: brand,
@@ -511,7 +388,7 @@ export default {
     const productCodes = await $productService.product.getProductByCode({
       product_code: params.id,
     });
-    console.log("productCodes", productCodes);
+
     let group_child = [];
     let images = [];
     let obj = {};
@@ -535,8 +412,8 @@ export default {
       });
       mothers.data.forEach((e_img1, i) => {
         let objToAdd1 = {
-          big: `https://rvscs-prod.com/giftshop-service/${e_img1.product_image}`,
-          thumb: `https://rvscs-prod.com/giftshop-service/${e_img1.product_image}`,
+          big: `${store.state.BASE_ENDPOINT_IMAGE}/${e_img1.product_image}`,
+          thumb: `${store.state.BASE_ENDPOINT_IMAGE}/${e_img1.product_image}`,
         };
         obj = {
           ...obj,
@@ -546,8 +423,8 @@ export default {
       });
       productImages.data.forEach((e_img2, i) => {
         let objToAdd1 = {
-          big: `https://rvscs-prod.com/giftshop-service/${e_img2.product_image_name}`,
-          thumb: `https://rvscs-prod.com/giftshop-service/${e_img2.product_image_name}`,
+          big: `${store.state.BASE_ENDPOINT_IMAGE}/${e_img2.product_image_name}`,
+          thumb: `${store.state.BASE_ENDPOINT_IMAGE}/${e_img2.product_image_name}`,
         };
         obj = {
           ...obj,
@@ -596,8 +473,8 @@ export default {
       }
       mothers.data.forEach((e_img1, i) => {
         let objToAdd1 = {
-          big: `https://rvscs-prod.com/giftshop-service/${e_img1.product_image}`,
-          thumb: `https://rvscs-prod.com/giftshop-service/${e_img1.product_image}`,
+          big: `${store.state.BASE_ENDPOINT_IMAGE}/${e_img1.product_image}`,
+          thumb: `${store.state.BASE_ENDPOINT_IMAGE}/${e_img1.product_image}`,
         };
         obj = {
           ...obj,
@@ -607,8 +484,8 @@ export default {
       });
       productImages.data.forEach((e_img2, i) => {
         let objToAdd1 = {
-          big: `https://rvscs-prod.com/giftshop-service/${e_img2.product_image_name}`,
-          thumb: `https://rvscs-prod.com/giftshop-service/${e_img2.product_image_name}`,
+          big: `${store.state.BASE_ENDPOINT_IMAGE}/${e_img2.product_image_name}`,
+          thumb: `${store.state.BASE_ENDPOINT_IMAGE}/${e_img2.product_image_name}`,
         };
         obj = {
           ...obj,
@@ -846,8 +723,7 @@ div {
   /* margin: auto -2em auto -1em; */
 }
 
-.awesome-product {
-}
+.awesome-product {}
 
 .vue-star-rating {
   justify-content: center;
@@ -924,11 +800,14 @@ ul {
   .Add-to-cart {
     width: 100%;
   }
+
   agile {
     min-width: 260px;
   }
 }
+
 @media only screen and (min-width: 768px) and (max-width: 938px) {
+
   /* .qty-button {
     width: 30%;
   } */
@@ -943,17 +822,20 @@ ul {
   background: #fff;
   font-weight: 700;
 }
+
 .btn-qty:hover {
   color: #fff;
   background: #39b44f;
   font-weight: 700;
   border: 1px solid black;
 }
+
 .btn-toggle {
   color: black;
   background: #fff;
   border: 1px solid rgb(228, 228, 228);
 }
+
 .btn-toggle:hover {
   color: #fff;
   background: #39b44f;

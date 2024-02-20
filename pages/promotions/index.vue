@@ -12,7 +12,7 @@
         <b-card
           :img-src="`${
             promotion.promotion_image
-              ? `https://rvscs-prod.com/giftshop-service/${promotion.promotion_image}`
+              ? `${$store.state.BASE_ENDPOINT_IMAGE}/${promotion.promotion_image}`
               : `https://picsum.photos/1024/480/?image=12`
           }`"
           img-alt="Image"

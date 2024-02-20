@@ -1,4 +1,5 @@
 export const state = () => ({
+  BASE_ENDPOINT_IMAGE: process.env.BASE_ENDPOINT_IMAGE,
   app_config: []
 })
 

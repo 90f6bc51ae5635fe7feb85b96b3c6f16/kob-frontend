@@ -40,7 +40,7 @@
                   height="80px"
                   :src="`${
                     product.product_image
-                      ? `https://rvscs-prod.com/giftshop-service/${product.product_image}`
+                      ? `${$store.state.BASE_ENDPOINT_IMAGE}/${product.product_image}`
                       : `https://placeimg.com/380/200/any?${Math.floor(
                           Math.random() * 50
                         )}`

@@ -80,7 +80,7 @@
             <b-col class="card-product" v-for="code in codes.slice(0, 5)" :key="code.product_code">
                 <nuxt-link :to="{ path: `/product/${code.product_code}` }" style="text-decoration: none !important;">
                     <div v-if="code.product_image">
-                        <b-card-img :src="`https://rvscs-prod.com/giftshop-service/${code.product_image}`" width="100%"
+                        <b-card-img :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${code.product_image}`" width="100%"
                             height="220px" alt="Image" class="rounded-0"></b-card-img>
                     </div>
                     <div v-else>
