@@ -45,7 +45,7 @@
           </p>
           <p>ไอดีไลน์ : <span class="text-secondary">@kob0994619241</span></p>
           <p>
-            อีเมล : <span class="text-secondary">katai_ee@hotmail.com</span>
+            <!-- อีเมล : <span class="text-secondary">katai_ee@hotmail.com</span> -->
           </p>
         </b-col>
         <b-col cols="12" lg="8" class="pt-2">
