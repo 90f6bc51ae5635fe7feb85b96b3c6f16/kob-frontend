@@ -128,9 +128,27 @@
           <div v-for="product_child in product_childs" :key="product_child.product_code">
             <div class="dotted" style="color: #777777; font-size: 12pt">
               จำนวนชิ้น :
-              <span style="color: #222222">{{ product_child.product_unit_name }} ชิ้น</span>
+              <span style="color: #222222">{{ product_child.product_include_qty }} ชิ้น</span>
               ราคา :
               <span style="color: #222222">{{ product_child.product_price }} บาท</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #e4e4e4;
+            background-color: #f5fffa;
+          " v-if="product_scales.length">
+          <div v-for="product_scale in product_scales" :key="product_scale.product_scale_code">
+            <div class="dotted" style="color: #777777; font-size: 12pt">
+              <span style="color: #222222">{{ product_scale.product_scale_qty }} ชิ้นขึ้นไป</span>
+              ราคา :
+              <span style="color: #222222">{{ product_scale.product_scale_price }} บาท</span>
             </div>
           </div>
         </div>
@@ -377,7 +395,8 @@ export default {
     Carousel,
     CardProduct,
   },
-  async asyncData({ $productService, params, store }) {
+  async asyncData({ $productService,$ProductGroupDiscountListService,$ProductScaleService,params, store}) {
+    
     const products = await $productService.product.getProductPage({
       product_page: 1,
       // page_brand: brand,
@@ -394,6 +413,7 @@ export default {
     let obj = {};
     let product_mothers = [];
     let product_childs = [];
+    let product_scales = [];
     if (productCodes.data[0].product_child == 1) {
       // console.log("ลูก");
       const includes = await $productService.product.getProductInclude({
@@ -495,11 +515,26 @@ export default {
       });
       product_mothers.push(mothers.data[0]);
     }
+
+    const product_group_discount_list = await $ProductGroupDiscountListService.ProductGroupDiscountList.getProductGroupDiscountListByProductCode({
+      product_code: params.id,
+    })
+    if(product_group_discount_list.data.length){
+      let product_group_discount_code_array = product_group_discount_list.data.map(item =>{
+        return "'"+item.product_group_discound_code+"'"
+      }).join(",")
+
+      await $ProductScaleService.ProductScale.getProductScaleByProductGroupDiscountCode({
+        product_group_discount_code : product_group_discount_code_array
+      }).then(item => product_scales = item.data)
+      
+    }
     // console.log("product_mothers", product_mothers);
-    // console.log("product_childs", product_childs);
+    //console.log("product_childs", product_childs);
     return {
       products: products.data ? products.data : [],
       categorys: categorys.data ? categorys.data : [],
+      product_scales,
       // product_mothers: product_mothers.data ? product_mothers.data : [],
       // product_childs: product_childs.data ? product_childs.data : [],
       product_mothers,
