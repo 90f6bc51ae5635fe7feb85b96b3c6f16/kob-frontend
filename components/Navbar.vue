@@ -21,7 +21,7 @@
           <div class="d-none d-md-block mr-2 ml-4" v-if="!loggedIn">
             <b-link href="/login" style="color: #8d8d8d">ล็อคอิน</b-link>
             /
-            <b-link href="/register" style="color: #8d8d8d">สมัครสมาชิค</b-link>
+            <b-link href="/register" style="color: #8d8d8d">สมัครสมาชิก</b-link>
           </div>
 
           <b-dropdown class="ml-2" variant="outline-light" toggle-class="bg-white" no-caret right>
@@ -106,7 +106,7 @@
                 <b-nav-text class="d-sm-block d-md-none text-center">
                   <b-link href="/login">ล็อคอิน</b-link>
                   /
-                  <b-link href="/register">สมัครสมาชิค</b-link>
+                  <b-link href="/register">สมัครสมาชิก</b-link>
                 </b-nav-text>
               </b-navbar-nav>
             </b-collapse>

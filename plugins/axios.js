@@ -3,6 +3,8 @@ import userService from '~/services/user-service'
 import orderService from '~/services/order-service'
 import companyService from '~/services/company-service'
 import promotionService from '~/services/promotion-service'
+import ProductGroupDiscountListService from '~/services/product-group-discount-list-service'
+import ProductScaleService from '~/services/product-scale-service'
 
 const services = [
   productService,
@@ -10,6 +12,8 @@ const services = [
   orderService,
   companyService,
   promotionService,
+  ProductGroupDiscountListService,
+  ProductScaleService,
 ]
 //this retrive from publicRuntimeConfig
 const getBaseURL = (ctx, service) => {
@@ -28,6 +32,12 @@ const getBaseURL = (ctx, service) => {
       url = ctx.BASE_ENDPOINT || service.url
       break
     case 'promotionService':
+      url = ctx.BASE_ENDPOINT || service.url
+      break
+    case 'ProductGroupDiscountListService':
+      url = ctx.BASE_ENDPOINT || service.url
+      break
+    case 'ProductScaleService':
       url = ctx.BASE_ENDPOINT || service.url
       break
     default:

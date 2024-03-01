@@ -25,15 +25,17 @@
             alt="Image"
             style="margin: 5px"
           ></b-img>
-          <p class="text-secondary pt-4">
+          <div class="content" v-html="recruitment.company_info_contact"></div>
+          <!-- <p class="text-secondary pt-4" v-html="test_value"></p> -->
+          <!-- <p class="text-secondary pt-4">
             กิ๊ฟช็อป ของขวัญ ของใช้ เครื่องสำอางค์ อยากได้อะไรขอให้ถามนะจ๊ะ
             ขายปลีก-ส่ง กิฟช็อป หวี กระจก ยางมัดผม โบว์ ผ้าเช็ดหน้า ของขวัญ
             ของชำร่วย งานบวช งานแต่ง งานศพ ยาหม่อง ยาดม ถุงเท้า ถุงมือ แฟชั่น
             นักเรียน เครื่องเขียนทุกชนิด กระเป๋า ลิขสิทธิ์ถูกต้อง กรอบรูป
             อัลบั้มรูป ออมสิน ของใช้ คัตตอนบัต สำลี น้ำยาล้างเล็บ ทาเล็บ
             น้ำมันมะกอก กรรไกรตัดเล็บ ใบมีดโกน ถุงแขน ถุงน่อง
-          </p>
-          <p>
+          </p> -->
+          <!-- <p>
             ที่อยู่ :
             <span class="text-secondary"
               >ถนนจันทร์ ตำบลในเมือง อำเภอเมืองนครราชสีมา จังหวัดนครราชสีมา
@@ -45,32 +47,37 @@
           </p>
           <p>ไอดีไลน์ : <span class="text-secondary">@kob0994619241</span></p>
           <p>
-            <!-- อีเมล : <span class="text-secondary">katai_ee@hotmail.com</span> -->
-          </p>
+            อีเมล : <span class="text-secondary">katai_ee@hotmail.com</span>
+          </p> -->
         </b-col>
         <b-col cols="12" lg="8" class="pt-2">
           <b-row>
-            <b-col cols="12" sm="4">
+            <!-- <b-col cols="12" sm="4">
               <h5 class="mb-4">COMPANY</h5>
               <p class="text-secondary">Discount Vouches</p>
               <p class="text-secondary">Spring Collection</p>
               <p class="text-secondary">Trending</p>
               <p class="text-secondary">Best Sellers</p>
               <p class="text-secondary">Special Deals</p>
-            </b-col>
+            </b-col> -->
             <b-col cols="12" sm="4">
               <h5 class="mb-4">POLICY INFO</h5>
               <p class="text-secondary">Orders & Returns</p>
               <p class="text-secondary">Help & FAQs</p>
               <p class="text-secondary">Store Locations</p>
-            </b-col>
-            <b-col cols="12" sm="4">
-              <h5 class="mb-4">MY ACCOUNT</h5>
+              
               <p class="text-secondary">About Us</p>
               <p class="text-secondary">Delivery Information</p>
               <p class="text-secondary">Privacy Policy</p>
               <p class="text-secondary">Terms & Conditions</p>
             </b-col>
+            <!-- <b-col cols="12" sm="4">
+              <h5 class="mb-4">MY ACCOUNT</h5>
+              <p class="text-secondary">About Us</p>
+              <p class="text-secondary">Delivery Information</p>
+              <p class="text-secondary">Privacy Policy</p>
+              <p class="text-secondary">Terms & Conditions</p>
+            </b-col> -->
           </b-row>
         </b-col>
       </b-row>
@@ -83,3 +90,19 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      recruitment : {},
+    };
+  },
+  
+  async fetch(){
+    const recruitment = await this.$companyService.company.getCompany();
+
+    this.recruitment = recruitment.data ? recruitment.data[0] : [];
+  }
+};
+</script>
