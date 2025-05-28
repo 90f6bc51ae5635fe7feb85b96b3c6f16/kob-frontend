@@ -175,7 +175,7 @@ export default {
                 this.submitted = true;
                 try {
 
-                    await this.$axios.post('https://rvscs-develop.com/km-korat-web/api/member-insert/', {
+                    await this.$axios.post('https://km-korat.com/km-korat-web/api/member-insert/', {
                         // console.log("checkphones", checkphones);
                         // this.$axios.post(checkphones , {
                         customer_username: this.customer_username,

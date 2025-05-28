@@ -325,7 +325,7 @@ export default {
               this.selected_address.customer_tel;
           }
           await this.$axios
-            .post("https://rvscs-develop.com/km-korat-web/api/order-insert/", {
+            .post("https://km-korat.com/km-korat-web/api/order-insert/", {
               customer_code: this.user.customer_code,
               sale_station_code: "",
               user_code: "",
@@ -387,7 +387,7 @@ export default {
 
       if (this.promotions.length) {
         await this.$axios
-          .post("https://rvscs-develop.com/km-korat-web/api/check-promotion", {
+          .post("https://km-korat.com/km-korat-web/api/check-promotion", {
             promotions: this.promotions,
             carts: carts.map((cart) => ({
               receipt_list_code: "",

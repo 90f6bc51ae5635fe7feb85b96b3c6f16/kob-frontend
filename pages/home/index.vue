@@ -556,8 +556,8 @@ export default {
     async asyncData({
         $axios
     }) {
-        const codes = await $axios.$get('https://rvscs-develop.com/km-korat-web/api/product');
-        const categorys = await $axios.$get('https://rvscs-develop.com/km-korat-web/api/category');
+        const codes = await $axios.$get('https://km-korat.com/km-korat-web/api/product');
+        const categorys = await $axios.$get('https://km-korat.com/km-korat-web/api/category');
         //     // console.log("codes", codes);
         return {
             codes,
