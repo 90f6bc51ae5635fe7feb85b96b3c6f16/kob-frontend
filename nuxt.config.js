@@ -133,7 +133,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'https://km-korat.com/api',
+    baseURL: `${process.env.APP_URL}/api`,
     headers: {
       common: {
         'Accept': 'application/json',
@@ -184,6 +184,12 @@ export default {
     APP_URL: process.env.APP_URL,
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
     BASE_ENDPOINT_IMAGE: process.env.BASE_ENDPOINT_IMAGE,
+
+    DB_HOST: process.env.DB_HOST,
+    DB_PORT: process.env.DB_PORT,
+    DB_USER: process.env.DB_USER,
+    DB_PASSWORD: process.env.DB_PASSWORD,
+  
   },
 
 

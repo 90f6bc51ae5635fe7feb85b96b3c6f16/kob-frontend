@@ -1,0 +1,5 @@
+App:
+   Registry: habor.rvvcs.com/revelsoft
+   AppName: kob-frontend
+   ServiceName: kob_frontend
+   AppPath: /home/application/giftshop/giftshop-deploy/kob-web
