@@ -1,7 +1,3 @@
-import i18n from "./configs/i18n";
-
-const isProd = process.env.NODE_ENV === "production";
-
 export default {
   // serverMiddleware: ['~/api/controllers/member.js'],
   serverMiddleware: ["~/api/controllers/auth.js"],
