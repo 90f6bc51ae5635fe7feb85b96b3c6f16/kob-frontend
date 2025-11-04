@@ -21,19 +21,17 @@ FROM node:16-alpine
 
 WORKDIR /app
 
-# คัดลอกไฟล์จำเป็นจาก builder stage
 COPY --from=builder /app/.nuxt ./.nuxt
 COPY --from=builder /app/static ./static
+COPY --from=builder /app/store ./store
+COPY --from=builder /app/content ./content
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/nuxt.config.js ./
 
-# ติดตั้งเฉพาะ dependencies ที่ใช้รันจริง
 RUN npm install --only=production
 
-# ตั้งค่า environment
 ENV NITRO_PORT=3000
 ENV HOST=0.0.0.0
 EXPOSE 3000
 
-# เริ่มรัน Nuxt (SSR)
 CMD ["npm", "run", "start"]
