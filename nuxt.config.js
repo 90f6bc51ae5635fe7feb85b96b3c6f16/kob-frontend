@@ -84,52 +84,16 @@ export default {
   buildModules: [
     "@nuxtjs/google-fonts",
     "@nuxtjs/fontawesome",
-    "@nuxtjs/pwa",
-    // '@nuxtjs/vuetify',
-    // [
-    //   '@nuxtjs/i18n',
-    //   {
-    //     // vueI18nLoader: true,
-    //     defaultLocale: 'th',
-    //     locales: [
-    //       {
-    //         code: 'en',
-    //         name: 'En',
-    //       },
-    //       {
-    //         code: 'th',
-    //         name: 'ไทย',
-    //       },
-    //     ],
-    //     vueI18n: i18n,
-    //     vuex: {
-    //       // Module namespace
-    //       moduleName: 'i18n',
-
-    //       // If enabled, current app's locale is synced with nuxt-i18n store module
-    //       syncLocale: true,
-
-    //       // If enabled, current translation messages are synced with nuxt-i18n store module
-    //       syncMessages: true,
-
-    //       // Mutation to commit to set route parameters translations
-    //       syncRouteParams: true,
-    //     },
-    //   },
-    // ],
+    "@nuxtjs/pwa"
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     "cookie-universal-nuxt",
-    // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
     "@nuxtjs/axios",
     "@nuxt/content",
     "nuxt-sweetalert2",
-    "@nuxtjs/auth",
-
-    // "@nuxt/content"
+    "@nuxtjs/auth"
   ],
 
   axios: {
