@@ -1,38 +1,39 @@
-# 1. ใช้ Node.js image ที่เป็น base image
-FROM node:16-alpine AS build
+# ---------- Stage 1: Build ----------
+FROM node:16-alpine AS builder
 
-# 2. ตั้ง working directory
-WORKDIR /usr/src/app
+# ตั้ง working directory
+WORKDIR /app
 
-# 3. คัดลอก package.json และ package-lock.json
+# คัดลอกไฟล์ package.json และ package-lock.json ก่อน (เพื่อแคช dependency)
 COPY package*.json ./
 
-# 4. ติดตั้ง dependencies
+# ติดตั้ง dependencies
 RUN npm install
 
-# RUN npm install vue-i18n --legacy-peer-deps
-# 5. คัดลอกไฟล์ทั้งหมดไปยัง container
+# คัดลอก source code ทั้งหมด
 COPY . .
 
-# 6. Build แอป Nuxt 3
+# สร้างโปรเจกต์ (build)
 RUN npm run build
 
-# 7. ใช้ Node.js Image สำหรับ Production
-FROM node:16-alpine AS production
+# ---------- Stage 2: Production ----------
+FROM node:16-alpine
 
-# 8. ตั้ง working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# 9. คัดลอก dependencies ที่จำเป็นสำหรับ Production
-COPY package*.json ./
-RUN npm install
+# คัดลอกไฟล์จำเป็นจาก builder stage
+COPY --from=builder /app/.nuxt ./.nuxt
+COPY --from=builder /app/static ./static
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/nuxt.config.js ./
 
-# RUN npm install vue-i18n --legacy-peer-deps
-# 10. คัดลอกไฟล์ build ไปยัง Production Image
-COPY --from=build /usr/src/app/.output ./.output
+# ติดตั้งเฉพาะ dependencies ที่ใช้รันจริง
+RUN npm install --only=production
 
-# 11. เปิด port 3000
+# ตั้งค่า environment
+ENV NITRO_PORT=3000
+ENV HOST=0.0.0.0
 EXPOSE 3000
 
-# 12. คำสั่งเริ่มต้นสำหรับ Container
-CMD ["node", ".output/server/index.mjs"]
+# เริ่มรัน Nuxt (SSR)
+CMD ["npm", "run", "start"]
