@@ -1,6 +1,6 @@
 export default {
   // serverMiddleware: ['~/api/controllers/member.js'],
-  serverMiddleware: ["~/api/controllers/auth.js"],
+  serverMiddleware: ["/api/controllers/auth.js"],
   // Target: https://go.nuxtjs.dev/config-target
   ssr: true,
   target: "server",
