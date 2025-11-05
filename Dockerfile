@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 3000
 
 # คำสั่งเริ่มต้น (รัน production server)
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
