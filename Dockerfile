@@ -16,8 +16,10 @@ COPY . .
 # สร้าง production build
 RUN npm run build
 
+COPY . .
 # Expose port 3000 (ค่าเริ่มต้นของ Nuxt)
 EXPOSE 3000
+
 
 
 # คำสั่งเริ่มต้น (รัน production server)
