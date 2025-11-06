@@ -19,5 +19,6 @@ RUN npm run build
 # Expose port 3000 (ค่าเริ่มต้นของ Nuxt)
 EXPOSE 3000
 
+
 # คำสั่งเริ่มต้น (รัน production server)
-CMD ["npm", "run", "start"]
+CMD ["npm",  "start"]
