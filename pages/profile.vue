@@ -175,7 +175,7 @@ export default {
     async updateCustomer() {
       try {
         await this.$axios
-          .post("https://km-korat.com/km-korat-web/api/member-update/", {
+          .post(""+this.$config.BASE_ENDPOINT+"/api/member-update/", {
             customer_name: this.data.customer_name,
             customer_email: this.data.customer_email,
             customer_phone: this.data.customer_phone,
