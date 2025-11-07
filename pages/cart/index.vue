@@ -386,7 +386,7 @@ export default {
 
       if (this.promotions.length) {
         await this.$axios
-          .post(""+this.$config.BASE_ENDPOINT+"api/check-promotion", {
+          .post(""+this.$config.BASE_ENDPOINT+"/api/check-promotion", {
             promotions: this.promotions,
             carts: carts.map((cart) => ({
               receipt_list_code: "",

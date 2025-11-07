@@ -556,8 +556,8 @@ export default {
     async asyncData({
         $axios
     }) {
-        const codes = await $axios.$get(''+this.$config.BASE_ENDPOINT+'api/product');
-        const categorys = await $axios.$get(''+this.$config.BASE_ENDPOINT+'api/category');
+        const codes = await $axios.$get(''+this.$config.BASE_ENDPOINT+'/api/product');
+        const categorys = await $axios.$get(''+this.$config.BASE_ENDPOINT+'/api/category');
         //     // console.log("codes", codes);
         return {
             codes,
