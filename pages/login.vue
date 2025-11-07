@@ -72,7 +72,7 @@ export default {
                 "user",
                 response.data[0],
                 {
-                  domain: "km-korat.com",
+                  domain: this.$config.APP_DOMAIN,
                   maxAge: 60 * 60 * 24 * 7,
                   secure: true,
                 },

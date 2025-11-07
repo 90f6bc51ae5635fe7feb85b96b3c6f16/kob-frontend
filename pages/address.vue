@@ -272,7 +272,7 @@ export default {
       try {
         await this.$axios
           .post(
-            "https://km-korat.com/km-korat-web/api/member-update-default-address/",
+            ""+this.$config.BASE_ENDPOINT+"/api/member-update-default-address/",
             {
               customer_code: this.user.customer_code,
               customer_address_id: customer_address_id,
@@ -314,7 +314,7 @@ export default {
       try {
         await this.$axios
           .post(
-            "https://km-korat.com/km-korat-web/api/member-update-address/",
+            ""+this.$config.BASE_ENDPOINT+"/api/member-update-address/",
             {
               customer_code: this.user.customer_code,
               customer_name: this.customer_name,
@@ -360,7 +360,7 @@ export default {
       try {
         await this.$axios
           .post(
-            "https://km-korat.com/km-korat-web/api/member-insert-address/",
+            ""+this.$config.BASE_ENDPOINT+"/api/member-insert-address/",
             {
               customer_code: this.user.customer_code,
               customer_name: this.customer_name,
