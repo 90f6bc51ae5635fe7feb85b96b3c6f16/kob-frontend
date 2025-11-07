@@ -187,7 +187,7 @@
     </div>
 
     <b-modal id="modal-1" title="แจ้งหลักฐานการโอน" @ok="handleSubmit('request_check_slip')" centered>
-      <div id="preview" v-if="url != ''+this.$config.BASE_ENDPOINT+'slip/'">
+      <div id="preview" v-if="url != ''+this.$config.BASE_ENDPOINT+'/slip/'">
         <img v-if="url" :src="url" />
       </div>
       <b-form-file v-model="file" ref="file-input" class="mb-2" @change="onFileChange" required
@@ -367,7 +367,7 @@ export default {
         if (status == "customer_request_cancel") {
           await this.$axios
             .post(
-              ""+this.$config.BASE_ENDPOINT+"api/order-status-update",
+              ""+this.$config.BASE_ENDPOINT+"/api/order-status-update",
               {
                 order_status: this.order_status,
                 order_code: this.order_code,
@@ -422,7 +422,7 @@ export default {
 
             await this.$axios
               .post(
-                ""+this.$config.BASE_ENDPOINT+"api/upload-slip",
+                ""+this.$config.BASE_ENDPOINT+"/api/upload-slip",
                 formData,
                 {
                   headers: {
@@ -445,7 +445,7 @@ export default {
                   if (this.order_slip != "") {
                     await this.$axios
                       .post(
-                        ""+this.$config.BASE_ENDPOINT+"api/order-slip-update",
+                        ""+this.$config.BASE_ENDPOINT+"/api/order-slip-update",
                         {
                           order_status: this.order_status,
                           order_slip_date: this.order_slip_date,
@@ -528,7 +528,7 @@ export default {
     setOrderCode(value, order) {
       this.order_code = value;
       this.url =
-        ""+this.$config.BASE_ENDPOINT+"slip/" + order.order_slip;
+        ""+this.$config.BASE_ENDPOINT+"/slip/" + order.order_slip;
       this.url_payment =
         this.$store.state.BASE_ENDPOINT_IMAGE + "/" + order.order_payment_return_slip;
       this.order_slip_date = order.order_slip_date;
