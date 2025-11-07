@@ -324,8 +324,7 @@ export default {
               " " +
               this.selected_address.customer_tel;
           }
-          await this.$axios
-            .post("https://km-korat.com/km-korat-web/api/order-insert/", {
+          await this.$axios.post(""+this.$config.BASE_ENDPOINT+"/api/order-insert/", {
               customer_code: this.user.customer_code,
               sale_station_code: "",
               user_code: "",
@@ -387,7 +386,7 @@ export default {
 
       if (this.promotions.length) {
         await this.$axios
-          .post("https://km-korat.com/km-korat-web/api/check-promotion", {
+          .post(""+this.$config.BASE_ENDPOINT+"api/check-promotion", {
             promotions: this.promotions,
             carts: carts.map((cart) => ({
               receipt_list_code: "",
