@@ -1,8 +1,3 @@
-
-import i18n from './configs/i18n'
-
-const isProd = process.env.NODE_ENV === 'production'
-
 export default {
   // serverMiddleware: ['~/api/controllers/member.js'],
   serverMiddleware: ['~/api/controllers/auth.js'],
@@ -176,12 +171,14 @@ export default {
 
   publicRuntimeConfig: {
     APP_URL: process.env.APP_URL,
+    APP_DOMAIN: process.env.APP_DOMAIN,
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
     BASE_ENDPOINT_IMAGE: process.env.BASE_ENDPOINT_IMAGE,
   },
 
   privateRuntimeConfig: {
     APP_URL: process.env.APP_URL,
+    APP_DOMAIN: process.env.APP_DOMAIN,
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
     BASE_ENDPOINT_IMAGE: process.env.BASE_ENDPOINT_IMAGE,
 
