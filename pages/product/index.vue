@@ -229,6 +229,7 @@ export default {
         });
       }
 
+
       return {
         brands: brands.data ? brands.data : [],
         categorys: categorys.data ? categorys.data : [],

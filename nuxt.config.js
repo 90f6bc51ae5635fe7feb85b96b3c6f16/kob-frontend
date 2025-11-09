@@ -174,12 +174,15 @@ export default {
     APP_DOMAIN: process.env.APP_DOMAIN,
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
     BASE_ENDPOINT_IMAGE: process.env.BASE_ENDPOINT_IMAGE,
+    BASE_ENDPOINT_LOCAL: process.env.BASE_ENDPOINT_LOCAL,
+
   },
 
   privateRuntimeConfig: {
     APP_URL: process.env.APP_URL,
     APP_DOMAIN: process.env.APP_DOMAIN,
     BASE_ENDPOINT: process.env.BASE_ENDPOINT,
+    BASE_ENDPOINT_LOCAL: process.env.BASE_ENDPOINT_LOCAL,
     BASE_ENDPOINT_IMAGE: process.env.BASE_ENDPOINT_IMAGE,
 
     DB_HOST: process.env.DB_HOST,

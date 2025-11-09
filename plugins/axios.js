@@ -6,6 +6,8 @@ import promotionService from '~/services/promotion-service'
 import ProductGroupDiscountListService from '~/services/product-group-discount-list-service'
 import ProductScaleService from '~/services/product-scale-service'
 
+
+
 const services = [
   productService,
   userService,
@@ -18,31 +20,53 @@ const services = [
 //this retrive from publicRuntimeConfig
 const getBaseURL = (ctx, service) => {
   let url
+
+  if (process.server) {
+    url = ctx.BASE_ENDPOINT_LOCAL || service.url
+    url = ctx.BASE_ENDPOINT_LOCAL || service.url
+    url = ctx.BASE_ENDPOINT_LOCAL || service.url
+    url = ctx.BASE_ENDPOINT_LOCAL || service.url
+    url = ctx.BASE_ENDPOINT_LOCAL || service.url
+    url = ctx.BASE_ENDPOINT_LOCAL || service.url
+    url = ctx.BASE_ENDPOINT_LOCAL || service.url
+  } else {
+    url = ctx.BASE_ENDPOINT || service.url
+    url = ctx.BASE_ENDPOINT || service.url
+    url = ctx.BASE_ENDPOINT || service.url
+    url = ctx.BASE_ENDPOINT || service.url
+    url = ctx.BASE_ENDPOINT || service.url
+    url = ctx.BASE_ENDPOINT || service.url
+    url = ctx.BASE_ENDPOINT || service.url
+  }
+
   switch (service.name) {
     case 'productService':
-      url = ctx.BASE_ENDPOINT || service.url
+
       break
     case 'userService':
-      url = ctx.BASE_ENDPOINT || service.url
+
       break
     case 'orderService':
-      url = ctx.BASE_ENDPOINT || service.url
+
       break
     case 'companyService':
-      url = ctx.BASE_ENDPOINT || service.url
+
       break
     case 'promotionService':
-      url = ctx.BASE_ENDPOINT || service.url
+
       break
     case 'ProductGroupDiscountListService':
-      url = ctx.BASE_ENDPOINT || service.url
+
       break
     case 'ProductScaleService':
-      url = ctx.BASE_ENDPOINT || service.url
+
       break
     default:
       url = service.url
   }
+
+
+
   return url
 }
 
@@ -59,10 +83,14 @@ export default function ({ $config, $axios, store, error: nuxtError }, inject) {
     })
 
     service.axios.onRequest((config) => {
+      // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+      // return config
+
 
     })
 
     service.axios.onError((error) => {
+
       if (error.response) {
         return Promise.resolve(error.response)
       } else {
