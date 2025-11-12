@@ -23,7 +23,7 @@
           <b-img
             src="~/assets/Logo.png"
             alt="Image"
-            style="margin: 5px"
+            style="margin: 5px;width: 300px;padding: 0px !important;"
           ></b-img>
           <div class="content" v-html="recruitment.company_info_contact"></div>
           <!-- <p class="text-secondary pt-4" v-html="test_value"></p> -->

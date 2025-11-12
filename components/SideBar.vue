@@ -1,7 +1,7 @@
 <template>
   <div class="manu-sidebar">
     <a
-      href="https://www.facebook.com/kobgiftshop"
+      href="https://www.facebook.com/modnganbeauty"
       target="_blank"
       style="text-decoration: none !important"
       id="tooltip-target-1"
