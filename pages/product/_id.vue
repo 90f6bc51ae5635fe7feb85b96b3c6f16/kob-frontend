@@ -408,9 +408,6 @@ export default {
       product_code: params.id,
     });
 
-    console.log("productCodes",productCodes.data[0]);
-    
-
     let group_child = [];
     let images = [];
     let obj = {};
@@ -533,8 +530,7 @@ export default {
       }).then(item => product_scales = item.data)
       
     }
-    console.log("product_mothers", product_mothers);
-    console.log("product_childs", product_childs);
+
     return {
       products: products.data ? products.data : [],
       categorys: categorys.data ? categorys.data : [],
