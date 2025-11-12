@@ -80,12 +80,12 @@
           </div>
         </div>
         <div class="product-star-ating">
-          <div style="float: left; margin: -2px 5px 0 0">
+          <!-- <div style="float: left; margin: -2px 5px 0 0">
             <star-rating v-bind:increment="0.1" v-bind:max-rating="5" v-bind:star-size="12" v-bind:read-only="true"
               v-bind:show-rating="false" v-model:rating="rating">
             </star-rating>
-          </div>
-          <div style="text-align: right; margin: 0 0 0 0">
+          </div> -->
+          <!-- <div style="text-align: right; margin: 0 0 0 0">
             <p style="
                 text-align: center;
                 float: left;
@@ -95,28 +95,28 @@
               ">
               (5 Customers reviews)
             </p>
-          </div>
+          </div> -->
         </div>
         <br />
         <div style="text-align: left; display: flex">
-          <div style="
+          <!-- <div style="
               text-decoration: line-through;
               padding-right: 10px;
               color: #999999;
               font-size: 18pt;
             ">
             ฿200.00
-          </div>
+          </div> -->
           <div style="color: #222222; font-size: 18pt">
             ฿{{ product_mother.product_price }}
           </div>
         </div>
-        <div style="text-align: left; display: flex; padding-bottom: 10px">
+        <!-- <div style="text-align: left; display: flex; padding-bottom: 10px">
           <div style="color: #777777; font-size: 12pt">
             {{ product_mother.product_detail }}
           </div>
-        </div>
-        <div style="
+        </div> -->
+        <!-- <div style="
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -133,7 +133,7 @@
               <span style="color: #222222">{{ product_child.product_price }} บาท</span>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div style="
             text-align: left;
@@ -232,7 +232,7 @@
         <hr />
       </div>
     </b-row>
-    <div class="" style="padding-bottom: 30px">
+    <!-- <div class="" style="padding-bottom: 30px">
       <b-card no-body>
         <b-tabs pills card nav-wrapper-class="" active-nav-item-class="bg-success">
           <b-tab title="DESCRIPTION" active>
@@ -349,7 +349,7 @@
           </b-tab>
         </b-tabs>
       </b-card>
-    </div>
+    </div> -->
 
     <b-row>
       <b-col class="related-product" sm="6" cols="12">
@@ -408,6 +408,9 @@ export default {
       product_code: params.id,
     });
 
+    console.log("productCodes",productCodes.data[0]);
+    
+
     let group_child = [];
     let images = [];
     let obj = {};
@@ -461,7 +464,7 @@ export default {
       childs.data.forEach((e, i) => {
         product_childs.push(e);
       });
-      product_mothers.push(mothers.data[0]);
+      product_mothers.push({...mothers.data[0],product_price:productCodes.data[0].product_price ,product_name:productCodes.data[0].product_name,product_code:productCodes.data[0].product_code});
     } else if (productCodes.data[0].product_child == 0) {
       // console.log("แม่");
       const mothers = await $productService.product.getProductByCode({
@@ -513,7 +516,8 @@ export default {
         };
         images.push(obj);
       });
-      product_mothers.push(mothers.data[0]);
+      product_mothers.push({...mothers.data[0],product_price:productCodes.data[0].product_price ,product_name:productCodes.data[0].product_name,product_code:productCodes.data[0].product_code});
+
     }
 
     const product_group_discount_list = await $ProductGroupDiscountListService.ProductGroupDiscountList.getProductGroupDiscountListByProductCode({
@@ -529,8 +533,8 @@ export default {
       }).then(item => product_scales = item.data)
       
     }
-    // console.log("product_mothers", product_mothers);
-    //console.log("product_childs", product_childs);
+    console.log("product_mothers", product_mothers);
+    console.log("product_childs", product_childs);
     return {
       products: products.data ? products.data : [],
       categorys: categorys.data ? categorys.data : [],

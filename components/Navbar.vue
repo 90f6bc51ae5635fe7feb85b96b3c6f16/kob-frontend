@@ -3,9 +3,9 @@
     <fixed-header>
       <div class="fix-navbar">
         <b-container fluid="lg" class="d-flex p-2 py-md-4 px-md-0 align-items-center">
-          <b-img class="d-none d-md-block p-2" src="~/assets/Logo.png" fluid alt="Cart logo: KOB GIFTSHOP"></b-img>
+          <b-img class="d-none d-md-block p-2" src="~/assets/Logo.png" style="margin: 5px;width: 300px;padding: 0px !important;" fluid alt="Cart logo: KOB GIFTSHOP"></b-img>
           <b-img class="d-block d-md-none px-2" src="~/assets/Logo.jpg" fluid alt="Cart logo: KOB GIFTSHOP"></b-img>
-          <form class="flex-grow-1 ml-0 ml-md-4" :action="`/search/${keyword}`" method="post">
+          <form class="flex-grow-1 mt-3  ml-0 ml-md-4" :action="`/search/${keyword}`" method="post">
             <b-input-group>
               <b-form-input type="text" v-model="keyword" placeholder="ค้นหา" style="border-radius: 0" pattern=".{1,}"
                 required id="txtsearch">
@@ -18,13 +18,13 @@
             </b-input-group>
           </form>
 
-          <div class="d-none d-md-block mr-2 ml-4" v-if="!loggedIn">
+          <div class="d-none d-md-block  mt-3  mr-2 ml-4" v-if="!loggedIn">
             <b-link href="/login" style="color: #8d8d8d">ล็อคอิน</b-link>
-            /
-            <b-link href="/register" style="color: #8d8d8d">สมัครสมาชิก</b-link>
+            <!-- /
+            <b-link href="/register" style="color: #8d8d8d">สมัครสมาชิก</b-link> -->
           </div>
 
-          <b-dropdown class="ml-2" variant="outline-light" toggle-class="bg-white" no-caret right>
+          <b-dropdown class="ml-2 mt-3" variant="outline-light" toggle-class="bg-white" no-caret right>
             <template slot="button-content">
               <font-awesome-icon :icon="['fas', 'basket-shopping']" class="text-dark" />
               <span class="text-dark" aria-label="Close">
@@ -77,7 +77,7 @@
             </b-dropdown-text>
           </b-dropdown>
           <user-sidebar />
-          <b-dropdown v-if="loggedIn" class="ml-2 d-none d-lg-block" variant="outline-light" toggle-class="bg-white"
+          <b-dropdown v-if="loggedIn" class="ml-2  mt-3  d-none d-lg-block" variant="outline-light" toggle-class="bg-white"
             no-caret right>
             <template slot="button-content">
               <font-awesome-icon :icon="['fas', 'user']" class="text-dark" />
@@ -105,8 +105,7 @@
                 </b-nav-text>
                 <b-nav-text class="d-sm-block d-md-none text-center">
                   <b-link href="/login">ล็อคอิน</b-link>
-                  /
-                  <b-link href="/register">สมัครสมาชิก</b-link>
+                  <!-- / <b-link href="/register">สมัครสมาชิก</b-link> -->
                 </b-nav-text>
               </b-navbar-nav>
             </b-collapse>

@@ -14,10 +14,10 @@
     <b-alert class="mt-2" :show="is_error" variant="danger">Invalid password</b-alert>
     <b-button type="submit" variant="success" block squared>Login</b-button>
     <b-form-checkbox class="mt-2" v-model="is_remember_me">Remember Me</b-form-checkbox>
-    <div class="d-flex justify-content-between">
+    <!-- <div class="d-flex justify-content-between">
       <a href="/register" variant="primary" size="md" style="">Register</a>
       <span> Forgot <a href="/resetpassword">password ?</a> </span>
-    </div>
+    </div> -->
   </form>
 </template>
 
