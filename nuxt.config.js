@@ -141,6 +141,9 @@ export default {
     credentials: false,
   },
   auth: {
+    redirect: {
+      login: '/login',
+    },
     strategies: {
       local: {
         endpoints: {
@@ -158,9 +161,7 @@ export default {
         },
       },
     },
-    redirect: {
-      login: '/login',
-    },
+
   },
 
   env: {
