@@ -147,12 +147,12 @@ export default {
           login: {
             method: 'post',
             url: 'login',
-            // propertyName: 'data.token',
+            propertyName: false
           },
           user: {
             method: 'get',
             url: 'me',
-            propertyName: 'data.user',
+            propertyName: false
           },
           logout: false,
         },
