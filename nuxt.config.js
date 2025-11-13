@@ -152,7 +152,7 @@ export default {
           user: {
             method: 'get',
             url: 'me',
-            propertyName: 'data.token'
+            propertyName: 'data.user',
           },
           logout: false,
         },
