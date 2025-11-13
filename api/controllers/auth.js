@@ -15,7 +15,7 @@ router.get('/me', (req, res) => {
   console.log("auth =>>  me");
 
   try {
-    return res.json({
+    res.status(200).json({
       data: {
         user:
         {
