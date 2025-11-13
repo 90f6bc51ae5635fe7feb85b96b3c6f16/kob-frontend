@@ -19,7 +19,6 @@ export const actions = {
   async nuxtServerInit({ commit, }, { app }) {
     try {
       const app_config = await app.$companyService.company.getCompany();
- 
 
       if (app_config.data.length) commit('setAppConfig', app_config.data[0])
 

@@ -130,7 +130,7 @@ export default {
   ],
 
   axios: {
-    baseURL: `${process.env.APP_URL}/api`,
+    baseURL: `${process.env.APP_URL}`,
     headers: {
       common: {
         'Accept': 'application/json',
@@ -140,29 +140,77 @@ export default {
     },
     credentials: false,
   },
+  // auth: {
+  //   redirect: {
+  //     login: '/login',
+  //   },
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           method: 'post',
+  //           url: 'login',
+  //           propertyName: false
+  //         },
+  //         user: {
+  //           method: 'get',
+  //           url: 'me',
+  //           propertyName: false
+  //         },
+  //         logout: false,
+  //       },
+  //     },
+  //   },
+
+  // },
   auth: {
-    redirect: {
-      login: '/login',
-    },
     strategies: {
       local: {
+        token: {
+          property: 'token',   // ตำแหน่ง token ใน response
+          type: 'Bearer',
+          global: true
+          // maxAge: 60 * 60 // วินาที เช่น 1 ชม. (option)
+        },
+        user: {
+          property: false   // ตำแหน่ง user object ใน response ของ /me
+        },
         endpoints: {
           login: {
             method: 'post',
-            url: 'login',
-            propertyName: false
+            url: 'check-login',
+            property: 'token',
+            // propertyName: false
+
           },
           user: {
             method: 'get',
-            url: 'me',
-            propertyName: false
-          },
-          logout: false,
-        },
-      },
-    },
+            url: 'check-me',
+            property: false
 
+          },
+          logout: false
+        }
+      }
+    },
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/'
+    },
+    rewriteRedirects: true,
+    fullPathRedirect: true,
+    localStorage: false, // ปิด localStorage storage
+    cookie: {
+      prefix: 'auth.',
+      options: {
+        path: '/',
+        sameSite: 'lax',   // avoid login issues
+        secure: process.env.NODE_ENV === 'production'
+      }
+    }
   },
+
 
   env: {
     baseServiceURL: process.env.BASE_ENDPOINT
@@ -241,6 +289,7 @@ export default {
     },
   },
 
+
   helmet: {
     // helmet options
     frameguard: { action: 'deny' }, // Sets "X-Frame-Options: DENY"
@@ -251,6 +300,7 @@ export default {
     host: '0.0.0.0',
     timing: false,
   },
+
 
 
 };

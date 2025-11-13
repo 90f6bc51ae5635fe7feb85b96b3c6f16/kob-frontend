@@ -18,6 +18,8 @@
             }
 
 
+
+
             stage('push-registry'){
                 steps {
                     script {
