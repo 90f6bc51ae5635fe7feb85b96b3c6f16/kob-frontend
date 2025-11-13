@@ -159,7 +159,6 @@ export default {
   },
   mounted() {
     this.user = this.$store.state.auth.user;
-
     this.data.customer_name = this.user.customer_name;
     this.data.customer_full_name = this.user.customer_full_name;
     this.data.customer_email = this.user.customer_email;

@@ -27,7 +27,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "jquery": "^3.6.0",
-    "jsonwebtoken": "^9.0.2",
     "jw-vue-pagination": "^1.0.3",
     "laravel-vue-pagination": "^3.0.0",
     "mysql": "^2.18.1",

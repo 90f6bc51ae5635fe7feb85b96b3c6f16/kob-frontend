@@ -127,11 +127,7 @@ export default {
   },
   computed: {
     loggedIn() {
-      // console.log("this.$auth",this.$auth);
-      // console.log("this.$auth.loggedIn",this.$auth.loggedIn);
-      // console.log("this.$store.state.auth.loggedIn",this.$store.state.auth.loggedIn);
-      
-      return this.$store.state.auth.loggedIn
+      return this.$store.state.auth.loggedIn;
     },
     cartTotalPrice() {
       let cart_total_price = 0;

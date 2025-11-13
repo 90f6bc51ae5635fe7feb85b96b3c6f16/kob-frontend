@@ -130,7 +130,7 @@ export default {
   ],
 
   axios: {
-    baseURL: `${process.env.APP_URL}`,
+    baseURL: `${process.env.APP_URL}/api`,
     headers: {
       common: {
         'Accept': 'application/json',
@@ -140,64 +140,29 @@ export default {
     },
     credentials: false,
   },
-  // auth: {
-  //   redirect: {
-  //     login: '/login',
-  //   },
-  //   strategies: {
-  //     local: {
-  //       endpoints: {
-  //         login: {
-  //           method: 'post',
-  //           url: 'login',
-  //           propertyName: false
-  //         },
-  //         user: {
-  //           method: 'get',
-  //           url: 'me',
-  //           propertyName: false
-  //         },
-  //         logout: false,
-  //       },
-  //     },
-  //   },
-
-  // },
   auth: {
+    redirect: {
+      login: '/login',
+    },
     strategies: {
       local: {
-        token: {
-          property: 'token',   // ตำแหน่ง token ใน response
-          type: 'Bearer',
-          maxAge: 60 * 60 // วินาที เช่น 1 ชม. (option)
-        },
-        // user: {
-        // property: 'user'     // ตำแหน่ง user object ใน response ของ /me
-        // },
         endpoints: {
           login: {
             method: 'post',
-            url: 'check-login',
+            url: 'login',
             propertyName: false
           },
           user: {
             method: 'get',
-            url: 'check-me',
+            url: 'me',
             propertyName: false
           },
-          logout: false
-        }
-      }
+          logout: false,
+        },
+      },
     },
-    redirect: {
-      login: '/login',
-      // logout: '/login',
-      // home: '/'
-    },
-    // rewriteRedirects: true,
-    // fullPathRedirect: true
-  },
 
+  },
 
   env: {
     baseServiceURL: process.env.BASE_ENDPOINT
