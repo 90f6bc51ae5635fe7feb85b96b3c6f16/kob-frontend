@@ -22,48 +22,36 @@ const getBaseURL = (ctx, service) => {
   let url
 
   if (process.server) {
-    url = ctx.BASE_ENDPOINT_LOCAL || service.url
-    url = ctx.BASE_ENDPOINT_LOCAL || service.url
-    url = ctx.BASE_ENDPOINT_LOCAL || service.url
-    url = ctx.BASE_ENDPOINT_LOCAL || service.url
-    url = ctx.BASE_ENDPOINT_LOCAL || service.url
-    url = ctx.BASE_ENDPOINT_LOCAL || service.url
-    url = ctx.BASE_ENDPOINT_LOCAL || service.url
+    url = ctx.BASE_ENDPOINT_LOCAL
   } else {
-    url = ctx.BASE_ENDPOINT || service.url
-    url = ctx.BASE_ENDPOINT || service.url
-    url = ctx.BASE_ENDPOINT || service.url
-    url = ctx.BASE_ENDPOINT || service.url
-    url = ctx.BASE_ENDPOINT || service.url
-    url = ctx.BASE_ENDPOINT || service.url
-    url = ctx.BASE_ENDPOINT || service.url
+    url = ctx.BASE_ENDPOINT
   }
 
-  switch (service.name) {
-    case 'productService':
+  // switch (service.name) {
+  //   case 'productService':
 
-      break
-    case 'userService':
+  //     break
+  //   case 'userService':
 
-      break
-    case 'orderService':
+  //     break
+  //   case 'orderService':
 
-      break
-    case 'companyService':
+  //     break
+  //   case 'companyService':
 
-      break
-    case 'promotionService':
+  //     break
+  //   case 'promotionService':
 
-      break
-    case 'ProductGroupDiscountListService':
+  //     break
+  //   case 'ProductGroupDiscountListService':
 
-      break
-    case 'ProductScaleService':
+  //     break
+  //   case 'ProductScaleService':
 
-      break
-    default:
-      url = service.url
-  }
+  //     break
+  //   default:
+  //     url = service.url
+  // }
 
 
 

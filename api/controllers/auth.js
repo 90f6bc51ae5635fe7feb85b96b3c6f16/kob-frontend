@@ -8,9 +8,12 @@ app.use(cors());
 app.use(express.json());
 
 var user = {
-
+  data: "", 
 };
 router.get('/me', (req, res) => {
+
+  console.log("auth =>>  me");
+
   return res.json({
     data: {
       user
@@ -37,6 +40,8 @@ router.get('/me', (req, res) => {
 // });
 
 router.post('/login', function (req, res,) {
+
+  console.log("auth =>>  login");
   const { email, password } = req.body;
   memberModel.getLogin(email, password, (err, data) => {
     var result = JSON.parse(JSON.stringify(data))
