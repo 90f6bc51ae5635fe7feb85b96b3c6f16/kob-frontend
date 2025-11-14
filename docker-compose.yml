@@ -1,27 +1,9 @@
 version: '3.8'
 
 services:
-  kob_backend_web:
-    container_name: kob_backend_web
-    image: habor.rvvcs.com/revelsoft/km-kob-backend-web:v1.01
-    environment:
-      - TZ=Asia/Bangkok
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-        order: start-first
-    restart: always
-    # volumes:
-    #  - /usr/src/app/logs/service-read:/usr/src/app/logs
-    #  - /usr/src/app/service/public:/public
-    ports:
-      - 6204:6204
-
   kob_frontend:
     container_name: kob_frontend
-    image: km-kob-frontend-1
+    image: habor.rvvcs.com/revelsoft/auth-km-kob-frontend:v1.01
     environment:
       - TZ=Asia/Bangkok
     restart: always
