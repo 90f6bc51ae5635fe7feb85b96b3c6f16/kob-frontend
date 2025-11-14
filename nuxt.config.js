@@ -6,9 +6,6 @@ export default {
   target: 'server',
   debug: true,
 
-  routeRules: {
-    '/**': { prerender: true }
-  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'กบกิ๊ฟช็อปและมดงานบิวตี้ @ตรอกจันทร์(ตึกเขียวส้ม)',
