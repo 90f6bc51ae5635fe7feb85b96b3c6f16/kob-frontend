@@ -21,4 +21,4 @@ COPY . .
 EXPOSE 3000
 
 # คำสั่งเริ่มต้น (รัน production server)
-CMD ["npm", "run", "start"]y
+CMD ["npm", "run", "start"]
