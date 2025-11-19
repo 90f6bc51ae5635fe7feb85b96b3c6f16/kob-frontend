@@ -172,16 +172,17 @@ export default {
           global: true
           // maxAge: 60 * 60 // วินาที เช่น 1 ชม. (option)
         },
+        cookie: {
+          name: 'auth._token.local',
+        },
         user: {
-          property: false   // ตำแหน่ง user object ใน response ของ /me
+          property: false  // ตำแหน่ง user object ใน response ของ /me
         },
         endpoints: {
           login: {
             method: 'post',
             url: 'check-login',
             property: 'token',
-            // propertyName: false
-
           },
           user: {
             method: 'get',
@@ -193,20 +194,16 @@ export default {
         }
       }
     },
+    // watchLoggedIn: true,
     redirect: {
       login: '/login',
       logout: '/login',
       home: '/'
     },
-    rewriteRedirects: true,
-    fullPathRedirect: true,
-    localStorage: false, // ปิด localStorage storage
     cookie: {
-      prefix: 'auth.',
       options: {
-        path: '/',
-        sameSite: 'lax',   // avoid login issues
-        secure: process.env.NODE_ENV === 'production'
+        sameSite: 'lax',   // หรือ 'none' ถ้าเป็น https
+        secure: false,
       }
     }
   },
@@ -217,7 +214,7 @@ export default {
   },
 
   router: {
-    base: process.env.ROUTER_PATH || '/',
+    base: process.env.ROUTER_PATH || '/'
   },
 
   publicRuntimeConfig: {

@@ -27,56 +27,38 @@ router.post('/check-login', function (req, res) {
       console.error(err);
       return res.status(500).json({ error: 'server_error' });
     }
-
-    // console.log("data", data);
-
-
     if (!data || !data.length) {
-      // กรณี login fail
       return res.status(401).json({ error: 'invalid_credentials' });
     }
-
-    // ดึง user ตัวแรก (ปรับให้เหมาะสม)
     const user = data[0];
+    if (user.customer_code) {
 
-    // console.log("user", user);
+      if (user.customer_password) delete user.customer_password;
 
+      // สร้าง payload ของ JWT — ใส่เฉพาะข้อมูลจำเป็นเท่านั้น
+      const payload = {
+        sub: user.customer_code,
+        username: user.customer_username
 
-    // อย่าใส่ password กลับไปให้ client — ถ้ามี field รหัสให้ลบก่อน
-    if (user.customer_password) delete user.customer_password;
+      };
+      
+      // สร้าง token (JWT)
+      const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+      // คืน response ให้ Nuxt Auth เหมาะกับ config ข้างบน
+      return res.status(200).json({
+        token: token,
+        user: user
 
-    // สร้าง payload ของ JWT — ใส่เฉพาะข้อมูลจำเป็นเท่านั้น
-    const payload = {
-      sub: user.customer_code,
-      username: user.customer_username
-      // เพิ่มค่าอื่น ๆ ที่จำเป็น (แต่ระวังอย่าใส่ข้อมูลสำคัญเกินไป)
-    };
+      });
 
+    } else {
+      return res.status(500).json({
+        token: false,
+        user: ''
 
-    // console.log("payload", payload);
+      });
 
-    // console.log("JWT_SECRET", JWT_SECRET);
-
-    // console.log("JWT_EXPIRES_IN", JWT_EXPIRES_IN);
-
-
-    // สร้าง token (JWT)
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-
-    // console.log("token", {
-    //   data: {
-    //     token: token,
-    //     user: user
-    //   }
-    // });
-
-
-    // คืน response ให้ Nuxt Auth เหมาะกับ config ข้างบน
-    return res.status(200).json({
-      token: token,
-      user: user
-
-    });
+    }
   });
 });
 

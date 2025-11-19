@@ -206,7 +206,7 @@ import { data } from "browserslist";
 
 export default {
   name: "Homepage",
-  middleware: "auth",
+  middleware: "checkAuth",
   computed: {
     cartSubTotalPrice() {
       let total_price = 0;

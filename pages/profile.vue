@@ -143,7 +143,7 @@
 
 <script>
 export default {
-  middleware: "auth",
+  middleware: "checkAuth",
   data() {
     return {
       data: {
