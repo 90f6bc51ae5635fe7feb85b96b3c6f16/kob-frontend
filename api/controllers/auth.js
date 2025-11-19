@@ -1,100 +1,135 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+
 import memberModel from "../models/member.js";
+
+
+// ตั้ง secret จริง ๆ ควรเก็บใน process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES_IN = 604800; // หรือ '7d' ตามต้องการ
+
+
 const router = express.Router();
 
 app.use(cors());
 app.use(express.json());
 
-var user = {
-  data: "",
-};
-router.get('/me', (req, res) => {
+// POST /login
+router.post('/check-login', function (req, res) {
+  console.log("auth =>> login");
+  const { email, password } = req.body;
 
-  console.log("auth =>>  me");
-
-  try {
-    res.status(200).json({
-      customer_code: '0016218',
-      customer_register_code: '99894677',
-      customer_type_code: 'CT-2022001',
-      customer_zone_type_code: 'pos',
-      customer_prefix: '',
-      customer_name: 'ทวี สิงห์สกล',
-      customer_full_name: 'ทวี สิงห์สกล',
-      customer_branch: '',
-      customer_tax: '',
-      customer_tel: '0998769136',
-      customer_phone: null,
-      customer_fax: '01421',
-      customer_email: '',
-      customer_address: 'เลขที่ 96 ม.14 บ.โนนสูง ต.ทัพรั้ง อ.พระทองคำ จ.นครราชสีมา 30220',
-      customer_zipcode: '',
-      customer_vat_type: 'inc',
-      customer_vat_value: 7,
-      customer_profile_image: null,
-      customer_credit_day: 0,
-      customer_condition_pay: '',
-      points_balance: 8,
-      account_code: '',
-      customer_username: 'revelsoft',
-      customer_password: '123456',
-      customer_point_lock: 0,
-      customer_line: 'Santisook.s',
-      customer_line_id: 'U14a8532b702efa0eb159b02f4b62d623',
-      customer_line_name: 'Santisook.s',
-      customer_line_picture: 'https://profile.line-scdn.net/0hHQvnKklRF35bF',
-      addby: 'GSE20240019',
-      adddate: '2025-08-15T07:46:44.000Z',
-      updateby: null,
-      lastupdate: null
+  memberModel.getLogin(email, password, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'server_error' });
     }
-    );
-  } catch (error) {
-    console.log("error", error);
-  }
+    if (!data || !data.length) {
+      return res.status(401).json({ error: 'invalid_credentials' });
+    }
+    const user = data[0];
+    if (user.customer_code) {
 
+      if (user.customer_password) delete user.customer_password;
 
+      // สร้าง payload ของ JWT — ใส่เฉพาะข้อมูลจำเป็นเท่านั้น
+      const payload = {
+        sub: user.customer_code,
+        username: user.customer_username
+
+      };
+      
+      // สร้าง token (JWT)
+      const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+      // คืน response ให้ Nuxt Auth เหมาะกับ config ข้างบน
+      return res.status(200).json({
+        token: token,
+        user: user
+
+      });
+
+    } else {
+      return res.status(500).json({
+        token: false,
+        user: ''
+
+      });
+
+    }
+  });
 });
 
-// router.post('/login', (req, res) => {
-//   const { email, password } = req.body;
-//   console.log("");
-//   // query db.
-//   if (email === 'admin@admin.com' && password === '123456') {
-//     return res.json({
-//       data: {
-//         user,
-//         token: 'THIS_IS_TOKEN'
-//       }
-//     });
-//   } else {
-//     return res.status(401).json({
-//       message: 'Invalid Password'
-//     });
-//   }
-// });
+// middleware ตรวจ JWT สำหรับ /me
+function verifyToken(req, res, next) {
+  // console.log("verifyToken", req.headers);
 
-router.post('/login', function (req, res,) {
+  const authHeader = req.headers['authorization'] || req.headers['Authorization'] || req.headers['x-access-token'];
 
-  console.log("auth =>>  login");
-  const { email, password } = req.body;
-  memberModel.getLogin(email, password, (err, data) => {
+  // console.log("verifyToken authHeader ", authHeader);
 
-    console.log("data", data);
+  if (!authHeader) {
+    return res.status(401).json({ error: 'No authorization header' });
+  }
 
-    var result = JSON.parse(JSON.stringify(data))
-    console.log('result ++>> login', result);
-    user = result[0]
-    res.status(200).json(data);
+  // คาดว่าเป็นรูปแบบ "Bearer <token>"
+  const parts = authHeader.split(' ');
+  if (parts.length !== 2) {
+    return res.status(401).json({ error: 'Invalid Authorization header' });
+  }
+
+  const scheme = parts[0];
+  const token = parts[1];
+
+  if (!/^Bearer$/i.test(scheme)) {
+    return res.status(401).json({ error: 'Invalid token scheme' });
+  }
+
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) {
+      console.error('JWT verify error', err);
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+    // เก็บข้อมูล decoded ไว้ใน req เพื่อใช้ต่อ
+    req.userDecoded = decoded;
+    next();
   });
-})
+}
 
+// GET /me
+router.get('/check-me', verifyToken, (req, res) => {
+  console.log('auth =>> me (verified)');
+
+  // ถ้าต้องการข้อมูล user เต็มจาก DB: ใช้ req.userDecoded.sub เพื่อ query
+  // ในตัวอย่าง เราแสดงข้อมูลแบบง่าย (สมมติข้อมูล user เก็บไว้ใน DB หรือ cache)
+  const customerCode = req.userDecoded.sub;
+
+  // ตัวอย่าง: ดึงข้อมูล user ใหม่จาก DB ด้วย customerCode
+  memberModel.getByCustomerCode(customerCode, (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'server_error' });
+    }
+    if (!rows || !rows.length) {
+      return res.status(404).json({ error: 'user_not_found' });
+    }
+    const user = rows[0];
+    if (user.customer_password) delete user.customer_password;
+
+    return res.status(200).json({
+      user
+    });
+  });
+
+  // ถ้าไม่อยาก query ใหม่ (ใช้ข้อมูลจาก token) สามารถส่งกลับได้ทันที:
+  // res.status(200).json({ data: { user: req.userDecoded } });
+});
 app.use(router);
 
 module.exports = {
-  path: '/api',
+  path: '/',
   handler: app
 };
 

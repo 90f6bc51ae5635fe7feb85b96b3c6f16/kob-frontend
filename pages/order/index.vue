@@ -261,7 +261,7 @@
 <script>
 export default {
   name: "Homepage",
-  middleware: "auth",
+  middleware: "checkAuth",
   data() {
     return {
       form: {

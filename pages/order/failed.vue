@@ -253,7 +253,7 @@
 import path from "path";
 
 export default {
-  middleware: "auth",
+  middleware: "checkAuth",
   data() {
     return {
       form: {

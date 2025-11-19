@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  middleware: "auth",
+  middleware: "checkAuth",
   computed: {
     loggedIn() {
       return this.$store?.state?.auth?.loggedIn;

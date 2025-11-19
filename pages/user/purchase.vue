@@ -221,7 +221,7 @@
 
 <script>
 export default {
-  // middleware: "auth",
+  // middleware: "checkAuth",
   layout: "user-account",
   data() {
     return {

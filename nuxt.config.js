@@ -130,7 +130,7 @@ export default {
   ],
 
   axios: {
-    baseURL: `${process.env.APP_URL}/api`,
+    baseURL: `${process.env.APP_URL}`,
     headers: {
       common: {
         'Accept': 'application/json',
@@ -140,36 +140,81 @@ export default {
     },
     credentials: false,
   },
+  // auth: {
+  //   redirect: {
+  //     login: '/login',
+  //   },
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           method: 'post',
+  //           url: 'login',
+  //           propertyName: false
+  //         },
+  //         user: {
+  //           method: 'get',
+  //           url: 'me',
+  //           propertyName: false
+  //         },
+  //         logout: false,
+  //       },
+  //     },
+  //   },
+
+  // },
   auth: {
-    redirect: {
-      login: '/login',
-    },
     strategies: {
       local: {
+        token: {
+          property: 'token',   // ตำแหน่ง token ใน response
+          type: 'Bearer',
+          global: true
+          // maxAge: 60 * 60 // วินาที เช่น 1 ชม. (option)
+        },
+        cookie: {
+          name: 'auth._token.local',
+        },
+        user: {
+          property: false  // ตำแหน่ง user object ใน response ของ /me
+        },
         endpoints: {
           login: {
             method: 'post',
-            url: 'login',
-            propertyName: false
+            url: 'check-login',
+            property: 'token',
           },
           user: {
             method: 'get',
-            url: 'me',
-            propertyName: false
-          },
-          logout: false,
-        },
-      },
-    },
+            url: 'check-me',
+            property: false
 
+          },
+          logout: false
+        }
+      }
+    },
+    // watchLoggedIn: true,
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/'
+    },
+    cookie: {
+      options: {
+        sameSite: 'lax',   // หรือ 'none' ถ้าเป็น https
+        secure: false,
+      }
+    }
   },
+
 
   env: {
     baseServiceURL: process.env.BASE_ENDPOINT
   },
 
   router: {
-    base: process.env.ROUTER_PATH || '/',
+    base: process.env.ROUTER_PATH || '/'
   },
 
   publicRuntimeConfig: {
@@ -241,6 +286,7 @@ export default {
     },
   },
 
+
   helmet: {
     // helmet options
     frameguard: { action: 'deny' }, // Sets "X-Frame-Options: DENY"
@@ -251,6 +297,7 @@ export default {
     host: '0.0.0.0',
     timing: false,
   },
+
 
 
 };
