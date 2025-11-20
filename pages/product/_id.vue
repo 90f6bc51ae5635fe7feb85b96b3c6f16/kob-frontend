@@ -351,7 +351,7 @@
       </b-card>
     </div> -->
 
-    <b-row>
+    <b-row v-if="promotions.length">
       <b-col class="related-product" sm="6" cols="12">
         <div style="font-size: 18pt; color: #222222">PROMOTION</div>
       </b-col>
