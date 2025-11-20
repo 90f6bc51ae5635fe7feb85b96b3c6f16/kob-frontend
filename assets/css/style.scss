@@ -257,12 +257,16 @@ body {
     display: inline-flex;
     vertical-align: middle;
     position: absolute;
-    margin-left: 10px;
     left: 0;
     top: 12px;
     width: 100%;
     z-index: 1;
+    .align-end {
+    
+      padding-right: 10px;
+    }
   }
+
 
 
 
