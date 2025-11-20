@@ -73,86 +73,45 @@
 
     <b-row class="pr-md-3">
       <b-col md="4" lg="3" class="mt-4">
-        <b-button
-          class="d-flex align-items-center justify-content-between mb-0"
-          block
-          v-b-toggle.collapse
-          variant="default"
-        >
+        <b-button class="d-flex align-items-center justify-content-between mb-0" block v-b-toggle.collapse
+          variant="default">
           ประเภทสินค้า
           <font-awesome-icon :icon="['fas', 'angle-down']" />
         </b-button>
         <b-collapse id="collapse" class="filter-list-group-panel">
           <b-list-group class="rounded-0">
-            <b-list-group-item
-              v-for="(category, idx) in categorys"
-              :key="'B' + idx"
-              :href="`/product/category/${category.product_category_code}`"
-              class="px-3 py-2"
-            >
+            <b-list-group-item v-for="(category, idx) in categorys" :key="'B' + idx"
+              :href="`/product/category/${category.product_category_code}`" class="px-3 py-2">
               {{ category.product_category_name }}
             </b-list-group-item>
           </b-list-group>
         </b-collapse>
         <p class="mt-3">ตัวกรอง</p>
-        <b-button
-          variant="default"
-          class="d-flex align-items-center justify-content-between mb-0"
-          style="box-shadow: unset"
-          block
-          squared
-          v-b-toggle.collapse1
-        >
+        <b-button variant="default" class="d-flex align-items-center justify-content-between mb-0"
+          style="box-shadow: unset" block squared v-b-toggle.collapse1>
           ยี่ห้อสินค้า
           <font-awesome-icon :icon="['fas', 'angle-down']" />
         </b-button>
         <b-collapse id="collapse1" class="filter-panel">
           <b-list-group class="rounded-0">
             <b-list-group-item v-for="(brand, idx) in brands" :key="'C' + idx">
-              <input
-                type="checkbox"
-                checked
-                :name="`${brand.product_brand_code}`"
-                :value="`${brand.product_brand_code}`"
-                v-model="checkedNames"
-                @change="check_brand($event)"
-              />
+              <input type="checkbox" checked :name="`${brand.product_brand_code}`"
+                :value="`${brand.product_brand_code}`" v-model="checkedNames" @change="check_brand($event)" />
               {{ brand.product_brand_name }}
             </b-list-group-item>
           </b-list-group>
         </b-collapse>
-        <b-button
-          variant="default"
-          class="d-flex align-items-center justify-content-between mb-0"
-          style="box-shadow: unset"
-          block
-          squared
-          v-b-toggle.collapse2
-        >
+        <b-button variant="default" class="d-flex align-items-center justify-content-between mb-0"
+          style="box-shadow: unset" block squared v-b-toggle.collapse2>
           ราคา
           <font-awesome-icon :icon="['fas', 'angle-down']" />
         </b-button>
         <b-collapse id="collapse2" class="filter-panel px-3 text-center">
-          <b-form-input
-            type="number"
-            class="mt-3"
-            v-model="min"
-            placeholder="ใส่ราคาต่ำสุด"
-          />
+          <b-form-input type="number" class="mt-3" v-model="min" placeholder="ใส่ราคาต่ำสุด" />
           <div class="mt-3">ถึง</div>
-          <b-form-input
-            type="number"
-            class="mt-3"
-            v-model="max"
-            placeholder="ใส่ราคาสูงสุด"
-          />
+          <b-form-input type="number" class="mt-3" v-model="max" placeholder="ใส่ราคาสูงสุด" />
           <p id="demo"></p>
-          <b-button
-            type="submit"
-            class="mt-3"
-            variant="success"
-            @click="check_price()"
-          >
+          <b-button type="submit" class="mt-3" variant="success" @click="check_price()">
             ยืนยัน
           </b-button>
 
@@ -170,59 +129,29 @@
             </div>
           </b-modal>
         </b-collapse>
-        <b-button
-          type="submit"
-          variant="danger"
-          class="mt-2"
-          block
-          squared
-          @click="reset_filter()"
-        >
+        <b-button type="submit" variant="danger" class="mt-2" block squared @click="reset_filter()">
           ลบตัวกรอง
         </b-button>
       </b-col>
       <b-col md="8" lg="9" class="mt-4 pl-0 pr-0">
-        <b-row
-          no-gutters
-          class="product-list justify-content-around justify-content-lg-start"
-          style="min-height: 400px"
-        >
-          <b-col
-            cols="6"
-            sm="4"
-            md="3"
-            class="pt-sm-2 py-md-0"
-            style="min-width: 210px"
-            v-for="(product, idx) in search_products"
-            :key="'D' + idx"
-          >
+        <b-row no-gutters class="product-list justify-content-around justify-content-lg-start"
+          style="min-height: 400px">
+          <b-col cols="6" sm="4" md="3" class="pt-sm-2 py-md-0" style="min-width: 210px"
+            v-for="(product, idx) in search_products" :key="'D' + idx">
             <card-product :item="product" :rating="true" />
           </b-col>
-          <div
-            v-for="(count, idx) in counts"
-            :key="'F' + idx"
-            style="width: 100%"
-            class="d-flex justify-content-center align-items-center"
-          >
-            <b-row
-              v-if="count.product_count == 0"
-              class="d-flex flex-column align-items-center"
-              style="width: 250px"
-            >
+          <div v-for="(count, idx) in counts" :key="'F' + idx" style="width: 100%"
+            class="d-flex justify-content-center align-items-center">
+            <b-row v-if="count.product_count == 0" class="d-flex flex-column align-items-center" style="width: 250px">
               <p>ไม่พบสินค้า</p>
-              <button
-                type="submit"
-                class="btn btn-success"
-                @click="reset_data()"
-              >
+              <button type="submit" class="btn btn-success" @click="reset_data()">
                 กลับไปหน้ารายการสินค้า
               </button>
             </b-row>
           </div>
         </b-row>
         <b-row no-gutters>
-          <div
-            style="
+          <div style="
               margin-top: 1em;
               justify-content: center;
               list-style-type: none;
@@ -232,10 +161,7 @@
               border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
               border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
               border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-            "
-            v-for="(count, idx) in counts"
-            :key="'F' + idx"
-          >
+            " v-for="(count, idx) in counts" :key="'F' + idx">
             <!-- <div
           v-if="count.product_count == 0"
           style="margin-top: 1em; margin-bottom: 10em; text-align: center"
@@ -245,17 +171,13 @@
             กลับไปหน้ารายการสินค้า
           </button>
         </div> -->
-            <div
-              v-if="
-                count.product_count < 1 &&
-                count.product_count > 0 &&
-                count.product_count != 0 &&
-                Math.round(count.product_count) != 1
-              "
-            >
-              <ul
-                v-if="pages == 1"
-                style="
+            <div v-if="
+              count.product_count < 1 &&
+              count.product_count > 0 &&
+              count.product_count != 0 &&
+              Math.round(count.product_count) != 1
+            ">
+              <ul v-if="pages == 1" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -265,48 +187,31 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
                   <button class="btn btn-light" style="float: right" disbled>
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
               </ul>
             </div>
             <div v-if="Math.round(count.product_count) == 1">
-              <ul
-                v-if="pages == 1"
-                style="
+              <ul v-if="pages == 1" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -316,48 +221,31 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
                   <button class="btn btn-light" style="float: right" disbled>
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
               </ul>
             </div>
             <div v-if="Math.round(count.product_count) == 2">
-              <ul
-                v-if="pages == 1"
-                style="
+              <ul v-if="pages == 1" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -367,74 +255,48 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 2"
-                style="
+              <ul v-if="pages == 2" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -444,76 +306,50 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
               </ul>
             </div>
             <div v-if="Math.round(count.product_count) == 3">
-              <ul
-                v-if="pages == 1"
-                style="
+              <ul v-if="pages == 1" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -523,90 +359,59 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 2"
-                style="
+              <ul v-if="pages == 2" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -616,98 +421,67 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 3"
-                style="
+              <ul v-if="pages == 3" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -717,92 +491,61 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
               </ul>
             </div>
             <div v-if="Math.round(count.product_count) == 4">
-              <ul
-                v-if="pages == 1"
-                style="
+              <ul v-if="pages == 1" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -812,106 +555,70 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 2"
-                style="
+              <ul v-if="pages == 2" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -921,114 +628,78 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 3"
-                style="
+              <ul v-if="pages == 3" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -1038,115 +709,79 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
 
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 4"
-                style="
+              <ul v-if="pages == 4" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -1156,108 +791,72 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
               </ul>
             </div>
             <div v-if="Math.round(count.product_count) == 5">
-              <ul
-                v-if="pages == 1"
-                style="
+              <ul v-if="pages == 1" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -1267,122 +866,81 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 4}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 4 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 4}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 4 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 2"
-                style="
+              <ul v-if="pages == 2" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -1392,130 +950,89 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 3"
-                style="
+              <ul v-if="pages == 3" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -1525,130 +1042,89 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 4"
-                style="
+              <ul v-if="pages == 4" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -1658,130 +1134,89 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 5"
-                style="
+              <ul v-if="pages == 5" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -1791,124 +1226,83 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 4}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 4 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 4}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 4 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
               </ul>
             </div>
             <div v-if="Math.round(count.product_count) > 5">
-              <ul
-                v-if="pages == 1"
-                style="
+              <ul v-if="pages == 1" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -1918,122 +1312,81 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 4}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 4 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 4}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 4 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 2"
-                style="
+              <ul v-if="pages == 2" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -2043,130 +1396,89 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == 3"
-                style="
+              <ul v-if="pages == 3" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -2176,132 +1488,91 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="
-                  pages == Math.round(count.product_count) - 2 && pages != 3
-                "
-                style="
+              <ul v-if="
+                pages == Math.round(count.product_count) - 2 && pages != 3
+              " style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -2311,130 +1582,89 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == Math.round(count.product_count) - 1"
-                style="
+              <ul v-if="pages == Math.round(count.product_count) - 1" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -2444,130 +1674,89 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
-              <ul
-                v-if="pages == Math.round(count.product_count)"
-                style="
+              <ul v-if="pages == Math.round(count.product_count)" style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -2577,127 +1766,86 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 4}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 4 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 4}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 4 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 3}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 3 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 3}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 3 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <button
-                    class="btn btn-light"
-                    style="float: left; color: #333"
-                    disbled
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <button class="btn btn-light" style="float: left; color: #333" disbled>
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </button>
                 </li>
               </ul>
-              <ul
-                v-if="
-                  pages > 3 &&
-                  pages != Math.round(count.product_count) - 2 &&
-                  pages != Math.round(count.product_count) - 1 &&
-                  pages != Math.round(count.product_count)
-                "
-                style="
+              <ul v-if="
+                pages > 3 &&
+                pages != Math.round(count.product_count) - 2 &&
+                pages != Math.round(count.product_count) - 1 &&
+                pages != Math.round(count.product_count)
+              " style="
                   margin-top: 1em;
                   justify-content: center;
                   list-style-type: none;
@@ -2707,124 +1855,85 @@
                   border-bottom: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-left: 0px solid rgba(0, 0, 0, 0.14) !important;
                   border-right: 0px solid rgba(0, 0, 0, 0.14) !important;
-                "
-              >
+                ">
                 <li style="margin: 0 0.5em 0 0">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-left']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-left']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages - 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages - 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages - 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages - 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <button
-                    class="btn btn-primary"
-                    style="
+                  <button class="btn btn-primary" style="
                       background-color: #39b54a;
                       color: #fff;
                       margin-left: 4.335%;
                       margin-right: 4.335%;
-                    "
-                    disbled
-                  >
+                    " disbled>
                     {{ pages }}
                   </button>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 1 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 1 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0.5em 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="margin-left: 4.335%; margin-right: 4.335%"
-                    :to="{
-                      path: `/search/page/${pages + 2}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                    >{{ pages + 2 }}</nuxt-link
-                  >
+                  <nuxt-link class="btn btn-outline-primary" style="margin-left: 4.335%; margin-right: 4.335%" :to="{
+                    path: `/search/page/${pages + 2}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">{{ pages + 2 }}</nuxt-link>
                 </li>
                 <li style="margin: 0 0 0 0.5em">
-                  <nuxt-link
-                    class="btn btn-outline-primary"
-                    style="float: right"
-                    :to="{
-                      path: `/search/page/${pages + 1}`,
-                      query: {
-                        keyword: keyword,
-                        brand: brand,
-                        min: min,
-                        max: max,
-                      },
-                    }"
-                  >
-                    <font-awesome-icon
-                      :icon="['fas', 'angle-right']"
-                      style="color: #555555; font-size: 10pt"
-                    />
+                  <nuxt-link class="btn btn-outline-primary" style="float: right" :to="{
+                    path: `/search/page/${pages + 1}`,
+                    query: {
+                      keyword: keyword,
+                      brand: brand,
+                      min: min,
+                      max: max,
+                    },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'angle-right']" style="color: #555555; font-size: 10pt" />
                   </nuxt-link>
                 </li>
               </ul>
@@ -2862,6 +1971,8 @@ export default {
         search_page_min: min,
         search_page_max: max,
       });
+
+    console.log("search_products", search_products.data);
     const categorys = await $productService.product.getProductCategoryBy();
     const brands = await $productService.product.getProductBandBy();
     const tenPosts = await $content()
