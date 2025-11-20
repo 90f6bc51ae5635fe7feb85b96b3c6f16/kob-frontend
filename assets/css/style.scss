@@ -253,10 +253,41 @@ body {
     }
   }
 
+  .card-promotion {
+    display: inline-flex;
+    vertical-align: middle;
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 100%;
+    z-index: 1;
+    .align-end {
+    
+      padding-right: 10px;
+    }
+  }
+
+
+
+
+
+
   .card-detail-text {
     padding-top: 0.5rem;
     padding-bottom: 1.5rem;
   }
+}
+
+
+.card-promotion-no-image {
+  width: 100%;
+  height: 220px;
+  background: #54595c;
+  color: #fff;
+  font-size: 22px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .card-product:hover {

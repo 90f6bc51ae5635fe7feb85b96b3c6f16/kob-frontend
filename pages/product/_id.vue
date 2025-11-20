@@ -214,7 +214,7 @@
             <div v-for="category in categorys" :key="category.product_category_code">
               <div style="color: #222222; font-size: 12pt" class="" v-if="product_mother.product_category_code ==
                 category.product_category_code
-                ">
+              ">
                 Category :
                 <span style="color: #777777; font-size: 12pt">
                   {{ category.product_category_name }}
@@ -353,6 +353,47 @@
 
     <b-row>
       <b-col class="related-product" sm="6" cols="12">
+        <div style="font-size: 18pt; color: #222222">PROMOTION</div>
+      </b-col>
+      <b-col class="related-product" sm="6" cols="12">
+        <div class="awesome-product text-left text-sm-right">
+          <button @click="$refs.carousel.goToPrev()" class="btn-toggle"
+            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important">
+            <font-awesome-icon :icon="['fas', 'angle-left']" style="font-size: 10pt" />
+          </button>
+          <button @click="$refs.carousel.goToNext()" class="btn-toggle"
+            style="border: 1px solid #e4e4e4; padding: 0.1rem 0.7rem !important">
+            <font-awesome-icon :icon="['fas', 'angle-right']" style="font-size: 10pt" />
+          </button>
+        </div>
+      </b-col>
+    </b-row>
+
+    <b-row class="">
+      <b-col class="p-0">
+        <div class="carousel-wrapper">
+          <client-only>
+            <agile :options="promotion_options" ref="carousel">
+              <div v-for="promotion in promotions" :key="promotion.promotion_code">
+                <b-col md="4" class="card-promotion">
+
+                  <img v-if="promotion.promotion_image" class="cover" width="100%" height="220px"
+                    :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${promotion.promotion_image}`" alt="kob-image" />
+                  <div v-else class="card-promotion-no-image">
+                    {{ promotion.promotion_code }}
+                    {{ promotion.promotion_name }}
+                  </div>
+
+                </b-col>
+              </div>
+            </agile>
+          </client-only>
+        </div>
+      </b-col>
+    </b-row>
+
+    <b-row>
+      <b-col class="related-product" sm="6" cols="12">
         <div style="font-size: 18pt; color: #222222">RELATED PRODUCTS</div>
       </b-col>
       <b-col class="related-product" sm="6" cols="12">
@@ -395,18 +436,24 @@ export default {
     Carousel,
     CardProduct,
   },
-  async asyncData({ $productService,$ProductGroupDiscountListService,$ProductScaleService,params, store}) {
-    
+  async asyncData({ $productService, $ProductGroupDiscountListService, $promotionService, $ProductScaleService, params, store }) {
+
     const products = await $productService.product.getProductPage({
       product_page: 1,
       // page_brand: brand,
       // page_min: min,
       // page_max: max
     });
+
+    const promotions = await $promotionService.promotion.getPromotionByProductCode({
+      product_code: params.id,
+    });
+
     const categorys = await $productService.product.getProductCategoryBy();
     const productCodes = await $productService.product.getProductByCode({
       product_code: params.id,
     });
+
 
     let group_child = [];
     let images = [];
@@ -461,7 +508,7 @@ export default {
       childs.data.forEach((e, i) => {
         product_childs.push(e);
       });
-      product_mothers.push({...mothers.data[0],product_price:productCodes.data[0].product_price ,product_name:productCodes.data[0].product_name,product_code:productCodes.data[0].product_code});
+      product_mothers.push({ ...mothers.data[0], product_price: productCodes.data[0].product_price, product_name: productCodes.data[0].product_name, product_code: productCodes.data[0].product_code });
     } else if (productCodes.data[0].product_child == 0) {
       // console.log("แม่");
       const mothers = await $productService.product.getProductByCode({
@@ -513,26 +560,27 @@ export default {
         };
         images.push(obj);
       });
-      product_mothers.push({...mothers.data[0],product_price:productCodes.data[0].product_price ,product_name:productCodes.data[0].product_name,product_code:productCodes.data[0].product_code});
+      product_mothers.push({ ...mothers.data[0], product_price: productCodes.data[0].product_price, product_name: productCodes.data[0].product_name, product_code: productCodes.data[0].product_code });
 
     }
 
     const product_group_discount_list = await $ProductGroupDiscountListService.ProductGroupDiscountList.getProductGroupDiscountListByProductCode({
       product_code: params.id,
     })
-    if(product_group_discount_list.data.length){
-      let product_group_discount_code_array = product_group_discount_list.data.map(item =>{
-        return "'"+item.product_group_discound_code+"'"
+    if (product_group_discount_list.data.length) {
+      let product_group_discount_code_array = product_group_discount_list.data.map(item => {
+        return "'" + item.product_group_discound_code + "'"
       }).join(",")
 
       await $ProductScaleService.ProductScale.getProductScaleByProductGroupDiscountCode({
-        product_group_discount_code : product_group_discount_code_array
+        product_group_discount_code: product_group_discount_code_array
       }).then(item => product_scales = item.data)
-      
+
     }
 
     return {
       products: products.data ? products.data : [],
+      promotions: promotions.data ? promotions.data : [],
       categorys: categorys.data ? categorys.data : [],
       product_scales,
       // product_mothers: product_mothers.data ? product_mothers.data : [],
@@ -571,6 +619,33 @@ export default {
           },
         ],
       },
+      promotion_options: {
+        infinite: false,
+        slidesToShow: 5,
+        navButtons: false,
+        dots: false,
+        responsive: [
+          {
+            breakpoint: 960,
+            settings: {
+              slidesToShow: 3,
+            },
+          },
+          {
+            breakpoint: 520,
+            settings: {
+              slidesToShow: 2,
+            },
+          },
+          {
+            breakpoint: 260,
+            settings: {
+              slidesToShow: 1,
+            },
+          },
+        ],
+      },
+      promotions: [],
       rating: 4.4,
       obj_item: {},
       shoppingCart: [],

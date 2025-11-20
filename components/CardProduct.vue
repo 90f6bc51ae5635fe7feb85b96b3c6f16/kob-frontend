@@ -1,5 +1,10 @@
 <template>
   <div class="card-product">
+    <b-row v-if="item.promotions && item.promotions == 'active'" class="no-gutters card-promotion">
+      <b-col class="rounded-0 col-12 align-end" style=" text-align: end">
+        <font-awesome-icon :icon="['fa', 'tags']" style="color: #ffc107;font-size: 22px;" />
+      </b-col>
+    </b-row>
     <nuxt-link :to="{ path: `/product/${item.product_code}` }">
       <img v-if="item.product_image" class="cover" width="100%" height="220px"
         :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${item.product_image}`" alt="kob-image" />

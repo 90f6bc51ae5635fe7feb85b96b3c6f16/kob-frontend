@@ -1,26 +1,5 @@
 <template>
   <div>
-    <!-- <div class="" style="margin: 0 -2em 0 -1em">
-      <b-collapse
-        id="example-collapse"
-        style="width: 100%; margin: 0 0 0 0; max-height: 250px; overflow: auto"
-      >
-        <div v-for="(category, idx) in categorys" :key="'A' + idx">
-          <ul>
-            <li>
-              <nuxt-link
-                :to="{
-                  path: `/product/category/${category.product_category_code}`,
-                }"
-              >
-                {{ category.product_category_name }}
-              </nuxt-link>
-            </li>
-          </ul>
-        </div>
-      </b-collapse>
-    </div> -->
-
     <b-row class="mt-3">
       <b-col md="6">
         <div
@@ -2827,6 +2806,7 @@ export default {
         category_min: min,
         category_max: max,
       });
+
     const categorys = await $productService.product.getProductCategoryBy();
     const brands = await $productService.product.getProductBandBy();
     const counts = await $productService.product.getProductCount({
