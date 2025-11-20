@@ -200,9 +200,8 @@
     </b-modal>
   </div>
 </template>
-
 <script>
-import { data } from "browserslist";
+
 
 export default {
   name: "Homepage",
