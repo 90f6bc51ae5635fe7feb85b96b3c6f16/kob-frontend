@@ -380,7 +380,6 @@
                   <img v-if="promotion.promotion_image" class="cover" width="100%" height="220px"
                     :src="`${$store.state.BASE_ENDPOINT_IMAGE}/${promotion.promotion_image}`" alt="kob-image" />
                   <div v-else class="card-promotion-no-image">
-                    {{ promotion.promotion_code }}
                     {{ promotion.promotion_name }}
                   </div>
 
